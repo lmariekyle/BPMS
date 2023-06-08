@@ -27,6 +27,7 @@ class RegisteredUserController extends Controller
     {
         $roles = Role::where('id', '<', 4)->paginate(5);
         return view('auth.register',compact('roles'));
+    
     }
 
     /**
@@ -63,6 +64,11 @@ class RegisteredUserController extends Controller
 
         // Auth::login($user);
         Mail::to($request->email)->send(new AccountMail($user));
-        return view('dashboard');
+
+        if($user->hasanyrole('Admin|Barangay Captain|Barangay Secretary|Barangay Health Worker')){
+            return view('dashboard');
+        }else{
+            return view('login');
+        };
     }
 }

@@ -49,6 +49,7 @@
                 <x-button class="ml-3">
                     {{ __('Log in') }}
                 </x-button>
+                <a href="/register" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Create Account</a>
             </div>
         </form>
     </x-auth-card>
