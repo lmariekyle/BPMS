@@ -1,5 +1,6 @@
 <?php
-
+use App\Mail\BPMSMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
