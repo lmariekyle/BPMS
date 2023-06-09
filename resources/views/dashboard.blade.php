@@ -25,6 +25,11 @@
                         <h1 class="adminText"> {{ __('Hello, Barangay Secretary') }} </h1>
                     </div>
                     @endrole
+                    @role('User')
+                    <div class="admin-container">
+                        <h1 class="adminText"> {{ __('Hello, Resident') }} </h1>
+                    </div>
+                    @endrole
 
                 </div>
             </div>

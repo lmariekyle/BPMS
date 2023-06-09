@@ -1,3 +1,4 @@
+<x-guest-layout>
 <x-auth-card>
         <x-slot name="logo">
             <a href="/">
@@ -67,6 +68,7 @@
                     @foreach($roles as $role)
                     <option value="{{$role->name}}">{{$role->name}}</option>
                     @endforeach
+                    
                 </select>
                 <!-- <x-input id="sitio" class="block mt-1 w-full" type="select" name="sitio" :value="old('sitio')" required autofocus /> -->
             </div>
@@ -79,47 +81,66 @@
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
 
-            <!-- Password -->
-            
+            @role('Admin')
             <div class="mt-4">
-                <!-- <x-label for="password" :value="__('Password')" /> -->
+                <x-label for="password" :value="__('Password')" />
             <div class="input-group">
                 <x-input id="password" class="form-control hidden"
                                 type="password"
                                 name="password"
                                 required autocomplete="new-password" 
                 />
-                <!-- <div>
-                    <button class="generate-password" type="button">Generate</button>
-                </div> -->
-                <!-- <div>
-                    <button class="show-password" type="button">Show</button>
-                </div> -->
             </div>
             </div>
 
             <!-- Confirm Password -->
             <div class="mt-4">
-                <!-- <x-label for="password_confirmation" :value="__('Confirm Password')" /> -->
+                <x-label for="password_confirmation" :value="__('Confirm Password')" />
             <div class="input-group">
                 <x-input id="password_confirmation" class="form-control hidden"
                                 type="password"
                                 name="password_confirmation" required />
-                <!-- <div>
-                    <button class="show-password" type="button">Show</button>
-                </div> -->
             </div>
             </div>
-<!-- 
+            
+
+            <x-button class="generate-password">                 
+                    {{ __('Create Account') }}
+            </x-button>
+            @else
+            <!-- Password -->
+            
+            <div class="mt-4">
+                <x-label for="password" :value="__('Password')" />
+            <div class="input-group">
+                <x-input id="password" class="form-control"
+                                type="password"
+                                name="password"
+                                required autocomplete="new-password" 
+                />
+            </div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mt-4">
+                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+            <div class="input-group">
+                <x-input id="password_confirmation" class="form-control"
+                                type="password"
+                                name="password_confirmation" required />
+            </div>
+            </div>
+
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
-                </a> -->
-
-                <x-button class="generate-password">                 
-                    {{ __('Create Account') }}
-                </x-button>
+                </a>
             </div>
+
+            <x-button class="mt-4">                 
+                    {{ __('Register') }}
+            </x-button>
+            @endrole
         </form>
 
         <script>
@@ -155,3 +176,4 @@
 
         </script>
     </x-auth-card>
+    </x-guest-layout>

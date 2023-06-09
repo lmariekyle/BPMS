@@ -18,6 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::group(['middleware'=>'auth'],function (){
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -29,6 +30,11 @@ Route::group(['middleware'=>'auth'],function (){
 
 
 
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth','verified'])->name('dashboard');
 
 
 require __DIR__.'/auth.php';
