@@ -16,18 +16,16 @@ class AdminSeeder extends Seeder
     public function run()
     {
         User::create([
-            'firstname' => 'Admin',
-            'middlename' => 'PCSZ',
-            'lastname' => 'Capstone',
-            'date_of_birth' => NULL,
+            'residentID' => '1',
+            'idNumber' => 'A-001',
             'contactnumber' => '1234567890',
-            'barangay' => 'Poblacion',
-            'sitio' => 'Poblacion',
             'userlevel' => 'Admin',
             'userstatus' => 'Active',
             'email' => 'admin@bpms.com',
             'email_verified_at' => now(),
             'password' => Hash::make('adminbpms'),
         ])->assignRole('Admin');
+       
+        
     }
 }

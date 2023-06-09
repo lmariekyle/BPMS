@@ -18,8 +18,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::group(['middleware'=>'auth'],function (){
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    
+    Route::resource('bhw', \App\Http\Controllers\BHWController::class);
+    Route::resource('assign', \App\Http\Controllers\SitioAssignmentController::class);
+});
+
+
+
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth','verified'])->name('dashboard');
+
 
 require __DIR__.'/auth.php';
