@@ -18,8 +18,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::group(['middleware'=>'auth'],function (){
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    
+    Route::resource('bhw', \App\Http\Controllers\BHWController::class);
+    Route::resource('assign', \App\Http\Controllers\SitioAssignmentController::class);
+});
+
+
+
+
 
 require __DIR__.'/auth.php';

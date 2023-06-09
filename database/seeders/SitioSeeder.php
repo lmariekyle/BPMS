@@ -16,7 +16,55 @@ class SitioSeeder extends Seeder
     {
         Sitio::create([
             'barangayID' => '1',
-            'sitioName' => 'sitioName',
+            'sitioName' => 'Cambangyao',
+        ]);
+        Sitio::create([
+            'barangayID' => '1',
+            'sitioName' => 'Catadman',
+        ]);
+        Sitio::create([
+            'barangayID' => '1',
+            'sitioName' => 'Guiwanon',
+        ]);
+        Sitio::create([
+            'barangayID' => '1',
+            'sitioName' => 'Hawlandia',
+        ]);
+        Sitio::create([
+            'barangayID' => '1',
+            'sitioName' => 'Hilltops',
+        ]);
+        Sitio::create([
+            'barangayID' => '1',
+            'sitioName' => 'Ilaya',
+        ]);
+        Sitio::create([
+            'barangayID' => '1',
+            'sitioName' => 'Krasher',
+        ]);
+        Sitio::create([
+            'barangayID' => '1',
+            'sitioName' => 'Labangon',
+        ]);
+        Sitio::create([
+            'barangayID' => '1',
+            'sitioName' => 'Lalin',
+        ]);
+        Sitio::create([
+            'barangayID' => '1',
+            'sitioName' => 'Lapaz',
+        ]);
+        Sitio::create([
+            'barangayID' => '1',
+            'sitioName' => 'Sto. Rosario',
+        ]);
+        Sitio::create([
+            'barangayID' => '1',
+            'sitioName' => 'Suba',
+        ]);
+        Sitio::create([
+            'barangayID' => '1',
+            'sitioName' => 'Tamsapa',
         ]);
 
     }

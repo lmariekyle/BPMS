@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             HouseholdSeeder::class,
             ResidentListSeeder::class,
             AdminSeeder::class,
+            BHWSeeder::class,
         ]);
     }
 }
