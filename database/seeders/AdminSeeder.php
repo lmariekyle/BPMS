@@ -17,6 +17,8 @@ class AdminSeeder extends Seeder
     {
         User::create([
             'residentID' => '1',
+            'sitioID' => '2',
+            'assignedSitioID' => '1',
             'idNumber' => 'A-001',
             'contactnumber' => '1234567890',
             'userlevel' => 'Admin',

@@ -18,7 +18,6 @@ class CreateSitiosTable extends Migration
             $table->foreignId('barangayID')->references('id')->on('barangays')->onDelete('cascade')->onUpdate('cascade');
 
             $table->string('sitioName');
-            $table->string('assignedTo')->nullable(); /* bhw id */
 
             $table->string('createdBy')->nullable();;
             $table->string('revisedBy')->nullable();;

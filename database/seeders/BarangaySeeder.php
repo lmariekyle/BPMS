@@ -15,6 +15,13 @@ class BarangaySeeder extends Seeder
     public function run()
     {
         Barangay::create([
+            'barangayName' => 'Placeholder',
+            'municipality' => 'Placeholder',
+            'zipCode' => '0000',
+            'createdBy' => '1',
+            'revisedBy' => '1',
+        ]);
+        Barangay::create([
             'barangayName' => 'Poblacion',
             'municipality' => 'Dalaguete',
             'zipCode' => '6022',

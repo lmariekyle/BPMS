@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barangay;
 use App\Models\Resident;
 use App\Models\ResidentList;
+use App\Models\Sitio;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -18,16 +20,16 @@ class BHWController extends Controller
     {
         $bhws = User::where('userlevel','Barangay Health Worker')->paginate();
 
-        $resInfo = ResidentList::join('residents','residents.id','=','residentlists','residentlists.residentID')
-                            ->join('households','households.id','=','residentlists','residentlists.houseID')
-                            ->orderby('residents.id','asc');
-                            
         foreach ($bhws as $key) {
-            $resident=Resident::where('id',$key->residentID)->first();;
+            $resident=Resident::where('id',$key->residentID)->first();
+            $sitio=Sitio::where('id',$key->sitioID)->first();
+            $barangay=Barangay::where('id',$sitio->barangayID)->first();
 
             $key->firstname=$resident->firstName;
             $key->middlename=$resident->middleName;
             $key->lastname=$resident->lastName;
+            $key->sitioName=$sitio->sitioName;
+            $key->barangayName=$barangay->barangayName;
 
         }
         
@@ -64,7 +66,15 @@ class BHWController extends Controller
      */
     public function show($id)
     {
-        //
+        $user=User::where('id',$id)->first();
+        $personalInfo=Resident::where('id',$user->residentID)->first();
+        $sitio=Sitio::where('id',$user->sitioID)->first();
+        $barangay=Barangay::where('id',$sitio->barangayID)->first();
+        $personalInfo->sitio=$sitio->sitioName;
+        $personalInfo->barangay=$sitio->barangayName;
+
+
+        return view('bhw.show',compact('user','personalInfo'));
     }
 
     /**

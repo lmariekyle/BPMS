@@ -60,7 +60,7 @@
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                 placeholder
-                                                <a href="{{ route('bhw.show', $bhw) }}" class="text-indigo-600 hover:text-indigo-900">Eye Icon</a>
+                                                <a href="{{ route('bhw.show', $bhw->id) }}" class="text-indigo-600 hover:text-indigo-900">Eye Icon</a>
                                             </td>
                                         </tr>
                                         @endforeach

@@ -39,6 +39,8 @@ class BHWSeeder extends Seeder
         ]);
         User::create([
             'residentID' => '2',
+            'sitioID' => '2',
+            'assignedSitioID' => '2',
             'idNumber' => 'A-002',
             'contactnumber' => '09876543211',
             'userlevel' => 'Barangay Health Worker',
@@ -65,6 +67,8 @@ class BHWSeeder extends Seeder
         ]);
         User::create([
             'residentID' => '3',
+            'sitioID' => '3',
+            'assignedSitioID' => '3',
             'idNumber' => 'A-003',
             'contactnumber' => '09876543212',
             'userlevel' => 'Barangay Health Worker',

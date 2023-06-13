@@ -18,6 +18,8 @@ class CreateUsersTable extends Migration
             $table->id();
             
             $table->foreignId('residentID')->references('id')->on('residents')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('sitioID')->references('id')->on('sitios')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('assignedSitioID')->references('id')->on('sitios')->onDelete('cascade')->onUpdate('cascade');
 
             $table->string('idNumber');
 
