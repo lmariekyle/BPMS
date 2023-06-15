@@ -12,38 +12,12 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                dancingscript: "'Dancing Script', cursive",
+                libre: "'Libre Baskerville', serif",
+                lora: "'Lora, serif",
+                roboto: "'Roboto', sans-serif",
+                robotocondensed: "'Roboto Condensed', sans-serif",
             },
-            boxShadow: {
-                '3xl': '0px 4px 4px rgba(0, 0, 0, 0.25);',
-            }
-        },
-        fontFamily: {
-            sans: ['Nunito', ...defaultTheme.fontFamily.sans],
-            dancingscript: "'Dancing Script', cursive",
-            libre: "'Libre Baskerville', serif",
-            lora: "'Lora', serif",
-            roboto: "'Roboto', sans-serif",
-            robotocondensed: "'Roboto Condensed', sans-serif",
-        },
-        colors: {
-            'dirty-white': '#fdffee',
-            'deep-green': '#414833',
-            'olive-green': '#709775',
-            'green': '#64965e',
-        },
-        backgroundColor: {
-            'dirty-white': '#fdffee',
-            'deep-green': '#414833',
-            'olive-green': '#709775',
-            'green': '#64965e',
-        },
-        fontFamily: {
-            sans: ['Nunito', ...defaultTheme.fontFamily.sans],
-            dancingscript: "'Dancing Script', cursive",
-            libre: "'Libre Baskerville', serif",
-            lora: "'Lora, serif",
-            roboto: "'Roboto', sans-serif",
-            robotocondensed: "'Roboto Condensed', sans-serif",
         },
         fontSize: {
             sm: '14px',

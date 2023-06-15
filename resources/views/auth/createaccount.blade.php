@@ -113,29 +113,5 @@
             </x-button>
            
         </form>
-
-        <script>
-            $(document).ready(function(){
-                
-                function generatePassword(){
-                    let charset = document.getElementById('lastname').value;
-                    let password = "poblacion";
-                    password += charset;
-                    return password;
-                }
-
-                // sets password input fields
-                $('.generate-password').on('click',function(){
-                    let password = generatePassword();
-
-                    $('#password').val(password);
-                    $('#password_confirmation').val(password);
-                });
-
-            });
-
-
-
-        </script>
     </x-auth-card>
     </x-guest-layout>

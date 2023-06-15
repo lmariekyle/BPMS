@@ -64,7 +64,8 @@ class ResidentUserController extends Controller
                 ->where('dateOfBirth', '=', $request->dateOfBirth)
                 ->get();
 
-        if(isset($check_res)){
+                
+        if(isset($check_res)==NULL){
             return view('auth.accountnotice');
         }else{
             foreach($check_res as $verify){ 
@@ -86,28 +87,6 @@ class ResidentUserController extends Controller
                 }
             }
         }
-        
-        // $resident = Resident::create([
-        //     'firstname' => $request->firstname,
-        //     'middlename' => $request->middlename,
-        //     'lastname' => $request->lastname,
-        //     'dateOfBirth' => $request->dateOfBirth,
-        //     'contactNumber' => $request->contactnumber,
-        //     'email' => $request->email,
-        // ]);
-
-        // $resident->user()->create([
-        //     'idNumber' => $request->idNumber,
-        //     'userlevel' => $request->userlevel,
-        //     'email' => $request->email,
-        //     'barangay' => $request->barangay,
-        //     'sitio' => $request->sitio,
-        //     'contactNumber' => $request->contactnumber,
-        //     'password' => Hash::make($request->password)
-        // ]);
-        // $resident->user->assignRole($request->userlevel);
-        // event(new Registered($resident->user));
-        // return view('welcome');
     }
 
     /**
