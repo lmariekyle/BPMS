@@ -66,7 +66,7 @@ class AccountController extends Controller
         $sitio=Sitio::where('id',$user->sitioID)->first();
         $barangay=Barangay::where('id',$sitio->barangayID)->first();
         $personalInfo->sitio=$sitio->sitioName;
-        $personalInfo->barangay=$sitio->barangayName;
+        $personalInfo->barangay=$barangay->barangayName;
 
 
         return view('accounts.show',compact('user','personalInfo'));
@@ -80,7 +80,14 @@ class AccountController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user=User::where('id',$id)->first();
+        $personalInfo=Resident::where('id',$user->residentID)->first();
+        $sitio=Sitio::where('id',$user->sitioID)->first();
+        $barangay=Barangay::where('id',$sitio->barangayID)->first();
+        $personalInfo->sitio=$sitio->sitioName;
+        $personalInfo->barangay=$barangay->barangayName;
+
+        return view('accounts.edit', compact('user','personalInfo'));
     }
 
     /**

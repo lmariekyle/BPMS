@@ -16,7 +16,18 @@
                      <br>
                      account contact thru {{$personalInfo->email}},{{$personalInfo->contactNumber}}
                      <br>
-                     account is living in {{$personalInfo->sitio}},{{$personalInfo->barangay}}
+                     account is living in {{$personalInfo->sitio}}, {{$personalInfo->barangay}}
+
+                    <br>
+
+                    <div class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                        <a href="/edit">Update Account</a>
+                    </div>
+
+                    <div class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                        <a href="/archive">Archive Account</a>
+                    </div>
+
                     @endrole
                 </div>
             </div>

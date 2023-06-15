@@ -70,7 +70,7 @@ class BHWController extends Controller
         $sitio=Sitio::where('id',$user->sitioID)->first();
         $barangay=Barangay::where('id',$sitio->barangayID)->first();
         $personalInfo->sitio=$sitio->sitioName;
-        $personalInfo->barangay=$sitio->barangayName;
+        $personalInfo->barangay=$barangay->barangayName;
         $sitio=Sitio::where('id',$user->assignedSitioID)->first();
         $personalInfo->assignedSitioName=$sitio->sitioName;
 
