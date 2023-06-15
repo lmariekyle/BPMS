@@ -14,7 +14,7 @@
                     @role('Admin')
                      wow issa bhw {{$personalInfo->lastName}},{{$personalInfo->firstName}} {{$personalInfo->middleName[0]}}.
                      <br>
-                     bhw contact thru {{$personalInfo->email}},{{$personalInfo->contactNumber}}
+                     bhw contact thru {{$user->email}},{{$user->contactNumber}}
                      <br>
                      bhw currently assigned to {{$personalInfo->assignedSitioName}}
                      <br>

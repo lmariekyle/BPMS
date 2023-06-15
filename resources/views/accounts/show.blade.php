@@ -14,7 +14,7 @@
                     @role('Admin')
                      wow issa account {{$personalInfo->lastName}},{{$personalInfo->firstName}} {{$personalInfo->middleName[0]}}.
                      <br>
-                     account contact thru {{$personalInfo->email}},{{$personalInfo->contactNumber}}
+                     account contact thru {{$user->email}},{{$user->contactNumber}}
                      <br>
                      account is living in {{$personalInfo->sitio}}, {{$personalInfo->barangay}}
 
