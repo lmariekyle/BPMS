@@ -8,10 +8,6 @@
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-        
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-        <script src="{{ asset('js/app.js') }}" defer></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
@@ -26,7 +22,7 @@
             @endrole('Admin')
 
             <div>
-                <x-label for="firstname" :value="__('First Name')" />
+                <x-label for="name" :value="__('Name')" />
 
                 <x-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" :value="old('firstname')" required autofocus />
             </div>
