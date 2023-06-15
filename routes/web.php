@@ -25,6 +25,7 @@ Route::group(['middleware'=>'auth'],function (){
     
     Route::resource('bhw', \App\Http\Controllers\BHWController::class);
     Route::resource('assign', \App\Http\Controllers\SitioAssignmentController::class);
+    Route::resource('accounts', \App\Http\Controllers\AccountController::class);
 });
 
 

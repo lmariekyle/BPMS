@@ -12,13 +12,11 @@
                     
                     
                     @role('Admin')
-                     wow issa bhw {{$personalInfo->lastName}},{{$personalInfo->firstName}} {{$personalInfo->middleName[0]}}.
+                     wow issa account {{$personalInfo->lastName}},{{$personalInfo->firstName}} {{$personalInfo->middleName[0]}}.
                      <br>
-                     bhw contact thru {{$personalInfo->email}},{{$personalInfo->contactNumber}}
+                     account contact thru {{$personalInfo->email}},{{$personalInfo->contactNumber}}
                      <br>
-                     bhw currently assigned to {{$personalInfo->assignedSitioName}}
-                     <br>
-                     bhw is living in {{$personalInfo->sitio}},{{$personalInfo->barangay}}
+                     account is living in {{$personalInfo->sitio}},{{$personalInfo->barangay}}
                     @endrole
                 </div>
             </div>

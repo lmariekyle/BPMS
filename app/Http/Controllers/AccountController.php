@@ -9,7 +9,7 @@ use App\Models\Sitio;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class BHWController extends Controller
+class AccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,22 +18,17 @@ class BHWController extends Controller
      */
     public function index()
     {
-        $bhws = User::where('userlevel','Barangay Health Worker')->paginate();
+        $users = User::paginate();
 
-        foreach ($bhws as $key) {
+        foreach ($users as $key) {
             $resident=Resident::where('id',$key->residentID)->first();
-            $sitio=Sitio::where('id',$key->assignedSitioID)->first();
-
 
             $key->firstname=$resident->firstName;
             $key->middlename=$resident->middleName;
             $key->lastname=$resident->lastName;
-            $key->assignedSitioName=$sitio->sitioName;
 
         }
-        
-        
-        return view('bhw.index')->with('bhws',$bhws);
+        return view('accounts.index')->with('accounts',$users);
     }
 
     /**
@@ -65,17 +60,16 @@ class BHWController extends Controller
      */
     public function show($id)
     {
+        
         $user=User::where('id',$id)->first();
         $personalInfo=Resident::where('id',$user->residentID)->first();
         $sitio=Sitio::where('id',$user->sitioID)->first();
         $barangay=Barangay::where('id',$sitio->barangayID)->first();
         $personalInfo->sitio=$sitio->sitioName;
         $personalInfo->barangay=$sitio->barangayName;
-        $sitio=Sitio::where('id',$user->assignedSitioID)->first();
-        $personalInfo->assignedSitioName=$sitio->sitioName;
 
 
-        return view('bhw.show',compact('user','personalInfo'));
+        return view('accounts.show',compact('user','personalInfo'));
     }
 
     /**
@@ -111,14 +105,4 @@ class BHWController extends Controller
     {
         //
     }
-
-/*    public function search()
-    { 
-        $search_test=$_GET['query'];
-        $bhw=User::where('title','LIKE','%'.$search_text.'%')->get();
-
-        return view('bhw.search',compact('bhw'));
-    }*/
-
-
 }
