@@ -10,11 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\AccountMail;
-
 
 class RegisteredUserController extends Controller
 {
@@ -25,8 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        $roles = Role::where('id', '<', 4)->paginate(5);
-        return view('auth.register',compact('roles'));
+        return view('auth.register');
     }
 
     /**
@@ -40,29 +34,21 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
-            'firstname' => $request->firstname,
-            'middlename' => $request->middlename,
-            'lastname' => $request->lastname,
-            'date_of_birth' => $request->date_of_birth,
-            'contactnumber' => $request->contactnumber,
-            'barangay' => $request->barangay,
-            'sitio' => $request->sitio,
-            'userlevel' => $request->userlevel,
-            'userstatus' => $request->userstatus,
+            'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
         ]);
 
-        $user->assignRole($request->userlevel);
         event(new Registered($user));
 
-        // Auth::login($user);
-        Mail::to($request->email)->send(new AccountMail($user));
-        return view('dashboard');
+        Auth::login($user);
+
+        return redirect(RouteServiceProvider::HOME);
     }
 }
