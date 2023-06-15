@@ -23,19 +23,19 @@ class CreateResidentsTable extends Migration
             $table->date('dateOfBirth');
 
             $table->string('contactNumber');
-            $table->string('email')->unique();
+            $table->string('email');
 
-            $table->string('maritalStatus');
-            $table->string('gender');
+            $table->string('maritalStatus')->nullable();
+            $table->string('gender')->nullable();
 
-            $table->string('philHealthNumber')->default('none');
-            $table->string('occupation')->default('none');
-            $table->string('monthlyIncome')->default('none');
+            $table->string('philHealthNumber')->default('none')->nullable();
+            $table->string('occupation')->default('none')->nullable();
+            $table->string('monthlyIncome')->default('none')->nullable();
 
-            $table->string('ageClassification')->default('AB');
-            $table->string('pregnancyClassification')->default('WBA');
-            $table->boolean('registeredSeniorCitizen')->default(false);
-            $table->boolean('registeredPWD')->default(false);
+            $table->string('ageClassification')->default('AB')->nullable();
+            $table->string('pregnancyClassification')->default('WBA')->nullable();
+            $table->boolean('registeredSeniorCitizen')->default(false)->nullable();
+            $table->boolean('registeredPWD')->default(false)->nullable();
 
             $table->date('dateOfDeath')->nullable();
 

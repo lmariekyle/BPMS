@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Sitio;
+use App\Models\Resident;
+use App\Models\Household ;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -26,7 +29,8 @@ class RegisteredUserController extends Controller
     public function create()
     {
         $roles = Role::where('id', '<', 4)->paginate(5);
-        return view('auth.register',compact('roles'));
+        $sitios = Sitio::all();
+        return view('auth.register',compact('roles','sitios'));
     
     }
 
@@ -45,30 +49,31 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
+
+        $resident = Resident::create([
             'firstname' => $request->firstname,
             'middlename' => $request->middlename,
             'lastname' => $request->lastname,
-            'date_of_birth' => $request->date_of_birth,
-            'contactnumber' => $request->contactnumber,
-            'barangay' => $request->barangay,
-            'sitio' => $request->sitio,
-            'userlevel' => $request->userlevel,
-            'userstatus' => $request->userstatus,
+            'dateOfBirth' => $request->dateOfBirth,
+            'contactNumber' => $request->contactnumber,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
         ]);
 
-        $user->assignRole($request->userlevel);
-        event(new Registered($user));
+        $resident->user()->create([
+            'idNumber' => $request->idNumber,
+            'userlevel' => $request->userlevel,
+            'email' => $request->email,
+            'barangay' => $request->barangay,
+            'sitio' => $request->sitio,
+            'contactNumber' => $request->contactnumber,
+            'password' => Hash::make($request->password)
+        ]);
+        $resident->user->assignRole($request->userlevel);
+
+        event(new Registered($resident->user));
 
         // Auth::login($user);
-        Mail::to($request->email)->send(new AccountMail($user));
-
-        if($user->hasanyrole('Admin|Barangay Captain|Barangay Secretary|Barangay Health Worker')){
-            return view('dashboard');
-        }else{
-            return view('login');
-        };
+        Mail::to($request->email)->send(new AccountMail($resident->user));
+        return view('/dashboard');
     }
 }

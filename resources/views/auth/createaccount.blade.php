@@ -13,17 +13,15 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('create') }}">
             @csrf
 
             <!-- Name -->
-            @role('Admin')
             <div>
-                <x-label for="idNumber" :value="__('ID Number')" />
+                <!-- <x-label for="idNumber" :value="__('ID Number')" /> -->
 
-                <x-input id="idNumber" class="block mt-1 w-full" type="text" name="idNumber" :value="old('idNumber')" required autofocus />
+                <x-input id="idNumber" class="mt-1 w-full hidden" type="text" name="idNumber" :value="00000" readonly="readonly" required autofocus />
             </div>
-            @endrole('Admin')
 
             <div>
                 <x-label for="firstname" :value="__('First Name')" />
@@ -70,83 +68,50 @@
                 </select>
             </div>
 
-            @role('Admin')
             <div>
-                <x-label for="userlevel" :value="__('Account Type')" />
-                <select id="userlevel" class="block mt-1 w-full" name="userlevel" :value="old('userlevel')" required autofocus>
-                    @foreach($roles as $role)
-                    <option value="{{$role->name}}">{{$role->name}}</option>
-                    @endforeach
-                    
-                </select>
+                <!-- <x-label for="userlevel" :value="__('Account Type')" /> -->
+                <x-input id="userlevel" class="mt-1 w-full hidden" type="text" name="userlevel" :value="'User'" readonly="readonly" required autofocus />       
             </div>
-            @endrole
 
-            <!-- Email Address -->
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />
 
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
 
-            @role('Admin')
-            <div class="mt-4">
-            <div class="input-group">
-                <x-input id="password" class="form-control hidden"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" 
-                />
-            </div>
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-            <div class="input-group">
-                <x-input id="password_confirmation" class="form-control hidden"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
-            </div>
-            
-
-            <x-button class="generate-password">                 
-                    {{ __('Create Account') }}
-            </x-button>
-            @else
             <!-- Password -->
             
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')" />
-            <div class="input-group">
-                <x-input id="password" class="form-control"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" 
-                />
-            </div>
+                <div class="input-group">
+                    <x-input id="password" class="form-control"
+                                    type="password"
+                                    name="password"
+                                    required autocomplete="new-password" 
+                    />
+                </div>
             </div>
 
             <!-- Confirm Password -->
             <div class="mt-4">
                 <x-label for="password_confirmation" :value="__('Confirm Password')" />
-            <div class="input-group">
-                <x-input id="password_confirmation" class="form-control"
-                                type="password"
-                                name="password_confirmation" required />
+                <div class="input-group">
+                    <x-input id="password_confirmation" class="form-control"
+                                    type="password"
+                                    name="password_confirmation" required />
+                </div>
             </div>
-            </div>
-
+<!-- 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
                 </a>
-            </div>
+            </div> -->
 
             <x-button class="mt-4">                 
-                    {{ __('Register') }}
+                    {{ __('Create') }}
             </x-button>
-            @endrole
+           
         </form>
 
         <script>

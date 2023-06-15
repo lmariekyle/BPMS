@@ -2,6 +2,7 @@
 use App\Mail\BPMSMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ResidentUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/accountnotice', function(){
+    return view('auth.accountnotice');
+});
+
+Route::middleware('guest')->group(function () {
+    Route::get('create', [ResidentUserController::class, 'create'])->name('create');
+    Route::post('create',[ResidentUserController::class, 'store']);
+    // Route::get('accountnotice', [ResidentUserController::class, 'index'])->name('accountnotice');
+    // Route::get('/accountnotice', function(){
+    //     return view('auth.accountnotice');
+    //  });
+});
 
 Route::group(['middleware'=>'auth'],function (){
     Route::get('/dashboard', function () {
@@ -27,9 +40,6 @@ Route::group(['middleware'=>'auth'],function (){
     Route::resource('bhw', \App\Http\Controllers\BHWController::class);
     Route::resource('assign', \App\Http\Controllers\SitioAssignmentController::class);
 });
-
-
-
 
 
 Route::get('/dashboard', function () {

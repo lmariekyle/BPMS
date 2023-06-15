@@ -1,10 +1,5 @@
 <x-guest-layout>
     <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
 
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -49,7 +44,8 @@
                 <x-button class="ml-3">
                     {{ __('Log in') }}
                 </x-button>
-                <a href="/register" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Create Account</a>
+                <!-- <a href="/register" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Create Account</a> -->
+                <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Create Account</a>
             </div>
         </form>
     </x-auth-card>
