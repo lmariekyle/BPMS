@@ -41,40 +41,40 @@
                                             </thead>
                                             <tbody class="bg-white divide-y divide-gray-200">
                                                 
-                                            @foreach ($bhws as $key=>$bhw)
-
-                                            <form method="POST" action="{{ route('assign.update',$bhw->id)}}">
+                                            <form method="POST" action="{{ route('assign.update', Auth::user()->id)}}">
                                                 @csrf
                                                 @method('PUT')
-                                            <tr>
-                                                <input type="hidden" name="bhw[]" value="{{$bhw->id}}">
-                                                <td hidden class="ids">{{ $bhw->id }}</td>
-                                                <td hidden>{{ ++$key }}</td>
-    
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    {{ $bhw->idNumber }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    {{ $bhw->lastname }}, {{ $bhw->firstname }} {{ $bhw->middlename }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                    <label for="sitio">Assign A Sitio:</label>
-                                                        <select id="sitio" name="sitio[]">
-                                                            <option value="{{$bhw->assignedSitioID}}" >{{$bhw->assignedSitio}}</option>
-                                                            @foreach ($sitios as $sitio)
-                                                                <option value={{$sitio->id}}>{{ $sitio->sitioName }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    
-                                                </td>
-                                            </tr>
+
+                                            @foreach($bhws as $bhw) 
+                                                <tr>
+                                                    <input type="hidden" name="bhwID[]" value="{{$bhw->id}}">
+
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                        {{ $bhw->idNumber }}
+                                                    </td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                        {{ $bhw->lastname }}, {{ $bhw->firstname }} {{ $bhw->middlename }}
+                                                    </td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                        <label for="sitio">Assign A Sitio:</label>
+                                                            <select id="sitio" name="sitio[]">
+                                                                <option value="{{$bhw->assignedSitioID}}">{{$bhw->assignedSitio}}</option>
+                                                                @foreach ($sitios as $sitio)
+                                                                    <option value={{$sitio->id}}>{{ $sitio->sitioName }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        
+                                                    </td>
+                                                </tr>
                                             @endforeach
+                                            
                                             </tbody>
                                         </table>
 
+
                                     </div>
                                     <div class="mt-4">
-                                        <x-button>
+                                        <x-button type="submit">
                                             Assign
                                         </x-button>
                                     </div>

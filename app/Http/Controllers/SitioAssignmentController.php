@@ -19,16 +19,27 @@ class SitioAssignmentController extends Controller
     {
         $bhws = User::where('userlevel','Barangay Health Worker')->get();
         $sitios= Sitio::where('barangayID','2')->get();
-                                    
-        foreach ($bhws as $key) {
-            $resident=Resident::where('id',$key->residentID)->first();
 
-            $key->firstname=$resident->firstName;
-            $key->middlename=$resident->middleName;
-            $key->lastname=$resident->lastName;
+        /*$bhw = User::where('userlevel','Barangay Health Worker')->first();
+        
+        $resident=Resident::where('id',$bhw->residentID)->first();
 
-            $assignedSitio=Sitio::where('id',$key->assignedSitioID)->first();
-            $key->assignedSitio=$assignedSitio->sitioName;
+        $bhw->firstname=$resident->firstName;
+        $bhw->middlename=$resident->middleName;
+        $bhw->lastname=$resident->lastName;
+
+        $assignedSitio=Sitio::where('id',$bhw->assignedSitioID)->first();
+        $bhw->assignedSitio=$assignedSitio->sitioName;*/
+
+        foreach ($bhws as $bhw) {
+            $resident=Resident::where('id',$bhw->residentID)->first();
+
+            $bhw->firstname=$resident->firstName;
+            $bhw->middlename=$resident->middleName;
+            $bhw->lastname=$resident->lastName;
+
+            $assignedSitio=Sitio::where('id',$bhw->assignedSitioID)->first();
+            $bhw->assignedSitio=$assignedSitio->sitioName;
 
         }
         
@@ -87,12 +98,25 @@ class SitioAssignmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        foreach ($request->bhw as $key) {
-            $bhw=User::where('id',$request->bhw[$key])->first();
-            $bhw->assignedSitioID=$request->sitio[$key];
-            
-            $bhw->update();
+        $count=count($request->bhwID);
+        for($x=0;$x<$count;$x++){
+            $bhw=User::where('id',$request->bhwID[$x])->first();
+            $bhw->fill([
+                'assignedSitioID' => $request->sitio[$x],
+                'revisedBy' => $id,
+            ]);
+            $bhw->save();
         }
+
+
+        /*foreach ($request as $bhw) {
+            $bhw=User::where('id',$request->bhwID)->first();
+            $bhw->fill([
+                'assignedSitioID' => $request->sitio,
+                'revisedBy' => $id,
+            ]);
+            $bhw->save();
+        }*/
         
         return redirect()->back();
     }
