@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Resident;
+use App\Models\ResidentList;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class BHWController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +16,23 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $bhws = User::where('userlevel','Barangay Health Worker')->paginate();
+
+        $resInfo = ResidentList::join('residents','residents.id','=','residentlists','residentlists.residentID')
+                            ->join('households','households.id','=','residentlists','residentlists.houseID')
+                            ->orderby('residents.id','asc');
+                            
+        foreach ($bhws as $key) {
+            $resident=Resident::where('id',$key->residentID)->first();;
+
+            $key->firstname=$resident->firstName;
+            $key->middlename=$resident->middleName;
+            $key->lastname=$resident->lastName;
+
+        }
+        
+        
+        return view('bhw.index')->with('bhws',$bhws);
     }
 
     /**
