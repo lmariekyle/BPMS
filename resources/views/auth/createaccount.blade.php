@@ -1,4 +1,4 @@
-<div class="bg-green h-[1024px]">
+<div class="bg-green h-[1100px]">
     <x-guest-layout>
     <x-auth-card>
     

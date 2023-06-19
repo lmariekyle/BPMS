@@ -683,6 +683,9 @@ select{
 .left-36{
   left: 9rem;
 }
+.left-\[33px\]{
+  left: 33px;
+}
 .left-\[530px\]{
   left: 530px;
 }
@@ -691,9 +694,6 @@ select{
 }
 .left-\[739px\]{
   left: 739px;
-}
-.left-\[78px\]{
-  left: 78px;
 }
 .right-0{
   right: 0px;
@@ -710,29 +710,11 @@ select{
 .top-\[1000px\]{
   top: 1000px;
 }
-.top-\[123px\]{
-  top: 123px;
-}
-.top-\[40px\]{
-  top: 40px;
-}
-.left-\[34px\]{
-  left: 34px;
-}
-.left-\[33px\]{
-  left: 33px;
+.top-\[143px\]{
+  top: 143px;
 }
 .top-\[49px\]{
   top: 49px;
-}
-.left-\[500px\]{
-  left: 500px;
-}
-.top-\[55px\]{
-  top: 55px;
-}
-.top-\[143px\]{
-  top: 143px;
 }
 .z-0{
   z-index: 0;
@@ -825,6 +807,9 @@ select{
 .ml-\[18rem\]{
   margin-left: 18rem;
 }
+.ml-\[20px\]{
+  margin-left: 20px;
+}
 .ml-\[35rem\]{
   margin-left: 35rem;
 }
@@ -882,27 +867,6 @@ select{
 .mt-\[50rem\]{
   margin-top: 50rem;
 }
-.ml-\[34px\]{
-  margin-left: 34px;
-}
-.mt-\[52px\]{
-  margin-top: 52px;
-}
-.ml-\[78px\]{
-  margin-left: 78px;
-}
-.ml-\[50px\]{
-  margin-left: 50px;
-}
-.ml-\[30px\]{
-  margin-left: 30px;
-}
-.ml-\[20px\]{
-  margin-left: 20px;
-}
-.mb-\[20px\]{
-  margin-bottom: 20px;
-}
 .block{
   display: block;
 }
@@ -957,8 +921,8 @@ select{
 .h-8{
   height: 2rem;
 }
-.h-\[1204px\]{
-  height: 1204px;
+.h-\[1024px\]{
+  height: 1024px;
 }
 .h-\[12px\]{
   height: 12px;
@@ -982,11 +946,8 @@ select{
   height: -moz-max-content;
   height: max-content;
 }
-.h-\[1104px\]{
-  height: 1104px;
-}
-.h-\[1024px\]{
-  height: 1024px;
+.h-\[1100px\]{
+  height: 1100px;
 }
 .min-h-screen{
   min-height: 100vh;
@@ -1055,9 +1016,6 @@ select{
 .w-max{
   width: -moz-max-content;
   width: max-content;
-}
-.w-\[30px\]{
-  width: 30px;
 }
 .min-w-full{
   min-width: 100%;
@@ -1389,6 +1347,9 @@ select{
 .text-2xl{
   font-size: 24px;
 }
+.text-3xl{
+  font-size: 30px;
+}
 .text-4xl{
   font-size: 32px;
 }
@@ -1419,9 +1380,6 @@ select{
 .text-xl{
   font-size: 20px;
 }
-.text-3xl{
-  font-size: 30px;
-}
 .font-bold{
   font-weight: 700;
 }
@@ -1448,9 +1406,6 @@ select{
 }
 .tracking-widest{
   letter-spacing: 0.1em;
-}
-.text-\[4xl\]{
-  color: 4xl;
 }
 .text-deep-green{
   --tw-text-opacity: 1;
