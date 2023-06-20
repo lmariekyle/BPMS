@@ -80,6 +80,8 @@ class AccountController extends Controller
      */
     public function edit($id)
     {
+        $sitios= Sitio::where('barangayID','2')->get();
+
         $user=User::where('id',$id)->first();
         $personalInfo=Resident::where('id',$user->residentID)->first();
         $sitio=Sitio::where('id',$user->sitioID)->first();
@@ -87,7 +89,7 @@ class AccountController extends Controller
         $personalInfo->sitio=$sitio->sitioName;
         $personalInfo->barangay=$barangay->barangayName;
 
-        return view('accounts.edit', compact('user','personalInfo'));
+        return view('accounts.edit', compact('user','personalInfo', 'sitios'));
     }
 
     /**
@@ -99,7 +101,31 @@ class AccountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user=User::where('id', $request->id)->first();
+        $user->idNumber=$request->idNumber;
+        $user->contactNumber=$request->contactNumber;
+        $user->email=$request->email;
+        $user->userLevel=$request->userLevel;
+        $user->revisedBy=$id;
+        $user->sitioID=$request->sitio;
+
+        $user->save();
+
+        $resident=Resident::where('id',$user->residentID)->first();
+        $resident->firstName=$request->firstName;
+        $resident->middleName=$request->middleName;
+        $resident->lastName=$request->lastName;
+        $resident->dateOfBirth=$request->dateOfBirth;
+
+        $resident->save();
+
+        $personalInfo=Resident::where('id',$user->residentID)->first();
+        $sitio=Sitio::where('id',$user->sitioID)->first();
+        $barangay=Barangay::where('id',$sitio->barangayID)->first();
+        $personalInfo->sitio=$sitio->sitioName;
+        $personalInfo->barangay=$barangay->barangayName;
+
+        return view('accounts.show',compact('user','personalInfo'));
     }
 
     /**

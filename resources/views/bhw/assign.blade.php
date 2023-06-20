@@ -41,7 +41,7 @@
                                             </thead>
                                             <tbody class="bg-white divide-y divide-gray-200">
                                                 
-                                            <form method="POST" action="{{ route('assign.update', Auth::user()->id)}}">
+                                            <form method="POST" action="{{ route('assign.update', Auth::user()->id) }}">
                                                 @csrf
                                                 @method('PUT')
 
