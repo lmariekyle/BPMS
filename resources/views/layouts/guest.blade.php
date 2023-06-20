@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
-    <body class="bg-dirty-white">
+    <body class="bg-dirty-white h-full w-full">
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>

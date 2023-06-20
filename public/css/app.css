@@ -716,6 +716,51 @@ select{
 .top-\[49px\]{
   top: 49px;
 }
+.left-\[866px\]{
+  left: 866px;
+}
+.top-\[210px\]{
+  top: 210px;
+}
+.top-\[191px\]{
+  top: 191px;
+}
+.left-\[333px\]{
+  left: 333px;
+}
+.top-\[284px\]{
+  top: 284px;
+}
+.top-\[181px\]{
+  top: 181px;
+}
+.top-\[274px\]{
+  top: 274px;
+}
+.top-\[273px\]{
+  top: 273px;
+}
+.top-\[272px\]{
+  top: 272px;
+}
+.top-\[271px\]{
+  top: 271px;
+}
+.top-\[270px\]{
+  top: 270px;
+}
+.top-\[269px\]{
+  top: 269px;
+}
+.top-\[269\.5px\]{
+  top: 269.5px;
+}
+.top-\[980px\]{
+  top: 980px;
+}
+.top-\[990px\]{
+  top: 990px;
+}
 .z-0{
   z-index: 0;
 }
@@ -867,6 +912,15 @@ select{
 .mt-\[50rem\]{
   margin-top: 50rem;
 }
+.mt-\[50px\]{
+  margin-top: 50px;
+}
+.mb-2{
+  margin-bottom: 0.5rem;
+}
+.mt-10{
+  margin-top: 2.5rem;
+}
 .block{
   display: block;
 }
@@ -921,8 +975,8 @@ select{
 .h-8{
   height: 2rem;
 }
-.h-\[1024px\]{
-  height: 1024px;
+.h-\[1100px\]{
+  height: 1100px;
 }
 .h-\[12px\]{
   height: 12px;
@@ -946,8 +1000,11 @@ select{
   height: -moz-max-content;
   height: max-content;
 }
-.h-\[1100px\]{
-  height: 1100px;
+.h-\[1024px\]{
+  height: 1024px;
+}
+.h-\[100\%\]{
+  height: 100%;
 }
 .min-h-screen{
   min-height: 100vh;
@@ -1016,6 +1073,9 @@ select{
 .w-max{
   width: -moz-max-content;
   width: max-content;
+}
+.w-\[1440px\]{
+  width: 1440px;
 }
 .min-w-full{
   min-width: 100%;
