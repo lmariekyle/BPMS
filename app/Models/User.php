@@ -28,7 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'userlevel',
         'contactNumber',
         'barangay',
-        'sitio',
+        'sitioID',
         'email',
         'password',
         'assignedSitioID',

@@ -23,8 +23,6 @@ class CreateUsersTable extends Migration
             $table->foreignId('assignedSitioID')->references('id')->on('sitios')->onDelete('cascade')->onUpdate('cascade');
 
             $table->string('idNumber');
-            $table->string('barangay')->default('Poblacion');
-            $table->string('sitio');
             $table->string('contactNumber');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

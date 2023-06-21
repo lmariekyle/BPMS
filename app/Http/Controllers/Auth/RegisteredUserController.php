@@ -40,7 +40,7 @@ class RegisteredUserController extends Controller
     public function create()
     {
         $roles = Role::where('id', '<', 4)->paginate(5);
-        $sitios = Sitio::all();
+        $sitios = Sitio::where('barangayID','2')->get();
         return view('auth.register',compact('roles','sitios'));
     
     }
@@ -56,7 +56,6 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -75,8 +74,8 @@ class RegisteredUserController extends Controller
             'idNumber' => $request->idNumber,
             'userlevel' => $request->userlevel,
             'email' => $request->email,
-            'barangay' => $request->barangay,
-            'sitio' => $request->sitio,
+            'sitioID' => $request->sitio,
+            'assignedSitioID' => '1',
             'contactNumber' => $request->contactnumber,
             'password' => Hash::make($request->password)
         ]);
@@ -86,6 +85,6 @@ class RegisteredUserController extends Controller
 
         // Auth::login($user);
         Mail::to($request->email)->send(new AccountMail($resident->user));
-        return view('/dashboard');
+        return view('/accounts');
     }
 }

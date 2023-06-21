@@ -38,7 +38,7 @@ class ResidentUserController extends Controller
      */
     public function create(User $resident)
     {
-        $sitios = Sitio::all();
+        $sitios = Sitio::where('barangayID','2')->get();
         return view('auth.createaccount', compact('resident','sitios'));
     }
 
@@ -77,8 +77,8 @@ class ResidentUserController extends Controller
                             'idNumber' => $request->idNumber,
                             'userlevel' => $request->userlevel,
                             'email' => $request->email,
-                            'barangay' => $request->barangay,
-                            'sitio' => $request->sitio,
+                            'sitioID' => $request->sitio,
+                            'assignedSitioID' => '1',
                             'contactNumber' => $request->contactnumber,
                             'password' => Hash::make($request->password)
                         ]);

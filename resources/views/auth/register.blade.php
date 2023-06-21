@@ -3,7 +3,7 @@
         <x-auth-card>
             <x-slot name="logo">
                 <div class="absolute left-[33px] top-[49px] flex">
-                    <a href="/dashboard">
+                    <a href="/accounts">
                         <i class="fa-sharp fa-solid fa-arrow-left text-3xl mt-4" style="color:#fdffee;"></i>
                     </a>
                     <p class="font-robotocondensed font-bold ml-[20px] text-dirty-white text-5xl">Account Registration</p>
@@ -26,9 +26,9 @@
 
                 <div class="absolute left-[333px] top-[181px]">
                 <div>
-                    <x-label for="name" :value="__('First Name')" class="font-roboto text-xl" style="color:white;"/>
+                    <x-label for="firstname" :value="__('First Name')" class="font-roboto text-xl" style="color:white;"/>
 
-                    <x-input id="name" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="name" :value="old('name')" required autofocus />
+                    <x-input id="firstname" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="firstname" :value="old('name')" required autofocus />
                 </div>
                 
                 <div>
@@ -74,7 +74,7 @@
                     <x-label for="sitio" :value="__('Sitio')" class="font-roboto text-xl" style="color:white;"/>
                     <select id="sitio" class="block mb-4 w-[500px] h-[42px] bg-dirty-white rounded border-1" name="sitio" :value="old('sitio')" required autofocus>
                         @foreach($sitios as $sitio)
-                        <option value="{{$sitio->sitioName}}">{{$sitio->sitioName}}</option>
+                        <option value="{{$sitio->id}}">{{$sitio->sitioName}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -92,7 +92,7 @@
                 @endrole
                 
 
-                @role('Admin')
+                
                 <div class="mt-4">
                 <div class="input-group">
                     <x-input id="password" class="form-control hidden"
@@ -114,46 +114,13 @@
                 
                 <div class="text-center">
                 <x-button class="text-base mt-8 bg-deep-green text-dirty-white border-0 w-60 l-12"> 
-                    <div class="m-auto">                
+                    <div class="generate-password">                
                         {{ __('Create Account') }}
                     </div>
                 </x-button>
                 </div>
                 </div>
-                @else
-                <!-- Password -->
                 
-                <div class="mt-4">
-                    <x-label for="password" :value="__('Password')" />
-                <div class="input-group">
-                    <x-input id="password" class="form-control"
-                                    type="password"
-                                    name="password"
-                                    required autocomplete="new-password" 
-                    />
-                </div>
-                </div>
-
-                <!-- Confirm Password -->
-                <div class="mt-4">
-                    <x-label for="password_confirmation" :value="__('Confirm Password')" />
-                <div class="input-group">
-                    <x-input id="password_confirmation" class="form-control"
-                                    type="password"
-                                    name="password_confirmation" required />
-                </div>
-                </div>
-
-                <div class="flex items-center justify-end mt-4">
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                        {{ __('Already registered?') }}
-                    </a>
-                </div>
-
-                <x-button class="mt-4">                 
-                        {{ __('Register') }}
-                </x-button>
-                @endrole
             </form>
 
             <script>

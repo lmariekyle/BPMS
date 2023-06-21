@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResidentUserController;
+use App\Http\Controllers\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,15 +33,14 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::group(['middleware'=>'auth'],function (){
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
     Route::get('welcome', function () {
         return view('welcome');
     })->name('welcome');
     Route::resource('bhw', \App\Http\Controllers\BHWController::class);
     Route::resource('assign', \App\Http\Controllers\SitioAssignmentController::class);
+    Route::get('index', [AccountController::class, 'index'])->name('accounts');
     Route::resource('accounts', \App\Http\Controllers\AccountController::class);
+    
 });
 
 
