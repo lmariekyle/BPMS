@@ -1,3 +1,8 @@
+<div class="bg-olive-green text-center pt-5">
+        <p class="text-dirty-white font-dancingscript text-7xl">Municipality of Dalaguete</p>
+        <p class="font-libre text-5xl pb-6" style="color:white;">BARANGAY POBLACION</p>
+</div>
+
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
@@ -18,14 +23,14 @@
             <div class="ml-12">
                 <!-- Email Address -->
                 <div class="mt-3">
-                    <x-label for="email" :value="__('Email')" class="text-2xl font-roboto" style="color:white"/>
+                    <x-label for="email" :value="__('Email')" class="text-xl font-roboto" style="color:white"/>
 
                     <x-input id="email" class="block mt-1 w-[500px] bg-dirty-white" type="email" name="email" :value="old('email')" required autofocus />
                 </div>
 
                 <!-- Password -->
                 <div class="mt-7">
-                    <x-label for="password" :value="__('Password')" class="text-2xl font-roboto" style="color:white"/>
+                    <x-label for="password" :value="__('Password')" class="text-xl font-roboto" style="color:white"/>
 
                     <x-input id="password" class="block mt-1 w-[500px] bg-dirty-white"
                                     type="password"
@@ -49,7 +54,7 @@
                     </a>
                 @endif
             </div>
-            <div class="object-center justify-end pt-7 z-50 absolute left-[557px] top-[1000px]">
+            <div class="object-center justify-end pt-7 z-50 absolute left-[557px] top-[990px] pb-12">
                 <x-button class="w-60 l-12 bg-deep-green text-dirty-white font-roboto border-0 m-auto">
                     <div class="m-auto">
                     {{ __('LOGIN') }}
