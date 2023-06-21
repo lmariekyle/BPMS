@@ -20,17 +20,6 @@ class SitioAssignmentController extends Controller
         $bhws = User::where('userlevel','Barangay Health Worker')->get();
         $sitios= Sitio::where('barangayID','2')->get();
 
-        /*$bhw = User::where('userlevel','Barangay Health Worker')->first();
-        
-        $resident=Resident::where('id',$bhw->residentID)->first();
-
-        $bhw->firstname=$resident->firstName;
-        $bhw->middlename=$resident->middleName;
-        $bhw->lastname=$resident->lastName;
-
-        $assignedSitio=Sitio::where('id',$bhw->assignedSitioID)->first();
-        $bhw->assignedSitio=$assignedSitio->sitioName;*/
-
         foreach ($bhws as $bhw) {
             $resident=Resident::where('id',$bhw->residentID)->first();
 
@@ -108,16 +97,7 @@ class SitioAssignmentController extends Controller
             $bhw->save();
         }
 
-
-        /*foreach ($request as $bhw) {
-            $bhw=User::where('id',$request->bhwID)->first();
-            $bhw->fill([
-                'assignedSitioID' => $request->sitio,
-                'revisedBy' => $id,
-            ]);
-            $bhw->save();
-        }*/
-        
+       
         return redirect()->back();
     }
 
