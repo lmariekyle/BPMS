@@ -21,6 +21,17 @@ use App\Mail\AccountMail;
 
 class RegisteredUserController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('welcome');
+    }
+    
     /**
      * Display the registration view.
      *
@@ -45,7 +56,6 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);

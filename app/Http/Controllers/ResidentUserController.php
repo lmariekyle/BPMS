@@ -28,6 +28,7 @@ class ResidentUserController extends Controller
      */
     public function index()
     {
+        return view('welcome');
     }
 
     /**

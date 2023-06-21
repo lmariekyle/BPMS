@@ -19,7 +19,7 @@
     <!-- header -->
     <div class="px-5 py-5 justify-center w-50 h-40 bg-olive-green"> 
             <h1 class="font-dancingscript text-6xl text-dirty-white text-center">Municipality of Dalaguete</h1>
-            <h2 class="font-libre text-4xl p-3 text-dirty-white text-center">BARANGAY POBLACION</h2>
+            <h2 class="font-libre text-4xl p-3 -mt-5 text-dirty-white text-center">BARANGAY POBLACION</h2>
 
         <div>
         @if (Route::has('login'))
@@ -50,33 +50,33 @@
     <div class="p-3 ml-[18rem] -mt-56 h-max w-[60rem] bg-dirty-white border-2 border-deep-green rounded-xl shadow-3xl">
         <p class="font-robotocondensed mt-12 text-4xl p-3 text-deep-green text-center">BARANGAY POBLACION,DALAGUETE 2020 CENSUS DATA</p>
     
-    <div class="mt-0.5 flex flex-row flex-wrap p-3 grid-cols-2 justify-evenly">
-        <div class="bg-dirty-white mt-16 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
-            <div class="-mt-[20px] mx-12 h-12 w-fit bg-olive-green border-2 border-green rounded-xl px-3 py-3">
-                <h1 class="font-robotocondensed text-base text-dirty-white text-center">TOTAL RESIDENTS PER SITIO</h1>
-            </div>
-        </div>
+        <div class="mt-0.5 grid grid-rows-2 grid-flow-col gap-4 justify-center ">
 
-        <div class="bg-dirty-white mt-16 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
-            <div class="-mt-[20px] mx-12 h-12 w-max bg-olive-green border-2 border-green rounded-xl px-3 py-3">
-                <h1 class="font-robotocondensed text-base text-dirty-white text-center">TOTAL HOUSEHOLDS PER SITIO</h1>
+            <div class="bg-dirty-white mt-12 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
+                <div class="-mt-[20px] mx-12 h-12 w-fit bg-olive-green border-2 border-green rounded-xl px-3 py-3">
+                    <h1 class="font-robotocondensed text-base text-dirty-white text-center">TOTAL RESIDENTS PER SITIO</h1>
+                </div>
             </div>
-        </div>
 
-        <div class="bg-dirty-white mt-16 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
-            
-                <h1 class="font-robotocondensed text-base text-deep-green text-center">TOTAL RESIDENTS</h1>
-            
-        </div>
-        <div class="bg-dirty-white mt-16 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
-           
-                <h1 class="font-robotocondensed text-base text-deep-green text-center">TOTAL HOUSEHOLDS</h1>
-        
+            <div class="bg-dirty-white mt-8 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
+                 <h1 class="font-robotocondensed text-base text-deep-green text-center">TOTAL RESIDENTS</h1>
+            </div>
+
+            <div class="bg-dirty-white mt-12 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
+                <div class="-mt-[20px] mx-12 h-12 w-max bg-olive-green border-2 border-green rounded-xl px-3 py-3">
+                    <h1 class="font-robotocondensed text-base text-dirty-white text-center">TOTAL HOUSEHOLDS PER SITIO</h1>
+                </div>
+            </div>
+
+            <div class="bg-dirty-white mt-8 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
+                    <h1 class="font-robotocondensed text-base text-deep-green text-center">TOTAL HOUSEHOLDS</h1>
+            </div>
+
         </div>
     </div>
-    </div>
+    
     <div class="ml-[35rem] mr-96 -mt-[55rem] h-32 w-[25rem] bg-olive-green border-2 border-green rounded-xl px-3 py-3">
-        <h1 class="font-dancingscript text-8xl text-dirty-white text-center">Welcome</h1>
+        <h1 class="font-dancingscript text-8xl -mt-5 text-dirty-white text-center">Welcome</h1>
     </div>
 
     <!-- DALAGUETE TOURISM -->
@@ -87,55 +87,20 @@
     </div>     
     
     <div class="p-3 ml-[10rem] -mt-28 h-[821.46px] w-[1230px] bg-olive-green border-2 border-deep-green rounded-xl shadow-3xl">
-        <section>
+        <section class="bg-deep-green h-max w-max ml-10 mt-5">
             <div class="relative">
                 <ul id="slider">
-                    <li class="h-[50vh] relative">
-                        <img class="h-full object-cover w-full "src="{{ asset('images/Obong.jpg') }}" alt="">
-                        <div>
-                            <h2>Obong Spring</h2>
-                        </div>
-                        <div>
-                            <p>Lorem Ipsum1</p>
-                        </div>
-                        <div>
-                            <h3>Obong Spring</h3>
-                        </div>
-                        <div>
-                            <h3>Lorem Ipsum2</h3>
-                        </div>
+                    <li class="h-[700px] w-[1100px] relative">
+                        <img class="h-full object-cover w-full "src="{{ asset('images/ObongSpring.png') }}" alt="">
                     </li>
 
-                    <li class="h-[50vh] relative hidden">
-                        <img class="h-full object-cover w-full "src="{{ asset('images/OsmenaPeak.jpg') }}" alt="">
-                        <div>
-                            <h2>Osmena Peak</h2>
-                        </div>
-                        <div>
-                            <p>Lorem Ipsum1</p>
-                        </div>
-                        <div>
-                            <h3>Obong Spring</h3>
-                        </div>
-                        <div>
-                            <h3>Lorem Ipsum2</h3>
-                        </div>
+                    <li class="h-[700px] w-[1100px] relative hidden">
+                        <img class="h-full object-cover w-full "src="{{ asset('images/OsmenaPeak.png') }}" alt="">
+
                     </li>
 
-                    <li class="h-[50vh] relative hidden">
-                        <img class="h-full object-cover w-full "src="{{ asset('images/CasayBeachClub.jpg') }}" alt="">
-                        <div>
-                            <h2>Casay Beach Club</h2>
-                        </div>
-                        <div>
-                            <p>Lorem Ipsum1</p>
-                        </div>
-                        <div>
-                            <h3>Obong Spring</h3>
-                        </div>
-                        <div>
-                            <h3>Lorem Ipsum2</h3>
-                        </div>
+                    <li class="h-[700px] w-[1100px] relative hidden">
+                        <img class="h-full object-cover w-full "src="{{ asset('images/CasayBeach.png') }}" alt="">
                     </li>
                 </ul>
             </div>

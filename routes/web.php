@@ -35,7 +35,9 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    
+    Route::get('welcome', function () {
+        return view('welcome');
+    })->name('welcome');
     Route::resource('bhw', \App\Http\Controllers\BHWController::class);
     Route::resource('assign', \App\Http\Controllers\SitioAssignmentController::class);
 });

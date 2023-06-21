@@ -16,7 +16,6 @@
         <form method="POST" action="{{ route('create') }}">
             @csrf
 
-            <!-- Name -->
             <div>
                 <!-- <x-label for="idNumber" :value="__('ID Number')" /> -->
 
