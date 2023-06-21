@@ -12,10 +12,14 @@
 
         <!-- Scripts -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
         <script src="{{ asset('js/app.js') }}" defer></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     </head>
-    <body>
+    <body class="bg-dirty-white">
+    <div class="px-5 py-5 justify-center w-50 h-40 bg-olive-green"> 
+            <h1 class="font-dancingscript text-3xl text-dirty-white text-center">Municipality of Dalaguete</h1>
+    </div>
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
@@ -38,21 +42,7 @@
                     $('#password_confirmation').val(password);
                 });
 
-                // //show/hide password
-                // $('.show-password').on('click',function(){
-                //     let passwordInput = $(this).closest('.input-group').find('input');
-                //     let passwordFieldType = passwordInput.attr('type');
-                //     let newPasswordFieldType = passwordFieldType == 'password' ? 'text' : 'password';
-                //     passwordInput.attr('type', newPasswordFieldType);
-                //     $(this).text(newPasswordFieldType == 'password' ? 'show' : 'Hide');
-                // });
-
             });
-
-
-
         </script>
-
-
     </body>
 </html>

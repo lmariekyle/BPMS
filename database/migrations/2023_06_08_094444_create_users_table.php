@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Spatie\Permission\Models\Role;
 
+
 class CreateUsersTable extends Migration
 {
     /**
@@ -22,13 +23,14 @@ class CreateUsersTable extends Migration
             $table->foreignId('assignedSitioID')->references('id')->on('sitios')->onDelete('cascade')->onUpdate('cascade');
 
             $table->string('idNumber');
-
+            $table->string('barangay')->default('Poblacion');
+            $table->string('sitio');
             $table->string('contactNumber');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
-            $table->string('userLevel')->default('User');
+            $table->string('userLevel')->default('User')->nullable();
             $table->string('userStatus')->default('Active')->nullable();
             $table->string('revisedBy')->nullable();
             $table->string('archivedBy')->nullable();

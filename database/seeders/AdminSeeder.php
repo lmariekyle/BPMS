@@ -21,6 +21,8 @@ class AdminSeeder extends Seeder
             'assignedSitioID' => '1',
             'idNumber' => 'A-001',
             'contactnumber' => '1234567890',
+            'barangay' => 'Poblacion',
+            'sitio' => 'Labangon',
             'userlevel' => 'Admin',
             'userstatus' => 'Active',
             'email' => 'admin@bpms.com',
