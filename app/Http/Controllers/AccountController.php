@@ -8,7 +8,6 @@ use App\Models\ResidentList;
 use App\Models\Sitio;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,7 +20,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $users = User::paginate();
+        $users = User::where('userStatus', 'Active' )->paginate();
 
         foreach ($users as $key) {
             $resident=Resident::where('id',$key->residentID)->first();
@@ -116,19 +115,20 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($request,$id)
+    public function destroy(Request $request,$id)
     {
-        $user=User::where('id', $request->id)->first();
+        $user=User::where('id', $request->userID)->first();
 
         $user->reasonForArchive=$request->reason;
+        $user->userStatus="Archived";
         $user->archiveDate=Carbon::now();
 
-        $user->password=Hash::make('not active anymore'); /* temporary solution */
+        $user->password=Hash::make('not active anymore'); /* temporary solution to 'deactivate' account*/
 
         $user->archivedBy=$id;
 
         $user->save();
-
-        return view('accounts.index')->with('success','Account Archived');
+        
+        return redirect('/accounts')->with('success','Account Archived');
     }
 }

@@ -41,6 +41,7 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('index', [AccountController::class, 'index'])->name('accounts');
     Route::resource('accounts', \App\Http\Controllers\AccountController::class);
     
+    
 });
 
 

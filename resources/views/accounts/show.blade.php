@@ -30,10 +30,13 @@
 
                     <div id="AdminModal" class="modal hidden fixed z-10 pt-28 top-0 left-0 w-full h-full overflow-auto bg-black bg-black/[0.4]">
                         <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
-                            <form action={{ route('accounts.destroy',Auth::user()->id) }}>
+                            <form action={{ route('accounts.destroy', Auth::user()->id) }} method="POST">
+                                @csrf
+                                @method('DELETE')
+
                                 <span class="close font-deep-green float-right text-xl font-bold hover:bg-black hover:cursor-pointer">&times;</span>
                                 <div class="input-area">
-                                    <input type="hidden" name="id" value="{{$user->id}}">
+                                    <input type="hidden" name="userID" value="{{$user->id}}">
 
                                     <label for="reason">Reason for Archiving Account</label>
                                     <input type="text" name="reason" class="form-control">
