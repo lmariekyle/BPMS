@@ -85,6 +85,6 @@ class RegisteredUserController extends Controller
 
         // Auth::login($user);
         Mail::to($request->email)->send(new AccountMail($resident->user));
-        return view('/accounts');
+        return view('/accounts')->with('success','Email for registration has been sent!');
     }
 }

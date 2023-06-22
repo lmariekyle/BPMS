@@ -8,6 +8,9 @@ use App\Models\ResidentList;
 use App\Models\Sitio;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -29,27 +32,6 @@ class AccountController extends Controller
 
         }
         return view('accounts.index')->with('accounts',$users);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        
     }
 
     /**
@@ -125,7 +107,7 @@ class AccountController extends Controller
         $personalInfo->sitio=$sitio->sitioName;
         $personalInfo->barangay=$barangay->barangayName;
 
-        return view('accounts.show',compact('user','personalInfo'));
+        return view('accounts.show',compact('user','personalInfo'))->with('success','Account has been Updated!');;
     }
 
     /**
@@ -134,8 +116,19 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($request,$id)
     {
-        //
+        $user=User::where('id', $request->id)->first();
+
+        $user->reasonForArchive=$request->reason;
+        $user->archiveDate=Carbon::now();
+
+        $user->password=Hash::make('not active anymore'); /* temporary solution */
+
+        $user->archivedBy=$id;
+
+        $user->save();
+
+        return view('accounts.index')->with('success','Account Archived');
     }
 }

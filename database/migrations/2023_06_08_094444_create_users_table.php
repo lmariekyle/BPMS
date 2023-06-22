@@ -30,27 +30,17 @@ class CreateUsersTable extends Migration
 
             $table->string('userLevel')->default('User')->nullable();
             $table->string('userStatus')->default('Active')->nullable();
+
+            $table->longText('reasonForArchive')->default('Account is still active')->nullable();
+            $table->date('archiveDate')->nullable();
+
             $table->string('revisedBy')->nullable();
             $table->string('archivedBy')->nullable();
             $table->string('permissionToken')->unique()->nullable();
             $table->rememberToken();
 
-            /*
-
-            refer to resident table
-
-            $table->string('firstname');
-            $table->string('middlename');
-            $table->string('lastname');
             
-            $table->date('date_of_birth')->nullable();
-
-            refer to sitio table from household table from resident list table from resident table
-
-            $table->string('barangay')->default('Poblacion');
-            $table->string('sitio');
-
-            */
+            
             $table->timestamps();
         });
     }

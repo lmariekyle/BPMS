@@ -15,8 +15,8 @@ class BarangaySeeder extends Seeder
     public function run()
     {
         Barangay::create([
-            'barangayName' => 'Placeholder',
-            'municipality' => 'Placeholder',
+            'barangayName' => 'BarangayFiller',
+            'municipality' => 'MunicipalityFiller',
             'zipCode' => '0000',
             'createdBy' => '1',
             'revisedBy' => '1',
