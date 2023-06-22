@@ -14,9 +14,13 @@
                     @role('Admin')
                      wow issa account {{$personalInfo->lastName}},{{$personalInfo->firstName}} {{$personalInfo->middleName[0]}}.
                      <br>
+                     status? {{$user->userStatus}}
+                     <br>
                      account contact thru {{$user->email}},{{$user->contactNumber}}
                      <br>
                      account is living in {{$personalInfo->sitio}}, {{$personalInfo->barangay}}
+                     <br>
+                     account was archived {{$user->archiveDate}}, for the reason of {{$user->reasonForArchive}}
 
                     <br>
 

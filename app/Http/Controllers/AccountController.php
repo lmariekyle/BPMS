@@ -20,7 +20,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $users = User::where('userStatus', 'Active' )->paginate();
+        $users = User::paginate();
 
         foreach ($users as $key) {
             $resident=Resident::where('id',$key->residentID)->first();
