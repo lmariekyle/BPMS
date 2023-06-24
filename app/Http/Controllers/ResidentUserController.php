@@ -84,7 +84,7 @@ class ResidentUserController extends Controller
                         ]);
                         $user->assignRole($request->userlevel); //assign account role as User
                         event(new Registered($user)); //send email verification
-                        return view('welcome');
+                        return view('welcome')->with('success','Email for registration has been sent!');
                 }
             }
         }

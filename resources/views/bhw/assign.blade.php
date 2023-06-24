@@ -75,7 +75,7 @@
                                     </div>
                                     <div class="mt-4">
                                         <x-button type="submit">
-                                            Assign
+                                            Approve Assignments
                                         </x-button>
                                     </div>
                                 </div>

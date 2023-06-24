@@ -16,7 +16,7 @@ class SitioSeeder extends Seeder
     {
         Sitio::create([
             'barangayID' => '1',
-            'sitioName' => 'Placeholder',
+            'sitioName' => 'SitioFiller',
         ]);
         Sitio::create([
             'barangayID' => '2',

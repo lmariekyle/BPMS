@@ -39,22 +39,8 @@ class CreateUsersTable extends Migration
             $table->string('permissionToken')->unique()->nullable();
             $table->rememberToken();
 
-            /*
-
-            refer to resident table
-
-            $table->string('firstname');
-            $table->string('middlename');
-            $table->string('lastname');
             
-            $table->date('date_of_birth')->nullable();
-
-            refer to sitio table from household table from resident list table from resident table
-
-            $table->string('barangay')->default('Poblacion');
-            $table->string('sitio');
-
-            */
+            
             $table->timestamps();
         });
     }
