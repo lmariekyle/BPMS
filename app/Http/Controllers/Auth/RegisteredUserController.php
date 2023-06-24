@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Mail;
@@ -85,6 +86,6 @@ class RegisteredUserController extends Controller
 
         // Auth::login($user);
         Mail::to($request->email)->send(new AccountMail($resident->user));
-        return view('/accounts');
+        return Redirect::back()->with('success','Email for registration has been sent!');
     }
 }

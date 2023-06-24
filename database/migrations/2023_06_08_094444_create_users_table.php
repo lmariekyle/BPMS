@@ -30,6 +30,10 @@ class CreateUsersTable extends Migration
 
             $table->string('userLevel')->default('User')->nullable();
             $table->string('userStatus')->default('Active')->nullable();
+
+            $table->longText('reasonForArchive')->default('Account is still active')->nullable();
+            $table->date('archiveDate')->nullable();
+
             $table->string('revisedBy')->nullable();
             $table->string('archivedBy')->nullable();
             $table->string('permissionToken')->unique()->nullable();

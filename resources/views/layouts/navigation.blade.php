@@ -1,16 +1,21 @@
 @role('Admin')
-<nav x-data="{ open: false }" class="bg-olive-green h-[202px] border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
+<nav x-data="{ open: false }" class="">
+    <!-- Primary Navigation Menu 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-center h-16">
             <div class="flex">
-
+    -->
                 <!-- Logo -->
+    <!--
                 <div class= "mb-12 mt-16 w-64 h-64 rounded-full border-2 bg-dirty-white border-green flex justify-center items-center">
                 <img src="{{ asset('images/PoblacionDalLogo.png') }}" alt="">
                 </div>
             </div>   
         </div>
+    </div>
+    -->
+    <div class="w-full">
+        
     </div>
    @endrole
    @role('Barangay Captain')
@@ -27,7 +32,7 @@
                 <a href=""><i class="fa-solid fa-arrow-left text-dirty-white text-[24px]"></i></a>
                 <a href="" class="font-robotocondensed text-[24px] text-dirty-white px-10">HOME</a>
                 <a href="" class="font-robotocondensed text-[24px] text-dirty-white px-10">SERVICES</a>
-                <a href="" class="font-robotocondensed text-[24px] text-dirty-white px-10">BHW</a>
+                <a href="{{ route('bhw') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">BHW</a>
                 <a href=""><i class="fa-solid fa-circle-user text-dirty-white text-[40px] ml-[680px]"></i></a>
             </div>   
         </svg>

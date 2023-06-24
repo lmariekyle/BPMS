@@ -17,8 +17,9 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     </head>
     <body class="bg-dirty-white">
-    <div class="px-5 py-5 justify-center w-50 h-40 bg-olive-green"> 
-            <h1 class="font-dancingscript text-3xl text-dirty-white text-center">Municipality of Dalaguete</h1>
+    <div class="px-5 py-5 text-center justify-center w-50 h-42 bg-olive-green"> 
+        <p class="text-dirty-white font-dancingscript text-7xl">Municipality of Dalaguete</p>
+        <p class="font-libre text-5xl pb-6" style="color:white;">BARANGAY POBLACION</p>
     </div>
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
