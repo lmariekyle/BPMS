@@ -1,9 +1,9 @@
-<div class="flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-    <div>
+<div class="flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-dirty-white">
+    <div class="">
         {{ $logo }}
     </div>
 
-    <div class="">
+    <div class="mt-20">
         {{ $slot }}
     </div>
 </div>

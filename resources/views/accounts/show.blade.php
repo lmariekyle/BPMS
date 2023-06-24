@@ -5,25 +5,98 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    
-                    
-                    @role('Admin')
-                     wow issa account {{$personalInfo->lastName}},{{$personalInfo->firstName}} {{$personalInfo->middleName[0]}}.
-                     <br>
-                     account contact thru {{$user->email}},{{$user->contactNumber}}
-                     <br>
-                     account is living in {{$personalInfo->sitio}}, {{$personalInfo->barangay}}
-
-                    <br>
-
-                    <div class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
-                        <a href="{{ route('accounts.edit', $user->id) }}">Update Account</a>
+    <div class="pt-10 pb-14 bg-green">
+        <div class="max-w-max max-h-max sm:px-6 lg:px-8">
+            <div class="">
+                <div class="">
+                    <div class="max-w-sm max-h-12 w-96 h-12 text-center">
+                        <a href="/index" class="float-left mt-4">
+                            <i class="fa-sharp fa-solid fa-arrow-left text-3xl" style="color:#fdffee;"></i>
+                        </a>
+                        <p class="font-roboto font-bold text-dirty-white text-5xl">VIEW ACCOUNT</p>
                     </div>
+                    
+                    <div class="max-h-[837px] h-[837px] max-w-[1178px] w-[1178px] mt-8 ml-14 p-14 border rounded bg-dirty-white font-roboto">
+                    <div class="relative">
+                            <div class="mr-14 float-left max-h-[324px] max-w-[273px] place-content-center bg-green h-[324px] w-[273px]">
+                                <!--Photo here-->
+                            </div>
 
+                            <div class="pt-9 pb-10 max-h-[324px] max-w-[725px] h-[324px] w-[725px] border border-green text-2xl float-left">
+                                <div class="float-left">
+                                    <div>
+                                        <p class="pl-3 text-deep-green">First Name:</p>
+                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$personalInfo->firstName}}</div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <p class="pl-3 text-deep-green">Last Name:</p>
+                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$personalInfo->lastName}}</div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <p class="pl-3 text-deep-green">Middle Initial:</p>
+                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$personalInfo->middleName[0]}}.</div>
+                                    </div>
+                                </div>
+                                <div class="float-right ml-20">
+                                    <div>
+                                        <p class="pl-3 text-deep-green">Address:</p>
+                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$personalInfo->sitio}}, {{$personalInfo->barangay}}</div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <p class="pl-3 text-deep-green">Email:</p>
+                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$user->email}}</div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <p class="pl-3 text-deep-green">Contact Number:</p>
+                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$user->contactNumber}}</div>
+                                    </div>                        
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-14 float-left text-2xl font-roboto">
+                            <div class="float-left max-w-[342px] max-h-[324px] w-[342px] h-[324px] border border-green mr-12">
+                                <div>
+                                    <p class="text-deep-green px-1 mt-6">Account Status:</p>
+                                    <div class="bg-green text-dirty-white pl-4"><p>{{$user->userStatus}}</p></div>
+                                </div>
+                                <div>
+                                    <p class="text-deep-green px-1 mt-6">Archived Date:</p>
+                                    <div class="bg-green text-dirty-white pl-4">
+                                            @if (null!==$user->archiveDate)
+                                            <p>{{$user->archiveDate}}</p>
+                                            @else
+                                            <p>---------------------</p>
+                                            @endif
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-deep-green px-1 mt-6">Archived By:</p>
+                                    <div class="bg-green text-dirty-white pl-4">
+                                            @if (null!==$user->archivedBy)
+                                            <p>{{$user->archivedBy}}</p>
+                                            @else
+                                            <p>---------------------</p>
+                                            @endif
+                                    </div>
+                                </div>
+                            </div>
+                                
+                            <div class="float-left max-w-[342px] max-h-[324px] w-[342px] h-[324px] border border-green mr-12">
+                                <p class="text-center py-5 text-deep-green">Reason for Archive:</p>
+                                <div class="text-center">{{$user->reasonForArchive}}</div>
+                            </div>
+
+                            <div class="float-left max-w-[260px] max-h-[364px] w-[280px] h-[324px] text-center py-20">
+                                    <div class="mt-8 bg-deep-green text-dirty-white border-0 w-60 l-12">
+                                        <a href="{{ route('accounts.edit', $user->id) }}">Update Account</a>
+                                    </div>
+                                    <div class="mt-8 bg-deep-green text-dirty-white border-0 w-60 l-12">
+                                        <a href="">Archive Account</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                         <button id="AdminBtn">ARCHIVE ACCOUNT</button>
                     </div>
@@ -47,8 +120,6 @@
                         </div>
                     </div>
 
-
-                    @endrole
                 </div>
             </div>
         </div>

@@ -5,71 +5,85 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
+    <div class="pt-10 pb-14 bg-green">
+        <div class="max-w-7xl w-[1280px] px-12">
+            <div class="max-w-[1250px] w-[1250px]">
+                <div class="relative">
                     
                     
                     @role('Admin')
-                    <div>
-                        <a href="{{ route('accounts.show', $user->id) }}">back button</a>
+                    <div class="max-w-xs max-h-12 w-96 h-12 text-center">
+                        <a href="{{ route('accounts.show', $user->id) }}" class="float-left mt-4">
+                            <i class="fa-sharp fa-solid fa-arrow-left text-3xl" style="color:#fdffee;"></i>
+                        </a>
+                        <p class="font-robotocondensed font-bold text-dirty-white text-5xl">Update Account</p>
                     </div>
                     <form method="POST" action="{{ route('accounts.update', Auth::user()->id) }}">
                         @csrf
                         @method('PUT')
+                        <div class="max-w-[223px] max-h-[700px] w-[223px] h-[700px] float-left ml-8 mr-11">
+                            <!--For the Photo part-->
+                        </div>
 
-                        <div class="column-portion">
+                        <div class="mt-10 font-robotocondensed text-2xl text-dirty-white">
                             <input type="hidden" name="id" value="{{$user->id}}">
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="firstname">First Name</label>
-                                    <input type="text" class="form-control" name="firstName" value="{{$personalInfo->firstName}}">
+                            <div class="max-w-[1250px] w-[1250px] max-h-[66px]">
+                                <div class="float-left mr-10">
+                                    <label for="firstname" class="font-roboto">First Name</label>
+                                    <br>
+                                    <input type="text" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" name="firstName" value="{{$personalInfo->firstName}}">
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="idnumber">ID Number</label>
-                                    <input type="text" class="form-control" name="idNumber" value="{{$user->idNumber}}">
+                                <div class="">
+                                    <label for="idnumber" class="font-roboto">ID Number</label>
+                                    <br>
+                                    <input type="text" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" name="idNumber" value="{{$user->idNumber}}">
                                 </div>
                             </div>
-            
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="lastname">Last Name</label>
-                                    <input type="text" name="lastName" class="form-control" value="{{$personalInfo->lastName}}">
+                            <br>
+                            <div class="max-w-[1250px] w-[1250px] max-h-[66px]">
+                                <div class="float-left mr-10">
+                                    <label for="lastname" class="font-roboto">Last Name</label>
+                                    <br>
+                                    <input type="text" name="lastName" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$personalInfo->lastName}}">
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="input-area">
-                                        <label for="barangay">Barangay</label>
-                                        <input type="text" name="barangay" class="form-control" value="{{$personalInfo->barangay}}">
+                                <div class="">
+                                    <div class="">
+                                        <label for="barangay" class="font-roboto">Barangay</label>
+                                        <br>
+                                        <input type="text" name="barangay" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$personalInfo->barangay}}">
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="middlename">Middle Name</label>
-                                    <input type="text" name="middleName" class="form-control" value="{{$personalInfo->middleName}}">
+                            <br>
+                            <div class="max-w-[1250px] w-[1250px] max-h-[66px]">
+                                <div class="float-left mr-10">
+                                    <label for="middlename" class="font-roboto">Middle Name</label>
+                                    <br>
+                                    <input type="text" name="middleName" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$personalInfo->middleName}}">
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="sitio">Sitio</label>
-                                    <select id="sitio" name="sitio">
+                                <div class="">
+                                    <label for="sitio" class="font-roboto">Sitio</label>
+                                    <br>
+                                    <select id="sitio" name="sitio" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green">
                                         <option value="{{$user->sitioID}}">{{$personalInfo->sitio}}</option>
                                         @foreach ($sitios as $sitio)
-                                            <option value={{$sitio->id}}>{{ $sitio->sitioName }}</option>
+                                            <option value="{{$sitio->id}}">{{ $sitio->sitioName }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
+                            <br>
+                            <div class="max-w-[1250px] w-[1250px] max-h-[66px]">
+                                <div class="float-left mr-10" class="font-roboto">
                                     <label for="email">Email</label>
-                                    <input type="email" name="email" class="form-control" value="{{$user->email}}">
+                                    <br>
+                                    <input type="email" name="email" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$user->email}}">
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="userlevel">Account Type</label>
-                                    <select id="userLevel" name="userLevel">
+                                <div class="">
+                                    <label for="userlevel" class="font-roboto">Account Type</label>
+                                    <br>
+                                    <select id="userLevel" name="userLevel" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green">
                                         <option value="{{$user->userLevel}}">{{$user->userLevel}}</option>
                                         <option value="{{'Admin'}}">{{'Admin'}}</option>
                                         <option value="{{'Barangay Captain'}}">{{'Barangay Captain'}}</option>
@@ -78,23 +92,25 @@
                                     </select>
                                 </div>
                             </div>
-                        
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="contactnumber">Contact Number</label>
-                                    <input type="text" name="contactNumber" class="form-control" value="{{$user->contactNumber}}">
+                            <br>
+                            <div class="max-w-[1250px] w-[1250px] max-h-[66px]">
+                                <div class="">
+                                    <label for="contactnumber" class="font-roboto">Contact Number</label>
+                                    <br>
+                                    <input type="text" name="contactNumber" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$user->contactNumber}}">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="max-w-[1250px] w-[1250px] max-h-[66px]">
+                                <div class="">
+                                    <label for="contactnumber" class="font-roboto">Date of Birth</label>
+                                    <br>
+                                    <input type="date" name="dateOfBirth" class="block mb-4 w-[227.5px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$personalInfo->dateOfBirth}}">
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="contactnumber">Date of Birth</label>
-                                    <input type="date" name="dateOfBirth" class="form-control" value="{{$personalInfo->dateOfBirth}}">
-                                </div>
-                            </div>
-
-                            <div>
-                                <button type="submit" name="submit" class="btn btn-primary">SUBMIT</button>
+                            <div class="mt-16 text-center mr-2">
+                                <button type="submit" name="submit" class="rounded bg-deep-green w-60 left-12 mx-auto">Update Account</button>
                             </div> 
                         </div>
                     </form> 

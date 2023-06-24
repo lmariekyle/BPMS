@@ -1,12 +1,13 @@
-<div class="bg-olive-green text-center pt-5">
-        <p class="text-dirty-white font-dancingscript text-7xl">Municipality of Dalaguete</p>
-        <p class="font-libre text-5xl pb-6" style="color:white;">BARANGAY POBLACION</p>
+<!---<div class="bg-olive-green text-center pt-5">
+        
 </div>
-
+-->
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <img src="/images/PoblacionDalLogo.png" alt="Pobalcion Dalaguete Logo" class="absolute top-64 left-[530px] w-72 l-72" style="mx-auto">
+            <div class="mt-8 absolute w-[300px] h-[300px] rounded-full bg-dirty-white">
+                <img src="{{ asset('images/PoblacionDalLogo.png') }}" alt="">
+            </div>
         </x-slot>
 
         <!-- Session Status -->
@@ -15,22 +16,23 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />  
 
-        <form method="POST" action="{{ route('login') }}" class="mt-28 bg-green z-0 w-[594px] l-[594px]">
+        <form method="POST" action="{{ route('login') }}" class="mt-16 bg-green w-[594px] l-[594px] text-2xl">
+            
             @csrf
 
-            <p class="font-dancingscript text-8xl text-dirty-white text-center pt-52">Welcome</p>
+            <p class="font-dancingscript text-8xl text-dirty-white text-center">Welcome</p>
 
             <div class="ml-12">
                 <!-- Email Address -->
                 <div class="mt-3">
-                    <x-label for="email" :value="__('Email')" class="text-xl font-roboto" style="color:white"/>
+                    <x-label for="email" :value="__('Email')" class="font-roboto" style="color:white"/>
 
                     <x-input id="email" class="block mt-1 w-[500px] bg-dirty-white" type="email" name="email" :value="old('email')" required autofocus />
                 </div>
 
                 <!-- Password -->
                 <div class="mt-7">
-                    <x-label for="password" :value="__('Password')" class="text-xl font-roboto" style="color:white"/>
+                    <x-label for="password" :value="__('Password')" class="font-roboto" style="color:white"/>
 
                     <x-input id="password" class="block mt-1 w-[500px] bg-dirty-white"
                                     type="password"
@@ -55,8 +57,8 @@
                 @endif
             </div>
             <div class="object-center justify-end pt-7 z-50 absolute left-[557px] top-[990px] pb-12">
-                <x-button class="w-60 l-12 bg-deep-green text-dirty-white font-roboto border-0 m-auto">
-                    <div class="m-auto">
+                <x-button class="w-60 h-12 bg-deep-green text-dirty-white font-roboto border-0 m-auto">
+                    <div class="text-2xl m-auto">
                     {{ __('LOGIN') }}
                     </div>
                 </x-button>
