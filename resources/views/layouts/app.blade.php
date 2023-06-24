@@ -17,6 +17,7 @@
         <!-- Scripts -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     </head>
     <body class=" bg-dirty-white font-sans antialiased">
         <div class="min-h-screen bg-dirty-white">
@@ -35,5 +36,16 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <script>
+            $("document").ready(function()
+            {
+                setTimeout(function(){
+                    $("div.alert").remove();
+                }, 3000);
+            });
+        </script>
+
+
     </body>
 </html>

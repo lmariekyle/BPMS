@@ -9,9 +9,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
+
+                    <div id="alert">
+                        @if(session()->has('success'))
+                            {{session()->get('success')}}
+                        @endif
+                    </div>
                     
-                    
-                    @role('Admin')
                      wow issa account {{$personalInfo->lastName}},{{$personalInfo->firstName}} {{$personalInfo->middleName[0]}}.
                      <br>
                      status? {{$user->userStatus}}
@@ -34,7 +38,7 @@
 
                     <div id="AdminModal" class="modal hidden fixed z-10 pt-28 top-0 left-0 w-full h-full overflow-auto bg-black bg-black/[0.4]">
                         <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
-                            <form action={{ route('accounts.destroy', Auth::user()->id) }} method="POST">
+                            <form action="{{ route('accounts.destroy', Auth::user()->id) }}"method="POST">
                                 @csrf
                                 @method('DELETE')
 
@@ -55,7 +59,7 @@
                     </div>
 
 
-                    @endrole
+                  
                 </div>
             </div>
         </div>
@@ -87,5 +91,4 @@
             modal.style.display = "none";
         }
     }
-
 </script>

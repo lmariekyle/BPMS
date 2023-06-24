@@ -66,8 +66,8 @@ class ResidentUserController extends Controller
                 ->get();
 
                 
-        if(isset($check_res)==NULL){
-            return view('auth.accountnotice');
+        if($check_res->isEmpty()){
+            return view('auth.sorry-resident-notice');
         }else{
             foreach($check_res as $verify){ 
                 if($verify->firstName == $request->firstname && $verify->middleName == $request->middlename 

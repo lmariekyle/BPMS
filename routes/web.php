@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResidentUserController;
 use App\Http\Controllers\AccountController;
-
+use App\Http\Controllers\BHWController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,17 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/accountnotice', function(){
-    return view('auth.accountnotice');
-});
-
 Route::middleware('guest')->group(function () {
     Route::get('create', [ResidentUserController::class, 'create'])->name('create');
     Route::post('create',[ResidentUserController::class, 'store']);
-    // Route::get('accountnotice', [ResidentUserController::class, 'index'])->name('accountnotice');
-    // Route::get('/accountnotice', function(){
-    //     return view('auth.accountnotice');
-    //  });
+
 });
 
 Route::group(['middleware'=>'auth'],function (){
@@ -37,6 +30,7 @@ Route::group(['middleware'=>'auth'],function (){
         return view('welcome');
     })->name('welcome');
     Route::resource('bhw', \App\Http\Controllers\BHWController::class);
+    Route::get('bhw', [BHWController::class, 'index'])->name('bhw');
     Route::resource('assign', \App\Http\Controllers\SitioAssignmentController::class);
     Route::get('index', [AccountController::class, 'index'])->name('accounts');
     Route::resource('accounts', \App\Http\Controllers\AccountController::class);

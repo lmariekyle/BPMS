@@ -5,86 +5,58 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    
-                    
-                    @role('Admin')
-                    <div>
-                        <a href="/bhw">back button</a>
-                    </div>
-                    
-                        <div class="flex flex-col">
-                            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                                        <table class="min-w-full divide-y divide-gray-200">
-                                            <thead class="bg-gray-50">
-                                            <tr>
-                                                <th>
-                                                    {{ __('Sitio Assignment') }}
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    ID
-                                                </th>
-                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Name
-                                                </th>
-                                                <th scope="col" class="relative px-6 py-3">
-                                                    <span class="sr-only">Assign Sitio</span>
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="bg-white divide-y divide-gray-200">
-                                                
-                                            <form method="POST" action="{{ route('assign.update', Auth::user()->id) }}">
-                                                @csrf
-                                                @method('PUT')
+    <div class="bg-dirty-white w-[1400px] h-[813px] ml-8 mt-16 px-5 py-5 rounded-[48px] border-2 border-deep-green flex flex-row">
 
-                                            @foreach($bhws as $bhw) 
-                                                <tr>
-                                                    <input type="hidden" name="bhwID[]" value="{{$bhw->id}}">
+        <a href=""><i class="fa-solid fa-arrow-left text-deep-green mt-6 text-[24px]"></i></a>
+        <p class="text-deep-green font-robotocondensed ml-10 font-bold text-[48px] absolute text-start">SITIO ASSIGNMENT</p>
+        
+                    <!--ACTUAL TABLE -->
 
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                        {{ $bhw->idNumber }}
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                        {{ $bhw->lastname }}, {{ $bhw->firstname }} {{ $bhw->middlename }}
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                        <label for="sitio">Assign A Sitio:</label>
-                                                            <select id="sitio" name="sitio[]">
-                                                                <option value="{{$bhw->assignedSitioID}}">{{$bhw->assignedSitio}}</option>
-                                                                @foreach ($sitios as $sitio)
-                                                                    <option value={{$sitio->id}}>{{ $sitio->sitioName }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            
-                                            </tbody>
-                                        </table>
-
-
-                                    </div>
-                                    <div class="mt-4">
-                                        <x-button type="submit">
-                                            Approve Assignments
-                                        </x-button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    @endrole
-                </div>
+        <div class="bg-dirty-white w-[1390px] h-max absolute mt-28 -ml-5 flex justify-center">
+            <!--TABLE HEADER-->
+            <div class="bg-green w-[890px] h-[48px] absolute flex flex-row border border-white shadow-lg">
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-7">ID</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-36">BHW NAME</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-[470px]">ASSIGN SITIO</p>
             </div>
+
+            <table class="mt-10 flex justify-center place-content-center">
+                <tbody>
+                    <form method="POST" action="{{ route('assign.update', Auth::user()->id) }}">
+                        @csrf
+                        @method('PUT')
+                    @foreach ($bhws as $bhw)
+                        <tr class="border shadow-md px-16 py-16">
+                            <input type="hidden" name="bhwID[]" value="{{$bhw->id}}">
+                                <td class="px-6 py-4 w-[150px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                                {{ $bhw->idNumber }}
+                                </td>
+                                <td class="px-6 py-4  w-[500px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                                {{ $bhw->lastname }}, {{ $bhw->firstname }} {{ $bhw->middlename[0] }}
+                                </td>
+                                <td class="px-6 py-4  w-[50px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                                    {{ $bhw->assignedSitioName }}
+                                </td>
+                                <td class="px-6 py-4 font-robotocondensed text-deep-green text-[16px] font-bold text-right">
+                                        <select id="sitio" name="sitio[]" class="bg-dirty-white">
+                                        <option value="{{$bhw->assignedSitioID}}" class="bg-dirty-white">{{$bhw->assignedSitio}}</option>
+                                        @foreach ($sitios as $sitio)
+                                        <option value="{{$sitio->id}}" class="bg-dirty-white">{{ $sitio->sitioName }}</option>
+                                        @endforeach
+                                    </select>                            
+                                </td>
+                        </tr>
+                    @endforeach                   
+                </tbody>
+            </table>
+                     <!-- <a href="/submit" class="button absolute bottom-0 h-8 w-max text-center mt-3 ml-[550px]">Approve Assignments</a> -->
+                <div class="absolute bottom-0 h-8 w-max text-center mt-3 ml-[550px]">
+                    <x-button type="submit">
+                        Approve Assignments
+                    </x-button>
+                </div>
         </div>
-    </div>
+        </form>
+    </div>  
+   
 </x-app-layout>

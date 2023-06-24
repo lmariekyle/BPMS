@@ -7,6 +7,7 @@ use App\Models\Resident;
 use App\Models\ResidentList;
 use App\Models\Sitio;
 use App\Models\User;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -106,7 +107,8 @@ class AccountController extends Controller
         $personalInfo->sitio=$sitio->sitioName;
         $personalInfo->barangay=$barangay->barangayName;
 
-        return view('accounts.show',compact('user','personalInfo'))->with('success','Account has been Updated!');;
+        // return view('accounts.show',compact('user','personalInfo'))->with('success','Account has been Updated!');
+        return Redirect::back()->with('success','Account has been Updated!');
     }
 
     /**
