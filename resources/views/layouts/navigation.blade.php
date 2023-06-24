@@ -45,6 +45,7 @@
                 <a href="" class="font-robotocondensed text-[24px] text-dirty-white px-10">HOME</a>
                 <a href="" class="font-robotocondensed text-[24px] text-dirty-white px-10">SERVICES</a>
                 <a href="{{ route('bhw') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">BHW</a>
+                <a href="{{ route('bhw') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">BHW</a>
                 <a href=""><i class="fa-solid fa-circle-user text-dirty-white text-[40px] ml-[680px]"></i></a>
             </div>   
         </svg>

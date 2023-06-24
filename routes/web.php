@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResidentUserController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BHWController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +31,7 @@ Route::group(['middleware'=>'auth'],function (){
         return view('welcome');
     })->name('welcome');
     Route::resource('bhw', \App\Http\Controllers\BHWController::class);
+    Route::get('bhw', [BHWController::class, 'index'])->name('bhw');
     Route::get('bhw', [BHWController::class, 'index'])->name('bhw');
     Route::resource('assign', \App\Http\Controllers\SitioAssignmentController::class);
     Route::get('index', [AccountController::class, 'index'])->name('accounts');

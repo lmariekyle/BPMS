@@ -1,9 +1,14 @@
+<!---<div class="bg-olive-green text-center pt-5">
+        
+</div>
+-->
 <x-guest-layout>
     <x-auth-card>
-       
-        <div class= "mb-4 absolute ml-[130px] w-[300px] h-[300px] rounded-full border-2 bg-dirty-white border-green flex justify-center items-center">
+        <x-slot name="logo">
+            <div class="mt-8 absolute w-[300px] h-[300px] rounded-full bg-dirty-white">
                 <img src="{{ asset('images/PoblacionDalLogo.png') }}" alt="">
-        </div>
+            </div>
+        </x-slot>
 
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -43,22 +48,21 @@
                     </div>
                 </div>
 
-                <div class="flex object-center justify-end mt-7 pb-16">
-                    @if (Route::has('password.request'))
-                        <a class="loginText underline text-xl text-dirty-white hover:text-gray-900" href="{{ route('password.request') }}" style="margin: auto;">
-                            {{ __('Forgot your password?') }}
-                        </a>
-                    @endif
-                </div>
-                <div class="object-center justify-end pt-7 px-4 py-4 absolute ml-[160px] -mt-[40px] pb-12">
-                    <x-button class="w-60 l-12 bg-deep-green text-dirty-white font-roboto border-0 m-auto text-[30px]">
-                        <div class="m-auto">
-                        {{ __('LOGIN') }}
-                        </div>
-                    </x-button>
-                </div>
-            </form>
-        <div>
+            <div class="flex object-center justify-end mt-7 pb-16">
+                @if (Route::has('password.request'))
+                    <a class="loginText underline text-xl text-dirty-white hover:text-gray-900" href="{{ route('password.request') }}" style="margin: auto;">
+                        {{ __('Forgot your password?') }}
+                    </a>
+                @endif
+            </div>
+            <div class="object-center justify-end pt-7 z-50 absolute left-[557px] top-[990px] pb-12">
+                <x-button class="w-60 h-12 bg-deep-green text-dirty-white font-roboto border-0 m-auto">
+                    <div class="text-2xl m-auto">
+                    {{ __('LOGIN') }}
+                    </div>
+                </x-button>
+            </div>
+        </form>
     </x-auth-card>
 </x-guest-layout>
 

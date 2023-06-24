@@ -1,4 +1,4 @@
-<div class="bg-green h-[1100px] w-full">
+<div class="bg-green max-h-[1100px] h-[1100px] max-w-screen-2xl w-[1440px]">
     <x-guest-layout>
     <x-auth-card>
     
@@ -29,43 +29,43 @@
                 </div>
 
                 <div>
-                    <x-label for="firstname" :value="__('First Name')" class="text-xl font-roboto" style="color:white;"/>
+                    <x-label for="firstname" :value="__('First Name')" class="font-roboto" style="color:white;"/>
 
                     <x-input id="firstname" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="firstname" :value="old('firstname')" required autofocus />
                 </div>
 
                 <div>
-                    <x-label for="middlename" :value="__('Middle Name')" class="text-xl font-roboto" style="color:white;"/>
+                    <x-label for="middlename" :value="__('Middle Name')" class="font-roboto" style="color:white;"/>
 
                     <x-input id="middlename" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="middlename" :value="old('middlename')" required autofocus />
                 </div>
 
                 <div>
-                    <x-label for="lastname" :value="__('Last Name')" class="text-xl font-roboto" style="color:white;"/>
+                    <x-label for="lastname" :value="__('Last Name')" class="font-roboto" style="color:white;"/>
         
                     <x-input id="lastname" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="lastname" :value="old('lastname')" required autofocus />
                 </div>
 
                 <div>
-                    <x-label for="dateOfBirth" :value="__('Date of Birth')" class="text-xl font-roboto" style="color:white;"/>
+                    <x-label for="dateOfBirth" :value="__('Date of Birth')" class="font-roboto" style="color:white;"/>
 
                     <x-input id="dateOfBirth" class="block mb-4 w-52 h-[42px] bg-dirty-white" type="date" name="dateOfBirth" :value="old('dateOfBirth')" required autofocus />
                 </div>
 
                 <div>
-                    <x-label for="contactnumber" :value="__('Contact Number')" class="text-xl font-roboto" style="color:white;"/>
+                    <x-label for="contactnumber" :value="__('Contact Number')" class="font-roboto" style="color:white;"/>
 
                     <x-input id="contactnumber" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="contactnumber" :value="old('contactnumber')" required autofocus />
                 </div>
 
                 <div>
-                    <x-label for="barangay" :value="__('Barangay')" class="text-xl font-roboto" style="color:white;"/>
+                    <x-label for="barangay" :value="__('Barangay')" class="font-roboto" style="color:white;"/>
 
                     <x-input id="barangay" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="barangay" :value="'Poblacion'" readonly="readonly" required autofocus />
                 </div>
 
                 <div>
-                    <x-label for="sitio" :value="__('Sitio')" class="text-xl font-roboto" style="color:white;"/>
+                    <x-label for="sitio" :value="__('Sitio')" class="font-roboto" style="color:white;"/>
                     <select id="sitio" class="block mb-4 w-[500px] h-[42px] bg-dirty-white rounded border-1" name="sitio" :value="old('sitio')" required autofocus>
                         @foreach($sitios as $sitio)
                         <option value="{{$sitio->sitioName}}">{{$sitio->sitioName}}</option>
@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="email" :value="__('Email')" class="text-xl font-roboto" style="color:white;"/>
+                    <x-label for="email" :value="__('Email')" class="font-roboto" style="color:white;"/>
 
                     <x-input id="email" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="email" name="email" :value="old('email')" required />
                 </div>
@@ -87,7 +87,7 @@
                 <!-- Password -->
                 
                 <div class="mt-4">
-                    <x-label for="password" :value="__('Password')" class="text-xl font-roboto" style="color:white;"/>
+                    <x-label for="password" :value="__('Password')" class="font-roboto" style="color:white;"/>
                     <div class="input-group">
                         <x-input id="password" class="form-control block mb-4 w-[500px] h-[42px] bg-dirty-white"
                                         type="password"
@@ -99,7 +99,7 @@
 
                 <!-- Confirm Password -->
                 <div class="mt-4">
-                    <x-label for="password_confirmation" :value="__('Confirm Password')" class="text-xl font-roboto" style="color:white;"/>
+                    <x-label for="password_confirmation" :value="__('Confirm Password')" class="font-roboto" style="color:white;"/>
                     <div class="input-group">
                         <x-input id="password_confirmation" class="form-control block mb-4 w-[500px] h-[42px] bg-dirty-white"
                                         type="password"
