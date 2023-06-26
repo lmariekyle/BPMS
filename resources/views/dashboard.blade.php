@@ -24,7 +24,7 @@
                     <!-- <div class="admin-container self-center">
                         <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Create Account</a>
                     </div> -->
-                    <a href="{{ route('register') }}" class="font-robotocondensed text-[40px] text-dirty-white text-center">MANAGE REQUESTS</a>
+                    <a href="" class="font-robotocondensed text-[40px] text-dirty-white text-center">MANAGE REQUESTS</a>
             </div>
 
             <!-- Authentication -->
@@ -41,7 +41,7 @@
             </div>
         @endrole
 
-        @role('Barangay Captain')
+        @hasanyrole('Barangay Captain|Barangay Secretary')
         <div class="p-3 -mt-20 -ml-24 h-max w-[1342px] bg-dirty-white border-2 border-deep-green rounded-xl shadow-3xl ">
 
             <div class=" flex flex-row px-4 py-3 items-center justify-between h-16 w-[1250px] ml-3 mt-3">
@@ -73,7 +73,7 @@
             </div>
 
             <p class="font-robotocondensed mt-16 text-4xl p-3 text-deep-green text-center">BARANGAY POBLACION,DALAGUETE 2020 CENSUS DATA</p>
-        
+
             <div class="mt-0.5 ml-60 grid grid-cols-2 justify-center p-3">
 
                 <div class="bg-dirty-white mt-16 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
@@ -96,9 +96,9 @@
                         <h1 class="font-robotocondensed text-base text-deep-green text-center">TOTAL HOUSEHOLDS</h1>
                 </div>
             </div>
-
-                            <!-- TEMPORARY LOGOUT!! -->
-                            <div class="bg-green h-[40px] w-[140px] text-center ml-36">
+        </div>
+                                                <!-- TEMPORARY LOGOUT!! -->
+        <div class="bg-green h-[40px] w-[140px] text-center -ml-24 mt-10 mb-5">
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
@@ -108,10 +108,8 @@
                         {{ __('LOGOUT') }}
                     </x-responsive-nav-link>
                 </form>
-
-            </div>
         </div>
-        @endrole
+        @endhasanyrole
         
 
         @role('User')
@@ -196,6 +194,19 @@
                     </div>
                 </div>
             </div>
+
+                                                            <!-- TEMPORARY LOGOUT!! -->
+        <div class="bg-green h-[40px] w-[140px] text-center -ml-28 -mt-12 mb-5">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+
+                    <x-responsive-nav-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                        {{ __('LOGOUT') }}
+                    </x-responsive-nav-link>
+                </form>
+        </div>
         @endrole
 
         </div>

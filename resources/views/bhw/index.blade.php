@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <a href="/assign" class="button h-8 w-max text-center mt-6 ml-[200px]">Assign Sitio</a>
+        <a href="/assign" class="button h-8 w-max text-center mt-6 py-1 ml-[200px]">Assign Sitio</a>
 
                     <!--ACTUAL TABLE -->
 

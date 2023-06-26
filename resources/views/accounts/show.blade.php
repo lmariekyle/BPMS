@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-page-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Barangay Health Workers') }}
@@ -10,7 +10,7 @@
             <div class="">
                 <div class="">
                     <div class="max-w-sm max-h-12 w-96 h-12 text-center">
-                        <a href="/index" class="float-left mt-4">
+                        <a href="{{ route('accounts') }}" class="float-left mt-4">
                             <i class="fa-sharp fa-solid fa-arrow-left text-3xl" style="color:#fdffee;"></i>
                         </a>
                         <p class="font-roboto font-bold text-dirty-white text-5xl">VIEW ACCOUNT</p>
@@ -91,28 +91,24 @@
                                         <a href="{{ route('accounts.edit', $user->id) }}">Update Account</a>
                                     </div>
                                     <div class="mt-8 bg-deep-green text-dirty-white border-0 w-60 l-12">
-                                        <a href="">Archive Account</a>
+                                    <button id="AdminBtn">Archive Account</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
-                        <button id="AdminBtn">ARCHIVE ACCOUNT</button>
-                    </div>
 
-                    <div id="AdminModal" class="modal hidden fixed z-10 pt-28 top-0 left-0 w-full h-full overflow-auto bg-black bg-black/[0.4]">
+                    <div id="AdminModal" class="modal hidden fixed z-10 pt-28 top-0 ml-[150px] mt-[150px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
                         <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
                             <form action="{{ route('accounts.destroy', Auth::user()->id) }}"method="POST">
                                 @csrf
                                 @method('DELETE')
 
-                                <span class="close font-deep-green float-right text-xl font-bold hover:bg-black hover:cursor-pointer">&times;</span>
+                                <span class="close font-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
                                 <div class="input-area">
                                     <input type="hidden" name="userID" value="{{$user->id}}">
 
-                                    <label for="reason">Reason for Archiving Account</label>
-                                    <input type="text" name="reason" class="form-control">
+                                    <label for="reason" class="font-robotocondensed text-[28px] text-deep-green" >Reason for Archiving Account</label>
+                                    <input type="text" name="reason" class="block mt-4 w-full h-[100px] bg-dirty-white" >
                                 </div>
                                 <x-button class="text-base mt-8 bg-deep-green text-dirty-white border-0 w-60 l-12"> 
                                     <div class="m-auto">                
@@ -129,7 +125,7 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-page-layout>
 
 
 <script>

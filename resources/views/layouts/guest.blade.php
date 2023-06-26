@@ -26,25 +26,14 @@
             {{ $slot }}
         </div>
 
-        <script>
-            $(document).ready(function(){
-                
-                function generatePassword(){
-                    let charset = document.getElementById('lastname').value;
-                    let password = "poblacion";
-                    password += charset;
-                    return password;
-                }
 
-                // sets password input fields
-                $('.generate-password').on('click',function(){
-                    let password = generatePassword();
-
-                    $('#password').val(password);
-                    $('#password_confirmation').val(password);
-                });
-
+    <script>
+            $("document").ready(function()
+            {
+                setTimeout(function(){
+                    $("div.alert").remove();
+                }, 3000);
             });
-        </script>
+    </script>
     </body>
 </html>

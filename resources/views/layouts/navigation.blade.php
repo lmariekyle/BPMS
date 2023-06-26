@@ -21,7 +21,7 @@
     
         <svg class="mt-12 flex justify-center w-[1350px] bg-green h-[79px] border-b border-gray-100 clip-path-polygon-[_0%_0%,_0%_0%,_100%_0%,_95%_50%,_100%_100%,_0%_100%,_0_calc(100%_-_1rem)]">
             <div class="absolute flex-row -mt-[70px] px-4 py-3 items-center w-[1270px]">
-                <a href=""><i class="fa-solid fa-arrow-left text-dirty-white text-[24px]"></i></a>
+                <a href="{{ route('dashboard') }}"><i class="fa-solid fa-arrow-left text-dirty-white text-[24px]"></i></a>
                 <a href="" class="font-robotocondensed text-[24px] text-dirty-white px-10">ACCOUNTS</a>
                 <a href="" class="font-robotocondensed text-[24px] text-dirty-white px-10">REQUESTS</a>
             </div>   
@@ -30,7 +30,7 @@
    @endrole
 
 
-   @role('Barangay Captain')
+   @hasanyrole('Barangay Captain|Barangay Secretary')
     <nav x-data="{ open: false }">
     <div class="w-full">
         
@@ -41,16 +41,15 @@
 
         <svg class="mt-12 flex justify-center w-[1350px] bg-green h-[79px] border-b border-gray-100 clip-path-polygon-[_0%_0%,_0%_0%,_100%_0%,_95%_50%,_100%_100%,_0%_100%,_0_calc(100%_-_1rem)]">
             <div class="absolute flex-row -mt-[75px] px-4 py-3 items-center w-[1270px]">
-                <a href=""><i class="fa-solid fa-arrow-left text-dirty-white text-[24px]"></i></a>
-                <a href="" class="font-robotocondensed text-[24px] text-dirty-white px-10">HOME</a>
+                <a href="{{ route('dashboard') }}"><i class="fa-solid fa-arrow-left text-dirty-white text-[24px]"></i></a>
+                <a href="{{ route('dashboard') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">HOME</a>
                 <a href="" class="font-robotocondensed text-[24px] text-dirty-white px-10">SERVICES</a>
-                <a href="{{ route('bhw') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">BHW</a>
                 <a href="{{ route('bhw') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">BHW</a>
                 <a href=""><i class="fa-solid fa-circle-user text-dirty-white text-[40px] ml-[680px]"></i></a>
             </div>   
         </svg>
     </div>
-    @endrole
+    @endhasanyrole
     @role('User')
     <nav x-data="{ open: false }">
     <div class="w-full">

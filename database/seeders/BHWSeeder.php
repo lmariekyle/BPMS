@@ -23,20 +23,12 @@ class BHWSeeder extends Seeder
             'houseNumber' => '2'
         ]);
         
-        Resident::create([
-            'firstName' => 'Miles',
-            'middleName' => 'Davis',
-            'lastName' => 'Morales',
-            'dateOfBirth' => '2000-01-01',
-            'contactNumber' => '09876543211',
-            'email' => 'morales@gmail.com',
-            'gender' => 'Male',
-            'maritalStatus' => 'Single',
-        ]);
+        //MILES//
         ResidentList::create([
             'residentID'=>'2',
             'houseID'=>'2'
         ]);
+
         User::create([
             'residentID' => '2',
             'sitioID' => '2',
@@ -51,16 +43,7 @@ class BHWSeeder extends Seeder
         ])->assignRole('Barangay Health Worker');
 
         
-        Resident::create([
-            'firstName' => 'Gwen',
-            'middleName' => 'Maxine',
-            'lastName' => 'Stacy',
-            'dateOfBirth' => '2000-01-01',
-            'contactNumber' => '09876543212',
-            'email' => 'stacy@gmail.com',
-            'gender' => 'Feale',
-            'maritalStatus' => 'Single',
-        ]);
+        //GWEN//
         ResidentList::create([
             'residentID'=>'3',
             'houseID'=>'2'

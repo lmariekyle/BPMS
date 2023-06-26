@@ -7,7 +7,7 @@
 
     <div class="pt-10 pb-14">
         <div class="max-w-max max-h-max sm:px-6 lg:px-8">
-            <div class="">
+        <div class="">
                 <div class="">
                     <div class="max-h-[837px] h-[837px] max-w-[1178px] w-[1178px] mt-8 ml-14 p-14 border rounded bg-dirty-white font-roboto">
                         <div class="relative">

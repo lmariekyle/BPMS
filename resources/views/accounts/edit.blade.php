@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-page-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Account Update') }}
@@ -12,11 +12,14 @@
                     
                     
                     @role('Admin')
-                    <div class="max-w-xs max-h-12 w-96 h-12 text-center">
+                    <div class="max-w-full max-h-12 w-full h-12 text-center flex justify-start">
                         <a href="{{ route('accounts.show', $user->id) }}" class="float-left mt-4">
                             <i class="fa-sharp fa-solid fa-arrow-left text-3xl" style="color:#fdffee;"></i>
                         </a>
-                        <p class="font-robotocondensed font-bold text-dirty-white text-5xl">Update Account</p>
+                        <p class="font-robotocondensed font-bold text-dirty-white text-5xl ml-5">Update Account</p>
+                        <div class="ml-12 mt-3">
+                            @include('components.flash')
+                        </div>
                     </div>
                     <form method="POST" action="{{ route('accounts.update', Auth::user()->id) }}">
                         @csrf
@@ -119,4 +122,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-page-layout>

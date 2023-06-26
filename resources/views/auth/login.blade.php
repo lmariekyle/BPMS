@@ -1,26 +1,21 @@
-<!---<div class="bg-olive-green text-center pt-5">
-        
-</div>
--->
 <x-guest-layout>
     <x-auth-card>
-        <x-slot name="logo">
-            <div class="mt-8 absolute w-[300px] h-[300px] rounded-full bg-dirty-white">
+        
+            <div class="mb-4 absolute ml-[150px] w-[300px] h-[300px] rounded-full bg-dirty-white border-2 flex justify-center items-center">
                 <img src="{{ asset('images/PoblacionDalLogo.png') }}" alt="">
             </div>
-        </x-slot>
+        
 
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
         <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />  
         <div class="bg-dirty-white">
             <form method="POST" action="{{ route('login') }}" class="mt-28 bg-green z-0 w-[594px] l-[594px]">
                 @csrf
 
                 <p class="font-dancingscript text-8xl text-dirty-white text-center pt-52">Welcome</p>
-
+                <x-auth-validation-errors class="mb-2 ml-12" :errors="$errors" />  
                 <div class="ml-12">
                     <!-- Email Address -->
                     <div class="mt-3">
@@ -55,7 +50,7 @@
                     </a>
                 @endif
             </div>
-            <div class="object-center justify-end pt-7 z-50 absolute left-[557px] top-[990px] pb-12">
+            <div class="object-center justify-end z-50 absolute -mt-6 ml-[170px] pb-12">
                 <x-button class="w-60 h-12 bg-deep-green text-dirty-white font-roboto border-0 m-auto">
                     <div class="text-2xl m-auto">
                     {{ __('LOGIN') }}

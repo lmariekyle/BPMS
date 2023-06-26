@@ -19,25 +19,36 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     </head>
-    <body class=" bg-dirty-white font-sans antialiased">
-        <div class="min-h-screen bg-dirty-white">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            <!-- <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header> -->
-
+    <body class=" bg-green font-sans antialiased">
+        <div class="min-h-screen bg-green">
             <!-- Page Content -->
             <main>
-               
+                <!-- messages -->
                 {{ $slot }}
             </main>
         </div>
 
         <script>
+
+            $(document).ready(function(){
+                
+                function generatePassword(){
+                    let charset = document.getElementById('lastname').value;
+                    let password = "poblacion";
+                    password += charset;
+                    return password;
+                }
+
+                // sets password input fields
+                $('.generate-password').on('click',function(){
+                    let password = generatePassword();
+
+                    $('#password').val(password);
+                    $('#password_confirmation').val(password);
+                });
+
+            }); 
+
             $("document").ready(function()
             {
                 setTimeout(function(){

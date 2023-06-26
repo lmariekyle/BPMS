@@ -18,6 +18,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountMail;
+use Illuminate\Support\Facades\Redirect;
 
 class ResidentUserController extends Controller
 {
@@ -84,7 +85,7 @@ class ResidentUserController extends Controller
                         ]);
                         $user->assignRole($request->userlevel); //assign account role as User
                         event(new Registered($user)); //send email verification
-                        return view('welcome')->with('success','Email for registration has been sent!');
+                        return Redirect::back()->with('success','Email for registration has been sent!');
                 }
             }
         }

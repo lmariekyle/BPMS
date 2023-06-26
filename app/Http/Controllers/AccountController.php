@@ -50,7 +50,6 @@ class AccountController extends Controller
         $personalInfo->sitio=$sitio->sitioName;
         $personalInfo->barangay=$barangay->barangayName;
 
-
         return view('accounts.show',compact('user','personalInfo'));
     }
 
@@ -107,7 +106,7 @@ class AccountController extends Controller
         $personalInfo->sitio=$sitio->sitioName;
         $personalInfo->barangay=$barangay->barangayName;
 
-        // return view('accounts.show',compact('user','personalInfo'))->with('success','Account has been Updated!');
+        // return redirect('accounts.show',compact('user','personalInfo'))->with('success','Account has been Updated!');
         return Redirect::back()->with('success','Account has been Updated!');
     }
 

@@ -7,8 +7,11 @@
 
     <div class="bg-dirty-white w-[1400px] h-[813px] ml-8 mt-16 px-5 py-5 rounded-[48px] border-2 border-deep-green flex flex-row">
 
-        <a href=""><i class="fa-solid fa-arrow-left text-deep-green mt-6 text-[24px]"></i></a>
+        <a href="{{route('bhw')}}"><i class="fa-solid fa-arrow-left text-deep-green mt-6 text-[24px]"></i></a>
         <p class="text-deep-green font-robotocondensed ml-10 font-bold text-[48px] absolute text-start">SITIO ASSIGNMENT</p>
+        <div class="ml-[420px] mt-3">
+                            @include('components.flash')
+        </div>
         
                     <!--ACTUAL TABLE -->
 
@@ -50,8 +53,8 @@
                 </tbody>
             </table>
                      <!-- <a href="/submit" class="button absolute bottom-0 h-8 w-max text-center mt-3 ml-[550px]">Approve Assignments</a> -->
-                <div class="absolute bottom-0 h-8 w-max text-center mt-3 ml-[550px]">
-                    <x-button type="submit">
+                <div class="absolute bottom-0 h-8 w-max text-center">
+                    <x-button type="submit" class="mt-10 ml-[10px] text-dirty-white">
                         Approve Assignments
                     </x-button>
                 </div>
