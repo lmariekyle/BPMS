@@ -36,7 +36,7 @@ Route::group(['middleware'=>'auth'],function (){
     Route::resource('assign', \App\Http\Controllers\SitioAssignmentController::class);
     Route::get('index', [AccountController::class, 'index'])->name('accounts');
     Route::resource('accounts', \App\Http\Controllers\AccountController::class);
-    
+    Route::get('search', [AccountController::class, 'search'])->name('search');
     
 });
 
