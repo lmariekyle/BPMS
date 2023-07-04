@@ -34,6 +34,8 @@
         <p class="font-robotocondensed  mt-6 text-[28px] text-deep-green  w-max h-max px-4 py-2 text-center uppercase font-extrabold">Your Request Has Been Sent</p>
         <p class="font-robotocondensed  text-[18px] text-deep-green px-4  text-center indent-4 break-normal w-max h-max">PLEASE DO CHECK YOUR EMAIL ADDRESS </p>
         <p class="font-robotocondensed  text-[18px] text-deep-green px-4  text-center uppercase indent-4 break-normal w-max h-max font-extrabold">FOR UPDATES REGARDING THE STATUS OF YOUR REQUEST.</p> 
+        <br>
+        <a href="/" class="font-robotocondensed  text-[18px] text-deep-green px-4  text-center indent-4 break-normal w-max h-max">Please click here to return to the homepage</a>
     </div>
     
     
