@@ -48,30 +48,34 @@
         <div class="bg-dirty-white w-[1400px] h-max absolute mt-20 -ml-5 border shadow-inner">
             <!--TABLE HEADER-->
             <div class="bg-green w-[1400px] h-[48px] absolute flex flex-row border border-white shadow-lg">
-                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-7">NAME</p>
-                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-52">ACCOUNT TYPE</p>
-                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-52">LAST UPDATED</p>
-                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-52">ACCOUNT STATUS</p>
-                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-44">ACTIONS</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-6">ID</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-40">NAME</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-60">ACCOUNT TYPE</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-44">ACCOUNT STATUS</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">LAST UPDATED</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">ACTIONS</p>
             </div>
 
             <table class="mt-10">
                 <tbody>
                 @foreach ($accounts as $account)
                      <tr class="border shadow-md">
-                        <td class="px-6 py-4 w-[300px] font-robotocondensed text-deep-green text-[16px] font-bold">
-                            {{ $account->lastName }}, {{ $account->firstName }} {{ $account->middleName[0] }}
+                        <td class="px-6 py-4 w-[295px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                            {{ $account->id }}
                         </td>
-                        <td class="px-6 py-4  w-[400px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                        <td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                            {{ $account->lastName }}, {{ $account->firstName }} {{ $account->middleName[0] }}.
+                        </td>
+                        <td class="px-6 py-4  w-[490px] font-robotocondensed text-deep-green text-[16px] font-bold">
                             {{ $account->userLevel }}
                         </td>
-                        <td class="px-6 py-4  w-[440px] font-robotocondensed text-deep-green text-[16px] font-bold">
-                            {{ $account->updated_at->format('Y-m-d') }}
-                        </td>
-                        <td class="px-6 py-4 w-[380px] font-robotocondensed text-deep-green text-[16px] font-bold ">
+                        <td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold ">
                             {{ $account->userStatus}}
                         </td>
-                        <td class="px-6 py-4 w-[205px]">
+                        <td class="px-6 py-4  w-[450px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                            {{ $account->updated_at->format('Y-m-d') }}
+                        </td>
+                        <td class="px-6 py-4 w-[190px]">
                             <a href="{{ route('accounts.show', $account->id) }}" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
                         </td>
                     </tr>

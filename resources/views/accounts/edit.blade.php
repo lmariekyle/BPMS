@@ -54,7 +54,7 @@
                                     <div class="">
                                         <label for="barangay" class="font-roboto">Barangay</label>
                                         <br>
-                                        <input type="text" name="barangay" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$personalInfo->barangay}}">
+                                        <input type="text" name="barangay" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$personalInfo->barangay}}" readonly>
                                     </div>
                                 </div>
                             </div>
