@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Sitio;
 use App\Models\Resident;
+use App\Models\Barangay;
 use App\Models\Household;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -97,9 +98,17 @@ class ResidentUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-       //
+        $id = Auth::id();
+        $user=User::where('id',$id)->first();
+        $personalInfo=Resident::where('id',$user->residentID)->first();
+        $sitio=Sitio::where('id',$user->sitioID)->first();
+        $barangay=Barangay::where('id',$sitio->barangayID)->first();
+        $personalInfo->sitio=$sitio->sitioName;
+        $personalInfo->barangay=$barangay->barangayName;
+
+        return view('auth.profile',compact('user','personalInfo'));
     }
 
     /**

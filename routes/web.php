@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ResidentUserController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BHWController;
@@ -30,6 +31,8 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('welcome', function () {
         return view('welcome');
     })->name('welcome');
+    Route::get('profile', [RegisteredUserController::class, 'index'])->name('profile');
+    Route::get('profile', [ResidentUserController::class, 'show'])->name('profile');
     Route::resource('bhw', \App\Http\Controllers\BHWController::class);
     Route::get('bhw', [BHWController::class, 'index'])->name('bhw');
     Route::get('bhw', [BHWController::class, 'index'])->name('bhw');

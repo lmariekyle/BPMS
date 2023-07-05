@@ -88,10 +88,9 @@
                                     <br>
                                     <select id="userLevel" name="userLevel" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green">
                                         <option value="{{$user->userLevel}}">{{$user->userLevel}}</option>
-                                        <option value="{{'Admin'}}">{{'Admin'}}</option>
-                                        <option value="{{'Barangay Captain'}}">{{'Barangay Captain'}}</option>
-                                        <option value="{{'Barangay Secretary'}}">{{'Barangay Secretary'}}</option>
-                                        <option value="{{'Barangay Health Worker'}}">{{'Barangay Health Worker'}}</option>
+                                        @foreach($roles as $role)
+                                        <option value="{{$role->name}}">{{$role->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

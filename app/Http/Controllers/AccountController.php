@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
@@ -62,7 +63,7 @@ class AccountController extends Controller
     public function edit($id)
     {
         $sitios= Sitio::where('barangayID','2')->get();
-
+        $roles = Role::where('id', '<', 4)->paginate(5);
         $user=User::where('id',$id)->first();
         $personalInfo=Resident::where('id',$user->residentID)->first();
         $sitio=Sitio::where('id',$user->sitioID)->first();
@@ -70,7 +71,7 @@ class AccountController extends Controller
         $personalInfo->sitio=$sitio->sitioName;
         $personalInfo->barangay=$barangay->barangayName;
 
-        return view('accounts.edit', compact('user','personalInfo', 'sitios'));
+        return view('accounts.edit', compact('user','personalInfo', 'sitios','roles'));
     }
 
     /**
@@ -89,7 +90,8 @@ class AccountController extends Controller
         $user->userLevel=$request->userLevel;
         $user->revisedBy=$id;
         $user->sitioID=$request->sitio;
-
+    
+        $user->assignRole($request->userLevel);
         $user->save();
 
         $resident=Resident::where('id',$user->residentID)->first();

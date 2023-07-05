@@ -73,7 +73,9 @@
             </div>
 
             <p class="font-robotocondensed mt-16 text-4xl p-3 text-deep-green text-center">BARANGAY POBLACION,DALAGUETE 2020 CENSUS DATA</p>
-
+            @role('Barangay Secretary')
+            <p class="font-robotocondensed mt-16 text-4xl p-3 text-deep-green text-center">BarangaySecretary</p>
+            @endrole
             <div class="mt-0.5 ml-60 grid grid-cols-2 justify-center p-3">
 
                 <div class="bg-dirty-white mt-16 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
