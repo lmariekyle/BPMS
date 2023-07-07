@@ -38,6 +38,8 @@
         <p class="font-robotocondensed  text-[18px] text-deep-green px-4  text-center indent-4 break-normal w-max h-max">Please contact your assigned Barangay Health Worker in your respective Sitio.</p>
         <p class="font-robotocondensed  text-[18px] text-deep-green px-4  text-center indent-4 break-normal w-max h-max">Or contact our Barangay Secretary through Email provided below</p>  
         <h1 class="font-robotocondensed text-[20px] text-deep-green text-left font-extrabold"><i class="fa-regular fa-envelope fa-sm "></i> dbarangaypoblacion@gmail.com</h1>
+        <br>
+        <a href="/" class="font-robotocondensed  text-[18px] text-deep-green px-4  text-center indent-4 break-normal w-max h-max">Please click here to return to the homepage</a>
     </div>
     
     

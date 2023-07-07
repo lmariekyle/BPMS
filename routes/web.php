@@ -36,10 +36,11 @@ Route::group(['middleware'=>'auth'],function (){
     Route::resource('bhw', \App\Http\Controllers\BHWController::class);
     Route::get('bhw', [BHWController::class, 'index'])->name('bhw');
     Route::get('bhw', [BHWController::class, 'index'])->name('bhw');
+    Route::get('bhwSearch', [BHWController::class, 'search'])->name('bhwSearch');
     Route::resource('assign', \App\Http\Controllers\SitioAssignmentController::class);
     Route::get('index', [AccountController::class, 'index'])->name('accounts');
     Route::resource('accounts', \App\Http\Controllers\AccountController::class);
-    
+    Route::get('search', [AccountController::class, 'search'])->name('search');
     
 });
 
