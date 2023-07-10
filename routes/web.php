@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResidentUserController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BHWController;
+use App\Http\Controllers\StatisticsController;
+use App\Http\Controllers\SitioCountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +18,7 @@ use App\Http\Controllers\BHWController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [StatisticsController::class, 'index']);
 
 Route::middleware('guest')->group(function () {
     Route::get('create', [ResidentUserController::class, 'create'])->name('create');
@@ -37,7 +37,9 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('index', [AccountController::class, 'index'])->name('accounts');
     Route::resource('accounts', \App\Http\Controllers\AccountController::class);
     Route::get('search', [AccountController::class, 'search'])->name('search');
-    
+    Route::resource('welcome', \App\Http\Controllers\StatisticsController::class);
+    Route::get('welcome', [StatisticsController::class, 'index'])->name('statistics');
+    Route::get('welcome', [StatisticsController::class, 'index'])->name('chartdata');
 });
 
 

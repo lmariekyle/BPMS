@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Statistics extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'year',
+        'quarter',
+        'totalHouseholdsSitio',
+        'totalResidentsSitio',
+        'totalHouseholdsBarangay',
+        'totalResidentsBarangay',
+        'revisedBy',
+    ];
 }

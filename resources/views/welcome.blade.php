@@ -8,6 +8,36 @@
 
         <script src="https://kit.fontawesome.com/c0346081e5.js" crossorigin="anonymous"></script>
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <!-- Pie Chart Script -->
+        <script type="text/javascript">
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+
+                var data = google.visualization.arrayToDataTable([
+                ['Sitio', 'Residents'],
+                <?php echo $chartdata ?>
+                ]);
+
+                var options = {
+                    legend: 'none',
+                    width: '100%',
+                    height: '100%',
+                    pieSliceText: 'label',
+                    backgroundColor: 'none',
+                    chartArea: {
+                        height: "95%",
+                        width: "95%"
+                    }
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+                chart.draw(data, options);
+            }
+        </script>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,28 +78,45 @@
 
     <!-- welcome statistics conten -->
     <div class="p-3 ml-[18rem] -mt-56 h-max w-[60rem] bg-dirty-white border-2 border-deep-green rounded-xl shadow-3xl">
-        <p class="font-robotocondensed mt-12 text-4xl p-3 text-deep-green text-center">BARANGAY POBLACION,DALAGUETE 2020 CENSUS DATA</p>
+        <p class="font-robotocondensed mt-12 text-4xl p-3 text-deep-green text-center">BARANGAY POBLACION,DALAGUETE {{ date("Y") }} CENSUS DATA</p>
     
         <div class="mt-0.5 grid grid-rows-2 grid-flow-col gap-4 justify-center ">
 
             <div class="bg-dirty-white mt-12 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
-                <div class="-mt-[20px] mx-12 h-12 w-fit bg-olive-green border-2 border-green rounded-xl px-3 py-3">
+                <div class="-mt-[20px] mx-auto h-12 w-fit bg-olive-green border-2 border-green rounded-xl px-3 py-3">
                     <h1 class="font-robotocondensed text-base text-dirty-white text-center">TOTAL RESIDENTS PER SITIO</h1>
                 </div>
+                <div class="w-[300px] l-[300px] mt-2 mx-auto" id="piechart" style=""></div>
             </div>
 
             <div class="bg-dirty-white mt-8 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
-                 <h1 class="font-robotocondensed text-base text-deep-green text-center">TOTAL RESIDENTS</h1>
+                <h1 class="mt-4 font-bold font-robotocondensed text-2xl text-deep-green text-center">TOTAL RESIDENTS <br> AS OF {{ date("Y") }}</h1>
+                <div class="bg-green w-[250px] h-[75px] m-auto flex items-center justify-center">
+                    @foreach ($statistics as $statistic)
+                    @if($statistic->year==date("Y"))
+                        <p class="font-roboto text-center font-black text-6xl text-dirty-white">{{ $statistic->totalResidentsBarangay ?? 0 }}</p>
+                    @endif
+                    @endforeach
+                </div>
+                <h1 class="mt-1 font-bold font-robotocondensed text-2xl text-deep-green text-center">POBLACION <br> DALAGUETE, CEBU</h1>
             </div>
 
             <div class="bg-dirty-white mt-12 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
-                <div class="-mt-[20px] mx-12 h-12 w-max bg-olive-green border-2 border-green rounded-xl px-3 py-3">
+                <div class="-mt-[20px] mx-auto h-12 w-max bg-olive-green border-2 border-green rounded-xl px-3 py-3">
                     <h1 class="font-robotocondensed text-base text-dirty-white text-center">TOTAL HOUSEHOLDS PER SITIO</h1>
                 </div>
             </div>
 
             <div class="bg-dirty-white mt-8 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
-                    <h1 class="font-robotocondensed text-base text-deep-green text-center">TOTAL HOUSEHOLDS</h1>
+                <h1 class="mt-4 font-bold font-robotocondensed text-2xl text-deep-green text-center">TOTAL HOUSEHOLDS <br> AS OF {{ date("Y") }}</h1>
+                <div class="bg-green w-[250px] h-[75px] m-auto flex items-center justify-center">
+                    @foreach ($statistics as $statistic)
+                    @if($statistic->year==date("Y"))
+                        <p class="font-roboto text-center text-6xl font-black text-dirty-white">{{ $statistic->totalHouseholdsBarangay ?? 0 }}</p>
+                    @endif
+                    @endforeach
+                </div>
+                <h1 class="mt-1 font-bold font-robotocondensed text-2xl text-deep-green text-center">POBLACION <br> DALAGUETE, CEBU</h1>
             </div>
 
         </div>
