@@ -1386,9 +1386,6 @@ select{
   width: -moz-max-content;
   width: max-content;
 }
-.w-\[400px\]{
-  width: 400px;
-}
 .min-w-0{
   min-width: 0px;
 }
