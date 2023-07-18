@@ -20,6 +20,7 @@ use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountMail;
 use Illuminate\Support\Facades\Redirect;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class ResidentUserController extends Controller
 {
@@ -57,7 +58,18 @@ class ResidentUserController extends Controller
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'profileImage' => ['image','mimes:jpeg,png,jpg,gif,svg','max:2048'],
         ]);
+
+        $residentId = IdGenerator::generate(['table' => 'residents','field'=>'id', 'length' => 9, 'prefix' =>'RES-']);
+        $userId = IdGenerator::generate(['table' => 'users','field'=>'id', 'length' => 6, 'prefix' =>date('y')]);
+        if ($request->hasFile('profileImage')){
+            $image_name = time().'.'.$request->profileImage->getClientOriginalExtension();
+            $request->profileImage->move(public_path('users'),$image_name);
+            $path="users/".$image_name;
+        }else{
+            $path="users/default.jpg";
+        }
 
         
         $check_res = DB::table('residents')
@@ -76,7 +88,8 @@ class ResidentUserController extends Controller
                     && $verify->lastName == $request->lastname && $verify->dateOfBirth == $request->dateOfBirth){
                         $user= User::create([
                             'residentID' => $verify->id,
-                            'idNumber' => $request->idNumber,
+                            'idNumber' => $userId,
+                            'profileImage' => $path,
                             'userlevel' => $request->userlevel,
                             'email' => $request->email,
                             'sitioID' => $request->sitio,

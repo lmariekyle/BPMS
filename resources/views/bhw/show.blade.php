@@ -12,7 +12,9 @@
                     <div class="max-h-[837px] h-[837px] max-w-[1178px] w-[1178px] mt-8 ml-14 p-14 border rounded bg-dirty-white font-roboto">
                         <div class="relative">
                             <div class="mr-14 float-left max-h-[324px] max-w-[273px] place-content-center bg-green h-[324px] w-[273px]">
-                                <!--Photo here-->
+                                <div>
+                                    <img src="/{{$user->profileImage}}" class="max-h-[700px] h-[324px] w-[273px]" alt="Profile Image">
+                                </div>
                             </div>
 
                             <div class="pt-9 pb-10 max-h-[324px] max-w-[725px] h-[324px] w-[725px] border border-green text-2xl float-left">

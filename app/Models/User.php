@@ -25,6 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'residentID',
         'idNumber',
+        'profileImage',
         'userlevel',
         'contactNumber',
         'barangay',
@@ -34,6 +35,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'assignedSitioID',
         'revisedBy',
     ];
+
+    // public $incrementing = false;
 
     /**
      * The attributes that should be hidden for serialization.

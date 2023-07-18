@@ -19,8 +19,9 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-        <form method="POST" action="{{ route('create') }}" class="font-robotocondensed">
+        <form method="POST" action="{{ route('create') }}" class="font-robotocondensed" enctype="multipart/form-data">
             @csrf
+
             <div class="absolute left-36 top-[143px] text-2xl">
                 <!-- Name -->
                 <div>
@@ -28,6 +29,8 @@
 
                     <x-input id="idNumber" class="mt-1 w-full hidden" type="text" name="idNumber" :value="00000" readonly="readonly" required autofocus />
                 </div>
+
+                
 
                 <div>
                     <x-label for="firstname" :value="__('First Name')" class="font-roboto" style="color:white;"/>
@@ -105,6 +108,14 @@
                         <x-input id="password_confirmation" class="form-control block mb-4 w-[500px] h-[42px] bg-dirty-white"
                                         type="password"
                                         name="password_confirmation" required />
+                    </div>
+                </div>
+
+                <div class="w-[13rem] h-[8rem]">
+                    <!-- <i class="fa-solid fa-image text-[200px] text-dirty-white"></i> -->
+                    <x-label for="profileImage" :value="__('Profile Image')" class="font-roboto" style="color:white;"/>
+                    <div>
+                        <input id="profileImage" class="-mt-[5px] w-[15rem] h-[42px] px-2 py-2 text-center text-[14px] text-dirty-white file:w-[7rem] file:h-[42px]file:overflow-hidden file:bg-deep-green file:text-[14px] file:text-dirty-white file:font-robotocondensed file:cursor-pointer" type="file" name="profileImage"/>
                     </div>
                 </div>
                 <!-- 

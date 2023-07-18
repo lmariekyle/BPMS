@@ -20,6 +20,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountMail;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class RegisteredUserController extends Controller
 {
@@ -68,10 +69,26 @@ class RegisteredUserController extends Controller
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'profileImage' => ['image','mimes:jpeg,png,jpg,gif,svg','max:2048'],
         ]);
+        
+ 
 
+        $residentId = IdGenerator::generate(['table' => 'residents','field'=>'id', 'length' => 9, 'prefix' =>'RES-']);
+        // $image_name = time().'.'.$request->profileImage->extension();
+        // $request->profileImage->move(public_path('users'),$image_name);
+        // $path="users/".$image_name;
+
+        if ($request->hasFile('profileImage')){
+            $image_name = time().'.'.$request->profileImage->getClientOriginalExtension();
+            $request->profileImage->move(public_path('users'),$image_name);
+            $path="users/".$image_name;
+        }else{
+            $path="users/default.jpg";
+        }
 
         $resident = Resident::create([
+            'id'=> $residentId,
             'firstname' => $request->firstname,
             'middlename' => $request->middlename,
             'lastname' => $request->lastname,
@@ -80,8 +97,19 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
         ]);
 
+        if($request->userlevel == "Barangay Captain"){
+            $userId = IdGenerator::generate(['table' => 'users','field'=>'idNumber', 'length' => 6, 'prefix' =>'C-']);
+        }else if($request->userlevel == "Barangay Secretary"){
+            $userId = IdGenerator::generate(['table' => 'users','field'=>'idNumber', 'length' => 6, 'prefix' =>'S-']);
+        }else if($request->userlevel == "Barangay Health Worker"){
+            $userId = IdGenerator::generate(['table' => 'users','field'=>'idNumber', 'length' => 6, 'prefix' =>'B-']);
+        }else{
+            $userId = IdGenerator::generate(['table' => 'users','field'=>'idNumber', 'length' => 6, 'prefix' =>date('y')]);
+        };
+
         $resident->user()->create([
-            'idNumber' => $request->idNumber,
+            'idNumber' => $userId,
+            'profileImage' => $path,
             'userlevel' => $request->userlevel,
             'email' => $request->email,
             'sitioID' => $request->sitio,
@@ -90,6 +118,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password)
         ]);
         $resident->user->assignRole($request->userlevel);
+
 
         event(new Registered($resident->user));
 

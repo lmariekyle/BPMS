@@ -114,7 +114,7 @@
         @endhasanyrole
         
 
-        @role('User')
+        @hasanyrole('User|Barangay Health Worker')
             <div class="w-max h-max grid grid-rows-2 grid-flow-col gap-16 -ml-32 -mt-20 px-5 py-5 justify-between font-bold">
                 <div class="bg-dirty-white w-[472px] h-[421px] border">
                     <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border border-deep-green px-1 py-1 text-center">BARANGAY CERTIFICATE</p>
@@ -209,7 +209,7 @@
                     </x-responsive-nav-link>
                 </form>
         </div>
-        @endrole
+        @endhasanyrole
 
         </div>
     </div>

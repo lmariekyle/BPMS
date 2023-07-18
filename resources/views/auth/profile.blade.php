@@ -22,7 +22,7 @@
                     <div class="max-h-[837px] h-[837px] max-w-[1178px] w-[1178px] mt-8 ml-14 p-14 border rounded bg-dirty-white font-roboto">
                     <div class="relative">
                             <div class="mr-14 float-left max-h-[324px] max-w-[273px] place-content-center bg-green h-[324px] w-[273px]">
-                                <!--Photo here-->
+                                 <img src="/{{$user->profileImage}}" class="max-h-[324px] max-w-[273px] h-[324px] w-[273px]" alt="Profile Image">
                             </div>
                             <a href="{{ route('password.request') }}" class="absolute mt-[22rem] left-0 button w-[248px] h-[49px] text-dirty-white text-center px-1 py-2 text-[22px]">
                                             Change Password

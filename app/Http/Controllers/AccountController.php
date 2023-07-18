@@ -83,8 +83,26 @@ class AccountController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $request->validate([
+            'profileImage' => ['image','mimes:jpeg,png,jpg,gif,svg','max:2048'],
+        ]);
+
+        // $image_name=$request->file('profileImage')->getClientOriginalName();
+        // dd($image_name);
+
         $user=User::where('id', $request->id)->first();
-        $user->idNumber=$request->idNumber;
+
+        if ($request->hasFile('profileImage')){
+            // unlink($user->profileImage);
+            $image_name = time().'.'.$request->profileImage->getClientOriginalExtension();
+            $request->profileImage->move(public_path('users'),$image_name);
+            $path="users/".$image_name;
+        }else{
+            $path=$user->profileImage;
+        }
+        
+        $user->profileImage=$path;
         $user->contactNumber=$request->contactNumber;
         $user->email=$request->email;
         $user->userLevel=$request->userLevel;
@@ -112,6 +130,7 @@ class AccountController extends Controller
         return Redirect::back()->with('success','Account has been Updated!');
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -124,9 +143,10 @@ class AccountController extends Controller
 
         $user->reasonForArchive=$request->reason;
         $user->userStatus="Archived";
+        $user->isArchived=1;
         $user->archiveDate=Carbon::now();
 
-        $user->password=Hash::make('not active anymore'); /* temporary solution to 'deactivate' account*/
+        // $user->password=Hash::make('not active anymore'); /* temporary solution to 'deactivate' account*/
 
         $user->archivedBy=$id;
 
