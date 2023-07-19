@@ -22,19 +22,20 @@
 <body class="bg-dirty-white">
     <!-- header -->
     <div class="px-5 py-5 justify-center w-50 h-40 bg-olive-green"> 
-            <h1 class="font-dancingscript text-6xl text-dirty-white text-center">Municipality of Dalaguete</h1>
-            <h2 class="font-libre text-4xl p-3 text-dirty-white text-center">BARANGAY POBLACION</h2>
-
-
-        <div class= "mb-12 -mt-28 ml-8 w-64 h-64 rounded-full border-2 bg-dirty-white border-green flex justify-center items-center">
-        <img src="{{ asset('images/PoblacionDalLogo.png') }}" alt="">
-        </div>
+            <h1 class="font-dancingscript text-6xl text-dirty-white text-center -mt-3">Municipality of Dalaguete</h1>
+            <h2 class="font-libre text-4xl p-3 text-dirty-white text-center -mt-5">BARANGAY POBLACION</h2>
     </div>
        
 
     <!-- welcome statistics conten -->
     
-        <p class="font-robotocondensed mt-12 text-4xl p-3 text-deep-green text-center">Sorry you are not a registered resident in Barangay Poblacion!</p>
+    <div class="flex flex-col justify-center place-items-center ml-[400px] mt-[100px] w-max h-max">
+        <p class="font-robotocondensed mt-12 text-[58px] ml-5 text-dirty-white bg-green w-max h-max px-10 py-2 text-center font-extrabold">THANK YOU!</p>
+        <p class="font-robotocondensed  mt-6 text-[28px] text-deep-green  w-max h-max px-4 py-2 text-center uppercase font-extrabold">Your Request Has Been Sent</p>
+        <p class="font-robotocondensed  text-[18px] text-deep-green px-4  text-center indent-4 break-normal w-max h-max">PLEASE DO CHECK YOUR EMAIL ADDRESS </p>
+        <p class="font-robotocondensed  text-[18px] text-deep-green px-4  text-center uppercase indent-4 break-normal w-max h-max font-extrabold">FOR UPDATES REGARDING THE STATUS OF YOUR REQUEST.</p> 
+    </div>
+    
     
     
 </body>

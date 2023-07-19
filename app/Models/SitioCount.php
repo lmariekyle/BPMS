@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class SitioCount extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'sitioID',
+        'statID',
+        'genderGroup',
+        'ageGroup',
+        'residentCount',
+    ];
 }

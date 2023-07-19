@@ -30,18 +30,28 @@ module.exports = {
                 '7xl': '80px',
                 '8xl': '96px',
             },
-        },
-        colors: {
-            'dirty-white': '#fdffee',
-            'deep-green': '#414833',
-            'olive-green': '#709775',
-            'green': '#64965e',
-        },
-        backgroundColor: {
-            'dirty-white': '#fdffee',
-            'deep-green': '#414833',
-            'olive-green': '#709775',
-            'green': '#64965e',
+            colors: {
+                'dirty-white': '#fdffee',
+                'deep-green': '#414833',
+                'olive-green': '#709775',
+                'green': '#64965e',
+            },
+            backgroundColor: {
+                'dirty-white': '#fdffee',
+                'deep-green': '#414833',
+                'olive-green': '#709775',
+                'green': '#64965e',
+            },
+            screens: {
+                'tablet': '640px',
+                // => @media (min-width: 640px) { ... }
+
+                'laptop': '1024px',
+                // => @media (min-width: 1024px) { ... }
+
+                'desktop': '1280px',
+                // => @media (min-width: 1280px) { ... }
+            }
         },
     },
 

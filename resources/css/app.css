@@ -6,6 +6,6 @@
 
 @layer components {
     .button {
-        @apply px-4 py-2 font-roboto tracking-wide rounded-md shadow-sm bg-deep-green text-dirty-white text-[18px];
+        @apply px-2 font-robotocondensed tracking-wide rounded-md shadow-sm bg-deep-green text-dirty-white text-[18px];
     }
 }

@@ -18,6 +18,5 @@ class ResidentListSeeder extends Seeder
             'residentID'=>'1',
             'houseID'=>'1'
         ]);
-       
     }
 }

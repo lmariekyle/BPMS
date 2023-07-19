@@ -1,14 +1,14 @@
-<div class="bg-green h-[1024px] w-[1440px]">    
-    <x-guest-layout>
-        <x-auth-card>
-            <x-slot name="logo">
-                <div class="absolute left-[33px] top-[49px] flex">
+    <x-page-layout>
+                <div class="absolute left-[33px] top-[49px] flex justify-start">
                     <a href="/accounts">
                         <i class="fa-sharp fa-solid fa-arrow-left text-3xl mt-4" style="color:#fdffee;"></i>
                     </a>
                     <p class="font-robotocondensed font-bold ml-[20px] text-dirty-white text-5xl">Account Registration</p>
+                    <div class="ml-12 mt-3">
+                            @include('components.flash')
+                    </div>
                 </div>
-            </x-slot>
+            
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -113,7 +113,7 @@
                 </div>
                 
                 <div class="text-center">
-                <x-button class="text-base mt-8 bg-deep-green text-dirty-white border-0 w-60 l-12"> 
+                <x-button class="text-base mt-8 bg-deep-green text-dirty-white border-0 l-12"> 
                     <div class="generate-password">                
                         {{ __('Create Account') }}
                     </div>
@@ -143,9 +143,5 @@
 
                 });
 
-
-
             </script>
-        </x-auth-card>
-    </x-guest-layout>
-</div>
+</x-page-layout>
