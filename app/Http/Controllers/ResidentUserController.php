@@ -61,8 +61,11 @@ class ResidentUserController extends Controller
             'profileImage' => ['image','mimes:jpeg,png,jpg,gif,svg','max:2048'],
         ]);
 
+        //Auto Generate ID 
         $residentId = IdGenerator::generate(['table' => 'residents','field'=>'id', 'length' => 9, 'prefix' =>'RES-']);
         $userId = IdGenerator::generate(['table' => 'users','field'=>'id', 'length' => 6, 'prefix' =>date('y')]);
+
+        //Image Upload 
         if ($request->hasFile('profileImage')){
             $image_name = time().'.'.$request->profileImage->getClientOriginalExtension();
             $request->profileImage->move(public_path('users'),$image_name);
@@ -71,7 +74,6 @@ class ResidentUserController extends Controller
             $path="users/default.jpg";
         }
 
-        
         $check_res = DB::table('residents')
                 ->where('firstName', '=', $request->firstname)
                 ->where('middleName', '=', $request->middlename)

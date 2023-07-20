@@ -75,6 +75,7 @@ class RegisteredUserController extends Controller
  
 
         $residentId = IdGenerator::generate(['table' => 'residents','field'=>'id', 'length' => 9, 'prefix' =>'RES-']);
+        
         // $image_name = time().'.'.$request->profileImage->extension();
         // $request->profileImage->move(public_path('users'),$image_name);
         // $path="users/".$image_name;
