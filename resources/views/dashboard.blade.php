@@ -44,35 +44,46 @@
         @hasanyrole('Barangay Captain|Barangay Secretary')
         <div class="p-3 -mt-20 -ml-24 h-max w-[1342px] bg-dirty-white border-2 border-deep-green rounded-xl shadow-3xl ">
 
+            <form action="" method="GET">
             <div class=" flex flex-row px-4 py-3 items-center justify-between h-16 w-[1250px] ml-3 mt-3">
 
                 <div class="bg-transparent h-16 w-40">
                     <x-label for="sitio" :value="__('Sitio')" />
                     <select id="sitio" class="rounded-lg border-2 mt-1 w-full bg-dirty-white" name="sitio" :value="old('sitio')" required autofocus>
-                        <option value="sitioName"></option>
+                            <option value="NULL">None</option>
+                        @foreach ($sitioList as $sitio)
+                            <option value="{{$sitio->id}}" class="bg-dirty-white">{{ $sitio->sitioName }}</option>
+                        @endforeach
                     </select>
                 </div>
 
                 <div class="bg-transparent h-16 w-40">
                     <x-label for="gender" :value="__('Gender')" />
                     <select id="gender" class="rounded-lg border-2 mt-1 w-full bg-dirty-white" name="gender" :value="old('gender')" required autofocus>
-                        <option value="genderName"></option>
+                            <option value="NULL">None</option>
+                        @foreach ($gender as $gender)
+                            <option value="{{$gender->genderGroup}}" class="bg-dirty-white">{{ $gender->genderGroup }}</option>
+                        @endforeach
                     </select>
                 </div>
 
                 <div class="bg-transparent h-16 w-max">
                     <x-label for="ageclass" :value="__('Age Classification')" />
                     <select id="ageclass" class="rounded-lg border-2 mt-1 w-40 bg-dirty-white" name="ageclass" :value="old('ageclass')" required autofocus>
-                        <option value="ageclassName"></option>
+                            <option value="NULL">None</option>
+                        @foreach ($ageClassification as $age)
+                            <option value="{{$age->ageGroup}}" class="bg-dirty-white">{{ $age->ageGroup }}</option>
+                        @endforeach
                     </select>
                 </div>
 
-                <a href=""><i class="fa-solid fa-filter text-deep-green text-[28px] ml-96"></i></a>
-                <a href=""><i class="fa-solid fa-print text-deep-green text-[28px]"></i></a>
+                <button type="submit"><i class="fa-solid fa-filter text-deep-green text-[28px] ml-96"></i></button>
+                <button><i class="fa-solid fa-print text-deep-green text-[28px]"></i></a>
 
             </div>
+            </form>
 
-            <p class="font-robotocondensed mt-16 text-4xl p-3 text-deep-green text-center">BARANGAY POBLACION,DALAGUETE 2020 CENSUS DATA</p>
+            <p class="font-robotocondensed mt-16 text-4xl p-3 text-deep-green text-center">BARANGAY POBLACION, DALAGUETE {{ date("Y") }} CENSUS DATA</p>
 
             <div class="mt-0.5 ml-60 grid grid-cols-2 justify-center p-3">
 
@@ -80,6 +91,7 @@
                     <div class="-mt-[20px] mx-12 h-12 w-fit bg-olive-green border-2 border-green rounded-xl px-3 py-3">
                         <h1 class="font-robotocondensed text-base text-dirty-white text-center">TOTAL RESIDENTS PER SITIO</h1>
                     </div>
+                    <div class="w-[300px] l-[300px] mt-2 mx-auto" id="piechart" style=""></div>
                 </div>
 
                 <div class="bg-dirty-white mt-16 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
@@ -89,11 +101,26 @@
                 </div>
 
                 <div class="bg-dirty-white mt-16 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
-                        <h1 class="font-robotocondensed text-base text-deep-green text-center">TOTAL RESIDENTS</h1> 
+                    <h1 class="font-robotocondensed text-base text-deep-green text-center">TOTAL RESIDENTS</h1> 
+                    <div class="bg-green w-[250px] h-[75px] m-auto flex items-center justify-center">
+                        @foreach ($statistics as $statistic)
+                        @if($statistic->year==date("Y"))
+                            <p class="font-roboto text-center font-black text-6xl text-dirty-white">{{ $statistic->totalResidentsBarangay ?? 0 }}</p>
+                        @endif
+                        @endforeach
+                    </div>
                 </div>
 
                 <div class="bg-dirty-white mt-16 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
                         <h1 class="font-robotocondensed text-base text-deep-green text-center">TOTAL HOUSEHOLDS</h1>
+                        <div class="bg-green w-[250px] h-[75px] m-auto flex items-center justify-center">
+                        @foreach ($statistics as $statistic)
+                        @if($statistic->year==date("Y"))
+                            <p class="font-roboto text-center font-black text-6xl text-dirty-white">{{ $statistic->totalHouseholdsBarangay ?? 0 }}</p>
+                        @endif
+                        @endforeach
+                    </div>
+                        
                 </div>
             </div>
         </div>
@@ -211,4 +238,35 @@
 
         </div>
     </div>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+            ['Sitio', 'Residents'],
+            <?php echo $chartdata ?>
+            ]);
+
+            var options = {
+                legend: 'none',
+                width: '100%',
+                height: '100%',
+                pieSliceText: 'value',
+                backgroundColor: 'none',
+                chartArea: {
+                height: "95%",
+                width: "95%"
+                }
+            };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+        }
+    </script>
+
 </x-app-layout>

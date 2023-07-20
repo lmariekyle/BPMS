@@ -39,13 +39,14 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('search', [AccountController::class, 'search'])->name('search');
     Route::resource('welcome', \App\Http\Controllers\StatisticsController::class);
     Route::get('welcome', [StatisticsController::class, 'index'])->name('statistics');
-    Route::get('welcome', [StatisticsController::class, 'index'])->name('chartdata');
+    Route::get('welcome', [StatisticsController::class, 'index'])->name('chartdata'); 
 });
 
-
-Route::get('/dashboard', function () {
+Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {
+    Route::resource('dashboard', \App\Http\Controllers\StatisticsController::class);
     return view('dashboard');
 })->middleware(['auth','verified'])->name('dashboard');
+
 
 
 require __DIR__.'/auth.php';
