@@ -10,8 +10,10 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\Resident;
+use App\Models\Sitio;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
@@ -21,15 +23,16 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'firstname',
-        'middlename',
-        'lastname',
-        'date_of_birth',
-        'contactnumber',
+        'residentID',
+        'idNumber',
+        'userlevel',
+        'contactNumber',
         'barangay',
-        'sitio',
+        'sitioID',
         'email',
         'password',
+        'assignedSitioID',
+        'revisedBy',
     ];
 
     /**
@@ -39,7 +42,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-    'remember_token',
+        'remember_token',
     ];
 
     /**
@@ -50,4 +53,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function resident(){
+        return $this->belongsTo(Resident::class);
+    }
+
+    // public function sitio(){
+    //     return $this->belongsTo(Sitio::class);
+    // }
 }

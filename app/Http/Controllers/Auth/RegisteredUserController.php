@@ -4,15 +4,30 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Sitio;
+use App\Models\Resident;
+use App\Models\Household;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('welcome');
+    }
+    
     /**
      * Display the registration view.
      *
@@ -43,7 +58,12 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'sitioID' => $request->sitio,
+            'assignedSitioID' => '1',
+            'contactNumber' => $request->contactnumber,
+            'password' => Hash::make($request->password)
         ]);
+        $resident->user->assignRole($request->userlevel);
 
         event(new Registered($user));
 

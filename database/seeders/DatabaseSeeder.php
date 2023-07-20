@@ -23,7 +23,13 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             PermissionsSeeder::class,
+            BarangaySeeder::class,
+            SitioSeeder::class,
+            HouseholdSeeder::class,
+            ResidentSeeder::class,
+            ResidentListSeeder::class,
             AdminSeeder::class,
+            BHWSeeder::class,
         ]);
     }
 }

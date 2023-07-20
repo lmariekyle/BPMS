@@ -1,3 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500&family=Libre+Baskerville:wght@400;700&family=Lora&family=Roboto&family=Roboto+Condensed&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .button {
+        @apply px-2 font-robotocondensed tracking-wide rounded-md shadow-sm bg-deep-green text-dirty-white text-[18px];
+    }
+}
