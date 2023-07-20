@@ -124,18 +124,6 @@
                 </div>
             </div>
         </div>
-                                                <!-- TEMPORARY LOGOUT!! -->
-        <div class="bg-green h-[40px] w-[140px] text-center -ml-24 mt-10 mb-5">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('LOGOUT') }}
-                    </x-responsive-nav-link>
-                </form>
-        </div>
         @endhasanyrole
         
 
@@ -222,18 +210,6 @@
                 </div>
             </div>
 
-                                                            <!-- TEMPORARY LOGOUT!! -->
-        <div class="bg-green h-[40px] w-[140px] text-center -ml-28 -mt-12 mb-5">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('LOGOUT') }}
-                    </x-responsive-nav-link>
-                </form>
-        </div>
         @endhasanyrole
 
         </div>

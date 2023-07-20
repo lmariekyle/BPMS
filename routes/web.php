@@ -3,7 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ResidentUserController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BHWController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\SitioCountController;
@@ -33,6 +36,8 @@ Route::group(['middleware'=>'auth'],function (){
     })->name('welcome');
     Route::get('profile', [RegisteredUserController::class, 'index'])->name('profile');
     Route::get('profile', [ResidentUserController::class, 'show'])->name('profile');
+    Route::get('change_password', [ProfileController::class, 'change_password'])->name('change_password');
+    Route::post('update_password', [ProfileController::class, 'update_password'])->name('update_password');
     Route::resource('bhw', \App\Http\Controllers\BHWController::class);
     Route::get('bhw', [BHWController::class, 'index'])->name('bhw');
     Route::get('bhw', [BHWController::class, 'index'])->name('bhw');
@@ -41,9 +46,9 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('index', [AccountController::class, 'index'])->name('accounts');
     Route::resource('accounts', \App\Http\Controllers\AccountController::class);
     Route::get('search', [AccountController::class, 'search'])->name('search');
-    Route::resource('welcome', \App\Http\Controllers\StatisticsController::class);
-    Route::get('welcome', [StatisticsController::class, 'index'])->name('statistics');
-    Route::get('welcome', [StatisticsController::class, 'index'])->name('chartdata'); 
+    // Route::resource('welcome', \App\Http\Controllers\StatisticsController::class);
+    Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics');
+    Route::get('chartdata', [StatisticsController::class, 'index'])->name('chartdata'); 
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {
