@@ -2,6 +2,12 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BHWController;
+use App\Http\Controllers\SitioAssignmentController;
+use App\Http\Controllers\ResidentUserController;
+use App\Http\Controllers\Auth\AuthenticationAPIController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +20,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('/bhwDashboard', [BHWController::class, 'mobileDashboard']);
+Route::get('/mobileSitios', [SitioAssignmentController::class, 'mobileSitios']);
+Route::post('/register', 'App\Http\Controllers\ResidentUserController@mobileStore');
+Route::post('/login', 'App\Http\Controllers\Auth\AuthenticationAPIController@login');

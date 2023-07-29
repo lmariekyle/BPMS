@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Statistics;
 use App\Models\Barangay;
 use App\Models\Resident;
 use App\Models\ResidentList;
@@ -112,13 +113,12 @@ class BHWController extends Controller
         //
     }
 
-/*    public function search()
-    { 
-        $search_test=$_GET['query'];
-        $bhw=User::where('title','LIKE','%'.$search_text.'%')->get();
 
-        return view('bhw.search',compact('bhw'));
-    }*/
+    public function mobileDashboard(){
+        $dashboardInfo = Statistics::all()->where('year', 2023);
+        //add assigned sitio and barangay
 
+        return $dashboardInfo;
+    }
 
 }

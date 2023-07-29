@@ -55,7 +55,13 @@ class SitioAssignmentController extends Controller
         }
 
        
-        return redirect()->back()->with('success','Sitio Assignment Approved!');;
+        return redirect()->back()->with('success','Sitio Assignment Approved!');
     }
 
+    public function mobileSitios()
+    {
+        $sitios=Sitio::all();
+
+        return $sitios;
+    }
 }

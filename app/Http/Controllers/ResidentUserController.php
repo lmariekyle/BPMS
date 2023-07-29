@@ -92,6 +92,60 @@ class ResidentUserController extends Controller
     }
 
     /**
+     * Handle an incoming registration request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function mobileStore(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'same:passwordConfirm', Rules\Password::defaults()],
+        ]);
+
+        $initDate = strtotime($request->dateOfBirth);
+        $date = date('Y-m-d', $initDate);
+
+        $check_res = DB::table('residents')
+            ->where('firstName', '=', $request->firstName)
+            ->where('middleName', '=', $request->middleName)
+            ->where('lastName', '=', $request->lastName)
+            ->where('dateOfBirth', '=', $date)
+            ->get();
+
+        if($check_res->isEmpty()){
+            return response()->json([
+                'success' => false
+            ]);
+        }else{
+            foreach($check_res as $verify){ 
+                if($verify->firstName == $request->firstName && $verify->middleName == $request->middleName 
+                    && $verify->lastName == $request->lastName && $verify->dateOfBirth == $request->dateOfBirth){
+                        $sitio=Sitio::where('sitioName', $request->sitio)->first();
+                        $user= User::create([
+                            'residentID' => $verify->id,
+                            'idNumber' => "RES-00".$verify->id,
+                            'userlevel' => 'User',
+                            'email' => $request->email,
+                            'sitioID' => $sitio->id,
+                            'assignedSitioID' => '1',
+                            'contactNumber' => $request->contactNumber,
+                            'password' => Hash::make($request->password)
+                        ]);
+                        $user->assignRole('User'); //assign account role as User
+                        event(new Registered($user)); //send email verification
+                        return response()->json([
+                            'success' => true
+                        ]);
+                }
+            }
+        }            
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
