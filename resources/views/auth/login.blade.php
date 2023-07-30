@@ -49,9 +49,12 @@
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
-
-                <x-button class="ml-3">
-                    {{ __('Log in') }}
+            </div>
+            <div class="object-center justify-end z-50 absolute -mt-6 ml-[170px] pb-12">
+                <x-button class="w-60 h-12 bg-deep-green text-dirty-white font-roboto border-0 m-auto">
+                    <div class="text-2xl m-auto">
+                    {{ __('LOGIN') }}
+                    </div>
                 </x-button>
             </div>
         </form>

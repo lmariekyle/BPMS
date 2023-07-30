@@ -15,7 +15,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500&family=Libre+Baskerville:wght@400;700&family=Lora&family=Roboto&family=Roboto+Condensed&display=swap" rel="stylesheet">
 
         <!-- Scripts -->
-
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <script src="{{ asset('js/app.js') }}" defer></script>
+        
     </head>
     <body class=" bg-dirty-white font-sans antialiased">
         <div class="min-h-screen bg-dirty-white">

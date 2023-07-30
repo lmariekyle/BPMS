@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Sitio;
 use App\Models\Resident;
+use App\Models\Barangay;
 use App\Models\Household;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -19,6 +20,7 @@ use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountMail;
 use Illuminate\Support\Facades\Redirect;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class ResidentUserController extends Controller
 {
@@ -56,9 +58,22 @@ class ResidentUserController extends Controller
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'profileImage' => ['image','mimes:jpeg,png,jpg,gif,svg','max:2048'],
         ]);
 
-        
+        //Auto Generate ID 
+        $residentId = IdGenerator::generate(['table' => 'residents','field'=>'id', 'length' => 9, 'prefix' =>'RES-']);
+        $userId = IdGenerator::generate(['table' => 'users','field'=>'id', 'length' => 6, 'prefix' =>date('y')]);
+
+        //Image Upload 
+        if ($request->hasFile('profileImage')){
+            $image_name = time().'.'.$request->profileImage->getClientOriginalExtension();
+            $request->profileImage->move(public_path('users'),$image_name);
+            $path="users/".$image_name;
+        }else{
+            $path="users/default.jpg";
+        }
+
         $check_res = DB::table('residents')
                 ->where('firstName', '=', $request->firstname)
                 ->where('middleName', '=', $request->middlename)
@@ -75,7 +90,8 @@ class ResidentUserController extends Controller
                     && $verify->lastName == $request->lastname && $verify->dateOfBirth == $request->dateOfBirth){
                         $user= User::create([
                             'residentID' => $verify->id,
-                            'idNumber' => $request->idNumber,
+                            'idNumber' => $userId,
+                            'profileImage' => $path,
                             'userlevel' => $request->userlevel,
                             'email' => $request->email,
                             'sitioID' => $request->sitio,
@@ -97,9 +113,17 @@ class ResidentUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-       //
+        $id = Auth::id();
+        $user=User::where('id',$id)->first();
+        $personalInfo=Resident::where('id',$user->residentID)->first();
+        $sitio=Sitio::where('id',$user->sitioID)->first();
+        $barangay=Barangay::where('id',$sitio->barangayID)->first();
+        $personalInfo->sitio=$sitio->sitioName;
+        $personalInfo->barangay=$barangay->barangayName;
+
+        return view('auth.profile',compact('user','personalInfo'));
     }
 
     /**

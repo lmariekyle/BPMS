@@ -45,12 +45,12 @@
                 <a href="{{ route('dashboard') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">HOME</a>
                 <a href="" class="font-robotocondensed text-[24px] text-dirty-white px-10">SERVICES</a>
                 <a href="{{ route('bhw') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">BHW</a>
-                <a href=""><i class="fa-solid fa-circle-user text-dirty-white text-[40px] ml-[680px]"></i></a>
+                <a href="{{route('profile')}}"><i class="fa-solid fa-circle-user text-dirty-white text-[40px] ml-[680px]"></i></a>
             </div>   
         </svg>
     </div>
     @endhasanyrole
-    @role('User')
+    @hasanyrole('User|Barangay Health Worker')
     <nav x-data="{ open: false }">
     <div class="w-full">
         
@@ -64,9 +64,9 @@
                 <!-- <a href=""><i class="fa-solid fa-arrow-left text-dirty-white text-[24px]"></i></a> -->
                 <a href="{{ route('welcome') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">HOME</a>
                 <a href="" class="font-robotocondensed text-[24px] text-dirty-white px-10">SERVICES</a>
-                <a href=""><i class="fa-solid fa-circle-user text-dirty-white text-[40px] ml-[750px]"></i></a>
+                <a href="{{route('profile')}}"><i class="fa-solid fa-circle-user text-dirty-white text-[40px] ml-[750px]"></i></a>
             </div>   
         </svg>
     </div>
-    @endrole
+    @endhasanyrole
 </nav>
