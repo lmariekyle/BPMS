@@ -6,6 +6,9 @@ use App\Http\Controllers\BHWController;
 use App\Http\Controllers\SitioAssignmentController;
 use App\Http\Controllers\ResidentUserController;
 use App\Http\Controllers\Auth\AuthenticationAPIController;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 
 
@@ -20,9 +23,34 @@ use App\Http\Controllers\Auth\AuthenticationAPIController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::post('/sanctum/token', function (Request $request){
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+        'device_name' => 'required',
+    ]);
+
+    $user = User::where('email', $request->email)->first();
+
+    if(!$user || !Hash::check($request->password, $user->password)){
+        throw ValidationException::withMessage([
+            'email' => ['The provided credentials are incorrect.'],
+        ]);
+    }
+
+    return $user->createToken($request->device_name)->plainTextToken;
+});
+
+Route::middleware('auth:sanctum')->get('/user/revoke', function (Request $request) {
+    $user = $request->user();
+    $user->tokens()->delete();
+    return 'tokens are deleted';
+});
+
 
 Route::get('/bhwDashboard', [BHWController::class, 'mobileDashboard']);
 Route::get('/mobileSitios', [SitioAssignmentController::class, 'mobileSitios']);
