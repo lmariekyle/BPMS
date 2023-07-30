@@ -44,7 +44,7 @@
         @hasanyrole('Barangay Captain|Barangay Secretary')
         <div class="p-3 -mt-20 -ml-24 h-max w-[1342px] bg-dirty-white border-2 border-deep-green rounded-xl shadow-3xl ">
 
-            <div class="flex px-4 py-3 items-center justify-between h-16 w-[1250px] ml-3 mt-3">
+            <div class="flex px-4 py-3 items-center justify-between h-16 w-[1250px] ml-3 mt-3" style="justify-content:center;">
             <form action="" method="GET">
 
                 <div class="float-left bg-transparent h-16 w-40">
@@ -57,7 +57,7 @@
                     </select>
                 </div>
 
-                <div class="float-left bg-transparent mr-16 h-16 w-40">
+                <div class="float-left bg-transparent h-16 w-40" style="margin-left: 50px;">
                     <x-label for="gender" :value="__('Gender')" />
                     <select id="gender" class="rounded-lg border-2 mt-1 w-full bg-dirty-white" name="gender" :value="old('gender')" required autofocus>
                             <option value="NULL">None</option>
@@ -67,7 +67,7 @@
                     </select>
                 </div>
 
-                <div class="float-left bg-transparent ml-16 h-16 w-max">
+                <div class="float-left bg-transparent h-16 w-max" style="margin-left: 50px;">
                     <x-label for="ageclass" :value="__('Age Classification')" />
                     <select id="ageclass" class="rounded-lg border-2 mt-1 w-40 bg-dirty-white" name="ageclass" :value="old('ageclass')" required autofocus>
                             <option value="NULL">None</option>
@@ -77,16 +77,14 @@
                     </select>
                 </div>
 
-                <button class="float-left mt-4 " type="submit"><i class="fa-solid fa-filter text-deep-green text-[28px] ml-96"></i></button>
+                <button class="float-left mt-12" type="submit"><i class="fa-solid fa-filter text-deep-green text-[28px] ml-96"></i></button>
             </form>
             <form class="flex flex-row" action="{{ route('exportpdf') }}" method="GET">
                 <input name="sitio" type="hidden" value="{{$request->sitio}}"></input>
                 <input name="gender" type="hidden" value="{{$request->gender}}"></input>
                 <input name="ageclass" type="hidden" value="{{$request->ageclass}}"></input>
-                <button type="submit">
-
+                <button type="submit" class="mt-12 ml-10">
                         <i class="fa-solid fa-print text-deep-green text-[28px]"></i>
-
                 </button>
             </form>
             </div>
