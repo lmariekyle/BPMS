@@ -127,7 +127,7 @@ class ResidentUserController extends Controller
                         $sitio=Sitio::where('sitioName', $request->sitio)->first();
                         $user= User::create([
                             'residentID' => $verify->id,
-                            'idNumber' => "RES-00".$verify->id,
+                            'idNumber' => $verify->id,
                             'userlevel' => 'User',
                             'email' => $request->email,
                             'sitioID' => $sitio->id,

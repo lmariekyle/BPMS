@@ -854,6 +854,9 @@ select{
 .-mt-\[55rem\]{
   margin-top: -55rem;
 }
+.-mt-\[5px\]{
+  margin-top: -5px;
+}
 .-mt-\[70px\]{
   margin-top: -70px;
 }
@@ -1187,6 +1190,9 @@ select{
 .h-\[837px\]{
   height: 837px;
 }
+.h-\[8rem\]{
+  height: 8rem;
+}
 .h-full{
   height: 100%;
 }
@@ -1285,6 +1291,9 @@ select{
 .w-\[1390px\]{
   width: 1390px;
 }
+.w-\[13rem\]{
+  width: 13rem;
+}
 .w-\[1400px\]{
   width: 1400px;
 }
@@ -1293,6 +1302,9 @@ select{
 }
 .w-\[150px\]{
   width: 150px;
+}
+.w-\[15rem\]{
+  width: 15rem;
 }
 .w-\[190px\]{
   width: 190px;
@@ -1922,11 +1934,17 @@ select{
 .text-8xl{
   font-size: 96px;
 }
+.text-\[14px\]{
+  font-size: 14px;
+}
 .text-\[16px\]{
   font-size: 16px;
 }
 .text-\[18px\]{
   font-size: 18px;
+}
+.text-\[200px\]{
+  font-size: 200px;
 }
 .text-\[20px\]{
   font-size: 20px;
@@ -2155,6 +2173,32 @@ select{
 .clip-path-polygon-\[_0\%_0\%\2c _0\%_0\%\2c _100\%_0\%\2c _95\%_50\%\2c _100\%_100\%\2c _0\%_100\%\2c _0_calc\(100\%_-_1rem\)\]{
   -webkit-clip-path: polygon(0% 0%, 0% 0%, 100% 0%, 95% 50%, 100% 100%, 0% 100%, 0 calc(100% - 1rem));
           clip-path: polygon(0% 0%, 0% 0%, 100% 0%, 95% 50%, 100% 100%, 0% 100%, 0 calc(100% - 1rem));
+}
+.file\:h-\[42px\]::file-selector-button{
+  height: 42px;
+}
+.file\:w-\[7rem\]::file-selector-button{
+  width: 7rem;
+}
+.file\:cursor-pointer::file-selector-button{
+  cursor: pointer;
+}
+.file\:overflow-hidden::file-selector-button{
+  overflow: hidden;
+}
+.file\:bg-deep-green::file-selector-button{
+  --tw-bg-opacity: 1;
+  background-color: rgb(65 72 51 / var(--tw-bg-opacity));
+}
+.file\:font-robotocondensed::file-selector-button{
+  font-family: 'Roboto Condensed', sans-serif;
+}
+.file\:text-\[14px\]::file-selector-button{
+  font-size: 14px;
+}
+.file\:text-dirty-white::file-selector-button{
+  --tw-text-opacity: 1;
+  color: rgb(253 255 238 / var(--tw-text-opacity));
 }
 .hover\:cursor-pointer:hover{
   cursor: pointer;
