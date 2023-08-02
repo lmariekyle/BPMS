@@ -23,7 +23,7 @@ class AuthenticationAPIController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if($user && Hash::check($request->password, $user->password)){
-            $token = $user->createToken('Personal Access Token')->plainTextToken;
+            $token = $user->createToken($user->residentID)->plainTextToken;
             if($user->userLevel == "Barangay Health Worker"){
                 $quarter = 1;
                 $year = Carbon::now()->format('Y');
@@ -52,12 +52,12 @@ class AuthenticationAPIController extends Controller
 
     public function mobileLogout(Request $request){
         $rules = [
-            'token' => 'required',
+            'residentID' => 'required',
         ];
         $request->validate($rules);
 
-        $request->tokens()->where('token', $request->token)->delete();
-        $token = DB::select('select * from personal_access_tokens where token = ' . $request->token); 
+        $token = DB::select('delete from personal_access_tokens where name = ' . $request->residentID); 
+        $token = DB::select('select * from personal_access_tokens where name = ' . $request->residentID); 
         if($token == null){
 
             return $response = ['success' => true];
