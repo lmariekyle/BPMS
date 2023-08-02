@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Sitio;
+use DB;
+use Carbon\Carbon;
 
 class AuthenticationAPIController extends Controller
 {
@@ -21,11 +24,45 @@ class AuthenticationAPIController extends Controller
 
         if($user && Hash::check($request->password, $user->password)){
             $token = $user->createToken('Personal Access Token')->plainTextToken;
-            $response = ['user' => $user, 'token' => $token, 'success' => true];
+            if($user->userLevel == "Barangay Health Worker"){
+                $quarter = 1;
+                $year = Carbon::now()->format('Y');
+                $sitio = Sitio::where('id', $user->assignedSitioID)->first();
+                $user->assignedSitioID  = $sitio->sitioName;
+
+                $statistic = null;
+                $statistics=DB::select('select * from statistics where year = ' . $year ); 
+                foreach($statistics as $stat){
+                    if($stat->quarter > $quarter){
+                        $statistic = $stat;
+                        $quarter = $stat->quarter;
+                    }
+                }
+
+                $response = ['user' => $user, 'statistics' => $statistic,'token' => $token, 'success' => true];
+            }else{
+                $response = ['user' => $user, 'token' => $token, 'success' => true];
+            }
             return response()->json($response, 200);
         }else{
             $response = ['message' => 'Incorrect email or password', 'success' => false];
             return response()->json($response, 400);
+        }
+    }
+
+    public function mobileLogout(Request $request){
+        $rules = [
+            'token' => 'required',
+        ];
+        $request->validate($rules);
+
+        $request->tokens()->where('token', $request->token)->delete();
+        $token = DB::select('select * from personal_access_tokens where token = ' . $request->token); 
+        if($token == null){
+
+            return $response = ['success' => true];
+        }else{
+            return $response = ['success' => false];
         }
     }
 }
