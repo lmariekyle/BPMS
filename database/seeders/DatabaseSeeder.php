@@ -30,6 +30,8 @@ class DatabaseSeeder extends Seeder
             ResidentListSeeder::class,
             AdminSeeder::class,
             BHWSeeder::class,
+            StatisticsSeeder::class,
+            SitioCountSeeder::class,
         ]);
     }
 }
