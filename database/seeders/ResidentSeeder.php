@@ -48,7 +48,7 @@ class ResidentSeeder extends Seeder
             'dateOfBirth' => '2000-01-01',
             'contactNumber' => '09876543212',
             'email' => 'stacy@gmail.com',
-            'gender' => 'Feale',
+            'gender' => 'Female',
             'maritalStatus' => 'Single',
         ]);
 
@@ -67,9 +67,9 @@ class ResidentSeeder extends Seeder
 
         Resident::create([
             'id' => 'RES-00005',
-            'firstName' => 'Weinstein',
-            'middleName' => 'Tein',
-            'lastName' => 'Dumlao',
+            'firstName' => 'Carl',
+            'middleName' => 'France',
+            'lastName' => 'Zamora',
             'dateOfBirth' => '2004-06-04',
             'contactNumber' => '1234567890',
             'email' => 'mariekylec@gmail.com',
