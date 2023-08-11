@@ -24,6 +24,7 @@ use App\Http\Controllers\SitioCountController;
 
 Route::get('/', [StatisticsController::class, 'index']);
 
+
 Route::middleware('guest')->group(function () {
     Route::get('create', [ResidentUserController::class, 'create'])->name('create');
     Route::post('create',[ResidentUserController::class, 'store']);
@@ -34,6 +35,12 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('welcome', function () {
         return view('welcome');
     })->name('welcome');
+    Route::get('searchResident', function () {
+        return view('searchResident');
+    })->name('searchResident');
+    Route::get('personalInfoUpdate', function () {
+        return view('personalInfoUpdate');
+    })->name('personalInfoUpdate');
     Route::get('profile', [RegisteredUserController::class, 'index'])->name('profile');
     Route::get('profile', [ResidentUserController::class, 'show'])->name('profile');
     Route::get('change_password', [ProfileController::class, 'change_password'])->name('change_password');
