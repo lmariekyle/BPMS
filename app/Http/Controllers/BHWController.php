@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Statistics;
 use App\Models\Barangay;
 use App\Models\Resident;
 use App\Models\ResidentList;
@@ -112,28 +113,13 @@ class BHWController extends Controller
         //
     }
 
-    public function search(Request $request)
+/*    public function search()
     { 
-        $search=$request['search'];
-        $bhws=Resident::where('firstName','LIKE', "%$search%")->orWhere('lastName','LIKE', "%$search%")->get();
-        
-        $count=count($bhws);
-        for($x=0;$x<$count;$x++){
-            $resident=User::where('residentID',$bhws[$x]->id)->first();
-            if($resident->userLevel== "Barangay Health Worker") {
-                $bhws[$x]->id=$resident->id;
-                $bhws[$x]->idNumber=$resident->idNumber;
-                $bhws[$x]->userLevel=$resident->userLevel;
-                $bhws[$x]->updated_at=$resident->updated_at;
-                $bhws[$x]->userStatus=$resident->userStatus;
-                $sitio=Sitio::where('id',$resident->assignedSitioID)->first();
-                $bhws[$x]->assignedSitioName=$sitio->sitioName;
-            }else{
-                unset($bhws[$x]);
-            }
-        }
+        $search_test=$_GET['query'];
+        $bhw=User::where('title','LIKE','%'.$search_text.'%')->get();
 
-        return view('bhw.index')->with('bhws',$bhws);
-    }
+        return view('bhw.search',compact('bhw'));
+    }*/
+
 
 }
