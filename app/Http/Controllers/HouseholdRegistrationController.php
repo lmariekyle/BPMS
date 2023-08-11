@@ -91,6 +91,9 @@ class HouseholdRegistrationController extends Controller
             'revisedBy' => $request->revisedBy,
         ]);
 
+        $household->save();
+
+        return $response = 'it worked!';
         
 
     }
