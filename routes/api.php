@@ -32,4 +32,5 @@ Route::get('/bhwDashboard', [BHWController::class, 'mobileDashboard']);
 Route::post('/mobileUserData', [AccountController::class, 'mobileUserData']);
 Route::get('/mobileSitios', [SitioAssignmentController::class, 'mobileSitios']);
 Route::post('/register', 'App\Http\Controllers\ResidentUserController@mobileStore');
+Route::post('/household', 'App\Http\Controllers\HouseholdRegistrationController@mobileStore');
 Route::post('/forgotPassword', 'App\Http\Controllers\Auth\PasswordResetLinkController@mobileStore')->name('mobileForgotPassword');

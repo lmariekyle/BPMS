@@ -19,10 +19,10 @@ class CreateHouseholdsTable extends Migration
 
             $table->smallInteger('houseNumber')->unsigned()->nullable();
             $table->string('street')->nullable();
-            $table->string('buildingNumber')->nullable();
+            $table->string('buildingName')->nullable();
+            $table->string('unitNumber')->nullable();
             $table->string('floorNumber')->nullable();
             $table->string('residenceType')->nullable();
-            $table->string('subdivision')->nullable();
 
             $table->string('nHTS')->nullable();
             $table->string('householdToiletFacilities')->nullable();
