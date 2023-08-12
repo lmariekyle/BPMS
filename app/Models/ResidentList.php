@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class ResidentList extends Model
 {
     use HasFactory;
+    protected $fillable =[
+        'residentID',
+        'houseID',
+
+        'householdHead',
+        'memberNumber',
+
+        'createdBy',
+        'revisedBy'
+    ];
 }
