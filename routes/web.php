@@ -7,6 +7,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BHWController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\SitioCountController;
+use App\Http\Controllers\ServicesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,9 +42,14 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('index', [AccountController::class, 'index'])->name('accounts');
     Route::resource('accounts', \App\Http\Controllers\AccountController::class);
     Route::get('search', [AccountController::class, 'search'])->name('search');
-    Route::resource('welcome', \App\Http\Controllers\StatisticsController::class);
-    Route::get('welcome', [StatisticsController::class, 'index'])->name('statistics');
-    Route::get('welcome', [StatisticsController::class, 'index'])->name('chartdata'); 
+    //Route::resource('welcome', \App\Http\Controllers\StatisticsController::class);
+    Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics');
+    Route::get('chartdata', [StatisticsController::class, 'index'])->name('chartdata');
+    Route::resource('services', \App\Http\Controllers\ServicesController::class); 
+    Route::get('index', [ServicesController::class, 'index'])->name('services');
+    Route::get('manage', [ServicesController::class, 'manage'])->name('services');
+    Route::get('generate', [ServicesController::class, 'generate'])->name('services');
+    Route::get('approve', [ServicesController::class, 'approve'])->name('services');
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {

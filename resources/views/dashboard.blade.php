@@ -91,7 +91,7 @@
 
             <p class="font-robotocondensed mt-16 text-4xl p-3 text-deep-green text-center">BARANGAY POBLACION, DALAGUETE {{ date("Y") }} CENSUS DATA</p>
             @role('Barangay Secretary')
-            <p class="font-robotocondensed mt-16 text-4xl p-3 text-deep-green text-center">BarangaySecretary</p>
+            <p class="font-robotocondensed mt-16 text-4xl p-3 text-deep-green text-center">Barangay Secretary</p>
             @endrole
             <div class="mt-0.5 ml-60 grid grid-cols-2 justify-center p-3">
 
