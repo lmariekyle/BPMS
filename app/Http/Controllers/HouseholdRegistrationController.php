@@ -19,6 +19,30 @@ class HouseholdRegistrationController extends Controller
         //
     }
 
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function mobileHouseholds(Request $request)
+    {
+        /* function will receive the assignedSitioID of the current user from the app then 
+           return all households with that id
+        */
+        $households=Households::where($request->assignedSitioID,'sitioID');
+
+        $response =[
+            'households' => $households,
+            'success' => true
+        ];
+        print('hey');
+        return $response;
+    }
+
+    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -50,13 +74,26 @@ class HouseholdRegistrationController extends Controller
     public function mobileStore(Request $request)
     {
 
-        //actually works lmao
+        /*
+            This is to save household
+            then the family members of said household
+            then connecting them together through residents list
+        
+        */
 
-        /*$household = new Households();
-        $data = $request->only($household->getFillable());
-        $household->fill($data)->save();*/
+    /*    $jsonData=$request->getContent();
+        $datum= json_decode($jsonData,true);
+        dd($datum);
+
+        $household = new Households();
+        $data = $datum['household']->only($household->getFillable());
+        $household->fill($data)->save();
         
-        
+
+        $resident = new Resident();
+        $data = $members->only($resident->getFillable());
+        $resident->fill($data)->save();
+        */
         //hypothetical soln
 
         $houseInfo=$request->household;
@@ -110,8 +147,8 @@ class HouseholdRegistrationController extends Controller
                             ->where('houseNumber',$houseInfo->houseNumber);
 
         $count = 1;
-        $head = 0;
-        /*
+        $head = false;
+        
         foreach ($members as $member) {
             $initDate = strtotime($member->dateOfBirth);
             $birth = date('Y-m-d', $initDate);
@@ -138,7 +175,7 @@ class HouseholdRegistrationController extends Controller
                 //'supportingDocument' => $member->firstName,
         
             ]);
-            $resident->save;
+            $resident->save();
 
             $memID=Resident::where('firstName', '=', $member->firstname)
                     ->where('middleName', '=', $member->middlename)
@@ -146,7 +183,9 @@ class HouseholdRegistrationController extends Controller
                     ->where('dateOfBirth', '=', $member->dateOfBirth);
 
             if($count==1){
-                $head=$memID->id;
+                $head=true;
+            }else{
+                $head=false;
             }
         
 
@@ -154,7 +193,8 @@ class HouseholdRegistrationController extends Controller
                 'residentID'=>$memID->id,
                 'houseID'=>$memHouse->id,
 
-                'householdHead'=>$head,
+                'houseNumber'=>$memHouse->houseNumber, //to accomodate for the multiple households
+                'householdHead'=>$head, //bool
                 'memberNumber'=>$count,
 
                 'createdBy' => $member->createdBy,
@@ -163,7 +203,7 @@ class HouseholdRegistrationController extends Controller
 
             $count++;
             
-        }*/
+        }
 
         return $response = 'it worked!';
         
