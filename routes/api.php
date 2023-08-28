@@ -33,5 +33,6 @@ Route::post('/mobileUserData', [AccountController::class, 'mobileUserData']);
 Route::get('/mobileSitios', [SitioAssignmentController::class, 'mobileSitios']);
 Route::post('/mobileHouseholds', 'App\Http\Controllers\HouseholdRegistrationController@mobileHouseholds')->name('mobileHouseholds');
 Route::post('/register', 'App\Http\Controllers\ResidentUserController@mobileStore');
+Route::post('/sitioAssignment', [SitioAssignmentController::class, 'mobileSitiosAssignment']);
 Route::post('/household', 'App\Http\Controllers\HouseholdRegistrationController@mobileStore');
 Route::post('/forgotPassword', 'App\Http\Controllers\Auth\PasswordResetLinkController@mobileStore')->name('mobileForgotPassword');

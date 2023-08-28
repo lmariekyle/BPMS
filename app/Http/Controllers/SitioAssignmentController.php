@@ -67,4 +67,15 @@ class SitioAssignmentController extends Controller
 
         return $response;
     }
+
+    public function mobileSitiosAssignment(Request $request)
+    {
+        $user = User::where('id',$request->id)->first();
+        $assignedSitio = $user->assignedSitioID;
+
+
+        $response = ['assignedSitioID' => $assignedSitio, 'success' => true];
+        
+        return $response;
+    }
 }
