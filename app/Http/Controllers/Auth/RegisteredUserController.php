@@ -99,7 +99,7 @@ class RegisteredUserController extends Controller
         ]);
 
         if($request->userlevel == "Barangay Captain"){
-            $userId = IdGenerator::generate(['table' => 'users','field'=>'idNumber', 'length' => 6, 'prefix' =>'C-']);
+            $userId = IdGenerator::generate(['table' => 'users','field'=>'idNumber', 'length' => 6, 'prefix' =>'p']);
         }else if($request->userlevel == "Barangay Secretary"){
             $userId = IdGenerator::generate(['table' => 'users','field'=>'idNumber', 'length' => 6, 'prefix' =>'S-']);
         }else if($request->userlevel == "Barangay Health Worker"){
