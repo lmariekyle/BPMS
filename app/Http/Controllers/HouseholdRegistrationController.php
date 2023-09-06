@@ -31,13 +31,12 @@ class HouseholdRegistrationController extends Controller
         /* function will receive the assignedSitioID of the current user from the app then 
            return all households with that id
         */
-        $households=Households::where($request->assignedSitioID,'sitioID');
+        $households=Households::where('sitioID', $request->assignedSitioID)->get();
 
         $response =[
             'households' => $households,
             'success' => true
         ];
-        print('hey');
         return $response;
     }
 

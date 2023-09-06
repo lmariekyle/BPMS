@@ -322,7 +322,7 @@
 
             var data = google.visualization.arrayToDataTable([
             ['Sitio', 'Residents'],
-            <?php echo $chartdataResident ?>
+            
             ]);
 
             var options = {
@@ -346,7 +346,7 @@
 
             var data = google.visualization.arrayToDataTable([
             ['Sitio', 'Households'],
-            <?php echo $chartdataHousehold ?>
+            
             ]);
 
             var options = {

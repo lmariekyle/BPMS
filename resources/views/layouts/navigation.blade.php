@@ -50,6 +50,8 @@
         </svg>
     </div>
     @endhasanyrole
+
+    
     @hasanyrole('User|Barangay Health Worker')
     <nav x-data="{ open: false }">
     <div class="w-full">
