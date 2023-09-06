@@ -17,12 +17,13 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            
-            $table->foreignId('residentID')->references('id')->on('residents')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('residentID')->unique();
+
             $table->foreignId('sitioID')->references('id')->on('sitios')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('assignedSitioID')->references('id')->on('sitios')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->string('idNumber');
+            $table->string('idNumber')->unique();
+            $table->string('profileImage')->nullable();;
             $table->string('contactNumber');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -36,12 +37,12 @@ class CreateUsersTable extends Migration
 
             $table->string('revisedBy')->nullable();
             $table->string('archivedBy')->nullable();
+            $table->boolean('isArchived')->default(0);
             $table->string('permissionToken')->unique()->nullable();
             $table->rememberToken();
-
-            
-            
             $table->timestamps();
+
+            $table->foreign('residentID')->references('id')->on('residents')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -25,12 +25,12 @@ class BHWSeeder extends Seeder
         
         //MILES//
         ResidentList::create([
-            'residentID'=>'2',
+            'residentID'=>'RES-00002',
             'houseID'=>'2'
         ]);
 
         User::create([
-            'residentID' => '2',
+            'residentID' => 'RES-00002',
             'sitioID' => '2',
             'assignedSitioID' => '2',
             'idNumber' => 'B-002',
@@ -45,11 +45,11 @@ class BHWSeeder extends Seeder
         
         //GWEN//
         ResidentList::create([
-            'residentID'=>'3',
+            'residentID'=>'RES-00003',
             'houseID'=>'2'
         ]);
         User::create([
-            'residentID' => '3',
+            'residentID' => 'RES-00003',
             'sitioID' => '3',
             'assignedSitioID' => '3',
             'idNumber' => 'B-003',
