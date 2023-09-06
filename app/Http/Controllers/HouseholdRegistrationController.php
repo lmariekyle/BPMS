@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Households;
 use App\Models\Resident;
 use App\Models\ResidentList;
+use DateTime;
 use Illuminate\Http\Request;
+use DB;
+use Symfony\Component\Console\Input\Input;
 
 class HouseholdRegistrationController extends Controller
 {
@@ -37,6 +40,7 @@ class HouseholdRegistrationController extends Controller
             'households' => $households,
             'success' => true
         ];
+        print('hey');
         return $response;
     }
 
@@ -95,98 +99,85 @@ class HouseholdRegistrationController extends Controller
         */
         //hypothetical soln
 
+
         $houseInfo=$request->household;
         $members=$request->members;
 
-        $initDate = strtotime($houseInfo->dateOfVisit);
-        $date = date('Y-m-d', $initDate);
+        //$initDate = strtotime($houseInfo['dateOfVisit']);
+        $date = DateTime::createFromFormat('Y-m-d', $houseInfo['dateOfVisit']);
+        //$date = date('Y-m-d', $initDate);
+        //print_r($initDate);
 
         $household=Households::create([
-            'sitioID' => $houseInfo->sitioID,
-            'houseNumber' => $houseInfo->houseNumber,
+            'sitioID' => $houseInfo['sitioID'],
+            'houseNumber' => $houseInfo['houseNumber'],
             
-            'respondentName' => $houseInfo->respondentName,
+            'respondentName' => $houseInfo['respondentName'],
             'dateOfVisit' => $date,
-            'yearOfVisit' => (int)$houseInfo->yearOfVisit,
-            'quarterNumber' => $houseInfo->quarterNumber,
+            'yearOfVisit' => (int)$houseInfo['yearOfVisit'],
+            'quarterNumber' => $houseInfo['quarterNumber'],
 
-            'street' => $houseInfo->street,
-            'buildingName' => $houseInfo->buildingName,
-            'unitNumber' => $houseInfo->unitNumber,
-            'floorNumber' => $houseInfo->floorNumber,
-            'residentType' => $houseInfo->residentType,
+            'street' => $houseInfo['street'],
+            'buildingName' => $houseInfo['buildingName'],
+            'unitNumber' => $houseInfo['unitNumber'],
+            'floorNumber' => $houseInfo['floorNumber'],
+            'residenceType' => $houseInfo['residenceType'],
 
-            'nHTS' => $houseInfo->nHTS,
-            'IP' => $houseInfo->IP,
-            'householdToiletFacilities' => $houseInfo->householdToiletFacilities,
-            'accessToWaterSupply' => $houseInfo->accessToWaterSupply,
-            'remarksOfWaterSupply' => $houseInfo->remarksOfWaterSupply,
+            'nHTS' => $houseInfo['nHTS'],
+            'IP' => $houseInfo['IP'],
+            'householdToiletFacilities' => $houseInfo['householdToiletFacilities'],
+            'accessToWaterSupply' => $houseInfo['accessToWaterSupply'],
+            'remarksOfWaterSupply' => $houseInfo['remarksOfWaterSupply'],
             
-            'yearOfVisit' => $houseInfo->yearOfVisit,
-            'quarterNumber' => $houseInfo->quarterNumber,
-
-            'street' => $houseInfo->street,
-            'buildingName' => $houseInfo->buildingName,
-            'unitNumber' => $houseInfo->unitNumber,
-            'floorNumber' => $houseInfo->floorNumber,
-            'residenceType' => $houseInfo->residenceType,
-
-            'nHTS' => $houseInfo->nHTS,
-            'IP' => $houseInfo->IP,
-            'householdToiletFacilities' => $houseInfo->householdToiletFacilities,
-            'accessToWaterSupply' => $houseInfo->accessToWaterSupply,
-            'remarksOfWaterSupply' => $houseInfo->remarksOfWaterSupply,
-            
-            'createdBy' => $houseInfo->createdBy,
-            'revisedBy' => $houseInfo->revisedBy,
+            'createdBy' => $houseInfo['createdBy'],
+            'revisedBy' => $houseInfo['revisedBy'],
         ]);
 
         $household->save();
-        $memHouse=Households::where('sitioID',$houseInfo->sitioID)
-                            ->where('houseNumber',$houseInfo->houseNumber);
+        $memHouse=Households::where('sitioID',$houseInfo['sitioID'])
+                            ->where('houseNumber',$houseInfo['houseNumber']);
 
         $count = 1;
         $head = false;
         
         foreach ($members as $member) {
-            $initDate = strtotime($member->dateOfBirth);
-            $birth = date('Y-m-d', $initDate);
+            $birth = DateTime::createFromFormat('Y-m-d', $member['dateOfBirth']);
+
 
             $resident=Resident::create([
-                'firstname' => $member->firstName,
-                'middlename' => $member->middleName,
-                'lastname' => $member->lastName,
+                'firstName' => $member['firstName'],
+                'middleName' => $member['middleName'],
+                'lastName' => $member['lastName'],
                 'dateOfBirth' => $birth,
-                'contactNumber' => $member->contactNumber,
-                'barangay' => $member->firstName,
-                'email' => $member->email,
-                'maritalStatus' => $member->maritalStatus,
-                'gender' => $member->gender,
-                'philHealthNumber' => $member->philHealthNumber,
-                'occupation' => $member->occupation,
-                'monthlyIncome' => $member->monthlyIncome,
-                'ageClassification' => $member->ageClassification,
-                'pregnancyClassification' => $member->pregnancyClassification,
-                'registeredSeniorCitizen' => $member->registeredSeniorCitizen,
-                'registeredPWD' => $member->ageClass,
-                'createdBy' => $member->createdBy,
-                'revisedBy' => $member->revisedBy,
+                'contactNumber' => $member['contactNumber'],
+                'email' => $member['email'],
+                'maritalStatus' => $member['maritalStatus'],
+                'gender' => $member['gender'],
+                'philHealthNumber' => $member['philHealthNumber'],
+                'occupation' => $member['occupation'],
+                'monthlyIncome' => $member['monthlyIncome'],
+                'ageClassification' => $member['ageClassification'],
+                'pregnancyClassification' => $member['pregnancyClassification'],
+                'registeredSeniorCitizen' => $member['registeredSeniorCitizen'],
+                'registeredPWD' => $member['registeredPWD'],
+                'createdBy' => $member['createdBy'],
+                'revisedBy' => $member['revisedBy'],
                 //'supportingDocument' => $member->firstName,
         
             ]);
             $resident->save();
 
-            $memID=Resident::where('firstName', '=', $member->firstname)
-                    ->where('middleName', '=', $member->middlename)
-                    ->where('lastName', '=', $member->lastname)
-                    ->where('dateOfBirth', '=', $member->dateOfBirth);
+            $memID=Resident::where('firstName', '=', $member['firstName'])
+                    ->where('middleName', '=', $member['middleName'])
+                    ->where('lastName', '=', $member['lastName'])
+                    ->where('dateOfBirth', '=', $member['dateOfBirth']);
 
             if($count==1){
                 $head=true;
             }else{
                 $head=false;
             }
-        
+
 
             $connect=ResidentList::create([
                 'residentID'=>$memID->id,
