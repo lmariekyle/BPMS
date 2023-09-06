@@ -28,7 +28,7 @@ class AuthenticationAPIController extends Controller
                 $quarter = 1;
                 $year = Carbon::now()->format('Y');
                 $sitio = Sitio::where('id', $user->assignedSitioID)->first();
-                $user->assignedSitioID  = $sitio->sitioName;
+                $user->assignedSitio  = $sitio->sitioName;
 
                 $statistic = null;
                 $statistics=DB::select('select * from statistics where year = ' . $year ); 

@@ -9,8 +9,29 @@ class Households extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'sitioID',
         'houseNumber',
+        'street',
+        'buildingNumber',
+        'floorNumber',
+        'residenceType',
+        'subdivision',
+        'nHTS',
+        'householdToiletFacilities',
+        'IP',
+        'accessToWaterSupply',
+        'remarksOfWaterSupply',
+        'yearOfVisit',
+        'quarterNumber',
+        'dateOfVist',
+        'respondentName',
+        'createdBy',
+        'revisedBy',
     ];
 }
