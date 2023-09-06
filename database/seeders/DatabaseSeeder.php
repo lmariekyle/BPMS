@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             BHWSeeder::class,
             StatisticsSeeder::class,
             SitioCountSeeder::class,
+            DocumentSeeder::class,
         ]);
     }
 }

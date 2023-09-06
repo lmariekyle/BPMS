@@ -9,6 +9,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\AuthenticationAPIController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\HouseholdRegistrationController;
+use App\Http\Controllers\DocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ Route::post('/mobileLogout', 'App\Http\Controllers\Auth\AuthenticationAPIControl
 
 Route::get('/bhwDashboard', [BHWController::class, 'mobileDashboard']);
 Route::post('/mobileUserData', [AccountController::class, 'mobileUserData']);
+Route::post('/mobileRequestServices', [DocumentController::class, 'mobileRequestServices']);
+Route::post('/mobileGetDocuments', [DocumentController::class, 'mobileGetDocuments']);
 Route::get('/mobileSitios', [SitioAssignmentController::class, 'mobileSitios']);
 Route::post('/mobileHouseholds', 'App\Http\Controllers\HouseholdRegistrationController@mobileHouseholds')->name('mobileHouseholds');
 Route::post('/register', 'App\Http\Controllers\ResidentUserController@mobileStore');

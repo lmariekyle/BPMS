@@ -26,9 +26,9 @@ class BHWController extends Controller
             $sitio=Sitio::where('id',$key->assignedSitioID)->first();
 
 
-            $key->firstname=$resident->firstName;
-            $key->middlename=$resident->middleName;
-            $key->lastname=$resident->lastName;
+            $key->firstName=$resident->firstName;
+            $key->middleName=$resident->middleName;
+            $key->lastName=$resident->lastName;
             $key->assignedSitioName=$sitio->sitioName;
 
         }
@@ -114,11 +114,36 @@ class BHWController extends Controller
     }
 
 
+    public function search(Request $request)
+    { 
+        $search=$request['search'];
+        $bhws=Resident::where('firstName','LIKE', "%$search%")->orWhere('lastName','LIKE', "%$search%")->get();
+        
+        $count=count($bhws);
+        for($x=0;$x<$count;$x++){
+            $resident=User::where('residentID',$bhws[$x]->id)->first();
+            if($resident->userLevel== "Barangay Health Worker") {
+                $bhws[$x]->id=$resident->id;
+                $bhws[$x]->idNumber=$resident->idNumber;
+                $bhws[$x]->userLevel=$resident->userLevel;
+                $bhws[$x]->updated_at=$resident->updated_at;
+                $bhws[$x]->userStatus=$resident->userStatus;
+                $sitio=Sitio::where('id',$resident->assignedSitioID)->first();
+                $bhws[$x]->assignedSitioName=$sitio->sitioName;
+            }else{
+                unset($bhws[$x]);
+            }
+        }
+
+        return view('bhw.index')->with('bhws',$bhws);
+    }
+
     public function mobileDashboard(){
         $dashboardInfo = Statistics::all()->where('year', 2023);
         //add assigned sitio and barangay
 
         return $dashboardInfo;
+
     }
 
 }
