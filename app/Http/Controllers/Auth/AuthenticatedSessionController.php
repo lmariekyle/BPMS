@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -30,9 +33,19 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
+        if(auth()->check() && (auth()->user()->isArchived == 1)){
+            Auth::guard('web')->logout();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            return Redirect::back()->with('error','Account has been Archived!');
+        }else{
+            $request->session()->regenerate();
+            
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
     }
 
     /**

@@ -8,20 +8,28 @@
                             @include('components.flash')
                     </div>
                 </div>
-            
+
+
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-            <form method="POST" action="{{ route('register') }}" class="font-robotocondensed text-xl">
+            <form method="POST" action="{{ route('register') }}" class="font-robotocondensed text-xl" enctype="multipart/form-data">
                 @csrf
+
+                <div class="absolute mt-[8rem] ml-14 w-[13rem] h-[8rem]">
+                    <i class="fa-solid fa-image text-[200px] text-dirty-white"></i>
+                    <div>
+                        <input id="profileImage" class="-mt-[5px] w-[15rem] h-[42px] px-2 py-2 text-center text-[14px] text-dirty-white file:w-[7rem] file:h-[42px]file:overflow-hidden file:bg-deep-green file:text-[14px] file:text-dirty-white file:font-robotocondensed file:cursor-pointer" type="file" name="profileImage"/>
+                    </div>
+                </div>
 
                 <!-- Name -->
                 @role('Admin')
-                <div class="absolute left-[866px] top-[181px]">
+                <!-- <div class="absolute left-[866px] top-[181px]">
                     <x-label for="idNumber" :value="__('ID Number')" class="font-roboto text-xl" style="color:white;"/>
 
                     <x-input id="idNumber" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="idNumber" :value="old('idNumber')" required autofocus />
-                </div>
+                </div> -->
                 @endrole('Admin')
 
                 <div class="absolute left-[333px] top-[181px]">
@@ -63,7 +71,7 @@
                 </div>
                 </div>
 
-                <div class="absolute left-[866px] top-[269.5px]">
+                <div class="absolute left-[866px] top-[181px]">
                 <div>
                     <x-label for="barangay" :value="__('Barangay')" class="font-roboto text-xl" style="color:white;"/>
 

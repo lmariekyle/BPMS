@@ -6,26 +6,39 @@
 
         <title>BPMS</title>
 
+        <style>
+            .hide {
+                display: none;
+            }
+    
+            .info:hover + .hide {
+                position: absolute;
+                display: block;
+                z-index: 9;
+            }
+        </style>
+
         <script src="https://kit.fontawesome.com/c0346081e5.js" crossorigin="anonymous"></script>
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <!-- Pie Chart Script -->
         <script type="text/javascript">
             google.charts.load('current', {'packages':['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
+            google.charts.setOnLoadCallback(drawChartResident);
+            google.charts.setOnLoadCallback(drawChartHousehold);
 
-            function drawChart() {
+            function drawChartResident() {
 
                 var data = google.visualization.arrayToDataTable([
                 ['Sitio', 'Residents'],
-                <?php echo $chartdata ?>
+                <?php echo $chartdataResident ?>
                 ]);
 
                 var options = {
-                    legend: 'none',
+                    sliceVisibilityThreshold :0,
                     width: '100%',
                     height: '100%',
-                    pieSliceText: 'label',
+                    pieSliceText: 'value',
                     backgroundColor: 'none',
                     chartArea: {
                         height: "95%",
@@ -33,7 +46,31 @@
                     }
                 };
 
-                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                var chart = new google.visualization.PieChart(document.getElementById('residentPiechart'));
+
+                chart.draw(data, options);
+            }
+
+            function drawChartHousehold() {
+
+                var data = google.visualization.arrayToDataTable([
+                ['Sitio', 'Households'],
+                <?php echo $chartdataHousehold ?>
+                ]);
+
+                var options = {
+                    sliceVisibilityThreshold :0,
+                    width: '100%',
+                    height: '100%',
+                    pieSliceText: 'value',
+                    backgroundColor: 'none',
+                    chartArea: {
+                        height: "95%",
+                        width: "95%"
+                    }
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('householdPiechart'));
 
                 chart.draw(data, options);
             }
@@ -78,43 +115,50 @@
 
     <!-- welcome statistics conten -->
     <div class="p-3 ml-[18rem] -mt-56 h-max w-[60rem] bg-dirty-white border-2 border-deep-green rounded-xl shadow-3xl">
-        <p class="font-robotocondensed mt-12 text-4xl p-3 text-deep-green text-center">BARANGAY POBLACION,DALAGUETE {{ date("Y") }} CENSUS DATA</p>
+        <p class="font-robotocondensed mt-12 text-4xl p-3 text-deep-green text-center">BARANGAY POBLACION, DALAGUETE {{ date("Y") }} CENSUS DATA</p>
     
         <div class="mt-0.5 grid grid-rows-2 grid-flow-col gap-4 justify-center ">
 
-            <div class="bg-dirty-white mt-12 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
+            <div class="bg-dirty-white mt-12 h-72 w-80 border-2 border-deep-green shadow-inner rounded-xl">
                 <div class="-mt-[20px] mx-auto h-12 w-fit bg-olive-green border-2 border-green rounded-xl px-3 py-3">
                     <h1 class="font-robotocondensed text-base text-dirty-white text-center">TOTAL RESIDENTS PER SITIO</h1>
                 </div>
-                <div class="w-[300px] l-[300px] mt-2 mx-auto" id="piechart" style=""></div>
+                <div class="w-[300px] l-[300px] mt-2 mx-auto" id="residentPiechart" style=""></div>
+                <a class="info w-[13px] ml-72"><i class="fa fa-question-circle-o text-[12px]"></i></a>
+                <div class="hide bg-green py-2 px-2 rounded-xl">
+                    <p class="text-xs font-robotocondensed w-80 text-justify">
+                        Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
+                        the Sitio, that means there are currently 0 Residents there.
+                    </p>
+                </div>
             </div>
 
             <div class="bg-dirty-white mt-8 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
                 <h1 class="mt-4 font-bold font-robotocondensed text-2xl text-deep-green text-center">TOTAL RESIDENTS <br> AS OF {{ date("Y") }}</h1>
                 <div class="bg-green w-[250px] h-[75px] m-auto flex items-center justify-center">
-                    @foreach ($statistics as $statistic)
-                    @if($statistic->year==date("Y"))
-                        <p class="font-roboto text-center font-black text-6xl text-dirty-white">{{ $statistic->totalResidentsBarangay ?? 0 }}</p>
-                    @endif
-                    @endforeach
+                    <p class="font-roboto text-center font-black text-6xl text-dirty-white">{{ $statistics->totalResidentsBarangay }}</p>
                 </div>
                 <h1 class="mt-1 font-bold font-robotocondensed text-2xl text-deep-green text-center">POBLACION <br> DALAGUETE, CEBU</h1>
             </div>
 
-            <div class="bg-dirty-white mt-12 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
+            <div class="bg-dirty-white mt-12 h-72 w-80 border-2 border-deep-green shadow-inner rounded-xl">
                 <div class="-mt-[20px] mx-auto h-12 w-max bg-olive-green border-2 border-green rounded-xl px-3 py-3">
                     <h1 class="font-robotocondensed text-base text-dirty-white text-center">TOTAL HOUSEHOLDS PER SITIO</h1>
+                </div>
+                <div class="w-[300px] l-[300px] mt-2 mx-auto" id="householdPiechart" style=""></div>
+                <a class="info w-[13px] ml-72"><i class="fa fa-question-circle-o text-[12px]"></i></a>
+                <div class="hide bg-green py-2 px-2 rounded-xl">
+                    <p class="text-xs font-robotocondensed w-80 text-justify">
+                        Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
+                        the Sitio, that means there are currently 0 Households there.
+                    </p>
                 </div>
             </div>
 
             <div class="bg-dirty-white mt-8 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
                 <h1 class="mt-4 font-bold font-robotocondensed text-2xl text-deep-green text-center">TOTAL HOUSEHOLDS <br> AS OF {{ date("Y") }}</h1>
                 <div class="bg-green w-[250px] h-[75px] m-auto flex items-center justify-center">
-                    @foreach ($statistics as $statistic)
-                    @if($statistic->year==date("Y"))
-                        <p class="font-roboto text-center text-6xl font-black text-dirty-white">{{ $statistic->totalHouseholdsBarangay ?? 0 }}</p>
-                    @endif
-                    @endforeach
+                    <p class="font-roboto text-center text-6xl font-black text-dirty-white">{{ $statistics->totalHouseholdsBarangay }}</p>
                 </div>
                 <h1 class="mt-1 font-bold font-robotocondensed text-2xl text-deep-green text-center">POBLACION <br> DALAGUETE, CEBU</h1>
             </div>

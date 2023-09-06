@@ -7,12 +7,13 @@
 
     <div class="bg-olive-green w-[1400px] h-[813px] ml-8 mt-16 px-5 py-5 rounded-[48px] flex flex-row">
 
-        <p class="text-dirty-white font-robotocondensed ml-3 font-bold text-[48px] absolute text-start">BARANGAY HEALTH WORKERS</p>
+        @hasanyrole('Barangay Captain|Barangay Secretary')
+        <p class="text-dirty-white font-robotocondensed ml-3 font-bold text-[48px] text-start">SEARCH REQUESTS</p>
         <!--Search-->
-        <form type="get" action="{{ route('bhwSearch') }}">
-            <div class="ml-[620px]">
-                <div class="mt-4 flex w-[370px] h-[30px] flex-wrap items-stretch">
-                    <input type="type"
+        <div>
+            <form type="get" action="">
+                <div class="mt-4 ml-12 flex w-[370px] h-[30px] flex-wrap items-stretch">
+                    <input type="type" 
                     name="search"
                     class="m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-lg border border-solid border-neutral-300 bg-white bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
                     placeholder="Search"
@@ -38,51 +39,51 @@
                         </svg>
                     </button>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
 
-        <a href="/assign" class="button h-8 w-max text-center mt-6 py-1 ml-[200px]">Assign Sitio</a>
-
-                    <!--ACTUAL TABLE -->
-
+        
+        <!--ACTUAL TABLE -->
         <div class="bg-dirty-white w-[1400px] h-max absolute mt-20 -ml-5 border shadow-inner">
             <!--TABLE HEADER-->
             <div class="bg-green w-[1400px] h-[48px] absolute flex flex-row border border-white shadow-lg">
-                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-7">ID</p>
-                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-44">BHW NAME</p>
-                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-60">SITIO ASSIGNED</p>
-                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-52">STATUS</p>
-                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-72">ACTIONS</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-6">REQUEST ID</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-20">SERVICE/CERTIFICATE TYPE</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-40">DATE REQUESTED</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">FORWARDED BY</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">STATUS</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-44">ACTION</p>
             </div>
-
+            
             <table class="mt-10">
                 <tbody>
-                @foreach ($bhws as $bhw)
+                
                      <tr class="border shadow-md">
-                        <td class="px-6 py-4 w-[200px] font-robotocondensed text-deep-green text-[16px] font-bold">
-                        {{ $bhw->idNumber }}
+                        <td class="px-6 py-4 w-[295px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                            0001
                         </td>
-                        <td class="px-6 py-4  w-[350px] font-robotocondensed text-deep-green text-[16px] font-bold">
-                        {{ $bhw->lastName }}, {{ $bhw->firstName }} {{ $bhw->middleName[0] }}
+                        <td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                            BARANGAY CERTIFICATE
                         </td>
-                        <td class="px-6 py-4  w-[350px] font-robotocondensed text-deep-green text-[16px] font-bold">
-                            {{ $bhw->assignedSitioName }}
+                        <td class="px-6 py-4 w-[490px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                            11-11-22
                         </td>
-                        <td class="px-6 py-4 w-[380px] font-robotocondensed text-deep-green text-[16px] font-bold ">
-                            {{ $bhw->userStatus}}
+                        <td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold ">
+                            LOSER, L
                         </td>
-                        <td class="px-6 py-4 w-[205px]">
-                            <a href="{{ route('bhw.show', $bhw->id) }}" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
+                        <td class="px-6 py-4 w-[450px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                            PROCESSING
+                        </td>
+                        <td class="px-6 py-4 w-[190px]">
+                            <a href="" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
                         </td>
                     </tr>
-                @endforeach
                                       
                 </tbody>
             </table>
 
-
-
-
         </div>
-
+        @endhasanyrole      
+    </div>
+    
 </x-app-layout>

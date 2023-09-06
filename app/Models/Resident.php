@@ -11,6 +11,7 @@ class Resident extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'firstname',
         'middlename',
         'lastname',
@@ -31,6 +32,8 @@ class Resident extends Model
         'supportingDocument',
 
     ];
+
+    public $incrementing = false;
 
     public function user()
     {
