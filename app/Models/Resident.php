@@ -17,7 +17,6 @@ class Resident extends Model
         'lastname',
         'dateOfBirth',
         'contactNumber',
-        'barangay',
         'email',
         'maritalStatus',
         'gender',

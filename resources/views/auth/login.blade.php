@@ -17,7 +17,6 @@
                 <p class="font-dancingscript text-8xl text-dirty-white text-center pt-52">Welcome</p>
                 <x-auth-validation-errors class="mb-2 ml-12" :errors="$errors" />  
                 <div class="ml-12">
-                    @include('components.flash')
                     <!-- Email Address -->
                     <div class="mt-3">
                         <x-label for="email" :value="__('Email')" class="text-xl font-roboto" style="color:white"/>

@@ -43,13 +43,15 @@
             <div class="absolute flex-row -mt-[75px] px-4 py-3 items-center w-[1270px]">
                 <a href="{{ route('dashboard') }}"><i class="fa-solid fa-arrow-left text-dirty-white text-[24px]"></i></a>
                 <a href="{{ route('dashboard') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">HOME</a>
-                <a href="" class="font-robotocondensed text-[24px] text-dirty-white px-10">SERVICES</a>
+                <a href="{{ route('services.index') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">SERVICES</a>
                 <a href="{{ route('bhw') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">BHW</a>
                 <a href="{{route('profile')}}"><i class="fa-solid fa-circle-user text-dirty-white text-[40px] ml-[680px]"></i></a>
             </div>   
         </svg>
     </div>
     @endhasanyrole
+
+    
     @hasanyrole('User|Barangay Health Worker')
     <nav x-data="{ open: false }">
     <div class="w-full">

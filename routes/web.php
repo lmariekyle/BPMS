@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BHWController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\SitioCountController;
+use App\Http\Controllers\ServicesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,7 @@ Route::middleware('guest')->group(function () {
     Route::post('create',[ResidentUserController::class, 'store']);
 
 });
+
 
 Route::group(['middleware'=>'auth'],function (){
     Route::get('welcome', function () {
@@ -53,15 +55,28 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('index', [AccountController::class, 'index'])->name('accounts');
     Route::resource('accounts', \App\Http\Controllers\AccountController::class);
     Route::get('search', [AccountController::class, 'search'])->name('search');
-    // Route::resource('welcome', \App\Http\Controllers\StatisticsController::class);
+    //Route::resource('welcome', \App\Http\Controllers\StatisticsController::class);
     Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics');
-    Route::get('chartdata', [StatisticsController::class, 'index'])->name('chartdata'); 
+    Route::get('chartdata', [StatisticsController::class, 'index'])->name('chartdata');
+    Route::resource('services', \App\Http\Controllers\ServicesController::class); 
+    Route::get('services', [ServicesController::class, 'index'])->name('services');
+    Route::get('services', [ServicesController::class, 'manage'])->name('services');
+    Route::get('services', [ServicesController::class, 'generate'])->name('services');
+    Route::get('services', [ServicesController::class, 'approve'])->name('services');
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {
     Route::resource('dashboard', \App\Http\Controllers\StatisticsController::class);
     return view('dashboard');
 })->middleware(['auth','verified'])->name('dashboard');
+
+Route::get('exportpdf', [StatisticsController::class, 'exportpdf'], function (){
+    Route::resource('exportpdf', \App\Http\Controllers\StatisticsController::class);
+    Route::post('exportpdf',[
+        'uses'=>'StatisticsController@print'
+    ]);
+    return view('exportpdf');
+})->middleware(['auth','verified'])->name('exportpdf');
 
 
 

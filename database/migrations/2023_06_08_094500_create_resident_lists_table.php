@@ -20,6 +20,7 @@ class CreateResidentListsTable extends Migration
             $table->foreignId('houseID')->references('id')->on('households')->onDelete('cascade')->onUpdate('cascade');
 
             
+            $table->string('houseNumber')->nullable();
             $table->boolean('householdHead')->nullable();
             $table->smallInteger('memberNumber')->nullable();
 
