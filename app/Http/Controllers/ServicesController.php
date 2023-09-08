@@ -24,6 +24,11 @@ class ServicesController extends Controller
     {
         return view('services.approve');
     }
+
+    public function deny()
+    {
+        return view('services.deny');
+    }
 }
 
 ?>
