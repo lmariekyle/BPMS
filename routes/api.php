@@ -2,6 +2,14 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BHWController;
+use App\Http\Controllers\SitioAssignmentController;
+use App\Http\Controllers\ResidentUserController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\Auth\AuthenticationAPIController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\DocumentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +22,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/mobileLogin', 'App\Http\Controllers\Auth\AuthenticationAPIController@mobileLogin')->name('mobileLogin');
+Route::post('/mobileLogout', 'App\Http\Controllers\Auth\AuthenticationAPIController@mobileLogout')->name('mobileLogout');
+
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('/bhwDashboard', [BHWController::class, 'mobileDashboard']);
+Route::post('/mobileUserData', [AccountController::class, 'mobileUserData']);
+Route::post('/mobileRequestServices', [DocumentController::class, 'mobileRequestServices']);
+Route::post('/mobileGetDocuments', [DocumentController::class, 'mobileGetDocuments']);
+Route::get('/mobileSitios', [SitioAssignmentController::class, 'mobileSitios']);
+Route::post('/register', 'App\Http\Controllers\ResidentUserController@mobileStore');
+Route::post('/forgotPassword', 'App\Http\Controllers\Auth\PasswordResetLinkController@mobileStore')->name('mobileForgotPassword');

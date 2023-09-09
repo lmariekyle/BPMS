@@ -645,7 +645,18 @@ select {
 .collapse {
   visibility: collapse;
 }
-.fixed {
+.sr-only{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.fixed{
   position: fixed;
 }
 .absolute {
@@ -714,7 +725,11 @@ select {
 .m-auto {
   margin: auto;
 }
-.mx-2 {
+.mx-12{
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+.mx-2{
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
@@ -989,7 +1004,7 @@ select {
 .block {
   display: block;
 }
-.flex {
+.flex{
   display: flex;
 }
 .inline-flex {
@@ -1329,7 +1344,10 @@ select {
 .min-w-0 {
   min-width: 0px;
 }
-.max-w-7xl {
+.max-w-6xl{
+  max-width: 72rem;
+}
+.max-w-7xl{
   max-width: 80rem;
 }
 .max-w-\[1178px\] {
@@ -1451,15 +1469,8 @@ select {
 .gap-4 {
   gap: 1rem;
 }
-.space-x-8 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(2rem * var(--tw-space-x-reverse));
-  margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
-}
-.space-y-1 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+.self-center{
+  align-self: center;
 }
 .overflow-auto {
   overflow: auto;
@@ -1467,7 +1478,7 @@ select {
 .overflow-hidden {
   overflow: hidden;
 }
-.break-normal {
+.break-normal{
   overflow-wrap: normal;
   word-break: normal;
 }
@@ -1581,7 +1592,11 @@ select {
 }
 .bg-indigo-50 {
   --tw-bg-opacity: 1;
-  background-color: rgb(238 242 255 / var(--tw-bg-opacity));
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+.bg-green{
+  --tw-bg-opacity: 1;
+  background-color: rgb(100 150 94 / var(--tw-bg-opacity));
 }
 .bg-lime-200 {
   --tw-bg-opacity: 1;
@@ -1663,11 +1678,7 @@ select {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }
-.py-12 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-.py-16 {
+.py-16{
   padding-top: 4rem;
   padding-bottom: 4rem;
 }
@@ -1769,7 +1780,19 @@ select {
 .indent-4 {
   text-indent: 1rem;
 }
-.font-sans {
+.font-dancingscript{
+  font-family: 'Dancing Script', cursive;
+}
+.font-libre{
+  font-family: 'Libre Baskerville', serif;
+}
+.font-roboto{
+  font-family: 'Roboto', sans-serif;
+}
+.font-robotocondensed{
+  font-family: 'Roboto Condensed', sans-serif;
+}
+.font-sans{
   font-family: Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 .text-2xl {
@@ -2227,7 +2250,7 @@ select {
     color: rgb(229 229 229 / var(--tw-text-opacity));
   }
 }
-@media (min-width: 640px) {
+@media (min-width: 640px){
 
   .sm\:-my-px {
     margin-top: -1px;
@@ -2274,6 +2297,10 @@ select {
     justify-content: space-between;
   }
 
+  .sm\:rounded-lg{
+    border-radius: 0.5rem;
+  }
+
   .sm\:rounded-lg {
     border-radius: 0.5rem;
   }
@@ -2287,7 +2314,7 @@ select {
     padding-top: 0px;
   }
 }
-@media (min-width: 1024px) {
+@media (min-width: 1024px){
 
   .lg\:px-8 {
     padding-left: 2rem;

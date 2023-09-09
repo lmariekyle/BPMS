@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Statistics;
 use App\Models\Barangay;
 use App\Models\Resident;
 use App\Models\ResidentList;
@@ -112,6 +113,7 @@ class BHWController extends Controller
         //
     }
 
+
     public function search(Request $request)
     { 
         $search=$request['search'];
@@ -134,6 +136,14 @@ class BHWController extends Controller
         }
 
         return view('bhw.index')->with('bhws',$bhws);
+    }
+
+    public function mobileDashboard(){
+        $dashboardInfo = Statistics::all()->where('year', 2023);
+        //add assigned sitio and barangay
+
+        return $dashboardInfo;
+
     }
 
 }

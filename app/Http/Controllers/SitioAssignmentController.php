@@ -7,6 +7,7 @@ use App\Models\ResidentList;
 use App\Models\Sitio;
 use App\Models\User;
 use Illuminate\Http\Request;
+use DB;
 
 class SitioAssignmentController extends Controller
 {
@@ -55,7 +56,15 @@ class SitioAssignmentController extends Controller
         }
 
        
-        return redirect()->back()->with('success','Sitio Assignment Approved!');;
+        return redirect()->back()->with('success','Sitio Assignment Approved!');
     }
 
+    public function mobileSitios()
+    {
+        $sitios=DB::select('select sitioName from sitios');
+        
+        $response = ['sitios'=>$sitios, 'success'=>true];
+
+        return $response;
+    }
 }
