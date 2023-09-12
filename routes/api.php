@@ -34,7 +34,7 @@ Route::post('/mobileUserData', [AccountController::class, 'mobileUserData']);
 Route::post('/mobileRequestServices', [DocumentController::class, 'mobileRequestServices']);
 Route::post('/mobileGetDocuments', [DocumentController::class, 'mobileGetDocuments']);
 Route::get('/mobileSitios', [SitioAssignmentController::class, 'mobileSitios']);
-Route::post('/mobileHouseholds', 'App\Http\Controllers\HouseholdRegistrationController@mobileHouseholds')->name('mobileHouseholds');
+Route::post('/mobileHouseList', [SitioAssignmentController::class, 'mobileHouseList']);
 Route::post('/register', 'App\Http\Controllers\ResidentUserController@mobileStore');
 Route::post('/sitioAssignment', [SitioAssignmentController::class, 'mobileSitiosAssignment']);
 Route::post('/household', 'App\Http\Controllers\HouseholdRegistrationController@mobileStore');

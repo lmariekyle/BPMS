@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resident;
-use App\Models\ResidentList;
+use App\Models\Households;
 use App\Models\Sitio;
 use App\Models\User;
 use Illuminate\Http\Request;

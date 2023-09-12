@@ -133,7 +133,7 @@ class StatisticsController extends Controller
         //-------------------------------------
 
         //For the select/option lists in the form
-        $sitioList=Sitio::where('id','>',1)->get();
+        $sitioList=Sitio::where('barangayID',2)->get();
 
         $gender=SitioCount::select('genderGroup')->distinct()->orderBy('genderGroup')->get();
 
@@ -154,7 +154,7 @@ class StatisticsController extends Controller
         while ($indexHousehold <= $maxValueHousehold){
             $sitioName=Sitio::where('id',$indexHousehold)->value('sitioName');
             $sumHousehold=DB::table('households')->where('sitioID', $indexHousehold)->count('houseNumber');
-            $dataHousehold.="['$sitioName',".$sumHousehold."],";
+            $dataHousehold="['$sitioName',".$sumHousehold."],";
 
             $indexHousehold++;
         }
@@ -188,7 +188,21 @@ class StatisticsController extends Controller
         
         $upperCaseSitio=strtoupper($nameSitio);
 
-        return view('dashboard', compact('totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'request', 'upperCaseSitio'));
+        $data=[
+            'totalHouseholdCount'=>$totalHouseholdCount, 
+            'totalResidentCount'=>$totalResidentCount, 
+            'chartdataHousehold'=>$chartdataHousehold, 
+            'chartdataResident'=>$chartdataResident, 
+            'sitioList'=>$sitioList, 
+            'gender'=>$gender, 
+            'ageClassification'=>$ageClassification, 
+            'request'=>$request, 
+            'upperCaseSitio'=>$upperCaseSitio,
+        ];
+
+        return $data;
+        //return view('dashboard')->with($data);
+        //return view('dashboard', compact('totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'request', 'upperCaseSitio'));
     }
 
     public function exportpdf(Request $request)

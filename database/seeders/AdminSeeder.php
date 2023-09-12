@@ -16,7 +16,7 @@ class AdminSeeder extends Seeder
     public function run()
     {
         User::create([
-            'residentID' => 'RES-00001',
+            'residentID' => '1',
             'sitioID' => '2',
             'assignedSitioID' => '1',
             'idNumber' => 'A-001',
