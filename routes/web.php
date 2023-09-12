@@ -3,7 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ResidentUserController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BHWController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\SitioCountController;
@@ -22,6 +25,7 @@ use App\Http\Controllers\ServicesController;
 
 Route::get('/', [StatisticsController::class, 'index']);
 
+
 Route::middleware('guest')->group(function () {
     Route::get('create', [ResidentUserController::class, 'create'])->name('create');
     Route::post('create',[ResidentUserController::class, 'store']);
@@ -33,8 +37,16 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('welcome', function () {
         return view('welcome');
     })->name('welcome');
+    Route::get('searchResident', function () {
+        return view('searchResident');
+    })->name('searchResident');
+    Route::get('personalInfoUpdate', function () {
+        return view('personalInfoUpdate');
+    })->name('personalInfoUpdate');
     Route::get('profile', [RegisteredUserController::class, 'index'])->name('profile');
     Route::get('profile', [ResidentUserController::class, 'show'])->name('profile');
+    Route::get('change_password', [ProfileController::class, 'change_password'])->name('change_password');
+    Route::post('update_password', [ProfileController::class, 'update_password'])->name('update_password');
     Route::resource('bhw', \App\Http\Controllers\BHWController::class);
     Route::get('bhw', [BHWController::class, 'index'])->name('bhw');
     Route::get('bhw', [BHWController::class, 'index'])->name('bhw');

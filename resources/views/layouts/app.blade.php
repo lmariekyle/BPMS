@@ -19,8 +19,8 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
         
     </head>
-    <body class=" bg-dirty-white font-sans antialiased">
-        <div class="min-h-screen bg-dirty-white">
+    <body class=" bg-dirty-white font-sans antialiased mb-5">
+        <div class="min-h-screen bg-dirty-white mb-10">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -32,7 +32,6 @@
 
             <!-- Page Content -->
             <main>
-               
                 {{ $slot }}
             </main>
         </div>

@@ -24,7 +24,7 @@
                             <div class="mr-14 float-left max-h-[324px] max-w-[273px] place-content-center bg-green h-[324px] w-[273px]">
                                  <img src="/{{$user->profileImage}}" class="max-h-[324px] max-w-[273px] h-[324px] w-[273px]" alt="Profile Image">
                             </div>
-                            <a href="{{ route('password.request') }}" class="absolute mt-[22rem] left-0 button w-[248px] h-[49px] text-dirty-white text-center px-1 py-2 text-[22px]">
+                            <a href="{{ route('change_password') }}" class="absolute mt-[22rem] left-0 button w-[248px] h-[49px] text-dirty-white text-center px-1 py-2 text-[22px]">
                                             Change Password
                             </a>
                             <div class="absolute mt-[26rem] left-0 button w-[248px] h-[49px] text-dirty-white text-center px-1 py-2 text-[22px]">

@@ -61,7 +61,7 @@
                 @foreach ($accounts as $account)
                      <tr class="border shadow-md">
                         <td class="px-6 py-4 w-[295px] font-robotocondensed text-deep-green text-[16px] font-bold">
-                            {{ $account->id }}
+                            {{ $account->idNumber }}
                         </td>
                         <td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold">
                             {{ $account->lastName }}, {{ $account->firstName }} {{ $account->middleName[0] }}.

@@ -51,7 +51,7 @@ class ResidentSeeder extends Seeder
             'dateOfBirth' => '2000-01-01',
             'contactNumber' => '09876543212',
             'email' => 'stacy@gmail.com',
-            'gender' => 'Feale',
+            'gender' => 'Female',
             'maritalStatus' => 'Single',
         ]);
 
