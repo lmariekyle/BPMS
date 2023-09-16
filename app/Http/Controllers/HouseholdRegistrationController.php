@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Households;
 use App\Models\Resident;
 use App\Models\ResidentList;
+use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
 use DB;
@@ -22,27 +23,24 @@ class HouseholdRegistrationController extends Controller
         //
     }
 
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function mobileHouseholds(Request $request)
+        
+    public function mobileHouseholdsList()
     {
         /* function will receive the assignedSitioID of the current user from the app then 
            return all households with that id
         */
-        $households=Households::where('sitioID', $request->assignedSitioID)->get();
+       /* $user = User::where('id',2)->first();
+        $assignedSitio = $user->assignedSitioID;*/
+        $households=Households::where('sitioID', 2)->get();
 
         $response =[
             'households' => $households,
             'success' => true
         ];
-        print('hey');
+        print($households);
         return $response;
     }
+
 
     
 

@@ -25,12 +25,12 @@ class BHWSeeder extends Seeder
         
         //MILES//
         ResidentList::create([
-            'residentID'=>'RES-00002',
+            'residentID'=>'2',
             'houseID'=>'2'
         ]);
 
         User::create([
-            'residentID' => 'RES-00002',
+            'residentID' => '2',
             'sitioID' => '2',
             'assignedSitioID' => '2',
             'idNumber' => 'B-0001',
@@ -45,20 +45,38 @@ class BHWSeeder extends Seeder
         
         //GWEN//
         ResidentList::create([
-            'residentID'=>'RES-00003',
+            'residentID'=>'3',
             'houseID'=>'2'
         ]);
         User::create([
-            'residentID' => 'RES-00003',
+            'residentID' => '3',
             'sitioID' => '3',
             'assignedSitioID' => '3',
             'idNumber' => 'B-0002',
             'contactnumber' => '09876543212',
-            'userlevel' => 'Barangay Health Worker',
+            'userlevel' => 'User',
             'userstatus' => 'Active',
             'email' => 'stacy@bpms.com',
             'email_verified_at' => now(),
             'password' => Hash::make('stacybpms'),
-        ])->assignRole('Barangay Health Worker');
+        ])->assignRole('User');
+        
+        //PETER//
+        ResidentList::create([
+            'residentID'=>'7',
+            'houseID'=>'2'
+        ]);
+        User::create([
+            'residentID' => '7',
+            'sitioID' => '3',
+            'assignedSitioID' => '3',
+            'idNumber' => 'S-001',
+            'contactnumber' => '09876543212',
+            'userlevel' => 'User',
+            'userstatus' => 'Active',
+            'email' => 'parker@bpms.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('parkerbpms'),
+        ])->assignRole('User');
     }
 }
