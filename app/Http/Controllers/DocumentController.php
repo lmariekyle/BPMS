@@ -40,7 +40,8 @@ class DocumentController extends Controller
 
         $documents = Document::where('docType', $request->docType)->get();
 
-        $response = ['user' => $userData, 'documents' => $documents, 'success' => true];
+
+        $response = ['user' => $userData, 'documentType' => $request->docType ,'documents' => $documents, 'success' => true];
         return $response;
     }
 }

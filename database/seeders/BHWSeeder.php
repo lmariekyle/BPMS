@@ -54,7 +54,7 @@ class BHWSeeder extends Seeder
             'assignedSitioID' => '3',
             'idNumber' => 'B-0002',
             'contactnumber' => '09876543212',
-            'userlevel' => 'User',
+            'userlevel' => 'Barangay Secretary',
             'userstatus' => 'Active',
             'email' => 'stacy@bpms.com',
             'email_verified_at' => now(),

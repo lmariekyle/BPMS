@@ -22,6 +22,8 @@ class CreateTransactionsTable extends Migration
             $table->string('serviceAmount');
             $table->string('docNumber');
             $table->string('serviceStatus');
+            $table->string('requestPurpose');
+            $table->string('paymentMethod');
 
             $table->string('issuedDocument'); /*filePath*/
             
