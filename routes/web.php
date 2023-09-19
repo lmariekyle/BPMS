@@ -23,18 +23,20 @@ use App\Http\Controllers\ServicesController;
 |
 */
 
-//guest//
-Route::middleware('web')->group(function () {
+Route::get('/', [StatisticsController::class, 'index']);
+
+
+Route::middleware('guest')->group(function () {
     Route::get('create', [ResidentUserController::class, 'create'])->name('create');
     Route::post('create',[ResidentUserController::class, 'store']);
-});
 
-Route::middleware(['auth','guest'])->group(function () {
-    Route::get('/', [StatisticsController::class, 'index'])->name('welcome');
 });
 
 
 Route::group(['middleware'=>'auth'],function (){
+    Route::get('welcome', function () {
+        return view('welcome');
+    })->name('welcome');
     Route::get('searchResident', function () {
         return view('searchResident');
     })->name('searchResident');
@@ -57,10 +59,10 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics');
     Route::get('chartdata', [StatisticsController::class, 'index'])->name('chartdata');
     Route::resource('services', \App\Http\Controllers\ServicesController::class); 
-    Route::get('manage', [ServicesController::class, 'manage']);
-    Route::get('generate', [ServicesController::class, 'generate']);
-    Route::get('approve', [ServicesController::class, 'approve']);
-    Route::get('deny', [ServicesController::class, 'deny']);
+    Route::get('services', [ServicesController::class, 'index'])->name('services');
+    Route::get('services', [ServicesController::class, 'manage'])->name('services');
+    Route::get('services', [ServicesController::class, 'generate'])->name('services');
+    Route::get('services', [ServicesController::class, 'approve'])->name('services');
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {
