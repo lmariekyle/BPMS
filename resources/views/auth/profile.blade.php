@@ -30,7 +30,7 @@
                             <div class="absolute mt-[26rem] left-0 button w-[248px] h-[49px] text-dirty-white text-center px-1 py-2 text-[22px]">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <a href="route('logout')"
+                                <a href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                     this.closest('form').submit();">
                                     {{ __('Logout') }}

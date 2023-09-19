@@ -41,7 +41,7 @@
             {
                 setTimeout(function(){
                     $("div.alert").remove();
-                }, 3000);
+                }, 10000);
             });
         </script>
 
