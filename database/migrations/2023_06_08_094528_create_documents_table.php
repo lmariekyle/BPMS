@@ -19,6 +19,8 @@ class CreateDocumentsTable extends Migration
             $table->string('docName');
             $table->string('docType'); /*clearance, certificates, permits, summons*/
             $table->string('docTemplate'); /*filePath*/
+            $table->float('fee');
+            $table->json('requirements');   
             
             $table->string('createdBy');
             $table->string('revisedBy');
