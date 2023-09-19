@@ -59,7 +59,7 @@ class BHWSeeder extends Seeder
             'email' => 'stacy@bpms.com',
             'email_verified_at' => now(),
             'password' => Hash::make('stacybpms'),
-        ])->assignRole('Barangay Secretary');
+        ])->assignRole('User');
         
         //PETER//
         ResidentList::create([
@@ -77,6 +77,6 @@ class BHWSeeder extends Seeder
             'email' => 'parker@bpms.com',
             'email_verified_at' => now(),
             'password' => Hash::make('parkerbpms'),
-        ])->assignRole('Barangay Captain');
+        ])->assignRole('User');
     }
 }

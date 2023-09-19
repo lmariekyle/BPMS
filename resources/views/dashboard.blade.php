@@ -270,18 +270,6 @@
                 </div>
             </div>
 
-            <div class="bg-green h-[40px] w-[140px] text-center ml-32">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('LOGOUT') }}
-                    </x-responsive-nav-link>
-                </form>
-            </div>
-
         @endhasanyrole
 
         </div>
@@ -310,7 +298,7 @@
 
             var data = google.visualization.arrayToDataTable([
             ['Sitio', 'Residents'],
-            <?php echo $chartdataResident ?>
+            
             ]);
 
             var options = {
@@ -334,7 +322,7 @@
 
             var data = google.visualization.arrayToDataTable([
             ['Sitio', 'Households'],
-            <?php echo $chartdataHousehold ?>
+            
             ]);
 
             var options = {
