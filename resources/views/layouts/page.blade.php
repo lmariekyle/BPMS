@@ -53,7 +53,7 @@
             {
                 setTimeout(function(){
                     $("div.alert").remove();
-                }, 10000);
+                }, 3000);
             });
         </script>
 
