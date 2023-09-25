@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\AuthenticationAPIController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\HouseholdRegistrationController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::post('/mobileRequestServices', [DocumentController::class, 'mobileRequest
 Route::post('/mobileGetDocuments', [DocumentController::class, 'mobileGetDocuments']);
 Route::get('/mobileSitios', [SitioAssignmentController::class, 'mobileSitios']);
 Route::post('/mobileHouseList', [SitioAssignmentController::class, 'mobileHouseList']);
+Route::post('/mobileTransactionRequest', [TransactionController::class, 'mobileTransactionRequest']);
 Route::post('/register', 'App\Http\Controllers\ResidentUserController@mobileStore');
 Route::post('/sitioAssignment', [SitioAssignmentController::class, 'mobileSitiosAssignment']);
 Route::post('/household', 'App\Http\Controllers\HouseholdRegistrationController@mobileStore');

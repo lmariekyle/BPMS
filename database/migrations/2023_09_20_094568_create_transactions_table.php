@@ -18,11 +18,11 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('documentID')->references('id')->on('documents')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('userID')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('paymentID')->references('id')->on('payments')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('detailID')->references('id')->on('documentDetails')->onDelete('cascade')->onUpdate('cascade');
 
             $table->string('serviceAmount');
             $table->string('docNumber');
             $table->string('serviceStatus');
-            $table->string('requestPurpose');
             $table->string('paymentMethod');
 
             $table->string('issuedDocument'); /*filePath*/

@@ -19,7 +19,7 @@ class DocumentSeeder extends Seeder
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
             'fee' => '100.0',
-            'requirements' => '["Residence Certificate"]',
+            'requirements' => 'Residence Certificate',
 
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
@@ -30,7 +30,7 @@ class DocumentSeeder extends Seeder
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
             'fee' => '100.0',
-            'requirements' => '["Residence Certificate"]',
+            'requirements' => 'Residence Certificate',
 
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
@@ -41,7 +41,7 @@ class DocumentSeeder extends Seeder
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
             'fee' => '100.0',
-            'requirements' => '["Residence Certificate"]',
+            'requirements' => 'Residence Certificate',
 
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
@@ -52,7 +52,7 @@ class DocumentSeeder extends Seeder
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
             'fee' => '100.0',
-            'requirements' => '["Residence Certificate"]',
+            'requirements' => 'Residence Certificate',
 
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
@@ -63,7 +63,7 @@ class DocumentSeeder extends Seeder
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
             'fee' => '100.0',
-            'requirements' => '["Residence Certificate"]',
+            'requirements' => 'Residence Certificate',
 
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
@@ -74,7 +74,7 @@ class DocumentSeeder extends Seeder
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
             'fee' => '100.0',
-            'requirements' => '["Residence Certificate"]',
+            'requirements' => 'Residence Certificate',
 
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
@@ -85,7 +85,7 @@ class DocumentSeeder extends Seeder
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
             'fee' => '100.0',
-            'requirements' => '["Residence Certificate"]',
+            'requirements' => 'Residence Certificate',
 
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
@@ -96,7 +96,7 @@ class DocumentSeeder extends Seeder
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
             'fee' => '100.0',
-            'requirements' => '["Residence Certificate"]',
+            'requirements' => 'Residence Certificate',
 
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
@@ -107,7 +107,7 @@ class DocumentSeeder extends Seeder
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
             'fee' => '100.0',
-            'requirements' => '["Residence Certificate"]',
+            'requirements' => 'Residence Certificate',
 
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
@@ -118,7 +118,7 @@ class DocumentSeeder extends Seeder
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
             'fee' => '100.0',
-            'requirements' => '["Residence Certificate"]',
+            'requirements' => 'Residence Certificate',
 
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
@@ -129,7 +129,7 @@ class DocumentSeeder extends Seeder
             'docType' => 'Barangay Clearance',
             'docTemplate' => 'ClearanceTemplate',
             'fee' => '100.0',
-            'requirements' => '["Cedula", "Copy of Previous Permit", "Tax Declaration", "Affidavit of Consent"]',
+            'requirements' => 'Cedula, Copy of Previous Permit, Tax Declaration, Affidavit of Consent',
 
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
@@ -140,7 +140,7 @@ class DocumentSeeder extends Seeder
             'docType' => 'Barangay Clearance',
             'docTemplate' => 'ClearanceTemplate',
             'fee' => '100.0',
-            'requirements' => '["Cedula", "Copy of Previous Permit", "Tax Declaration", "Affidavit of Consent"]',
+            'requirements' => 'Cedula, Copy of Previous Permit, Tax Declaration, Affidavit of Consent',
 
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
@@ -151,7 +151,7 @@ class DocumentSeeder extends Seeder
             'docType' => 'Barangay Clearance',
             'docTemplate' => 'ClearanceTemplate',
             'fee' => '100.0',
-            'requirements' => '["Cedula", "Copy of Previous Permit", "Tax Declaration", "Affidavit of Consent"]',
+            'requirements' => 'Cedula, Copy of Previous Permit, Tax Declaration, Affidavit of Consent',
 
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
@@ -162,7 +162,7 @@ class DocumentSeeder extends Seeder
             'docType' => 'Barangay Clearance',
             'docTemplate' => 'ClearanceTemplate',
             'fee' => '100.0',
-            'requirements' => '["Cedula", "Copy of Previous Permit", "Tax Declaration", "Affidavit of Consent"]',
+            'requirements' => 'Cedula, Copy of Previous Permit, "Tax Declaration, Affidavit of Consent',
 
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
@@ -173,7 +173,7 @@ class DocumentSeeder extends Seeder
             'docType' => 'Barangay Clearance',
             'docTemplate' => 'ClearanceTemplate',
             'fee' => '100.0',
-            'requirements' => '["Cedula", "Copy of Previous Permit", "Tax Declaration", "Affidavit of Consent"]',
+            'requirements' => 'Cedula, Copy of Previous Permit, Tax Declaration, Affidavit of Consent',
 
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
@@ -184,7 +184,7 @@ class DocumentSeeder extends Seeder
             'docType' => 'File Complain',
             'docTemplate' => 'ComplaintTemplate',
             'fee' => '100.0',
-            'requirements' => '["Personal Appearance of the Complainant"]',
+            'requirements' => 'Personal Appearance of the Complainant',
 
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
