@@ -10,72 +10,9 @@ use DB;
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Http\Request;
 
-class StatisticsController extends Controller
+class LandingPageController extends Controller
 {
     public function index()
-    {
-        //Gets the statistic data that is the most recently added
-        $currentYear = date('Y');
-        $currentQuarter = Statistics::max('quarter');
-
-        $statistics = Statistics::where('year', $currentYear)->where('quarter', $currentQuarter)->first();
-
-        //-------------------------------------
-
-        //Resident
-        $dataResident = "";
-
-        $maxValueResident = DB::table('sitio_counts')->max('sitioID');
-        //maxValue gets the value of the highest sitioID recorded in the sitio_counts table
-
-        $indexResident = 2;
-        //index starts at 2 because 1 is the sitioFiller option
-
-        //adds information for the Pie Chart for Resident
-        while ($indexResident <= $maxValueResident) {
-            $sitioName = Sitio::where('id', $indexResident)->value('sitioName');
-            $sumRes = DB::table('sitio_counts')->where('sitioID', $indexResident)->sum('residentCount');
-            $dataResident .= "['$sitioName'," . $sumRes . "],";
-
-            $indexResident++;
-        }
-
-        $chartdataResident = $dataResident;
-
-        //-------------------------------------
-
-        //Household
-        $dataHousehold = "";
-
-        $maxValueHousehold = DB::table('households')->max('sitioID');
-
-        $indexHousehold = 2;
-
-        //adds information for the Pie Chart for Household
-        while ($indexHousehold <= $maxValueHousehold) {
-            $sitioName = Sitio::where('id', $indexHousehold)->value('sitioName');
-            $sumHousehold = DB::table('households')->where('sitioID', $indexHousehold)->count('houseNumber');
-            $dataHousehold .= "['$sitioName'," . $sumHousehold . "],";
-
-            $indexHousehold++;
-        }
-
-        $chartdataHousehold = $dataHousehold;
-
-        //-------------------------------------
-
-        //adds to the most recent statistic data row in the DB
-        $totalResidentCount = DB::table('sitio_counts')->sum('residentCount');
-        $totalHouseholdCount = DB::table('households')->count('id');
-
-        $statistics->totalResidentsBarangay = $totalResidentCount;
-        $statistics->totalHouseholdsBarangay = $totalHouseholdCount;
-        $statistics->save();
-
-        return view('welcome', compact('statistics', 'chartdataResident', 'chartdataHousehold'));
-    }
-
-    public function landingpage()
     {
         //Gets the statistic data that is the most recently added
         $currentYear = date('Y');

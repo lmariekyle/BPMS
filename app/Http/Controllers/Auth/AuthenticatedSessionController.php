@@ -33,17 +33,17 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        if(auth()->check() && (auth()->user()->isArchived == 1)){
+        if (auth()->check() && (auth()->user()->isArchived == 1)) {
             Auth::guard('web')->logout();
 
             $request->session()->invalidate();
 
             $request->session()->regenerateToken();
 
-            return Redirect::back()->with('error','Account has been Archived!');
-        }else{
+            return Redirect::back()->with('error', 'Account has been Archived!');
+        } else {
             $request->session()->regenerate();
-            
+
             return redirect()->intended(RouteServiceProvider::HOME);
         }
     }
