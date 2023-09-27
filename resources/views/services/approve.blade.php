@@ -7,7 +7,7 @@
     <div class="relative">
         <div class="w-[1400px] h-[813px] ml-8 mt-16 px-5 py-5 rounded-lg border-2 absolute z-10" style="border-color: black;">
             <div class="flex-row">
-                    <a href="" class="ml-4"><i class="fa-solid fa-arrow-left text-deep-green text-[28px] py-3"></i></a>
+                    <a href="{{ route('manage', $id) }}" class="ml-4"><i class="fa-solid fa-arrow-left text-deep-green text-[28px] py-3"></i></a>
                     <a href="" class="float-right mr-4" style="margin-right: 16px;"><i class="fa-solid fa-print text-deep-green text-[28px] py-3"></i></a>
             </div>
             <div class="flex flex-row mt-6">

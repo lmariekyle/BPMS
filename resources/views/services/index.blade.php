@@ -57,28 +57,28 @@
             
             <table class="mt-10">
                 <tbody>
-                
-                     <tr class="border shadow-md">
+                @foreach ($transactions as $transaction)
+                    <tr class="border shadow-md">
                         <td class="px-6 py-4 w-[295px] font-robotocondensed text-deep-green text-[16px] font-bold">
-                            0001
+                            {{ $transaction->id }}
                         </td>
                         <td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold">
-                            BARANGAY CERTIFICATE
+                            {{ $transaction->document['docName'] }}
                         </td>
                         <td class="px-6 py-4 w-[490px] font-robotocondensed text-deep-green text-[16px] font-bold">
-                            11-11-22
+                            {{ $transaction->createdDate }}
                         </td>
                         <td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold ">
-                            LOSER, L
+                            {{ $transaction->resident['firstName'] }} {{ $transaction->resident['lastName'] }}
                         </td>
                         <td class="px-6 py-4 w-[450px] font-robotocondensed text-deep-green text-[16px] font-bold">
-                            PROCESSING
+                            {{ $transaction->serviceStatus }}
                         </td>
                         <td class="px-6 py-4 w-[190px]">
-                            <a href="" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
+                            <a href="{{ route('manage', $transaction->id) }}" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
                         </td>
                     </tr>
-                                      
+                @endforeach           
                 </tbody>
             </table>
 

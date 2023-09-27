@@ -54,10 +54,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics');
     Route::get('chartdata', [StatisticsController::class, 'index'])->name('chartdata');
     Route::resource('services', \App\Http\Controllers\ServicesController::class);
-    Route::get('manage', [ServicesController::class, 'manage']);
+    Route::get('/manage/{id}', [ServicesController::class, 'manage'])->name('manage');
     Route::get('generate', [ServicesController::class, 'generate']);
-    Route::get('approve', [ServicesController::class, 'approve']);
-    Route::get('deny', [ServicesController::class, 'deny']);
+    Route::get('/approve/{id}', [ServicesController::class, 'approve'])->name('approve');
+    Route::get('/deny/{id}', [ServicesController::class, 'deny'])->name('deny');
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {

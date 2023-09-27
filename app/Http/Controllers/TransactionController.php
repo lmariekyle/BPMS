@@ -75,7 +75,7 @@ class TransactionController extends Controller
             'detailID' => $detail->id,
             'serviceAmount' =>  $request->serviceAmount,
             'docNumber' => $docId,
-            'serviceStatus' => "Pending Payment",
+            'serviceStatus' => "Pending",
             'paymentMethod' => $request->paymentMethod,
             'issuedDocument' => "http://",
             'issuedBy' => "Null",
