@@ -23,27 +23,6 @@ class HouseholdRegistrationController extends Controller
         //
     }
 
-        
-    public function mobileHouseholdsList()
-    {
-        /* function will receive the assignedSitioID of the current user from the app then 
-           return all households with that id
-        */
-       /* $user = User::where('id',2)->first();
-        $assignedSitio = $user->assignedSitioID;*/
-        $households=Households::where('sitioID', 2)->get();
-
-        $response =[
-            'households' => $households,
-            'success' => true
-        ];
-        print($households);
-        return $response;
-    }
-
-
-    
-
     /**
      * Show the form for creating a new resource.
      *
@@ -63,6 +42,122 @@ class HouseholdRegistrationController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    /**
+     * Store a newly created household in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function mobileHouseholdStore(Request $request)
+    {
+        $household = new Households();
+        $data = $request->only($household->getFillable());
+        $household->fill($data)->save();
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
+    /**
+     * Store a newly created household in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function mobileResidentStore(Request $request)
+    {
+
+        $memHouse=Households::where('sitioID',$request->sitioID)
+                            ->where('houseNumber',$request->houseNumber)
+                            ->first();
+        
+       
+        $lastRes=Resident::orderBy('id','desc')->first();
+        $tempArr=explode('-',$lastRes['residentID']);
+        $currResID =(int)$tempArr[1];
+
+
+        foreach ($request->members as $resident) {
+
+            $newResident = new Resident();
+            $newResident->fill([
+                'firstname'=>$resident['firstname'],
+                'middlename'=>$resident['middlename'],
+                'lastname'=>$resident['lastname'],
+                'dateOfBirth'=>$resident['dateOfBirth'],
+                'contactNumber'=>$resident['contactNumber'],
+                'email'=>$resident['email'],
+            /*    'maritalStatus'=>$resident['maritalStatus'],
+                'gender'=>$resident['gender'],
+                'philHealthNumber'=>$resident['philHealthNumber'],
+                'occupation'=>$resident['occupation'],
+                'monthlyIncome'=>$resident['monthlyIncome'],
+                'ageClassification'=>$resident['ageClassification'],
+                'pregnancyClassification'=>$resident['pregnancyClassification'],
+                'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
+                'registeredPWD'=>$resident['registeredPWD'],
+                'dateOfDeath'=>$resident['dateOfDeath'],
+                //'supportingDocument'=>$resident['supportingDocument']*/
+            ]);
+
+            if($currResID<9){
+                $newResident['residentID']='RES-000'.($currResID+1);
+            }else if($currResID<99){
+                $newResident['residentID']='RES-00'.($currResID+1);
+            }else if($currResID<999){
+                $newResident['residentID']='RES-0'.($currResID+1);
+            }else{
+                $newResident['residentID']='RES-'.($currResID+1);
+            }
+            
+            $currResID++;
+
+            $newResident->save();
+        }
+
+        
+        $count = 1;
+        $head = false;
+
+        foreach ($request->members as $resident) {
+
+            $memID=Resident::where('firstname', $resident['firstname'])
+            ->where('middlename', $resident['middlename'])
+            ->where('lastname', $resident['lastname'])
+            ->where('dateOfBirth', $resident['dateOfBirth'])
+            ->first();
+            
+            if($count==1){
+                $head=true;
+            }else{
+                $head=false;
+            }
+            
+        
+            $connect=new ResidentList();
+            
+            $connect->fill([
+                'residentID'=>$memID['id'],
+                'houseID'=>$memHouse['id'],
+
+                'houseNumber'=>$memHouse['houseNumber'], //to accomodate for the multiple households
+                'householdHead'=>$head, //bool
+                'memberNumber'=>$count,
+
+                'createdBy' => $resident['createdBy'],
+                'revisedBy' => $resident['revisedBy'],
+            ]);
+            $connect->save();
+            
+            $count++;
+        }
+        
+        return response()->json([
+            'success' => true
+        ]);
     }
 
     

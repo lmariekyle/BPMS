@@ -13,6 +13,7 @@ class ResidentList extends Model
         'residentID',
         'houseID',
 
+        'houseNumber',
         'householdHead',
         'memberNumber',
 
