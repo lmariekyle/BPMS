@@ -17,7 +17,8 @@ module.exports = {
                 lora: "'Lora, serif",
                 roboto: "'Roboto', sans-serif",
                 robotocondensed: "'Roboto Condensed', sans-serif",
-                railway: "'Railway', sans-serif"
+                railway: "'Railway', sans-serif",
+                poppin: "'Poppins', sans-serif"
             },
             fontSize: {
                 sm: '14px',
