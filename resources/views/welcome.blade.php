@@ -119,19 +119,19 @@
     <!-- start of body content -->
     <div class="flex flex-col place-items-center mt-[5rem]">
         <!-- statistics container -->
-        <div class="flex flex-col bg-dirty-white border-2 border-black rounded-md shadow-lg h-[500px] w-[1200px] px-4">
+        <div class="flex flex-col bg-dirty-white border-2 border-black rounded-md shadow-lg h-max w-[1200px] px-4">
             <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
                 <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE {{ date("Y") }} CENSUS DATA</p>
             </div>
 
             <div class="flex flex-row self-center space-x-8 mt-[4rem]">
-
                 <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
                         <div class="px-2 py-3 bg-green rounded-md w-max self-center -mt-8">
                             <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS PER SITIO</p>
                         </div>
 
-                        <div class="w-[500px] l-[500px] mt-2 mx-auto" id="residentPiechart"></div>
+                        <div class="w-[500px] l-[500px] mt-2 mx-auto" id="residentPiechart">
+                        </div>
                                 <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
                             <div class="hide bg-green py-2 px-2 rounded-xl self-end mt-[15rem] mr-8">
                                 <p class="text-xs font-robotocondensed w-80 text-justify text-dirty-white">
@@ -140,32 +140,49 @@
                                 </p>
                             </div>
                 </div>
-
+                
                 <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
                         <div class="px-2 py-3 bg-green rounded-md w-max self-center -mt-8">
                             <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS PER SITIO</p>
                         </div>
 
-                        <div class="w-[500px] l-[500px] mt-2 mx-auto" id="householdPiechart"></div>
-                                <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
-                            <div class="hide bg-green py-2 px-2 rounded-xl self-end mt-[15rem] mr-8">
+                        <div class="w-[500px] l-[500px] mt-2 mx-auto" id="householdPiechart">
+                        </div>
+                            <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
+                        <div class="hide bg-green py-2 px-2 rounded-xl self-end mt-[15rem] mr-8">
                                 <p class="text-xs font-robotocondensed w-80 text-justify text-dirty-white">
                                 Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
                                 the Sitio, that means there are currently 0 Households there.
                                 </p>
-                            </div>
+                        </div>
                 </div>
-
-
-            
             </div>
 
+            <div class="flex flex-row self-center space-x-8 mt-[2rem]">
+                <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[1rem] mr-[5rem] px-14 py-10">
+                        <div class="px-4 py-3 bg-green rounded-md w-max self-center -mt-8">
+                            <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS AS OF {{ date("Y") }}</p>
+                        </div>
+                        <div class="bg-green w-[250px] h-[75px] m-auto flex items-center justify-center mt-8">
+                            <p class="font-roboto text-center font-black text-6xl text-dirty-white">{{ $statistics->totalResidentsBarangay }}</p>
+                        </div>
+                        <h1 class="mt-1 font-bold font-robotocondensed text-2xl text-deep-green text-center">POBLACION, DALAGUETE, CEBU</h1>
+                </div>
 
-        </div>
+                <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[1rem] ml-[5rem]  px-14 py-10">
+                        <div class="px-4 py-3 bg-green rounded-md w-max self-center -mt-8">
+                            <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS AS OF {{ date("Y") }}</p>
+                        </div>
+                        <div class="bg-green w-[250px] h-[75px] m-auto flex items-center justify-center mt-8">
+                            <p class="font-roboto text-center font-black text-6xl text-dirty-white">{{ $statistics->totalHouseholdsBarangay }}</p>
+                        </div>
+                        <h1 class="mt-1 font-bold font-robotocondensed text-2xl text-deep-green text-center">POBLACION, DALAGUETE, CEBU</h1>
+                </div>
 
-        <div class="bg-dirty-white border-2 border-black rounded-md shadow-lg h-[500px] w-[500px]">
-            <p>hello</p>
-        </div>
+             </div>
+
+            
+        
     </div>
 
 
