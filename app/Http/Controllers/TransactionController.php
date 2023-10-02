@@ -8,9 +8,11 @@ use App\Models\DocumentDetails;
 use App\Models\Document;
 use App\Models\User;
 use App\Models\Transaction;
+use App\Notifications\NewRequestNotification;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
 
 class TransactionController extends Controller
 {
@@ -82,6 +84,9 @@ class TransactionController extends Controller
             'issuedOn' => $date,
         ]);
 
+        $notifyUsers = User::where('userLevel', 'Barangay Captain')->orWhere('userLevel', 'Barangay Secretary')->get();
+
+        Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
 
         $response = ['success' => true];
         return $response;

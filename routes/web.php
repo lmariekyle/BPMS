@@ -12,6 +12,7 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\SitioCountController;
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\NotificationController;
 use App\Models\Statistics;
 
 /*
@@ -58,6 +59,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('generate', [ServicesController::class, 'generate']);
     Route::get('/approve/{id}', [ServicesController::class, 'approve'])->name('approve');
     Route::get('/deny/{id}', [ServicesController::class, 'deny'])->name('deny');
+    Route::get('/approval/{id}', [ServicesController::class, 'approval'])->name('approval');
+    Route::get('request', [ServicesController::class, 'request']);
+    Route::resource('auth', \App\Http\Controllers\NotificationController::class);
+    Route::get('index', [NotificationController::class, 'index']);
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {

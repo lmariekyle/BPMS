@@ -17,14 +17,14 @@
                 <div class="ml-20 text-center items-center w-[580px] h-[700px] pt-[275px]" style="width: 580px; height: 700px; padding-top: 275px;">
                     <div class="">
                         <p class="font-robotocondensed font-bold text-[46px] text-dirty-white" style="font-size: 46px;">
-                            CAMPOMANES, LOURDES
+                            {{ $requestee->requesteeLName }}, {{ $requestee->requesteeFName }}
                         </p>
                         <p class="font-robotocondensed font-bold text-[32px] text-deep-green mt-1" style="font-size: 32px;">
                             RESIDENT
                         </p>
                     </div>
                     <div class="justify-center flex mt-6">
-                        <a href="" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-deep-green bg-[#a9ce5f] px-4 py-2" style="width: 400px; font-size: 32px; background-color: #a9ce5f;">Forward to Barangay Captain</a>
+                        <a href="{{ route('approval', $id) }}" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-deep-green bg-[#a9ce5f] px-4 py-2" style="width: 400px; font-size: 32px; background-color: #a9ce5f;">Forward to Barangay Captain</a>
                     </div>
                 </div>
             </div>

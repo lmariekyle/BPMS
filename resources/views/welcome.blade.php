@@ -82,24 +82,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500&family=Libre+Baskerville:wght@400;700&family=Lora&family=Roboto&family=Roboto+Condensed&display=swap&family=Raleway:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500&family=Libre+Baskerville:wght@400;700&family=Lora&family=Roboto&family=Roboto+Condensed&display=swap&family=Raleway:wght@500&display=swap&family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
 <body class="bg-dirty-white">
     <!-- header -->
-    <div class="px-5 py-5 flex flex-row justify-center w-50 h-max bg-olive-green">
+    <div class="px-5 py-5 flex flex-row justify-start w-50 h-max bg-olive-green">
 
         <div class="ml-10 w-[150px] h-[150px] rounded-full border-2 bg-dirty-white border-green flex justify-center items-center">
             <img src="{{ asset('images/PoblacionDalLogo.png') }}" alt="">
         </div>
-        <div class="flex flex-col ml-5">
-            <h1 class="font-dancingscript text-6xl text-dirty-white text-center">Municipality of Dalaguete</h1>
-            <h2 class="font-robotocondensed text-[40px] p-3 -mt-5 text-dirty-white text-center tracking-wide">BARANGAY POBLACION</h2>
+        <div class="flex flex-col ml-5 mt-7">
+            <h1 class="font-roboto text-[40px] text-dirty-white text-center">BARANGAY POBLACION</h1>
+            <h2 class="font-roboto text-[40px] -mt-3 text-dirty-white text-center tracking-wide">MANAGEMENT SYSTEM</h2>
         </div>
         <div>
-            <!-- @if (Route::has('login'))
-                <div class="hidden absolute bottom-[37rem] right-3 px-6 py-4 sm:block">
+            @if (Route::has('login'))
+                <div class="hidden absolute right-3 mt-20 px-6 py-4 sm:block">
                     @auth
                         <a href="{{ url('/dashboard') }}" class="p-2 border-2 border-deep-green rounded text-xl mx-2 text-deep-green bg-dirty-white font-robotocondensed">DASHBOARD</a>
                     @else
@@ -111,149 +111,81 @@
                         @endif
                     @endauth
                 </div>
-        @endif -->
+        @endif
         </div>
     </div>
+    <!-- end of header -->
 
-    <!-- green background rectangle -->
-    <div class="h-16 w-full bg-green mt-80"></div>
+    <!-- start of body content -->
+    <div class="flex flex-col place-items-center mt-[5rem]">
+        <!-- statistics container -->
+        <div class="flex flex-col bg-dirty-white border-2 border-black rounded-md shadow-lg h-max w-[1200px] px-4">
+            <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
+                <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE {{ date("Y") }} CENSUS DATA</p>
+            </div>
 
-    <!-- welcome statistics conten -->
-    <div class="p-3 ml-[18rem] -mt-56 h-max w-[60rem] bg-dirty-white border-2 border-deep-green rounded-xl shadow-3xl">
+            <div class="flex flex-row self-center space-x-8 mt-[4rem]">
+                <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
+                        <div class="px-2 py-3 bg-green rounded-md w-max self-center -mt-8">
+                            <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS PER SITIO</p>
+                        </div>
 
-        <p class="font-robotocondensed mt-[4rem] text-4xl p-3 text-deep-green text-center">BARANGAY POBLACION, DALAGUETE {{ date("Y") }} CENSUS DATA</p>
-
-
-        <div class="mt-0.5 grid grid-rows-2 grid-flow-col gap-4 justify-center ">
-
-            <div class="bg-dirty-white mt-12 h-72 w-80 border-2 border-deep-green shadow-inner rounded-xl">
-                <div class="-mt-[20px] mx-auto h-12 w-fit bg-olive-green border-2 border-green rounded-xl px-3 py-3">
-                    <h1 class="font-robotocondensed text-base text-dirty-white text-center">TOTAL RESIDENTS PER SITIO</h1>
+                        <div class="w-[500px] l-[500px] mt-2 mx-auto" id="residentPiechart">
+                        </div>
+                                <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
+                            <div class="hide bg-green py-2 px-2 rounded-xl self-end mt-[15rem] mr-8">
+                                <p class="text-xs font-robotocondensed w-80 text-justify text-dirty-white">
+                                    Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
+                                    the Sitio, that means there are currently 0 Residents there.
+                                </p>
+                            </div>
                 </div>
-                <div class="w-[300px] l-[300px] mt-2 mx-auto" id="residentPiechart"></div>
-                <a class="info w-[13px] ml-72"><i class="fa fa-question-circle-o text-[12px]"></i></a>
-                <div class="hide bg-green py-2 px-2 rounded-xl">
-                    <p class="text-xs font-robotocondensed w-80 text-justify">
-                        Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
-                        the Sitio, that means there are currently 0 Residents there.
-                    </p>
+                
+                <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
+                        <div class="px-2 py-3 bg-green rounded-md w-max self-center -mt-8">
+                            <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS PER SITIO</p>
+                        </div>
+
+                        <div class="w-[500px] l-[500px] mt-2 mx-auto" id="householdPiechart">
+                        </div>
+                            <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
+                        <div class="hide bg-green py-2 px-2 rounded-xl self-end mt-[15rem] mr-8">
+                                <p class="text-xs font-robotocondensed w-80 text-justify text-dirty-white">
+                                Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
+                                the Sitio, that means there are currently 0 Households there.
+                                </p>
+                        </div>
                 </div>
             </div>
 
-            <div class="bg-dirty-white mt-8 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
-                <h1 class="mt-4 font-bold font-robotocondensed text-2xl text-deep-green text-center">TOTAL RESIDENTS <br> AS OF {{ date("Y") }}</h1>
-                <div class="bg-green w-[250px] h-[75px] m-auto flex items-center justify-center">
-                    <p class="font-roboto text-center font-black text-6xl text-dirty-white">{{ $statistics->totalResidentsBarangay }}</p>
+            <div class="flex flex-row self-center space-x-8 mt-[2rem]">
+                <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[1rem] mr-[5rem] px-14 py-10">
+                        <div class="px-4 py-3 bg-green rounded-md w-max self-center -mt-8">
+                            <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS AS OF {{ date("Y") }}</p>
+                        </div>
+                        <div class="bg-green w-[250px] h-[75px] m-auto flex items-center justify-center mt-8">
+                            <p class="font-roboto text-center font-black text-6xl text-dirty-white">{{ $statistics->totalResidentsBarangay }}</p>
+                        </div>
+                        <h1 class="mt-1 font-bold font-robotocondensed text-2xl text-deep-green text-center">POBLACION, DALAGUETE, CEBU</h1>
                 </div>
-                <h1 class="mt-1 font-bold font-robotocondensed text-2xl text-deep-green text-center">POBLACION <br> DALAGUETE, CEBU</h1>
-            </div>
 
-            <div class="bg-dirty-white mt-12 h-72 w-80 border-2 border-deep-green shadow-inner rounded-xl">
-                <div class="-mt-[20px] mx-auto h-12 w-max bg-olive-green border-2 border-green rounded-xl px-3 py-3">
-                    <h1 class="font-robotocondensed text-base text-dirty-white text-center">TOTAL HOUSEHOLDS PER SITIO</h1>
+                <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[1rem] ml-[5rem]  px-14 py-10">
+                        <div class="px-4 py-3 bg-green rounded-md w-max self-center -mt-8">
+                            <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS AS OF {{ date("Y") }}</p>
+                        </div>
+                        <div class="bg-green w-[250px] h-[75px] m-auto flex items-center justify-center mt-8">
+                            <p class="font-roboto text-center font-black text-6xl text-dirty-white">{{ $statistics->totalHouseholdsBarangay }}</p>
+                        </div>
+                        <h1 class="mt-1 font-bold font-robotocondensed text-2xl text-deep-green text-center">POBLACION, DALAGUETE, CEBU</h1>
                 </div>
-                <div class="w-[300px] l-[300px] mt-2 mx-auto" id="householdPiechart"></div>
-                <a class="info w-[13px] ml-72"><i class="fa fa-question-circle-o text-[12px]"></i></a>
-                <div class="hide bg-green py-2 px-2 rounded-xl">
-                    <p class="text-xs font-robotocondensed w-80 text-justify">
-                        Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
-                        the Sitio, that means there are currently 0 Households there.
-                    </p>
-                </div>
-            </div>
 
-            <div class="bg-dirty-white mt-8 h-64 w-80 border-2 border-deep-green shadow-inner rounded-xl">
-                <h1 class="mt-4 font-bold font-robotocondensed text-2xl text-deep-green text-center">TOTAL HOUSEHOLDS <br> AS OF {{ date("Y") }}</h1>
-                <div class="bg-green w-[250px] h-[75px] m-auto flex items-center justify-center">
-                    <p class="font-roboto text-center text-6xl font-black text-dirty-white">{{ $statistics->totalHouseholdsBarangay }}</p>
-                </div>
-                <h1 class="mt-1 font-bold font-robotocondensed text-2xl text-deep-green text-center">POBLACION <br> DALAGUETE, CEBU</h1>
-            </div>
+             </div>
 
-        </div>
+            
+        
     </div>
 
-    <div class=" ml-[35rem] mr-96 -mt-[58rem] h-32 w-[25rem] bg-olive-green border-2 border-green rounded-xl px-3 py-3">
-        <h1 class="font-dancingscript text-8xl -mt-5 text-dirty-white text-center">Welcome</h1>
-    </div>
-    <!-- DALAGUETE TOURISM -->
 
-    <!-- green background rectangle -->
-    <div class="h-[262px] w-full bg-green mt-[55rem]">
-        <h1 class="font-dancingscript text-[112px] text-dirty-white text-center pt-6">Enjoy Dalaguete!</h1>
-    </div>
-
-    <div class="p-3 ml-[10rem] -mt-[4rem] h-[821.46px] w-[1230px] bg-olive-green border-2 border-deep-green rounded-xl shadow-3xl">
-        <section class="bg-deep-green h-max w-max ml-10 mt-5">
-            <div class="relative">
-                <ul id="slider">
-                    <li class="h-[700px] w-[1100px] relative">
-                        <img class="h-full object-cover w-full " src="{{ asset('images/ObongSpring.png') }}" alt="">
-                    </li>
-
-                    <li class="h-[700px] w-[1100px] relative hidden">
-                        <img class="h-full object-cover w-full " src="{{ asset('images/OsmenaPeak.png') }}" alt="">
-
-                    </li>
-
-                    <li class="h-[700px] w-[1100px] relative hidden">
-                        <img class="h-full object-cover w-full " src="{{ asset('images/CasayBeach.png') }}" alt="">
-                    </li>
-                </ul>
-            </div>
-            <div class="ml-[10rem] mt-[135rem] absolute px-5 flex h-[12px] w-[1230px] top-0 left-0">
-                <div class="my-auto  w-full flex justify-between">
-                    <button onclick="prev()" class="p-3">
-                        <i class="fa-regular fa-circle-left"></i>
-                    </button>
-                    <button onclick="next()" class="p-3">
-                        <i class="fa-regular fa-circle-right"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <footer class=" bg-olive-green mt-36 p-5">
-        <h1 class="font-dancingscript text-[48px] text-dirty-white text-left">Contact Us!</h1>
-        <h1 class="font-roboto text-[20px] text-dirty-white text-left"><i class="fa-regular fa-envelope fa-sm"></i> dbarangaypoblacion@gmail.com</h1>
-        <h1 class="font-roboto text-[20px] text-dirty-white text-left"><i class="fa-solid fa-phone"></i> 4848-9004</h1>
-    </footer>
-
-
-
-
-    <script>
-        let currentSlideID = 1;
-        let sliderElement = document.getElementById('slider');
-        let totalSlides = sliderElement.childElementCount;
-
-        function next() {
-            if (currentSlideID < totalSlides) {
-                currentSlideID++;
-                showSlide()
-            }
-        }
-
-        function prev() {
-            if (currentSlideID > 1) {
-                currentSlideID--;
-                showSlide()
-            }
-        }
-
-        function showSlide() {
-            slides = document.getElementById('slider').getElementsByTagName('li')
-            for (let index = 0; index < totalSlides; index++) {
-                const element = slides[index];
-                if (currentSlideID === index + 1) {
-                    element.classList.remove('hidden')
-                } else {
-                    element.classList.add('hidden')
-                }
-            }
-        }
-    </script>
 </body>
 
 </html>

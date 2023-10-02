@@ -44,6 +44,12 @@ class ServicesController extends Controller
         }else{
             $transaction->payment['paymentMethodOption'] = "GCash";
         }
+        if($transaction->payment['paymentMethod'] == 1 || $transaction->payment['paymentStatus'] == 'Paid'){
+            $transaction->approval = 1;
+        }else{
+            $transaction->approval = 2;
+        }
+        
         return view('services.manage', compact('transaction'));
     }
 
@@ -60,14 +66,16 @@ class ServicesController extends Controller
      */
     public function approve($id)
     {
-        return view('services.approve', compact('id'));
+        $transaction = Transaction::where('id', $id)->first();
+        $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
+        return view('services.approve', compact('id', 'requestee'));
     }
 
     public function search(Request $request)
     { 
         $search=$request['search'];
         $documents=Document::where('docName','LIKE', "%$search%")->get();
-        $transactions = Transaction::where('serviceStatus', 'Pending Payment')->get();
+        $transactions = Transaction::all();
         
         $count=count($transactions);
         for($x=0;$x<$count;$x++){
@@ -83,6 +91,12 @@ class ServicesController extends Controller
         return view('services.index')->with('transactions',$transactions);
     }
 
+    
+    public function request()
+    {
+        return view('services.request');
+    }
+
     /**
      * Display the specified resource.
      *
@@ -91,7 +105,11 @@ class ServicesController extends Controller
      */
     public function approval($id){
         $transaction = Transaction::where('id', $id)->first();
-        $transaction->serviceStatus = "Processing";
+        $transaction->fill([
+            'serviceStatus' => 'For Signature',
+        ]);
+        $transaction->save();
+
 
         $transactions = Transaction::all();
         foreach ($transactions as $transaction){
