@@ -1,6 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\ResidentUserController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\BHWController;
+use App\Http\Controllers\StatisticsController;
+use App\Http\Controllers\SitioCountController;
+use App\Http\Controllers\ServicesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +20,63 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [StatisticsController::class, 'index']);
+
+Route::middleware('guest')->group(function () {
+    Route::get('create', [ResidentUserController::class, 'create'])->name('create');
+    Route::post('create',[ResidentUserController::class, 'store']);
+
 });
 
-Route::get('/dashboard', function () {
+
+Route::get('notifications', function () {
+    return view('auth.notifications');
+})->name('auth.notifications');
+
+Route::group(['middleware'=>'auth'],function (){
+    Route::get('welcome', function () {
+        return view('welcome');
+    })->name('welcome');
+    Route::get('notifications', function () {
+        return view('auth.notifications');
+    })->name('auth.notifications');
+    Route::get('profile', [RegisteredUserController::class, 'index'])->name('profile');
+    Route::get('profile', [ResidentUserController::class, 'show'])->name('profile');
+    Route::resource('bhw', \App\Http\Controllers\BHWController::class);
+    Route::get('bhw', [BHWController::class, 'index'])->name('bhw');
+    Route::get('bhw', [BHWController::class, 'index'])->name('bhw');
+    Route::get('bhwSearch', [BHWController::class, 'search'])->name('bhwSearch');
+    Route::resource('assign', \App\Http\Controllers\SitioAssignmentController::class);
+    Route::get('index', [AccountController::class, 'index'])->name('accounts');
+    Route::resource('accounts', \App\Http\Controllers\AccountController::class);
+    Route::get('search', [AccountController::class, 'search'])->name('search');
+    //Route::resource('welcome', \App\Http\Controllers\StatisticsController::class);
+    Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics');
+    Route::get('chartdata', [StatisticsController::class, 'index'])->name('chartdata');
+    Route::resource('services', \App\Http\Controllers\ServicesController::class); 
+    //Route::get('index', [ServicesController::class, 'index']);
+    Route::get('manage', [ServicesController::class, 'manage']);
+    Route::get('generate', [ServicesController::class, 'generate']);
+    Route::get('approve', [ServicesController::class, 'approve']);
+    Route::get('deny', [ServicesController::class, 'deny']);
+    Route::get('request', [ServicesController::class, 'request']);
+    Route::resource('auth', \App\Http\Controllers\NotificationController::class);
+    Route::get('index', [NotificationController::class, 'index']);
+});
+
+Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {
+    Route::resource('dashboard', \App\Http\Controllers\StatisticsController::class);
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth','verified'])->name('dashboard');
+
+Route::get('exportpdf', [StatisticsController::class, 'exportpdf'], function (){
+    Route::resource('exportpdf', \App\Http\Controllers\StatisticsController::class);
+    Route::post('exportpdf',[
+        'uses'=>'StatisticsController@print'
+    ]);
+    return view('exportpdf');
+})->middleware(['auth','verified'])->name('exportpdf');
+
+
 
 require __DIR__.'/auth.php';

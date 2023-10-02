@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -11,9 +12,15 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <script src="{{ asset('js/app.js') }}" defer></script>
+
     </head>
-    <body>
+    <body class="bg-dirty-white">
+    <div class="px-5 py-5 text-center justify-center w-50 h-42 bg-olive-green"> 
+        <p class="text-dirty-white font-dancingscript text-7xl">Municipality of Dalaguete</p>
+        <p class="font-libre text-5xl pb-6" style="color:white;">BARANGAY POBLACION</p>
+    </div>
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>

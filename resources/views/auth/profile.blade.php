@@ -14,9 +14,37 @@
                             <i class="fa-sharp fa-solid fa-arrow-left text-3xl" style="color:#fdffee;"></i>
                         </a>
                         <p class="font-roboto font-bold text-dirty-white text-5xl">VIEW PROFILE</p>
-                        <a href="{{ route('dashboard') }}" class="absolute right-0 mr-14 -mt-[3rem] border-2 border-dirty-white rounded-full w-[12rem] px-2 py-2 bg-green text-dirty-white font-robotocondensed text=[24px] shadow-lg font-bold">
+                        <a href="{{ route('dashboard') }}" class="info absolute right-0 mr-14 -mt-[3rem] border-2 border-dirty-white rounded-full w-[12rem] px-2 py-2 bg-green text-dirty-white font-robotocondensed text=[24px] shadow-lg font-bold">
                             NOTIFICATIONS
                         </a>
+                        <div class="still hide bg-dirty-white py-2 px-2 border-2 rounded-xl right-0 mr-10">
+                            @php($x=1) <!--This part should be where if [User] has unread notificatins or not-->
+                                <hr class="h-px bg-stone-500 border-0">
+                            @if($x!=0) <!--If [User] has unread notificatins-->
+                                @for($notif=1;10>=$notif;$notif++) <!--For each unread notifications from the [User]-->
+                                    <p class="text-xs font-robotocondensed w-80 text-justify">
+                                    <br>
+                                    NOTIFICATION #{{ $notif }}
+                                        <p class="text-xs font-robotocondensed text-justify">
+                                            Notification blah blah blah Notification blah blah blah [ . . . ]
+                                        </p>
+                                    <!--Notification title then like at most 20 letters per notif (if exceeded then
+                                        replace the rest of the text with [...]-->
+                                    </p>
+                                    <br>
+                                    <hr class="h-px bg-stone-500 border-0">
+                                    
+                                @endfor
+                            @else <!--If [User] has no unread notificatins-->
+                                <p class="text-xs font-robotocondensed w-80 text-justify">
+                                <br>
+                                NO NEW NOTIFICATIONS LOSER
+                                <br>
+                                <br>
+                                <hr>
+                                </p>
+                            @endif
+                        </div>
                     </div>
                     
                     <div class="max-h-[837px] h-[837px] max-w-[1178px] w-[1178px] mt-8 ml-14 p-14 border rounded bg-dirty-white font-roboto">
@@ -77,6 +105,24 @@
         </div>
     </div>
 </x-page-layout>
+
+<style>
+    .hide {
+        display: none;
+    }
+    
+    .still:hover {
+        position: absolute;
+        display: block;
+        z-index: 9;
+    }
+
+    .info:hover + .hide{
+        position: absolute;
+        display: block;
+        z-index: 9;
+    }
+</style>
 
 
 <script>
