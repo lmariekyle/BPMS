@@ -18,5 +18,6 @@ class DocumentDetails extends Model
         'requesteeEmail',
         'requesteeContactNumber',
         'requestPurpose',
+        'file'
     ];
 }

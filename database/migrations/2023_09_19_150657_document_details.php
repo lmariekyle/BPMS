@@ -22,6 +22,7 @@ class DocumentDetails extends Migration
             $table->string('requesteeEmail');
             $table->string('requesteeContactNumber');
             $table->string('requestPurpose');
+            $table->string('file')->nullable();
 
             $table->timestamps();
         });
