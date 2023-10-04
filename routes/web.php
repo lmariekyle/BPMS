@@ -7,12 +7,14 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\BHWController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\SitioCountController;
 use App\Http\Controllers\ServicesController;
 use App\Models\Statistics;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +31,10 @@ use App\Models\Statistics;
 Route::middleware('web')->group(function () {
     Route::get('create', [ResidentUserController::class, 'create'])->name('create');
     Route::post('create', [ResidentUserController::class, 'store']);
+});
+
+Route::group(['middleware' => ['role:User']], function () {
+    Route::get('request/{docType}', [ServicesController::class, 'request'])->name('services.request');
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -53,11 +59,12 @@ Route::group(['middleware' => 'auth'], function () {
     //Route::resource('welcome', \App\Http\Controllers\StatisticsController::class);
     Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics');
     Route::get('chartdata', [StatisticsController::class, 'index'])->name('chartdata');
-    Route::resource('services', \App\Http\Controllers\ServicesController::class);
+    Route::get('dashboard', [ServicesController::class, 'residentDashboard']);
     Route::get('manage', [ServicesController::class, 'manage']);
     Route::get('generate', [ServicesController::class, 'generate']);
     Route::get('approve', [ServicesController::class, 'approve']);
     Route::get('deny', [ServicesController::class, 'deny']);
+    Route::get('index', [NotificationController::class, 'index']);
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {

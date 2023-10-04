@@ -65,7 +65,7 @@
                     <div class="absolute flex-row -mt-[75px] px-4 py-3 items-center w-[1270px]">
                         <!-- <a href=""><i class="fa-solid fa-arrow-left text-dirty-white text-[24px]"></i></a> -->
                         <a href="{{ route('landingpage') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">HOME</a>
-                        <a href="" class="font-robotocondensed text-[24px] text-dirty-white px-10">SERVICES</a>
+                        <a href="{{ route('dashboard') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">SERVICES</a>
                         <a href="{{route('profile')}}"><i class="fa-solid fa-circle-user text-dirty-white text-[40px] ml-[750px]"></i></a>
                     </div>
                 </svg>

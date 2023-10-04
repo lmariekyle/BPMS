@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        if (auth()->check() && (auth()->user()->isArchived == 1)) {
+        if (auth()->check() && (auth()->user()->userStatus == 'Archived')) {
             Auth::guard('web')->logout();
 
             $request->session()->invalidate();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Document;
 use App\Models\Statistics;
 use App\Models\Sitio;
 use App\Models\SitioCount;
@@ -140,6 +141,7 @@ class StatisticsController extends Controller
 
     public function reports(Request $request)
     {
+        $documents = Document::all();
         //checks if there is a value in the form inputs
         if ($request['sitio'] != "NULL") {
             $filterSitio = $request['sitio'];
@@ -254,7 +256,7 @@ class StatisticsController extends Controller
 
         $upperCaseSitio = strtoupper($nameSitio);
 
-        return view('dashboard', compact('totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'request', 'upperCaseSitio'));
+        return view('dashboard', compact('documents', 'totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'request', 'upperCaseSitio'));
     }
 
     public function exportpdf(Request $request)

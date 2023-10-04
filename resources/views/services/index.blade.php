@@ -4,9 +4,63 @@
             {{ __('Barangay Health Workers') }}
         </h2>
     </x-slot>
+    
+    <style>
+        .adminStatus select:invalid {
+            background-color:none;
+        }
+        .adminStatus select:valid {
+            background-color:green;
+        }
+    </style>
 
     <div class="bg-olive-green w-[1400px] h-[813px] ml-8 mt-16 px-5 py-5 rounded-[48px] flex flex-row">
+        @role('Admin')
+        <!--ACTUAL TABLE -->
+        <div class="bg-dirty-white w-[1400px] h-max absolute mt-20 -ml-5 border shadow-inner">
+            <!--TABLE HEADER-->
+            <div class="bg-green w-[1400px] h-[48px] absolute flex flex-row border border-white shadow-lg">
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-6">REQUEST ID</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-20">REQUEST TYPE</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-40">REQUEST DATE</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">REQUESTED BY</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">REQUEST STATUS</p>
+                    <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-44">ACTION</p>
+            </div>
+            
+            <!--DISPLAY ONLY PLS CHANGE WHEN CODING WITH THE ACTUAL DATABASE-->
+            <table class="mt-10">
+                <tbody>
+                
+                    <tr class="border shadow-md">
+                        <td class="px-6 py-4 w-[295px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 225px">
+                            0001
+                        </td>
+                        <td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 360px">
+                            BARANGAY CERTIFICATE
+                        </td>
+                        <td class="px-6 py-4 w-[490px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 348px">
+                            11-11-22
+                        </td>
+                        <td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 330px">
+                            LOSER, L
+                        </td>
+                        <td class="px-6 py-4 w-[450px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 415px">
+                            <select class="bg-transparent adminStatus">
+                                <option>PROCESSING</option>
+                                <option>DONE</option>
+                            </select>
+                        </td>
+                        <td class="px-6 py-4 w-[190px]" style="width: 230px">
+                            <a href="" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
+                        </td>
+                    </tr>
+                                      
+                </tbody>
+            </table>
 
+        </div>
+        @endrole
         @hasanyrole('Barangay Captain|Barangay Secretary')
         <p class="text-dirty-white font-robotocondensed ml-3 font-bold text-[48px] text-start">SEARCH REQUESTS</p>
         <!--Search-->
@@ -55,26 +109,27 @@
                     <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-44">ACTION</p>
             </div>
             
+            <!--DISPLAY ONLY PLS CHANGE WHEN CODING WITH THE ACTUAL DATABASE-->
             <table class="mt-10">
                 <tbody>
                 
-                     <tr class="border shadow-md">
-                        <td class="px-6 py-4 w-[295px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                    <tr class="border shadow-md">
+                        <td class="px-6 py-4 w-[305px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 305px;">
                             0001
                         </td>
-                        <td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                        <td class="px-6 py-4 w-[745px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 745px;">
                             BARANGAY CERTIFICATE
                         </td>
-                        <td class="px-6 py-4 w-[490px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                        <td class="px-6 py-4 w-[565px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 565px;">
                             11-11-22
                         </td>
-                        <td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold ">
+                        <td class="px-6 py-4 w-[490px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 490px;">
                             LOSER, L
                         </td>
-                        <td class="px-6 py-4 w-[450px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                        <td class="px-6 py-4 w-[445px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 445px;">
                             PROCESSING
                         </td>
-                        <td class="px-6 py-4 w-[190px]">
+                        <td class="px-6 py-4 w-[205px]" style="width: 205px;">
                             <a href="" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
                         </td>
                     </tr>
