@@ -98,7 +98,7 @@
         <p class="text-dirty-white font-robotocondensed ml-3 font-bold text-[48px] text-start">SEARCH REQUESTS</p>
         <!--Search-->
         <div>
-            <form type="get" action="">
+            <form type="get" action="{{ route('requestSearch') }}">
                 <div class="mt-4 ml-12 flex w-[370px] h-[30px] flex-wrap items-stretch">
                     <input type="type" 
                     name="search"

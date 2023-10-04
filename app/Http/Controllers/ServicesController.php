@@ -84,6 +84,8 @@ class ServicesController extends Controller
                 $user = User::where('id', $transactions[$x]->userID)->first();
                 $transactions[$x]->resident = Resident::where('id', $user->residentID)->first();
                 $transactions[$x]->document = Document::where('id', $transactions[$x]->documentID)->first();
+                $newtime = strtotime($transactions[$x]->created_at);
+                $transactions[$x]->createdDate = date('M d, Y',$newtime);
             }else{
                 unset($transactions[$x]);
             }
