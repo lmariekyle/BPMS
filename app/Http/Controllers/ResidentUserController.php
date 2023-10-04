@@ -41,8 +41,8 @@ class ResidentUserController extends Controller
      */
     public function create(User $resident)
     {
-        $sitios = Sitio::where('barangayID','2')->get();
-        return view('auth.createaccount', compact('resident','sitios'));
+        $sitios = Sitio::where('barangayID', '2')->get();
+        return view('auth.createaccount', compact('resident', 'sitios'));
     }
 
     /**
@@ -58,50 +58,52 @@ class ResidentUserController extends Controller
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'profileImage' => ['image','mimes:jpeg,png,jpg,gif,svg','max:2048'],
+            'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
         ]);
 
         //Auto Generate ID 
-        $residentId = IdGenerator::generate(['table' => 'residents','field'=>'id', 'length' => 9, 'prefix' =>'RES-']);
-        $userId = IdGenerator::generate(['table' => 'users','field'=>'id', 'length' => 6, 'prefix' =>date('y')]);
+        // $residentId = IdGenerator::generate(['table' => 'residents', 'field' => 'id', 'length' => 9, 'prefix' => 'RES-']);
+        $userId = IdGenerator::generate(['table' => 'users', 'field' => 'id', 'length' => 6, 'prefix' => date('y')]);
 
         //Image Upload 
-        if ($request->hasFile('profileImage')){
-            $image_name = time().'.'.$request->profileImage->getClientOriginalExtension();
-            $request->profileImage->move(public_path('users'),$image_name);
-            $path="users/".$image_name;
-        }else{
-            $path="users/default.jpg";
+        if ($request->hasFile('profileImage')) {
+            $image_name = time() . '.' . $request->profileImage->getClientOriginalExtension();
+            $request->profileImage->move(public_path('users'), $image_name);
+            $path = "users/" . $image_name;
+        } else {
+            $path = "users/default.jpg";
         }
 
         $check_res = DB::table('residents')
-                ->where('firstName', '=', $request->firstname)
-                ->where('middleName', '=', $request->middlename)
-                ->where('lastName', '=', $request->lastname)
-                ->where('dateOfBirth', '=', $request->dateOfBirth)
-                ->get();
+            ->where('firstName', '=', $request->firstname)
+            ->where('middleName', '=', $request->middlename)
+            ->where('lastName', '=', $request->lastname)
+            ->where('dateOfBirth', '=', $request->dateOfBirth)
+            ->get();
 
-                
-        if($check_res->isEmpty()){
+
+        if ($check_res->isEmpty()) {
             return view('auth.sorry-resident-notice');
-        }else{
-            foreach($check_res as $verify){ 
-                if($verify->firstName == $request->firstname && $verify->middleName == $request->middlename 
-                    && $verify->lastName == $request->lastname && $verify->dateOfBirth == $request->dateOfBirth){
-                        $user= User::create([
-                            'residentID' => $verify->id,
-                            'idNumber' => $userId,
-                            'profileImage' => $path,
-                            'userlevel' => $request->userlevel,
-                            'email' => $request->email,
-                            'sitioID' => $request->sitio,
-                            'assignedSitioID' => '1',
-                            'contactNumber' => $request->contactnumber,
-                            'password' => Hash::make($request->password)
-                        ]);
-                        $user->assignRole($request->userlevel); //assign account role as User
-                        event(new Registered($user)); //send email verification
-                        return Redirect::back()->with('success','Email for registration has been sent!');
+        } else {
+            foreach ($check_res as $verify) {
+                if (
+                    $verify->firstName == $request->firstname && $verify->middleName == $request->middlename
+                    && $verify->lastName == $request->lastname && $verify->dateOfBirth == $request->dateOfBirth
+                ) {
+                    $user = User::create([
+                        'residentID' => $verify->id,
+                        'idNumber' => $userId,
+                        'profileImage' => $path,
+                        'userlevel' => $request->userlevel,
+                        'email' => $request->email,
+                        'sitioID' => $request->sitio,
+                        'assignedSitioID' => '1',
+                        'contactNumber' => $request->contactnumber,
+                        'password' => Hash::make($request->password)
+                    ]);
+                    $user->assignRole($request->userlevel); //assign account role as User
+                    event(new Registered($user)); //send email verification
+                    return Redirect::back()->with('success', 'Email for registration has been sent!');
                 }
             }
         }
@@ -132,33 +134,35 @@ class ResidentUserController extends Controller
             ->where('dateOfBirth', '=', $date)
             ->get();
 
-        if($check_res->isEmpty()){
+        if ($check_res->isEmpty()) {
             return response()->json([
                 'success' => false
             ]);
-        }else{
-            foreach($check_res as $verify){ 
-                if($verify->firstName == $request->firstName && $verify->middleName == $request->middleName 
-                    && $verify->lastName == $request->lastName && $verify->dateOfBirth == $request->dateOfBirth){
-                        $sitio=Sitio::where('sitioName', $request->sitio)->first();
-                        $user= User::create([
-                            'residentID' => $verify->id,
-                            'idNumber' => $verify->id,
-                            'userlevel' => 'User',
-                            'email' => $request->email,
-                            'sitioID' => $sitio->id,
-                            'assignedSitioID' => '1',
-                            'contactNumber' => $request->contactNumber,
-                            'password' => Hash::make($request->password)
-                        ]);
-                        $user->assignRole('User'); //assign account role as User
-                        event(new Registered($user)); //send email verification
-                        return response()->json([
-                            'success' => true
-                        ]);
+        } else {
+            foreach ($check_res as $verify) {
+                if (
+                    $verify->firstName == $request->firstName && $verify->middleName == $request->middleName
+                    && $verify->lastName == $request->lastName && $verify->dateOfBirth == $request->dateOfBirth
+                ) {
+                    $sitio = Sitio::where('sitioName', $request->sitio)->first();
+                    $user = User::create([
+                        'residentID' => $verify->id,
+                        'idNumber' => $verify->id,
+                        'userlevel' => 'User',
+                        'email' => $request->email,
+                        'sitioID' => $sitio->id,
+                        'assignedSitioID' => '1',
+                        'contactNumber' => $request->contactNumber,
+                        'password' => Hash::make($request->password)
+                    ]);
+                    $user->assignRole('User'); //assign account role as User
+                    event(new Registered($user)); //send email verification
+                    return response()->json([
+                        'success' => true
+                    ]);
                 }
             }
-        }            
+        }
     }
 
     /**
@@ -170,14 +174,14 @@ class ResidentUserController extends Controller
     public function show()
     {
         $id = Auth::id();
-        $user=User::where('id',$id)->first();
-        $personalInfo=Resident::where('id',$user->residentID)->first();
-        $sitio=Sitio::where('id',$user->sitioID)->first();
-        $barangay=Barangay::where('id',$sitio->barangayID)->first();
-        $personalInfo->sitio=$sitio->sitioName;
-        $personalInfo->barangay=$barangay->barangayName;
+        $user = User::where('id', $id)->first();
+        $personalInfo = Resident::where('id', $user->residentID)->first();
+        $sitio = Sitio::where('id', $user->sitioID)->first();
+        $barangay = Barangay::where('id', $sitio->barangayID)->first();
+        $personalInfo->sitio = $sitio->sitioName;
+        $personalInfo->barangay = $barangay->barangayName;
 
-        return view('auth.profile',compact('user','personalInfo'));
+        return view('auth.profile', compact('user', 'personalInfo'));
     }
 
     /**
