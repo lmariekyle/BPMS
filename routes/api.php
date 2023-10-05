@@ -10,7 +10,7 @@ use App\Http\Controllers\Auth\AuthenticationAPIController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\HouseholdRegistrationController;
 use App\Http\Controllers\DocumentController;
-
+use App\Http\Controllers\ServicesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -39,3 +39,4 @@ Route::post('/register', 'App\Http\Controllers\ResidentUserController@mobileStor
 Route::post('/sitioAssignment', [SitioAssignmentController::class, 'mobileSitiosAssignment']);
 Route::post('/household', 'App\Http\Controllers\HouseholdRegistrationController@mobileStore');
 Route::post('/forgotPassword', 'App\Http\Controllers\Auth\PasswordResetLinkController@mobileStore')->name('mobileForgotPassword');
+Route::post('/payment', [ServicesController::class, 'paymentrequest']);

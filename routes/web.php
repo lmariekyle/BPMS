@@ -28,6 +28,13 @@ use App\Models\Statistics;
 */
 
 //guest//
+
+
+
+
+Route::get('/create-invoice', [ServicesController::class, 'paymentrequest']);
+
+
 Route::middleware('web')->group(function () {
     Route::get('create', [ResidentUserController::class, 'create'])->name('create');
     Route::post('create', [ResidentUserController::class, 'store']);
@@ -35,7 +42,10 @@ Route::middleware('web')->group(function () {
 
 Route::group(['middleware' => ['role:User']], function () {
     Route::get('request/{docType}', [ServicesController::class, 'request'])->name('services.request');
+    Route::post('request/{docType}', [ServicesController::class, 'storerequest'])->name('services.storerequest');
 });
+
+
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('landingpage', [LandingPageController::class, 'index'])->name('landingpage');

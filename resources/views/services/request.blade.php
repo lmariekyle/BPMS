@@ -14,7 +14,8 @@
                 {{$doctypename}}
             </p>
         </div>
-        <form>
+        <form method="POST" action="{{route('services.storerequest' , $doctypename)}}" enctype="multipart/form-data">
+            @csrf
             <div class="flex flex-row">
                 <div>
                     <div class="ml-12 mt-6 font-bold w-[650px]">
@@ -77,7 +78,7 @@
                 </div>
                 <div class="ml-12 mt-16 font-text[23px]">
                     <div class="h-[300px] w-[605px]" style="">
-                        <input type="file" id="fileButton" style="" multiple>
+                        <input type="file" id="fileButton" name="file[]" style="" multiple>
                         <p class="mt-1 font-extralight italic text-[16px]">Note: Upload any necessary documents stated in the requirements</p>
                     </div>
                     <div class="mt-6 text-right" style="">

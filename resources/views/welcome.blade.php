@@ -120,85 +120,85 @@
     <div class="flex flex-col place-items-center mt-[8rem] px-8">
         <!-- statistics container -->
         <div class="flex flex-col bg-dirty-white border-2 border-black rounded-md shadow-lg h-max w-[1200px] px-4">
-            <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
-                <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE {{ date("Y") }} CENSUS DATA</p>
+            <div class="flex flex-col bg-dirty-white border-2 border-black rounded-md shadow-lg h-max w-[1200px] px-4">
+                <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
+                    <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE {{ date("Y") }} CENSUS DATA</p>
+                </div>
+
+                <div class="flex flex-row self-center space-x-8 mt-[4rem]">
+                    <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
+                        <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
+                            <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS PER SITIO</p>
+                        </div>
+
+                        <div class="w-[500px] l-[500px] mt-2 mx-auto" id="residentPiechart"></div>
+                        <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
+                        <div class="hide bg-green py-2 px-2 rounded-xl self-end mt-[15rem] mr-8">
+                            <p class="text-xs font-robotocondensed w-80 text-justify text-dirty-white">
+                                Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
+                                the Sitio, that means there are currently 0 Residents there.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
+                        <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
+                            <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS PER SITIO</p>
+                        </div>
+
+                        <div class="w-[500px] l-[500px] mt-2 mx-auto" id="householdPiechart"></div>
+                        <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
+                        <div class="hide bg-green py-2 px-2 rounded-xl self-end mt-[15rem] mr-8">
+                            <p class="text-xs font-robotocondensed w-80 text-justify text-dirty-white">
+                                Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
+                                the Sitio, that means there are currently 0 Households there.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-row self-center space-x-8 mt-[4rem] mb-[4rem]">
+                    <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[1rem] py-10">
+                        <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-[4rem]">
+                            <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS AS OF {{ date("Y") }}</p>
+                        </div>
+                        <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
+                            <p class="font-poppin text-center font-black text-[60px] text-dirty-white">{{ $statistics->totalResidentsBarangay }} RESIDENTS</p>
+                        </div>
+                        <h1 class="mt-4 font-bold font-poppin text-[28px] text-deep-green text-center">IN BARANGAY</h1>
+                        <h1 class="mt-1 font-bold font-poppin text-[28px] text-deep-green text-center">POBLACION, DALAGUETE, CEBU</h1>
+                    </div>
+
+                    <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[1rem] ml-[5rem] py-10">
+                        <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-[4rem]">
+                            <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS AS OF {{ date("Y") }}</p>
+                        </div>
+                        <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
+                            <p class="font-roboto text-center font-black text-6xl text-dirty-white">{{ $statistics->totalHouseholdsBarangay}} HOUSEHOLDS</p>
+                        </div>
+                        <h1 class="mt-4 font-bold font-poppin text-[28px] text-deep-green text-center">IN BARANGAY</h1>
+                        <h1 class="mt-1 font-bold font-poppin text-[28px] text-deep-green text-center">POBLACION, DALAGUETE, CEBU</h1>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end of statistics content -->
+
+            <div class="bg-[#efeee9] flex flex-col shadow-lg h-[500px] w-full mt-[12rem] justify-items-center">
+
+                <p class="absolute font-playfair font-semibold text-[74px] text-deep-green self-center text-custom -mt-[7rem] mb-4">Discover Paradise in Dalaguete</p>
+
+                <div class="bg-green border-2 border-black w-[1060px] h-[240px] self-center mt-10 shadow-lg"></div>
+                <div class="absolute flex flex-row w-[1000px] h-[250px] ml- px-4 py-2 self-center mt-[4rem] border-2 bg-[#efeee9] border-green shadow-md place-items-center">
+                    <p class="font-poppins text-[24px] font-semibold text-black indent-4 text-center -mt-2">Nestled on the picturesque island of Cebu, the Municipality of Dalaguete beckons you to a tropical paradise like no other. With its lush green mountains, pristine white-sand beaches, and a rich cultural heritage, Dalaguete offers an unforgettable escape for nature enthusiasts and curious wanderers alike.</p>
+                    <img src="images/8.png" alt="" style="height: 300px; width: 300px;" class="absolute left-0 -ml-[6rem] mt-[7rem]">
+                </div>
+
             </div>
 
-            <div class="flex flex-row self-center space-x-8 mt-[4rem]">
 
-                <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
-                    <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
-                        <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS PER SITIO</p>
-                    </div>
-
-                    <div class="w-[500px] l-[500px] mt-2 mx-auto" id="residentPiechart"></div>
-                    <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
-                    <div class="hide bg-green py-2 px-2 rounded-xl self-end mt-[15rem] mr-8">
-                        <p class="text-xs font-robotocondensed w-80 text-justify text-dirty-white">
-                            Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
-                            the Sitio, that means there are currently 0 Residents there.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
-                    <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
-                        <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS PER SITIO</p>
-                    </div>
-
-                    <div class="w-[500px] l-[500px] mt-2 mx-auto" id="householdPiechart"></div>
-                    <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
-                    <div class="hide bg-green py-2 px-2 rounded-xl self-end mt-[15rem] mr-8">
-                        <p class="text-xs font-robotocondensed w-80 text-justify text-dirty-white">
-                            Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
-                            the Sitio, that means there are currently 0 Households there.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-row self-center space-x-8 mt-[4rem] mb-[4rem]">
-                <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[1rem] py-10">
-                    <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-[4rem]">
-                        <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS AS OF {{ date("Y") }}</p>
-                    </div>
-                    <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                        <p class="font-poppin text-center font-black text-[60px] text-dirty-white">{{ $statistics->totalResidentsBarangay }} RESIDENTS</p>
-                    </div>
-                    <h1 class="mt-4 font-bold font-poppin text-[28px] text-deep-green text-center">IN BARANGAY</h1>
-                    <h1 class="mt-1 font-bold font-poppin text-[28px] text-deep-green text-center">POBLACION, DALAGUETE, CEBU</h1>
-                </div>
-
-                <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[1rem] ml-[5rem] py-10">
-                    <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-[4rem]">
-                        <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS AS OF {{ date("Y") }}</p>
-                    </div>
-                    <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                        <p class="font-roboto text-center font-black text-6xl text-dirty-white">{{ $statistics->totalHouseholdsBarangay}} HOUSEHOLDS</p>
-                    </div>
-                    <h1 class="mt-4 font-bold font-poppin text-[28px] text-deep-green text-center">IN BARANGAY</h1>
-                    <h1 class="mt-1 font-bold font-poppin text-[28px] text-deep-green text-center">POBLACION, DALAGUETE, CEBU</h1>
-                </div>
-
-            </div>
         </div>
-        <!-- end of statistics content -->
-
-        <div class="bg-[#efeee9] flex flex-col shadow-lg h-[500px] w-full mt-[12rem] justify-items-center">
-
-            <p class="absolute font-playfair font-semibold text-[74px] text-deep-green self-center text-custom -mt-[7rem] mb-4">Discover Paradise in Dalaguete</p>
-
-            <div class="bg-green border-2 border-black w-[1060px] h-[240px] self-center mt-10 shadow-lg"></div>
-            <div class="absolute flex flex-row w-[1000px] h-[250px] ml- px-4 py-2 self-center mt-[4rem] border-2 bg-[#efeee9] border-green shadow-md place-items-center">
-                <p class="font-poppins text-[24px] font-semibold text-black indent-4 text-center -mt-2">Nestled on the picturesque island of Cebu, the Municipality of Dalaguete beckons you to a tropical paradise like no other. With its lush green mountains, pristine white-sand beaches, and a rich cultural heritage, Dalaguete offers an unforgettable escape for nature enthusiasts and curious wanderers alike.</p>
-                <img src="images/8.png" alt="" style="height: 300px; width: 300px;" class="absolute left-0 -ml-[6rem] mt-[7rem]">
-            </div>
-
-        </div>
-
-
-    </div>
-    <!-- end of body content -->
+        <!-- end of body content -->
 
 </body>
 
