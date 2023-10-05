@@ -106,27 +106,42 @@ class ServicesController extends Controller
         // ];
         
         Configuration::setXenditKey("xnd_development_6AFxxJiXEQTOK5912UFuvRYDDQxQQkn7PcPEVn7ovbIPGaYWAqza1WkhVTgiR");
-
-        $apiInstance = new InvoiceApi();
-        $create_invoice_request = [
-            "external_id" => "test1234",
-            "description" => "Test Invoice",
-            "amount" => 10000,
-            "invoice_duration" => 172800,
-            "currency" => "PHP",
-            "reminder_time" => 1,
+        // Create a QR Code for GCash payment
+        $params = [
+            'external_id' => 'your-unique-id',
+            'amount' => 10000, // Amount in cents (e.g., 100.00 PHP)
+            'phone_number' => 'GCASH_PHONE_NUMBER',
+            'type' => 'GCASH',
         ];
-
+    
         try {
-            $result = $apiInstance->createInvoice($create_invoice_request);
-            return response()->json($result);
-        } catch (\Xendit\XenditSdkException $e) {
-            return response()->json([
-                'error' => 'Exception when calling InvoiceApi->createInvoice',
-                'message' => $e->getMessage(),
-                'full_error' => $e->getFullError(),
-            ], 500);
+            $qrCode = \Xendit\QRCode::create($params);
+            return view('payment.checkout', ['qrCode' => $qrCode]);
+        } catch (\Xendit\Exceptions\ApiException $e) {
+            // Handle API error
+            return view('payment.error', ['message' => $e->getMessage()]);
         }
+
+        // $apiInstance = new InvoiceApi();
+        // $create_invoice_request = [
+        //     "external_id" => "test1234",
+        //     "description" => "Test Invoice",
+        //     "amount" => 10000,
+        //     "invoice_duration" => 172800,
+        //     "currency" => "PHP",
+        //     "reminder_time" => 1,
+        // ];
+
+        // try {
+        //     $result = $apiInstance->createInvoice($create_invoice_request);
+        //     return response()->json($result);
+        // } catch (\Xendit\XenditSdkException $e) {
+        //     return response()->json([
+        //         'error' => 'Exception when calling InvoiceApi->createInvoice',
+        //         'message' => $e->getMessage(),
+        //         'full_error' => $e->getFullError(),
+        //     ], 500);
+        // }
         // $payment = new Payment;
         // $payment->paymentMethod = 'GCASH';
         // $payment->accountNumber = '09123456879';
