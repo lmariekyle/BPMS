@@ -18,7 +18,9 @@ module.exports = {
                 roboto: "'Roboto', sans-serif",
                 robotocondensed: "'Roboto Condensed', sans-serif",
                 railway: "'Railway', sans-serif",
-                poppin: "'Poppins', sans-serif"
+                poppin: "'Poppins', sans-serif",
+                playfair: "'Playfair Display', serif",
+                rozha: "'Rozha One', serif",
             },
             fontSize: {
                 sm: '14px',
@@ -53,7 +55,10 @@ module.exports = {
 
                 'desktop': '1280px',
                 // => @media (min-width: 1280px) { ... }
-            }
+            },
+            textShadow: {
+                'custom': '2px 2px 4px rgba(0, 0, 0, 0.5)',
+            },
         },
     },
 
