@@ -7,14 +7,13 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\BHWController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\SitioCountController;
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\NotificationController;
 use App\Models\Statistics;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -28,24 +27,10 @@ use App\Models\Statistics;
 */
 
 //guest//
-
-
-
-
-Route::get('/create-invoice', [ServicesController::class, 'paymentrequest']);
-
-
 Route::middleware('web')->group(function () {
     Route::get('create', [ResidentUserController::class, 'create'])->name('create');
     Route::post('create', [ResidentUserController::class, 'store']);
 });
-
-Route::group(['middleware' => ['role:User']], function () {
-    Route::get('request/{docType}', [ServicesController::class, 'request'])->name('services.request');
-    Route::post('request/{docType}', [ServicesController::class, 'storerequest'])->name('services.storerequest');
-});
-
-
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('landingpage', [LandingPageController::class, 'index'])->name('landingpage');
@@ -69,11 +54,15 @@ Route::group(['middleware' => 'auth'], function () {
     //Route::resource('welcome', \App\Http\Controllers\StatisticsController::class);
     Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics');
     Route::get('chartdata', [StatisticsController::class, 'index'])->name('chartdata');
-    Route::get('dashboard', [ServicesController::class, 'residentDashboard']);
-    Route::get('manage', [ServicesController::class, 'manage']);
+    Route::resource('services', \App\Http\Controllers\ServicesController::class);
+    Route::get('/manage/{id}', [ServicesController::class, 'manage'])->name('manage');
     Route::get('generate', [ServicesController::class, 'generate']);
-    Route::get('approve', [ServicesController::class, 'approve']);
-    Route::get('deny', [ServicesController::class, 'deny']);
+    Route::get('/approve/{id}', [ServicesController::class, 'approve'])->name('approve');
+    Route::get('/deny/{id}', [ServicesController::class, 'deny'])->name('deny');
+    Route::get('/approval/{id}', [ServicesController::class, 'approval'])->name('approval');
+    Route::get('request', [ServicesController::class, 'request']);
+    Route::get('requestSearch', [ServicesController::class, 'search'])->name('requestSearch');
+    Route::resource('auth', \App\Http\Controllers\NotificationController::class);
     Route::get('index', [NotificationController::class, 'index']);
 });
 
