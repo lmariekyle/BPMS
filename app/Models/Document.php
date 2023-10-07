@@ -15,4 +15,8 @@ class Document extends Model
         'docTemplate',
         'createdBy',
     ];
+    public function transactiondoc()
+    {
+        return $this->hasOne(Transaction::class, 'documentID');
+    }
 }

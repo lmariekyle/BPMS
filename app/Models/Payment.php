@@ -10,10 +10,15 @@ class Payment extends Model
     use HasFactory;
 
     protected $fillable = [
-       '$paymentMethod',
-        '$accountNumber',
-        '$paymentStatus',	
-        '$successURL',
-        '$failURL',
+        'paymentMethod',
+        'accountNumber',
+        'paymentStatus',
+        'successURL',
+        'failURL',
     ];
+
+    public function transactionpayment()
+    {
+        return $this->hasOne(Transaction::class, 'paymentID');
+    }
 }

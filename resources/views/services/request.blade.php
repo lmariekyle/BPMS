@@ -21,7 +21,7 @@
                     <div class="ml-12 mt-6 font-bold w-[650px]">
                         <div class="">
                             <label>TYPE OF CERTIFICATE</label>
-                            <select class="rounded-lg border-2 w-full h-[50px] text-[26px]" style="border-color: #414833;">
+                            <select class="rounded-lg border-2 w-full h-[50px] text-[26px]" style="border-color: #414833;" name="selectedDocument">
                                 @foreach($documents as $document)
                                 <option value="{{$document->id}}">{{$document->docName}}</option>
                                 @endforeach
@@ -56,11 +56,11 @@
                                 <label>CONTACT NUMBER</label>
                             </div>
                         </div>
-                        <div class="mt-6" style="">
+                        <div class="mt-6">
                             <label>PURPOSE OF REQUEST</label>
                             <textarea class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;" name="requestPurpose"> </textarea>
                         </div>
-                        <div class="mt-8 justify-center rounded-lg text-center bg-deep-green text-dirty-white h-[232px]" style="">
+                        <div class="mt-8 justify-center rounded-lg text-center bg-deep-green text-dirty-white h-[232px]">
                             <p class="py-6">REQUIREMENTS FOR THE TYPE OF CERTIFICATE</p>
                             @if($doctypename == 'BARANGAY CERTIFICATE')
                             <p class="">Resident Certificate</p>
@@ -77,29 +77,23 @@
                     </div>
                 </div>
                 <div class="ml-12 mt-16 font-text[23px]">
-                    <div class="h-[300px] w-[605px]" style="">
-                        <input type="file" id="fileButton" name="file[]" style="" multiple>
+                    <div class="h-[300px] w-[605px]">
+                        <input type="file" id="fileButton" name="file[]" multiple>
                         <p class="mt-1 font-extralight italic text-[16px]">Note: Upload any necessary documents stated in the requirements</p>
                     </div>
-                    <div class="mt-6 text-right" style="">
+                    <div class="mt-6 text-right">
                         <div>
                             <p>CERTIFICATE FEE:</p>
-                            @php($y=1)<!--If the price varies on each type of doc. If not remove this condition-->
-                            <p>
-                                @if($y==1)
-                                PHP 100.00
-                                @endif
-                            </p>
+                            <p>{{$document->fee}}</p>
+                            <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="{{$document->fee}}" name="docfee">
                         </div>
                         <br>
-                        <div class="mb-6">
-                            <p>SELECT PAYMENT TYPE:</p>
-                            <label>GCASH</label>
-                            <input type="radio">
-                            <br>
-                            <label>CASH-ON-SITE</label>
-                            <input type="radio">
-                        </div>
+                        <label for="gcash">GCASH</label>
+                        <input type="radio" name="paymentMethod" id="gcash" value="GCASH">
+                        <br>
+                        <label for="cash-on-site">CASH-ON-SITE</label>
+                        <input type="radio" name="paymentMethod" id="cash-on-site" value="CASH-ON-SITE">
+                        <br>
                         <button class="border-2 rounded-lg font-bold px-3 py-1" style="border-color: #414833;">PROCEED</button>
                     </div>
                 </div>

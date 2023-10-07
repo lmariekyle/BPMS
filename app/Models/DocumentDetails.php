@@ -20,4 +20,9 @@ class DocumentDetails extends Model
         'requestPurpose',
         'file'
     ];
+
+    public function transactiondetail()
+    {
+        return $this->hasOne(Transaction::class, 'detailID');
+    }
 }

@@ -824,11 +824,17 @@ select{
 .-ml-8{
   margin-left: -2rem;
 }
+.-ml-\[3\.5rem\]{
+  margin-left: -3.5rem;
+}
+.-ml-\[4\.5rem\]{
+  margin-left: -4.5rem;
+}
+.-ml-\[4rem\]{
+  margin-left: -4rem;
+}
 .-ml-\[556px\]{
   margin-left: -556px;
-}
-.-ml-\[6rem\]{
-  margin-left: -6rem;
 }
 .-ml-px{
   margin-left: -1px;
@@ -838,6 +844,15 @@ select{
 }
 .-mr-0\.5{
   margin-right: -0.125rem;
+}
+.-mr-\[4rem\]{
+  margin-right: -4rem;
+}
+.-mr-\[6\.3rem\]{
+  margin-right: -6.3rem;
+}
+.-mr-\[6rem\]{
+  margin-right: -6rem;
 }
 .-mt-10{
   margin-top: -2.5rem;
@@ -869,11 +884,17 @@ select{
 .-mt-\[15rem\]{
   margin-top: -15rem;
 }
+.-mt-\[17rem\]{
+  margin-top: -17rem;
+}
 .-mt-\[1px\]{
   margin-top: -1px;
 }
 .-mt-\[20px\]{
   margin-top: -20px;
+}
+.-mt-\[22rem\]{
+  margin-top: -22rem;
 }
 .-mt-\[300px\]{
   margin-top: -300px;
@@ -928,6 +949,9 @@ select{
 }
 .mb-\[4rem\]{
   margin-bottom: 4rem;
+}
+.mb-\[5rem\]{
+  margin-bottom: 5rem;
 }
 .ml-1{
   margin-left: 0.25rem;
@@ -1007,6 +1031,9 @@ select{
 .ml-\[20px\]{
   margin-left: 20px;
 }
+.ml-\[24rem\]{
+  margin-left: 24rem;
+}
 .ml-\[400px\]{
   margin-left: 400px;
 }
@@ -1064,6 +1091,9 @@ select{
 .mr-8{
   margin-right: 2rem;
 }
+.mr-\[1rem\]{
+  margin-right: 1rem;
+}
 .mt-0{
   margin-top: 0px;
 }
@@ -1115,6 +1145,9 @@ select{
 .mt-\[100px\]{
   margin-top: 100px;
 }
+.mt-\[128\.3rem\]{
+  margin-top: 128.3rem;
+}
 .mt-\[12rem\]{
   margin-top: 12rem;
 }
@@ -1139,6 +1172,9 @@ select{
 .mt-\[2rem\]{
   margin-top: 2rem;
 }
+.mt-\[42\.5rem\]{
+  margin-top: 42.5rem;
+}
 .mt-\[425px\]{
   margin-top: 425px;
 }
@@ -1151,59 +1187,17 @@ select{
 .mt-\[5rem\]{
   margin-top: 5rem;
 }
-.mt-\[7rem\]{
-  margin-top: 7rem;
+.mt-\[7\.3rem\]{
+  margin-top: 7.3rem;
+}
+.mt-\[8\.5rem\]{
+  margin-top: 8.5rem;
 }
 .mt-\[8rem\]{
   margin-top: 8rem;
 }
 .mt-\[90px\]{
   margin-top: 90px;
-}
-.-ml-\[3\.5rem\]{
-  margin-left: -3.5rem;
-}
-.-ml-\[4\.5rem\]{
-  margin-left: -4.5rem;
-}
-.-ml-\[4rem\]{
-  margin-left: -4rem;
-}
-.-mr-\[4rem\]{
-  margin-right: -4rem;
-}
-.-mr-\[6\.3rem\]{
-  margin-right: -6.3rem;
-}
-.-mr-\[6rem\]{
-  margin-right: -6rem;
-}
-.-mt-\[17rem\]{
-  margin-top: -17rem;
-}
-.-mt-\[22rem\]{
-  margin-top: -22rem;
-}
-.mb-\[5rem\]{
-  margin-bottom: 5rem;
-}
-.ml-\[24rem\]{
-  margin-left: 24rem;
-}
-.mr-\[1rem\]{
-  margin-right: 1rem;
-}
-.mt-\[128\.3rem\]{
-  margin-top: 128.3rem;
-}
-.mt-\[42\.5rem\]{
-  margin-top: 42.5rem;
-}
-.mt-\[7\.3rem\]{
-  margin-top: 7.3rem;
-}
-.mt-\[8\.5rem\]{
-  margin-top: 8.5rem;
 }
 .block{
   display: block;
@@ -1259,6 +1253,9 @@ select{
 .h-\[100px\]{
   height: 100px;
 }
+.h-\[12px\]{
+  height: 12px;
+}
 .h-\[130px\]{
   height: 130px;
 }
@@ -1295,6 +1292,9 @@ select{
 .h-\[42px\]{
   height: 42px;
 }
+.h-\[480px\]{
+  height: 480px;
+}
 .h-\[48px\]{
   height: 48px;
 }
@@ -1306,6 +1306,12 @@ select{
 }
 .h-\[50px\]{
   height: 50px;
+}
+.h-\[560px\]{
+  height: 560px;
+}
+.h-\[580px\]{
+  height: 580px;
 }
 .h-\[58px\]{
   height: 58px;
@@ -1347,17 +1353,8 @@ select{
 .h-px{
   height: 1px;
 }
-.h-\[12px\]{
-  height: 12px;
-}
-.h-\[480px\]{
-  height: 480px;
-}
-.h-\[560px\]{
-  height: 560px;
-}
-.h-\[580px\]{
-  height: 580px;
+.h-\[1024px\]{
+  height: 1024px;
 }
 .max-h-12{
   max-height: 3rem;
@@ -1567,6 +1564,9 @@ select{
 .w-\[472px\]{
   width: 472px;
 }
+.w-\[480px\]{
+  width: 480px;
+}
 .w-\[490px\]{
   width: 490px;
 }
@@ -1628,9 +1628,6 @@ select{
 .w-max{
   width: -moz-max-content;
   width: max-content;
-}
-.w-\[480px\]{
-  width: 480px;
 }
 .min-w-0{
   min-width: 0px;
@@ -1778,15 +1775,15 @@ select{
 .gap-4{
   gap: 1rem;
 }
-.space-x-8 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-x-reverse: 0;
-  margin-right: calc(2rem * var(--tw-space-x-reverse));
-  margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
-}
 .space-x-14 > :not([hidden]) ~ :not([hidden]){
   --tw-space-x-reverse: 0;
   margin-right: calc(3.5rem * var(--tw-space-x-reverse));
   margin-left: calc(3.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+.space-x-8 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-x-reverse: 0;
+  margin-right: calc(2rem * var(--tw-space-x-reverse));
+  margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .self-start{
   align-self: flex-start;
@@ -1858,17 +1855,17 @@ select{
 .border-b-2{
   border-bottom-width: 2px;
 }
-.border-r{
-  border-right-width: 1px;
-}
-.border-t{
-  border-top-width: 1px;
-}
 .border-l-2{
   border-left-width: 2px;
 }
+.border-r{
+  border-right-width: 1px;
+}
 .border-r-2{
   border-right-width: 2px;
+}
+.border-t{
+  border-top-width: 1px;
 }
 .border-solid{
   border-style: solid;
@@ -1928,10 +1925,6 @@ select{
   --tw-bg-opacity: 1;
   background-color: rgb(169 206 95 / var(--tw-bg-opacity));
 }
-.bg-\[\#efeee9\]{
-  --tw-bg-opacity: 1;
-  background-color: rgb(239 238 233 / var(--tw-bg-opacity));
-}
 .bg-\[\#f8f9f0\]{
   --tw-bg-opacity: 1;
   background-color: rgb(248 249 240 / var(--tw-bg-opacity));
@@ -1989,6 +1982,10 @@ select{
 .bg-white{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+.bg-blue-600{
+  --tw-bg-opacity: 1;
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
 }
 .bg-clip-padding{
   background-clip: padding-box;
@@ -2103,13 +2100,13 @@ select{
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
-.py-\[0\.25rem\]{
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-}
 .py-8{
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+.py-\[0\.25rem\]{
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 .pb-10{
   padding-bottom: 2.5rem;
@@ -2222,6 +2219,9 @@ select{
 .text-8xl{
   font-size: 96px;
 }
+.text-\[112px\]{
+  font-size: 112px;
+}
 .text-\[12px\]{
   font-size: 12px;
 }
@@ -2296,8 +2296,8 @@ select{
   font-size: 0.75rem;
   line-height: 1rem;
 }
-.text-\[112px\]{
-  font-size: 112px;
+.text-\[64px\]{
+  font-size: 64px;
 }
 .font-black{
   font-weight: 900;
@@ -2406,6 +2406,10 @@ select{
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.text-blue-600{
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity));
 }
 .underline{
   text-decoration-line: underline;

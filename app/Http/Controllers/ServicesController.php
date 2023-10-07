@@ -6,6 +6,7 @@ use App\Models\Document;
 use App\Models\DocumentDetails;
 use App\Models\Payment;
 use App\Models\Resident;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -66,8 +67,7 @@ class ServicesController extends Controller
 
     public function storerequest(Request $request)
     {
-
-        $certRequirements=[];
+        $certRequirements = [];
         if ($request->hasFile('file')) {
             foreach ($request->file('file') as $file) {
                 if ($file->isValid()) {
@@ -82,7 +82,11 @@ class ServicesController extends Controller
             $reqJson = NULL;
         }
 
-        $document = DocumentDetails::create([
+        $user = Auth::user();
+        $doctype = Document::where('id', $request->selectedDocument)->first();
+
+        $transaction = new Transaction;
+        $transactiondetail =  $transaction->transactiondetail()->create([
             'requesteeFName' => $request->requesteeFName,
             'requesteeMName' => $request->requesteeMName,
             'requesteeLName' => $request->requesteeLName,
@@ -92,64 +96,48 @@ class ServicesController extends Controller
             'file' => $reqJson,
         ]);
 
-        return Redirect::back()->with('success', 'Request has been sent!');   
+        $transactionpayment = $transaction->transactionpayment()->create([
+            'paymentMethod' => $request->paymentMethod,
+            'accountNumber' => '123455678901',
+            'paymentStatus' => 'Pending',
+            'successURL' => NULL,
+            'failURL' =>  NULL,
+        ]);
+
+        $transactionPaymentId = $transactionpayment->id;
+        $transactionDetailId = $transactiondetail->id;
+        $transaction->detailID = $transactionDetailId;
+        $transaction->userID = $user->id;
+        $transaction->paymentID = $transactionPaymentId;
+        $transaction->documentID = $doctype->id;
+        $transaction->serviceAmount = $request->docfee;
+        $transaction->serviceStatus = 'Pending';
+        $transaction->docNumber = $doctype->id;
+        $transaction->paymentMethod = $request->paymentMethod;
+        $transaction->issuedDocument = $request->selectedDocument;
+        $transaction->issuedBy = 'Pending';
+        $transaction->issuedOn = today();
+        $transaction->save();
+
+        if ($request->paymentMethod == 'GCASH') {
+            $payment = Payment::where('id', $transactionPaymentId)->first();
+            return view('services.gcash', compact('transaction', 'payment'));
+        } else {
+            return view('services.success');
+        }
     }
 
-    public function paymentrequest(Request $request){
+    public function paymentrequest(Request $request)
+    {
+        $payment = Payment::where('id', $request->id)->first();
 
-        
-        // $params = [
-        //     'external_id' => (string) Str::uuid(),
-        //     'amount' => $request->amount, // Amount in cents (e.g., 100.00 PHP)
-        //     'phone_number' => $request->contactNumber,
-        //     'type' => 'GCASH',
-        // ];
-        
-        Configuration::setXenditKey("xnd_development_6AFxxJiXEQTOK5912UFuvRYDDQxQQkn7PcPEVn7ovbIPGaYWAqza1WkhVTgiR");
-        // Create a QR Code for GCash payment
-        $params = [
-            'external_id' => 'your-unique-id',
-            'amount' => 10000, // Amount in cents (e.g., 100.00 PHP)
-            'phone_number' => 'GCASH_PHONE_NUMBER',
-            'type' => 'GCASH',
-        ];
-    
-        try {
-            $qrCode = \Xendit\QRCode::create($params);
-            return view('payment.checkout', ['qrCode' => $qrCode]);
-        } catch (\Xendit\Exceptions\ApiException $e) {
-            // Handle API error
-            return view('payment.error', ['message' => $e->getMessage()]);
-        }
+        $payment->paymentMethod = 'GCASH';
+        $payment->accountNumber = $request->accountNumber;
+        $payment->successURL = $request->successURL;
+        $payment->paymentStatus = 'Pending';
+        $payment->failURL = NULL;
+        $payment->save();
 
-        // $apiInstance = new InvoiceApi();
-        // $create_invoice_request = [
-        //     "external_id" => "test1234",
-        //     "description" => "Test Invoice",
-        //     "amount" => 10000,
-        //     "invoice_duration" => 172800,
-        //     "currency" => "PHP",
-        //     "reminder_time" => 1,
-        // ];
-
-        // try {
-        //     $result = $apiInstance->createInvoice($create_invoice_request);
-        //     return response()->json($result);
-        // } catch (\Xendit\XenditSdkException $e) {
-        //     return response()->json([
-        //         'error' => 'Exception when calling InvoiceApi->createInvoice',
-        //         'message' => $e->getMessage(),
-        //         'full_error' => $e->getFullError(),
-        //     ], 500);
-        // }
-        // $payment = new Payment;
-        // $payment->paymentMethod = 'GCASH';
-        // $payment->accountNumber = '09123456879';
-        // $payment->paymentStatus = NULL;
-        // $payment->successURL =$createInvoice['invoice_url'];
-        // $payment->failURL =NULL;
-
-        // $payment->save();
-        // return response()->json(['data' => $createInvoice['invoice_url']]);
+        return view('services.success');
     }
 }
