@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('request', [ServicesController::class, 'request']);
     Route::get('requestSearch', [ServicesController::class, 'search'])->name('requestSearch');
     Route::resource('auth', \App\Http\Controllers\NotificationController::class);
-    Route::get('index', [NotificationController::class, 'index']);
+    Route::get('index', [NotificationController::class, 'index'])->name('notifications');
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {

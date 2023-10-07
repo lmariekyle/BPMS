@@ -18,7 +18,7 @@
                     <!-- <div class="admin-container self-center">
                         <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Create Account</a>
                     </div> -->
-                    <a href="{{ route('accounts') }}" class="font-robotocondensed text-[40px] text-dirty-white text-center">MANAGE ACCOUNTS</a>
+                    <a href="{{ route('accounts.index') }}" class="font-robotocondensed text-[40px] text-dirty-white text-center">MANAGE ACCOUNTS</a>
             </div>
             <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 -ml-8">
                     <!-- <div class="admin-container self-center">

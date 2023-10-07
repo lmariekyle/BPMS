@@ -8,6 +8,7 @@ use App\Models\Sitio;
 use App\Models\Resident;
 use App\Models\Barangay;
 use App\Models\Household;
+use App\Models\Document;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -176,8 +177,14 @@ class ResidentUserController extends Controller
         $barangay=Barangay::where('id',$sitio->barangayID)->first();
         $personalInfo->sitio=$sitio->sitioName;
         $personalInfo->barangay=$barangay->barangayName;
+        $notifications = auth()->user()->unreadNotifications;
+        foreach($notifications as $notification){
+            $notification->user = User::where('id', $notification->data['transaction']['userID'])->first();
+            $notification->resident = Resident::where('id',$notification->user['residentID'])->first();
+            $notification->document = Document::where('id',$notification->data['transaction']['documentID'])->first();
+        }
 
-        return view('auth.profile',compact('user','personalInfo'));
+        return view('auth.profile',compact('user','personalInfo', 'notifications'));
     }
 
     /**
