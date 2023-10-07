@@ -16,13 +16,13 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
 
-            $table->string('paymentMethod');
-            $table->string('accountNumber');
-            $table->string('paymentStatus');
+            $table->string('paymentMethod')->default('CASH-ON-SITE');
+            $table->string('accountNumber')->nullable();
+            $table->string('paymentStatus')->default('PENDING');
 
-            $table->string('successURL');
-            $table->string('failURL');
-            
+            $table->string('successURL')->nullable();
+            $table->string('failURL')->nullable();
+
             $table->timestamps();
         });
     }

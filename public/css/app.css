@@ -1428,6 +1428,9 @@ select{
 .h-px{
   height: 1px;
 }
+.h-\[1024px\]{
+  height: 1024px;
+}
 .max-h-12{
   max-height: 3rem;
 }
@@ -2083,6 +2086,10 @@ select{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
+.bg-blue-600{
+  --tw-bg-opacity: 1;
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
+}
 .bg-clip-padding{
   background-clip: padding-box;
 }
@@ -2399,6 +2406,9 @@ select{
   font-size: 0.75rem;
   line-height: 1rem;
 }
+.text-\[64px\]{
+  font-size: 64px;
+}
 .font-black{
   font-weight: 900;
 }
@@ -2506,6 +2516,10 @@ select{
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.text-blue-600{
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity));
 }
 .underline{
   text-decoration-line: underline;

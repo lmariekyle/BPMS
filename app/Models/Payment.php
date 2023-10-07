@@ -16,4 +16,9 @@ class Payment extends Model
         'successURL',
         'failURL',
     ];
+
+    public function transactionpayment()
+    {
+        return $this->hasOne(Transaction::class, 'paymentID');
+    }
 }

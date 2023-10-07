@@ -14,6 +14,7 @@ use App\Http\Controllers\SitioCountController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\NotificationController;
 use App\Models\Statistics;
+use Spatie\Permission\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,15 @@ use App\Models\Statistics;
 Route::middleware('web')->group(function () {
     Route::get('create', [ResidentUserController::class, 'create'])->name('create');
     Route::post('create', [ResidentUserController::class, 'store']);
+});
+
+Route::middleware(['role:User'])->group(function () {
+    Route::get('request/{docType}', [ServicesController::class, 'request'])->name('services.request');
+    Route::post('request/{docType}', [ServicesController::class, 'storerequest'])->name('services.storerequest');
+    Route::post('payment', [ServicesController::class, 'paymentrequest'])->name('services.gcash');
+    Route::get('success', function () {
+        return view('services.success');
+    })->name('services.success');
 });
 
 Route::group(['middleware' => 'auth'], function () {

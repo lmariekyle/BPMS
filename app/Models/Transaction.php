@@ -37,4 +37,18 @@ class Transaction extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function transactiondetail()
+    {
+        return $this->belongsTo(DocumentDetails::class);
+    }
+
+    public function transactionpayment()
+    {
+        return $this->belongsTo(Payment::class);
+    }
+    public function transactionuser()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

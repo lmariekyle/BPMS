@@ -10,7 +10,7 @@ class DocumentDetails extends Model
     use HasFactory;
 
     public $table = 'documentdetails';
-    
+
     protected $fillable = [
         'requesteeFName',
         'requesteeMName',
@@ -18,5 +18,11 @@ class DocumentDetails extends Model
         'requesteeEmail',
         'requesteeContactNumber',
         'requestPurpose',
+        'file'
     ];
+
+    public function transactiondetail()
+    {
+        return $this->hasOne(Transaction::class, 'detailID');
+    }
 }
