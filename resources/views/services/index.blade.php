@@ -146,7 +146,7 @@
                             {{ $transaction->serviceStatus }}
                         </td>
                         <td class="px-6 py-4 w-[190px]">
-                            <a href="{{ route('manage', $transaction->id) }}" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
+                            <a href="{{ route('direction', $transaction->id) }}" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
                         </td>
                     </tr>
                 @endforeach           

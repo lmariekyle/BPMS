@@ -32,7 +32,7 @@ class TransactionController extends Controller
 
         if ($request->paymentMethod == '1'){
             $payment = Payment::create([
-                'paymentMethod' => $request->paymentMethod,
+                'paymentMethod' => 'CASH-ON-SITE',
                 'accountNumber' => 'None',
                 'paymentStatus' => 'Pending',
                 'successURL' => 'Not Applicable',
@@ -40,7 +40,7 @@ class TransactionController extends Controller
             ]);
         }else{
             $payment = Payment::create([
-                'paymentMethod' => $request->paymentMethod,
+                'paymentMethod' => 'GCASH',
                 'accountNumber' => 'Pending',
                 'paymentStatus' => 'Pending',
                 'successURL' => 'Unavailable',
@@ -78,7 +78,7 @@ class TransactionController extends Controller
             'serviceAmount' =>  $request->serviceAmount,
             'docNumber' => $docId,
             'serviceStatus' => "Pending",
-            'paymentMethod' => $request->paymentMethod,
+            'paymentMethod' => $payment->paymentMethod,
             'issuedDocument' => "http://",
             'issuedBy' => "Null",
             'issuedOn' => $date,

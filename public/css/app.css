@@ -977,9 +977,6 @@ select{
 .mb-5{
   margin-bottom: 1.25rem;
 }
-.mb-6{
-  margin-bottom: 1.5rem;
-}
 .mb-8{
   margin-bottom: 2rem;
 }
@@ -1319,6 +1316,9 @@ select{
 .h-\[100px\]{
   height: 100px;
 }
+.h-\[1024px\]{
+  height: 1024px;
+}
 .h-\[12px\]{
   height: 12px;
 }
@@ -1342,9 +1342,6 @@ select{
 }
 .h-\[262px\]{
   height: 262px;
-}
-.h-\[273px\]{
-  height: 273px;
 }
 .h-\[300px\]{
   height: 300px;
@@ -1427,9 +1424,6 @@ select{
 }
 .h-px{
   height: 1px;
-}
-.h-\[1024px\]{
-  height: 1024px;
 }
 .max-h-12{
   max-height: 3rem;
@@ -1555,9 +1549,6 @@ select{
 .w-\[150px\]{
   width: 150px;
 }
-.w-\[155px\]{
-  width: 155px;
-}
 .w-\[15rem\]{
   width: 15rem;
 }
@@ -1680,9 +1671,6 @@ select{
 }
 .w-\[620px\]{
   width: 620px;
-}
-.w-\[645px\]{
-  width: 645px;
 }
 .w-\[650px\]{
   width: 650px;
@@ -2035,6 +2023,10 @@ select{
 .bg-black\/\[0\.4\]{
   background-color: rgb(0 0 0 / 0.4);
 }
+.bg-blue-600{
+  --tw-bg-opacity: 1;
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
+}
 .bg-deep-green{
   --tw-bg-opacity: 1;
   background-color: rgb(65 72 51 / var(--tw-bg-opacity));
@@ -2085,10 +2077,6 @@ select{
 .bg-white{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-.bg-blue-600{
-  --tw-bg-opacity: 1;
-  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
 }
 .bg-clip-padding{
   background-clip: padding-box;
@@ -2386,6 +2374,9 @@ select{
 .text-\[60px\]{
   font-size: 60px;
 }
+.text-\[64px\]{
+  font-size: 64px;
+}
 .text-\[74px\]{
   font-size: 74px;
 }
@@ -2405,9 +2396,6 @@ select{
 .text-xs{
   font-size: 0.75rem;
   line-height: 1rem;
-}
-.text-\[64px\]{
-  font-size: 64px;
 }
 .font-black{
   font-weight: 900;
@@ -2460,6 +2448,10 @@ select{
 .text-black{
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+.text-blue-600{
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity));
 }
 .text-deep-green{
   --tw-text-opacity: 1;
@@ -2516,10 +2508,6 @@ select{
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-.text-blue-600{
-  --tw-text-opacity: 1;
-  color: rgb(37 99 235 / var(--tw-text-opacity));
 }
 .underline{
   text-decoration-line: underline;

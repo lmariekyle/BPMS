@@ -111,7 +111,7 @@
                 <div class="ml-24 mt-12" style="margin-left: 92px;">
                     <div class="font-robotocondensed font-bold text-[32px] text-deep-green" style="font-size: 32px;">
                         <p>Payment Type:</p>
-                        <p class="px-6 border-2 w-[500px]" style="border-color: #414833;">{{ $transaction->payment['paymentMethodOption'] }}</p>
+                        <p class="px-6 border-2 w-[500px]" style="border-color: #414833;">{{ $transaction->payment['paymentMethod'] }}</p>
                     </div>
                     <div class="font-robotocondensed font-bold text-[32px] text-deep-green mt-6" style="font-size: 32px;">
                         <p>Payment Status:</p>
@@ -126,7 +126,7 @@
         </div>
         @if ($transaction->serviceStatus == 'Pending' || $transaction->serviceStatus == 'Processing')
             <div class="justify-center flex flex-row mt-14">
-                <form method="GET" action="{{ route('approve', $transaction->id) }}">
+                <form method="GET" action="{{ route('accepted', $transaction->id) }}">
                     @if($transaction->approval != 1)
                         <button type="submit" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-dirty-white bg-deep-green px-4 py-2" style="width: 400px; font-size: 32px;" disabled>Approve Request </button>
                     @else

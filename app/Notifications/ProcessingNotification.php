@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Models\Transaction;
 
-class NewRequestNotification extends Notification
+class ProcessingNotification extends Notification
 {
     use Queueable;
     public $transaction;
@@ -58,7 +58,7 @@ class NewRequestNotification extends Notification
     {
         return [
             'transaction' => Transaction::where('id', $this->transaction->id)->first(),
-            'type' => 'Transaction',
+            'type' => 'Processing',
         ];
     }
 }

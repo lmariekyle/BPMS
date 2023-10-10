@@ -21,8 +21,15 @@
                         <div class="float-left">
                             <p>{{ $notification->data['type'] }} Notification (NOTIFICATION #{{ $notification->id }})</p>
                             <p class="inline">
-                                {{ $notification->resident['firstName'] }} {{ $notification->resident['lastName'] }} requested {{ $notification->document['docName'] }} <!--When a notification exceeds [MAX] characters, replace the rest with
-                                [ . . . ]-->
+                                @if($notification->data['type'] == 'Transaction')
+                                    <p class="text-xs font-robotocondensed text-justify">
+                                        {{ $notification->resident['firstName'] }} {{ $notification->resident['lastName'] }} requested {{ $notification->document['docName'] }}
+                                    </p>
+                                @else
+                                    <p class="text-xs font-robotocondensed text-justify">
+                                        {{ $notification->document['docName'] }} is now {{ $notification->data['transaction']['serviceStatus'] }}
+                                    </p>
+                                @endif
                                 @if($notification->read_at==NULL) <!--Probably the only idea I got rn if the notification is [Unread] LMAO-->
                                     <p class="inline text-red-600">[ New ]</p>
                                 @endif

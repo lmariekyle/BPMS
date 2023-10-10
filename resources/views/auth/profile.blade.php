@@ -23,9 +23,15 @@
                                 <p class="text-xs font-robotocondensed w-80 text-justify">
                                     <br>
                                     New {{ $notification->data['type'] }} Notification
-                                        <p class="text-xs font-robotocondensed text-justify">
-                                            {{ $notification->resident['firstName'] }} {{ $notification->resident['lastName'] }} requested {{ $notification->document['docName'] }}
-                                        </p>
+                                        @if($notification->data['type'] == 'Transaction')
+                                            <p class="text-xs font-robotocondensed text-justify">
+                                                {{ $notification->resident['firstName'] }} {{ $notification->resident['lastName'] }} requested {{ $notification->document['docName'] }}
+                                            </p>
+                                        @else
+                                            <p class="text-xs font-robotocondensed text-justify">
+                                                {{ $notification->document['docName'] }} is now {{ $notification->data['transaction']['serviceStatus'] }}
+                                            </p>
+                                        @endif
                                     <!--Notification title then like at most 20 letters per notif (if exceeded then
                                         replace the rest of the text with [...]-->
                                 </p>

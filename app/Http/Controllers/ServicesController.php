@@ -16,6 +16,9 @@ use Xendit\Xendit;
 use Xendit\Configuration;
 use Xendit\Invoice\Invoice;
 use Xendit\Invoice\InvoiceApi;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\NewRequestNotification;
+use App\Notifications\ProcessingNotification;
 
 class ServicesController extends Controller
 {
@@ -44,18 +47,28 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function direction($id){
+        $transaction = Transaction::where('id', $id)->first();
+        if($transaction->serviceStatus == 'Pending'){
+            return $this->manage($id);
+        }else{
+            return $this->approve($id);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function manage($id)
     {
         $transaction = Transaction::where('id', $id)->first();
         $transaction->detail = DocumentDetails::where('id', $transaction->detailID)->first();
         $transaction->document = Document::where('id', $transaction->documentID)->first();
         $transaction->payment = Payment::where('id', $transaction->paymentID)->first();
-        if($transaction->payment['paymentMethod'] == 1){
-            $transaction->payment['paymentMethodOption'] = "Cash On-Site";
-        }else{
-            $transaction->payment['paymentMethodOption'] = "GCash";
-        }
-        if($transaction->payment['paymentMethod'] == 1 || $transaction->payment['paymentStatus'] == 'Paid'){
+        if($transaction->payment['paymentMethod'] == 'CASH-ON-SITE' || $transaction->payment['paymentStatus'] == 'Paid'){
             $transaction->approval = 1;
         }else{
             $transaction->approval = 2;
@@ -67,6 +80,33 @@ class ServicesController extends Controller
     public function generate()
     {
         return view('services.generate');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function accepted($id){
+        $transaction = Transaction::where('id', $id)->first();
+        $transaction->fill([
+            'serviceStatus' => 'Processing',
+        ]);
+        $transaction->save();
+
+        $notifyUsers = User::where('id', $transaction->userID)->first();
+        Notification::sendNow($notifyUsers, new ProcessingNotification($transaction));
+
+        $transactions = Transaction::all();
+        foreach ($transactions as $transaction){
+            $user = User::where('id', $transaction->userID)->first();
+            $transaction->resident = Resident::where('id', $user->residentID)->first();
+            $transaction->document = Document::where('id', $transaction->documentID)->first();
+            $newtime = strtotime($transaction->created_at);
+            $transaction->createdDate = date('M d, Y',$newtime);
+        }
+        return view('services.index', compact('transactions'));
     }
 
     /**
@@ -157,6 +197,10 @@ class ServicesController extends Controller
         $transaction->issuedOn = today();
         $transaction->save();
 
+        $notifyUsers = User::where('userLevel', 'Barangay Captain')->orWhere('userLevel', 'Barangay Secretary')->get();
+
+        Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
+
         if ($request->paymentMethod == 'GCASH') {
             $payment = Payment::where('id', $transactionPaymentId)->first();
             return view('services.gcash', compact('transaction', 'payment'));
@@ -214,6 +258,9 @@ class ServicesController extends Controller
         ]);
         $transaction->save();
 
+        $notifyUsers = User::where('userLevel', $transaction->userID)->get();
+
+        Notification::sendNow($notifyUsers, new ProcessingNotification($transaction));
 
         $transactions = Transaction::all();
         foreach ($transactions as $transaction){

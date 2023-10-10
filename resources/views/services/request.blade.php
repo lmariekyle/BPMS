@@ -5,70 +5,71 @@
             {{ __('Barangay Health Workers') }}
         </h2>
     </x-slot>
-    @php($x=0)<!--If the request is document related-->
-    <div class="w-[1400px] h-[813px] font-robotocondensed text-[26px] ml-8 mt-16 border-2 border-black text-deep-green" style="">
-        @if($x==1)
+
+    <div class="w-[1400px] h-[813px] font-robotocondensed text-[26px] ml-8 mt-16 border-2 border-black text-deep-green">
+
         <div class="text-6xl px-6 py-1 bg-green text-dirty-white">
-            @php($y=1)<!--What type of document request-->
+
             <p class="font-bold">
-                @if($y==1)
-                INSERT TYPE OF REQUEST HERE
-                @endif
+                {{$doctypename}}
             </p>
         </div>
-        <form>
+        <form method="POST" action="{{route('services.storerequest' , $doctypename)}}" enctype="multipart/form-data">
+            @csrf
             <div class="flex flex-row">
                 <div>
-                    <div class="ml-12 mt-6 font-bold w-[650px]" style="">
-                        <div class="" style="">
+                    <div class="ml-12 mt-6 font-bold w-[650px]">
+                        <div class="">
                             <label>TYPE OF CERTIFICATE</label>
                             <select class="rounded-lg border-2 w-full h-[50px] text-[26px]" style="border-color: #414833;" name="selectedDocument">
-                                <option value="1">Yeah</option>
-                                <option value="2">Put</option>
-                                <option value="3">All</option>
-                                <option value="4">Available</option>
-                                <option value="5">Options</option>
-                                <option value="6">Here</option>
+                                @foreach($documents as $document)
+                                <option value="{{$document->id}}">{{$document->docName}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mt-8 flex flex-row text-[23px]">
-                            <div class="" style="">
-                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-green text-dirty-white" style="border-color: #414833;">
+                            <div class="">
+                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-green text-dirty-white" style="border-color: #414833;" value="{{$user->firstName}}" name="requesteeFName">
                                 <br>
                                 <label>FIRST NAME</label>
                             </div>
-                            <div class="ml-8" style="">
-                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-green text-dirty-white" style="border-color: #414833;">
+                            <div class="ml-8">
+                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-green text-dirty-white" style="border-color: #414833;" value="{{$user->lastName}}" name="requesteeLName">
                                 <br>
                                 <label>LAST NAME</label>
                             </div>
-                            <div class="ml-10" style="">
-                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-green text-dirty-white" style="border-color: #414833;">
+                            <div class="ml-10">
+                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-green text-dirty-white" style="border-color: #414833;" value="{{$user->middleName}}" name="requesteeMName">
                                 <br>
                                 <label>MIDDLE NAME</label>
                             </div>
                         </div>
                         <div class="mt-6 flex flex-row text-[23px]">
-                            <div class="" style="">
-                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;">
+                            <div class="">
+                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="{{$user->email}}" name="requesteeEmail">
                                 <br>
                                 <label>EMAIL ADDRESS</label>
                             </div>
-                            <div class="ml-20" style="">
-                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;">
+                            <div class="ml-20">
+                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="{{$user->contactNumber}}" name="requesteeContactNumber">
                                 <br>
                                 <label>CONTACT NUMBER</label>
                             </div>
                         </div>
                         <div class="mt-6">
                             <label>PURPOSE OF REQUEST</label>
-                            <input class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;">
+                            <textarea class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;" name="requestPurpose"> </textarea>
                         </div>
                         <div class="mt-8 justify-center rounded-lg text-center bg-deep-green text-dirty-white h-[232px]">
                             <p class="py-6">REQUIREMENTS FOR THE TYPE OF CERTIFICATE</p>
-                            <p class="">Insert quote what is the requirements chuchu blah blah blah blah blah blah
-                               depending on which file is requested
-                            </p>
+                            @if($doctypename == 'BARANGAY CERTIFICATE')
+                            <p class="">Resident Certificate</p>
+                            @elseif($doctypename == 'BARANGAY CLEARANCE')
+                            <p class="">Cedula</p>
+                            <p class="">Copy of Previous Permit</p>
+                            <p class="">Tax Declaration</p>
+                            <p class="">Affidavit of Consent</p>
+                            @endif
                         </div>
                         <div class="py-1">
                             <p class="text-right mr-1 font-extralight italic text-[16px]">Note: Requirements may vary depending of type of document</p>
@@ -98,109 +99,7 @@
                 </div>
             </div>
         </form>
-        @else<!--Otherwise it is a File of Complain-->
-        <div class="text-6xl px-6 py-1 bg-green text-dirty-white">
-            <p class="font-bold">
-                FILE FOR COMPLAIN
-            </p>
-        </div>
-        <form>
-            <div class="flex flex-row">
-                <div>
-                    <div class="ml-12 mt-6 font-bold w-[650px]" style="">
-                        <div class="px-6 py-4 border-2 h-[273px]" style="border-color: #414833;">
-                            <p>COMPLAINT DETAILS:</p>
-                            <div class="mt-4 flex flex-row text-[23px]">
-                                <div class="" style="">
-                                    <input class="px-2 focus:outline-none border-2 w-[200px]" style="border-color: #414833;">
-                                    <br>
-                                    <label>FIRST NAME</label>
-                                </div>
-                                <div class="ml-4" style="">
-                                    <input class="px-2 focus:outline-none border-2 w-[200px]" style="border-color: #414833;">
-                                    <br>
-                                    <label>LAST NAME</label>
-                                </div>
-                                <div class="ml-6" style="">
-                                    <input class="px-2 focus:outline-none border-2 w-[155px]" style="border-color: #414833;">
-                                    <br>
-                                    <label>MIDDLE NAME</label>
-                                </div>
-                            </div>
-                            <div class="mt-6 flex flex-row text-[23px]">
-                                <div class="" style="">
-                                    <input class="px-2 focus:outline-none border-2 w-[225px]" style="border-color: #414833;">
-                                    <br>
-                                    <label>EMAIL ADDRESS</label>
-                                </div>
-                                <div class="ml-20" style="">
-                                    <input class="px-2 focus:outline-none border-2 w-[225px]" style="border-color: #414833;">
-                                    <br>
-                                    <label>CONTACT NUMBER</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-6 text-center" style="">
-                            <label class="text-center">STATE REASON FOR FILING COMPLAIN:</label>
-                        </div>
-                        <div>
-                            <textarea class="focus:outline-none border-2 w-[650px] h-[300px] text-[23px] mt-4" style="border-color: #414833;"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="ml-4 mt-6 font-bold text[23px]">
-                    <div class="px-6 py-4 border-2" style="border-color: #414833;">
-                            <p>COMPLAINEE DETAILS:</p>
-                            <div class="mt-4 flex flex-row text-[23px]">
-                                <div class="" style="">
-                                    <input class="px-2 focus:outline-none border-2 w-[200px]" style="border-color: #414833;">
-                                    <br>
-                                    <label>FIRST NAME</label>
-                                </div>
-                                <div class="ml-4" style="">
-                                    <input class="px-2 focus:outline-none border-2 w-[200px]" style="border-color: #414833;">
-                                    <br>
-                                    <label>LAST NAME</label>
-                                </div>
-                                <div class="ml-6" style="">
-                                    <input class="px-2 focus:outline-none border-2 w-[155px]" style="border-color: #414833;">
-                                    <br>
-                                    <label>MIDDLE NAME</label>
-                                </div>
-                            </div>
-                            <div class="mt-6 flex flex-row text-[23px]">
-                                <div class="" style="">
-                                    <select class="border-2 w-[300px] h-[50px] text-[26px]" style="border-color: #414833;">
-                                        <option value="1">Yeah</option>
-                                        <option value="2">Put</option>
-                                        <option value="3">All</option>
-                                        <option value="4">Available</option>
-                                        <option value="5">Options</option>
-                                        <option value="6">Here</option>
-                                    </select>
-                                    <br>
-                                    <label>SITIO</label>
-                                </div>
-                            </div>
-                    </div>
-                    <div class="mt-6 px-4 justify-center rounded-lg text-center bg-deep-green text-dirty-white h-[232px] w-[645px]" style="">
-                            <p class="py-6">REQUIREMENTS FOR FILING OF COMPLAIN</p>
-                            <p class="text-[18px]">COMPLAINS MUST BE A RESIDENT OF BARANGAY POBLACION FOR COMPLAIN TO BE PROCESSED</p>
-                            <p class="mt-6 text-[18px]">HEARINGS ARE DONE AT BARANGAY POBLACION, DALAGUETE BARANGAY HALL</p>
-                        </div>
-                    <div class="mt-4 text-right" style="">
-                        <div>
-                            <p>SERVICE FEE:</p>
-                            <p>
-                                PHP 0.00
-                            </p>
-                        </div>
-                        <button class="border-2 rounded-lg font-bold px-3 py-1" style="border-color: #414833;">PROCEED</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-        @endif
+
     </div>
 </x-app-layout>
 @endrole
