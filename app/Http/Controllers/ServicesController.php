@@ -7,6 +7,7 @@ use App\Models\DocumentDetails;
 use App\Models\Payment;
 use App\Models\Resident;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -26,8 +27,28 @@ class ServicesController extends Controller
 
     public function index()
     {
-        return view('services.index');
+      
+        $transactions = Transaction::all();
+        foreach ($transactions as $transaction){
+            $user = User::where('id', $transaction->userID)->first();
+            $transaction->resident = Resident::where('id', $user->residentID)->first();
+            $transaction->document = Document::where('id', $transaction->documentID)->first();
+            $newtime = strtotime($transaction->created_at);
+            $transaction->createdDate = date('M d, Y',$newtime);
+        }
+        return view('services.index', compact('transactions'));
     }
+
+    public function direction($id){
+        $transaction = Transaction::where('id', $id)->first();
+        if($transaction->serviceStatus == 'Pending'){
+            return $this->manage($id);
+        }else{
+            return $this->approve($id);
+        }
+    }
+
+    
 
     public function manage()
     {

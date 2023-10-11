@@ -65,7 +65,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics');
     Route::get('chartdata', [StatisticsController::class, 'index'])->name('chartdata');
     Route::resource('services', \App\Http\Controllers\ServicesController::class);
+    Route::get('dashboard', [ServicesController::class, 'residentDashboard']);
+    Route::get('/direction/{id}', [ServicesController::class, 'direction'])->name('direction');
     Route::get('/manage/{id}', [ServicesController::class, 'manage'])->name('manage');
+    Route::get('/accepted/{id}', [ServicesController::class, 'accepted'])->name('accepted');
     Route::get('generate', [ServicesController::class, 'generate']);
     Route::get('/approve/{id}', [ServicesController::class, 'approve'])->name('approve');
     Route::get('/deny/{id}', [ServicesController::class, 'deny'])->name('deny');
@@ -73,7 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('request', [ServicesController::class, 'request']);
     Route::get('requestSearch', [ServicesController::class, 'search'])->name('requestSearch');
     Route::resource('auth', \App\Http\Controllers\NotificationController::class);
-    Route::get('index', [NotificationController::class, 'index']);
+    Route::get('index', [NotificationController::class, 'index'])->name('notifications');
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {
