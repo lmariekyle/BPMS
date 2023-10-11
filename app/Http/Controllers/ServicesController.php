@@ -131,10 +131,21 @@ class ServicesController extends Controller
     {
         $payment = Payment::where('id', $request->id)->first();
 
+        if ($request->hasFile('file')) {
+            if ($request->file->isValid()) {
+                $file_name = Str::slug($request->successURL) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $request->file->storeAs('gcashpayments', $file_name);
+                $path = "gcashpayments/" . $file_name;
+            }
+        } else {
+            $path = NULL;
+        }
+
         $payment->paymentMethod = 'GCASH';
         $payment->accountNumber = $request->accountNumber;
         $payment->successURL = $request->successURL;
         $payment->paymentStatus = 'Pending';
+        $payment->screenshot = $path;
         $payment->failURL = NULL;
         $payment->save();
 
