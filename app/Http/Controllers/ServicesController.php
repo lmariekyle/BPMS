@@ -133,7 +133,7 @@ class ServicesController extends Controller
 
         if ($request->hasFile('file')) {
             if ($request->file->isValid()) {
-                $file_name = Str::slug($request->successURL) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file_name = Str::slug($request->successURL) . '_' . uniqid() . '.' . $request->file->getClientOriginalExtension();
                 $request->file->storeAs('gcashpayments', $file_name);
                 $path = "gcashpayments/" . $file_name;
             }
