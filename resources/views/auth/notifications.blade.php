@@ -16,32 +16,35 @@
             <hr class="h-px bg-stone-500 border-0">
             <br>
             <div class="overflow-y-scroll max-h-[630px] h-[630px] bg-stone-300 p-6">
-                @php($message="This is a notification that tells you, the user, that have received this notification.
-                                Here, you are told what the notification is about and also shows whether you have
-                                already read it or not. Insert more text insert more text insert more text blah blah
-                                blah Loser blah blah blah")
-                @for($notif=1;$notif<=20;$notif++)
+                @forelse($notifications as $notification)
                     <div class="flex flex-row">
                         <div class="float-left">
-                            <p>NOTIFICATION TITLE (NOTIFICATION #{{ $notif }})</p>
+                            <p>{{ $notification->data['type'] }} Notification (NOTIFICATION #{{ $notification->id }})</p>
                             <p class="inline">
-                                {{ $message }} {{ $notif }} [ . . . ] <!--When a notification exceeds [MAX] characters, replace the rest with
-                                [ . . . ]-->
-                                @if($notif%2==0) <!--Probably the only idea I got rn if the notification is [Unread] LMAO-->
+                                @if($notification->data['type'] == 'Transaction')
+                                    <p class="text-xs font-robotocondensed text-justify">
+                                        {{ $notification->resident['firstName'] }} {{ $notification->resident['lastName'] }} requested {{ $notification->document['docName'] }}
+                                    </p>
+                                @else
+                                    <p class="text-xs font-robotocondensed text-justify">
+                                        {{ $notification->document['docName'] }} is now {{ $notification->data['transaction']['serviceStatus'] }}
+                                    </p>
+                                @endif
+                                @if($notification->read_at==NULL) <!--Probably the only idea I got rn if the notification is [Unread] LMAO-->
                                     <p class="inline text-red-600">[ New ]</p>
                                 @endif
                             </p>
                         </div>
                         <div class="float-right flex flex-row max-h-[30px] ml-4 mt-10">
-                            <button id="btn{{ $notif }}" class="hover:text-green"><i class="fa-solid fa-eye"></i></button>
+                            <button id="btn{{ $notification->id }}" class="hover:text-green"><i class="fa-solid fa-eye"></i></button>
                             <button class="hover:text-green ml-8 mr-4"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <div id="NotifModal" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[150px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
                             <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
                                 <span class="close font-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
                                 <div class="">
-                                    <p class="font-robotocondensed text-[28px] text-deep-green" >NOTIFICATION TITLE (NOTIFICATION #{{ $notif }})</p>
-                                    <p>{{ $message }} {{ $notif }}</p>
+                                    <p class="font-robotocondensed text-[28px] text-deep-green" >NOTIFICATION TITLE (NOTIFICATION #{{ $notification->id }})</p>
+                                    <p>{{ $notification->resident['firstName'] }} {{ $notification->resident['lastName'] }} requested {{ $notification->document['docName'] }} Document {{ $notification->created_at }}</p>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +56,7 @@
                     <script>
                         var modal = document.getElementById("NotifModal");
                         
-                        var btn = document.getElementById("btn{{ $notif }}");
+                        var btn = document.getElementById("btn{{ $notification->id }}");
                         
                         var span = document.getElementsByClassName("close")[0];
                         
@@ -67,7 +70,15 @@
                             modal.style.display = "none";
                         }
                     </script>
-                @endfor
+                @empty
+                    <p class="text-xs font-robotocondensed w-80 text-justify">
+                        <br>
+                        NO NOTIFICATION
+                        <br>
+                        <br>
+                        <hr>
+                    </p>
+                @endforelse
             </div>
         </div>
     </div>
