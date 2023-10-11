@@ -14,6 +14,7 @@ class Payment extends Model
         'accountNumber',
         'paymentStatus',
         'successURL',
+        'screenshot',
         'failURL',
     ];
 

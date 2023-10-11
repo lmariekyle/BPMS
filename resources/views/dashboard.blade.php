@@ -203,8 +203,8 @@
                     <ul class="ml-10 mt-2 list-disc font-roboto text-deep-green">
                         <li>Residence Certificate</li>
                     </ul>
-                    <div class="mt-16">
-                        <a href="{{ route('services.request', ['docType' => 'Barangay Certificate']) }}" class="button">Request Barangay Certificate</a>
+                    <div class="mt-[2rem]">
+                        <a href="{{ route('services.request', ['docType' => 'Barangay Certificate']) }}" class="px-3 py-2 bg-deep-green text-dirty-white font-medium">REQUEST BARANGAY CERTIFICATE</a>
                     </div>
                 </div>
                 <div class="bg-dirty-white w-[472px] h-[300px] border">
@@ -222,8 +222,8 @@
                         <li>Complainant can either be a resident or not a resident of Barangay Poblacion</li>
                         <li>Complainee must be a resident of Barangay Poblacion</li>
                     </ul>
-                    <div class="mt-16">
-                        <a href="{{ route('services.request', ['docType' => 'File Complain']) }}" class="button">File Complain</a>
+                    <div class="mt-[5rem]">
+                        <a href="{{ route('services.request', ['docType' => 'File Complain']) }}" class="px-3 py-2 bg-deep-green text-dirty-white font-medium">FILE COMPLAIN</a>
                     </div>
                 </div>
                 <div class="bg-dirty-white w-max h-[421px] border">
@@ -243,8 +243,8 @@
                         <li>Tax Declaration or Lot Title (If the applicant is not the registered owner of the lot) </li>
                         <li>Affidavit of consent, deed of sale, or contact whichever is applicable</li>
                     </ul>
-                    <div class="mt-16">
-                        <a href="{{ route('services.request', ['docType' => 'Barangay Clearance']) }}" class="button">Request Barangay Clearance</a>
+                    <div class="mt-[5rem]">
+                        <a href="{{ route('services.request', ['docType' => 'Barangay Clearance']) }}" class="px-3 py-2 bg-deep-green text-dirty-white font-medium">REQUEST BARANGAY CLEARANCE</a>
                     </div>
                 </div>
                 <div class="bg-dirty-white w-[620px] h-[300px] border">
@@ -257,10 +257,8 @@
                     <ul class="ml-10 mt-2 mr-2 list-disc font-roboto text-deep-green">
                         <li>Supporting Documents that will validate the requested change</li>
                     </ul>
-                    <div class="mt-28">
-                        <x-button class="button">
-                            Request Personal Information Change
-                        </x-button>
+                    <div class="mt-[8rem]">
+                        <a href="{{ route('services.request', ['docType' => 'Barangay Clearance']) }}" class="px-3 py-2 bg-deep-green text-dirty-white font-medium">REQUEST PERSONAL INFORMATION CHANGE</a>
                     </div>
                 </div>
             </div>

@@ -1064,9 +1064,6 @@ select{
 .ml-\[750px\]{
   margin-left: 750px;
 }
-.mr-1{
-  margin-right: 0.25rem;
-}
 .mr-10{
   margin-right: 2.5rem;
 }
@@ -1090,6 +1087,9 @@ select{
 }
 .mr-\[1rem\]{
   margin-right: 1rem;
+}
+.mr-\[7rem\]{
+  margin-right: 7rem;
 }
 .mt-0{
   margin-top: 0px;
@@ -1196,6 +1196,81 @@ select{
 .mt-\[90px\]{
   margin-top: 90px;
 }
+.mt-\[3rem\]{
+  margin-top: 3rem;
+}
+.ml-\[2rem\]{
+  margin-left: 2rem;
+}
+.ml-\[1rem\]{
+  margin-left: 1rem;
+}
+.ml-\[0\.25rem\]{
+  margin-left: 0.25rem;
+}
+.-mt-\[5rem\]{
+  margin-top: -5rem;
+}
+.-mt-\[8rem\]{
+  margin-top: -8rem;
+}
+.mr-\[5rem\]{
+  margin-right: 5rem;
+}
+.mr-\[15rem\]{
+  margin-right: 15rem;
+}
+.mr-\[35rem\]{
+  margin-right: 35rem;
+}
+.-mt-\[12rem\]{
+  margin-top: -12rem;
+}
+.-mt-\[11rem\]{
+  margin-top: -11rem;
+}
+.-mt-\[13rem\]{
+  margin-top: -13rem;
+}
+.-mt-\[2rem\]{
+  margin-top: -2rem;
+}
+.mb-1{
+  margin-bottom: 0.25rem;
+}
+.ml-\[15rem\]{
+  margin-left: 15rem;
+}
+.mb-\[2rem\]{
+  margin-bottom: 2rem;
+}
+.mt-\[10rem\]{
+  margin-top: 10rem;
+}
+.-ml-4{
+  margin-left: -1rem;
+}
+.-ml-6{
+  margin-left: -1.5rem;
+}
+.-ml-2{
+  margin-left: -0.5rem;
+}
+.-ml-1{
+  margin-left: -0.25rem;
+}
+.ml-\[4rem\]{
+  margin-left: 4rem;
+}
+.ml-\[10rem\]{
+  margin-left: 10rem;
+}
+.ml-\[18rem\]{
+  margin-left: 18rem;
+}
+.ml-\[20rem\]{
+  margin-left: 20rem;
+}
 .block{
   display: block;
 }
@@ -1265,9 +1340,6 @@ select{
 .h-\[172px\]{
   height: 172px;
 }
-.h-\[232px\]{
-  height: 232px;
-}
 .h-\[240px\]{
   height: 240px;
 }
@@ -1282,6 +1354,9 @@ select{
 }
 .h-\[324px\]{
   height: 324px;
+}
+.h-\[332px\]{
+  height: 332px;
 }
 .h-\[40px\]{
   height: 40px;
@@ -1352,6 +1427,9 @@ select{
 }
 .h-px{
   height: 1px;
+}
+.h-\[20px\]{
+  height: 20px;
 }
 .max-h-12{
   max-height: 3rem;
@@ -1543,6 +1621,9 @@ select{
 .w-\[400px\]{
   width: 400px;
 }
+.w-\[410px\]{
+  width: 410px;
+}
 .w-\[420px\]{
   width: 420px;
 }
@@ -1572,6 +1653,9 @@ select{
 }
 .w-\[50px\]{
   width: 50px;
+}
+.w-\[510px\]{
+  width: 510px;
 }
 .w-\[525px\]{
   width: 525px;
@@ -1625,6 +1709,9 @@ select{
 .w-max{
   width: -moz-max-content;
   width: max-content;
+}
+.w-\[20px\]{
+  width: 20px;
 }
 .min-w-0{
   min-width: 0px;
@@ -2407,6 +2494,10 @@ select{
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.text-blue-800{
+  --tw-text-opacity: 1;
+  color: rgb(30 64 175 / var(--tw-text-opacity));
 }
 .underline{
   text-decoration-line: underline;
