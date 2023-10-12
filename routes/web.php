@@ -75,6 +75,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/approval/{id}', [ServicesController::class, 'approval'])->name('approval');
     Route::get('request', [ServicesController::class, 'request']);
     Route::get('requestSearch', [ServicesController::class, 'search'])->name('requestSearch');
+    Route::get('/view_file/{file}', [ServicesController::class, 'view_file'])->name('view_file');
     Route::resource('auth', \App\Http\Controllers\NotificationController::class);
     Route::get('index', [NotificationController::class, 'index'])->name('notifications');
 });

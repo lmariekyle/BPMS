@@ -19,6 +19,7 @@ use Xendit\Invoice\InvoiceApi;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\NewRequestNotification;
 use App\Notifications\ProcessingNotification;
+use Illuminate\Support\Facades\Storage;
 
 class ServicesController extends Controller
 {
@@ -50,22 +51,6 @@ class ServicesController extends Controller
         }
     }
 
-    
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function direction($id){
-        $transaction = Transaction::where('id', $id)->first();
-        if($transaction->serviceStatus == 'Pending'){
-            return $this->manage($id);
-        }else{
-            return $this->approve($id);
-        }
-    }
 
     /**
      * Display the specified resource.
@@ -78,6 +63,7 @@ class ServicesController extends Controller
         $transaction = Transaction::where('id', $id)->first();
         $transaction->detail = DocumentDetails::where('id', $transaction->detailID)->first();
         $transaction->document = Document::where('id', $transaction->documentID)->first();
+        $filePaths = json_decode( $transaction->detail->file,true);
         $transaction->payment = Payment::where('id', $transaction->paymentID)->first();
         if($transaction->payment['paymentMethod'] == 'CASH-ON-SITE' || $transaction->payment['paymentStatus'] == 'Paid'){
             $transaction->approval = 1;
@@ -85,8 +71,9 @@ class ServicesController extends Controller
             $transaction->approval = 2;
         }
         
-        return view('services.manage', compact('transaction'));
+        return view('services.manage', compact('transaction','filePaths'));
     }
+
 
     public function generate()
     {
@@ -154,6 +141,13 @@ class ServicesController extends Controller
         return view('services.request', compact('documents', 'doctypename', 'user'));
     }
 
+    public function view_file($file)
+{
+        $extension = $file->getClientOriginalExtension;
+        dd($extension);
+        return response()->file(Storage::url($file), ['content-type' => 'application/pdf']);
+
+}
     public function storerequest(Request $request)
     {
         $certRequirements = [];
@@ -162,7 +156,7 @@ class ServicesController extends Controller
                 if ($file->isValid()) {
                     $file_name = Str::slug($request->requesteeLName) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                     $file->storeAs('requirements', $file_name);
-                    $path = "requirements/" . $file_name;
+                    $path = $file_name;
                     $certRequirements[] = $path;
                 }
             }
@@ -240,109 +234,7 @@ class ServicesController extends Controller
 
         return view('services.success');
     }
-}
 
-
-    public function dashboard()
-    {
-        $documents = Document::all();
-        return view('dashboard', compact('documents'));
-    }
-
-    public function request(string $docType)
-    {
-        $userAuth = Auth::user();
-        $user = Resident::where('id', $userAuth->residentID)->first();
-        if ($docType == 'Barangay Certificate') {
-            $doctypename = 'BARANGAY CERTIFICATE';
-        } elseif ($docType == 'Barangay Clearance') {
-            $doctypename = 'BARANGAY CLEARANCE';
-        } elseif ($docType == 'File Complain') {
-            $doctypename = 'FILE COMPLAIN';
-        }
-        $documents = Document::where('docType', $docType)->get();
-        return view('services.request', compact('documents', 'doctypename', 'user'));
-    }
-
-    public function storerequest(Request $request)
-    {
-        $certRequirements = [];
-        if ($request->hasFile('file')) {
-            foreach ($request->file('file') as $file) {
-                if ($file->isValid()) {
-                    $file_name = Str::slug($request->requesteeLName) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                    $file->storeAs('requirements', $file_name);
-                    $path = "requirements/" . $file_name;
-                    $certRequirements[] = $path;
-                }
-            }
-            $reqJson = json_encode($certRequirements);
-        } else {
-            $reqJson = NULL;
-        }
-
-        $user = Auth::user();
-        $doctype = Document::where('id', $request->selectedDocument)->first();
-
-        $transaction = new Transaction;
-        $transactiondetail =  $transaction->transactiondetail()->create([
-            'requesteeFName' => $request->requesteeFName,
-            'requesteeMName' => $request->requesteeMName,
-            'requesteeLName' => $request->requesteeLName,
-            'requesteeEmail' => $request->requesteeEmail,
-            'requesteeContactNumber' => $request->requesteeContactNumber,
-            'requestPurpose' => $request->requestPurpose,
-            'file' => $reqJson,
-        ]);
-
-        $transactionpayment = $transaction->transactionpayment()->create([
-            'paymentMethod' => $request->paymentMethod,
-            'accountNumber' => '123455678901',
-            'paymentStatus' => 'Pending',
-            'successURL' => NULL,
-            'failURL' =>  NULL,
-        ]);
-
-        $transactionPaymentId = $transactionpayment->id;
-        $transactionDetailId = $transactiondetail->id;
-        $transaction->detailID = $transactionDetailId;
-        $transaction->userID = $user->id;
-        $transaction->paymentID = $transactionPaymentId;
-        $transaction->documentID = $doctype->id;
-        $transaction->serviceAmount = $request->docfee;
-        $transaction->serviceStatus = 'Pending';
-        $transaction->docNumber = $doctype->id;
-        $transaction->paymentMethod = $request->paymentMethod;
-        $transaction->issuedDocument = $request->selectedDocument;
-        $transaction->issuedBy = 'Pending';
-        $transaction->issuedOn = today();
-        $transaction->save();
-
-        $notifyUsers = User::where('userLevel', 'Barangay Captain')->orWhere('userLevel', 'Barangay Secretary')->get();
-
-        Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
-
-        if ($request->paymentMethod == 'GCASH') {
-            $payment = Payment::where('id', $transactionPaymentId)->first();
-            return view('services.gcash', compact('transaction', 'payment'));
-        } else {
-            return view('services.success');
-        }
-    }
-
-    public function paymentrequest(Request $request)
-    {
-        $payment = Payment::where('id', $request->id)->first();
-
-        $payment->paymentMethod = 'GCASH';
-        $payment->accountNumber = $request->accountNumber;
-        $payment->successURL = $request->successURL;
-        $payment->paymentStatus = 'Pending';
-        $payment->failURL = NULL;
-        $payment->save();
-
-        return view('services.success');
-    }
 
     public function search(Request $request)
     { 

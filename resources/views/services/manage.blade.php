@@ -106,7 +106,12 @@
             <div class="ml-10 mt-12">
                 <div class="ml-40 h-[172px]" style="height: 172px;">
                 <p class="font-robotocondensed text-[32px] font-bold text-deep-green ml-8 flex" style="font-size: 32px;">Uploaded Documents</p>
-
+                        @foreach($filePaths as $file)    
+                        <p>{{$file}}</p>
+                        <!-- <embed src="{{ asset($file) }}" width="800px" height="600px" /> -->
+                        
+                        <a href="{{ route('view_file', $file) }}">View</a>
+                        @endforeach
                 </div>
                 <div class="ml-24 mt-12" style="margin-left: 92px;">
                     <div class="font-robotocondensed font-bold text-[32px] text-deep-green" style="font-size: 32px;">
