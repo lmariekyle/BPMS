@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Notification;
 use App\Notifications\NewRequestNotification;
 use App\Notifications\ProcessingNotification;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class ServicesController extends Controller
 {
@@ -32,21 +33,22 @@ class ServicesController extends Controller
     public function index()
     {
         $transactions = Transaction::all();
-        foreach ($transactions as $transaction){
+        foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
             $newtime = strtotime($transaction->created_at);
-            $transaction->createdDate = date('M d, Y',$newtime);
+            $transaction->createdDate = date('M d, Y', $newtime);
         }
         return view('services.index', compact('transactions'));
     }
 
-    public function direction($id){
+    public function direction($id)
+    {
         $transaction = Transaction::where('id', $id)->first();
-        if($transaction->serviceStatus == 'Pending'){
+        if ($transaction->serviceStatus == 'Pending') {
             return $this->manage($id);
-        }else{
+        } else {
             return $this->approve($id);
         }
     }
@@ -63,15 +65,15 @@ class ServicesController extends Controller
         $transaction = Transaction::where('id', $id)->first();
         $transaction->detail = DocumentDetails::where('id', $transaction->detailID)->first();
         $transaction->document = Document::where('id', $transaction->documentID)->first();
-        $filePaths = json_decode( $transaction->detail->file,true);
+        $filePaths = json_decode($transaction->detail->file, true);
         $transaction->payment = Payment::where('id', $transaction->paymentID)->first();
-        if($transaction->payment['paymentMethod'] == 'CASH-ON-SITE' || $transaction->payment['paymentStatus'] == 'Paid'){
+        if ($transaction->payment['paymentMethod'] == 'CASH-ON-SITE' || $transaction->payment['paymentStatus'] == 'Paid') {
             $transaction->approval = 1;
-        }else{
+        } else {
             $transaction->approval = 2;
         }
-        
-        return view('services.manage', compact('transaction','filePaths'));
+
+        return view('services.manage', compact('transaction', 'filePaths'));
     }
 
 
@@ -86,7 +88,8 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function accepted($id){
+    public function accepted($id)
+    {
         $transaction = Transaction::where('id', $id)->first();
         $transaction->fill([
             'serviceStatus' => 'Processing',
@@ -97,12 +100,12 @@ class ServicesController extends Controller
         Notification::sendNow($notifyUsers, new ProcessingNotification($transaction));
 
         $transactions = Transaction::all();
-        foreach ($transactions as $transaction){
+        foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
             $newtime = strtotime($transaction->created_at);
-            $transaction->createdDate = date('M d, Y',$newtime);
+            $transaction->createdDate = date('M d, Y', $newtime);
         }
         return view('services.index', compact('transactions'));
     }
@@ -141,17 +144,48 @@ class ServicesController extends Controller
         return view('services.request', compact('documents', 'doctypename', 'user'));
     }
 
+    // public function view_file($file)
+    // {
+    //     $path = 'requirements/' . $file;
+    //     return response()->file(Storage::path($path), ['content-type' => 'application/pdf']);
+    // }
+
+
+
     public function view_file($file)
-{
-        $extension = $file->getClientOriginalExtension;
+    {
+        $path = 'requirements/' . $file;
 
-        if($extension == 'pdf'){
-            return response()->file(Storage::url($file), ['content-type' => 'application/pdf']);
-        }else if($extension == 'jpg'){
-            return response()->file(Storage::url($file), ['content-type' => 'application/pdf']);
+        // Determine the file's extension
+        $extension = File::extension($path);
+
+        // Set the appropriate Content-Type based on the file extension
+        $contentType = $this->getContentTypeForExtension($extension);
+
+        // Check if the file exists
+        if (Storage::exists($path)) {
+            return response()->file(Storage::path($path), ['content-type' => $contentType]);
+        } else {
+            return 'File not found';
         }
+    }
 
-}
+    private function getContentTypeForExtension($extension)
+    {
+        // Define content types for various file extensions
+        $contentTypes = [
+            'pdf' => 'application/pdf',
+            'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'jpg' => 'image/jpeg', // Add more as needed
+            'jpeg' => 'image/jpeg',
+            'png' => 'image/png',
+        ];
+
+        // Default to 'application/octet-stream' if the extension is not recognized
+        return $contentTypes[$extension] ?? 'application/octet-stream';
+    }
+
+
     public function storerequest(Request $request)
     {
         $certRequirements = [];
@@ -241,25 +275,25 @@ class ServicesController extends Controller
 
 
     public function search(Request $request)
-    { 
-        $search=$request['search'];
-        $documents=Document::where('docName','LIKE', "%$search%")->get();
+    {
+        $search = $request['search'];
+        $documents = Document::where('docName', 'LIKE', "%$search%")->get();
         $transactions = Transaction::all();
-        
-        $count=count($transactions);
-        for($x=0;$x<$count;$x++){
+
+        $count = count($transactions);
+        for ($x = 0; $x < $count; $x++) {
             foreach ($documents as $document)
-            if($transactions[$x]->documentID == $document->id) {
-                $user = User::where('id', $transactions[$x]->userID)->first();
-                $transactions[$x]->resident = Resident::where('id', $user->residentID)->first();
-                $transactions[$x]->document = Document::where('id', $transactions[$x]->documentID)->first();
-                $newtime = strtotime($transactions[$x]->created_at);
-                $transactions[$x]->createdDate = date('M d, Y',$newtime);
-            }else{
-                unset($transactions[$x]);
-            }
+                if ($transactions[$x]->documentID == $document->id) {
+                    $user = User::where('id', $transactions[$x]->userID)->first();
+                    $transactions[$x]->resident = Resident::where('id', $user->residentID)->first();
+                    $transactions[$x]->document = Document::where('id', $transactions[$x]->documentID)->first();
+                    $newtime = strtotime($transactions[$x]->created_at);
+                    $transactions[$x]->createdDate = date('M d, Y', $newtime);
+                } else {
+                    unset($transactions[$x]);
+                }
         }
-        return view('services.index')->with('transactions',$transactions);
+        return view('services.index')->with('transactions', $transactions);
     }
 
     /**
@@ -268,7 +302,8 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function approval($id){
+    public function approval($id)
+    {
         $transaction = Transaction::where('id', $id)->first();
         $transaction->fill([
             'serviceStatus' => 'For Signature',
@@ -280,12 +315,12 @@ class ServicesController extends Controller
         Notification::sendNow($notifyUsers, new ProcessingNotification($transaction));
 
         $transactions = Transaction::all();
-        foreach ($transactions as $transaction){
+        foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
             $newtime = strtotime($transaction->created_at);
-            $transaction->createdDate = date('M d, Y',$newtime);
+            $transaction->createdDate = date('M d, Y', $newtime);
         }
         return view('services.index', compact('transactions'));
     }
@@ -296,7 +331,8 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function deny($id){
+    public function deny($id)
+    {
         $transaction = Transaction::where('id', $id)->first();
         $transaction->fill([
             'serviceStatus' => "Not Eligible",
@@ -311,12 +347,12 @@ class ServicesController extends Controller
 
 
         $transactions = Transaction::all();
-        foreach ($transactions as $transaction){
+        foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
             $newtime = strtotime($transaction->created_at);
-            $transaction->createdDate = date('M d, Y',$newtime);
+            $transaction->createdDate = date('M d, Y', $newtime);
         }
         return view('services.index', compact('transactions'));
     }
