@@ -71,6 +71,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/accepted/{id}', [ServicesController::class, 'accepted'])->name('accepted');
     Route::get('generate', [ServicesController::class, 'generate']);
     Route::get('/approve/{id}', [ServicesController::class, 'approve'])->name('approve');
+    Route::get('/pdf/viewdoc/{id}', [ServicesController::class, 'pdfGeneration'])->name('pdf.export');
     Route::get('/deny/{id}', [ServicesController::class, 'deny'])->name('deny');
     Route::get('/approval/{id}', [ServicesController::class, 'approval'])->name('approval');
     Route::get('request', [ServicesController::class, 'request']);

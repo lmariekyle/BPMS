@@ -19,8 +19,10 @@ use Xendit\Invoice\InvoiceApi;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\NewRequestNotification;
 use App\Notifications\ProcessingNotification;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Barryvdh\DomPDF\Facade\PDF;
 
 class ServicesController extends Controller
 {
@@ -120,7 +122,8 @@ class ServicesController extends Controller
     {
         $transaction = Transaction::where('id', $id)->first();
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
-        return view('services.approve', compact('id', 'requestee'));
+        $doc = Document::where('id', $transaction->documentID)->first();       
+        return view('services.approve', compact('id', 'requestee','doc'));
     }
 
     public function dashboard()
@@ -169,6 +172,19 @@ class ServicesController extends Controller
             return 'File not found';
         }
     }
+
+    public function pdfGeneration($id){
+        //show how the page is
+        $transaction = Transaction::where('id', $id)->first();
+        $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
+        $doc = Document::where('id', $transaction->documentID)->first();
+        $pdf = PDF::loadView('documents.barangaycertificate',compact('id', 'requestee','doc'));
+        return $pdf->download('barangaycert.pdf');
+    }
+
+    // public function pdfGeneration(){
+
+    // }
 
     private function getContentTypeForExtension($extension)
     {

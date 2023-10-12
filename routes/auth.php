@@ -11,7 +11,9 @@ use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\ServicesController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::middleware('guest')->group(function () {
 
