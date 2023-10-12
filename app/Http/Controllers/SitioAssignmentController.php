@@ -24,9 +24,9 @@ class SitioAssignmentController extends Controller
         foreach ($bhws as $bhw) {
             $resident=Resident::where('id',$bhw->residentID)->first();
 
-            $bhw->firstname=$resident->firstName;
-            $bhw->middlename=$resident->middleName;
-            $bhw->lastname=$resident->lastName;
+            $bhw->firstName=$resident->firstName;
+            $bhw->middleName=$resident->middleName;
+            $bhw->lastName=$resident->lastName;
 
             $assignedSitio=Sitio::where('id',$bhw->assignedSitioID)->first();
             $bhw->assignedSitio=$assignedSitio->sitioName;

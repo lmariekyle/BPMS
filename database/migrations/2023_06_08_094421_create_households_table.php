@@ -17,7 +17,7 @@ class CreateHouseholdsTable extends Migration
             $table->id();
             $table->foreignId('sitioID')->references('id')->on('sitios')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->smallInteger('houseNumber')->unsigned()->nullable();
+            $table->string('houseNumber')->nullable();
             $table->string('street')->nullable();
             $table->string('buildingName')->nullable();
             $table->string('unitNumber')->nullable();

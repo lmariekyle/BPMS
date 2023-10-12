@@ -34,12 +34,17 @@ Route::get('/bhwDashboard', [BHWController::class, 'mobileDashboard']);
 Route::post('/mobileUserData', [AccountController::class, 'mobileUserData']);
 Route::post('/mobileRequestServices', [DocumentController::class, 'mobileRequestServices']);
 Route::post('/mobileGetDocuments', [DocumentController::class, 'mobileGetDocuments']);
-Route::get('/mobileSitios', [SitioAssignmentController::class, 'mobileSitios']);
-Route::get('/mobileHouseholdList', [HouseholdListController::class, 'mobileHouseholds']);
-Route::get('/mobileGetHouseholdNumber', [HouseholdListController::class, 'mobileGetHouseNumber']);
 Route::post('/register', 'App\Http\Controllers\ResidentUserController@mobileStore');
 Route::post('/sitioAssignment', [SitioAssignmentController::class, 'mobileSitiosAssignment']);
 Route::post('/forgotPassword', 'App\Http\Controllers\Auth\PasswordResetLinkController@mobileStore')->name('mobileForgotPassword');
 
 Route::post('/registerHousehold',[HouseholdRegistrationController::class,'mobileHouseholdStore']);
 Route::post('/registerMembers',[HouseholdRegistrationController::class,'mobileResidentStore']);
+Route::post('/updateHousehold',[HouseholdRegistrationController::class,'mobileUpdateHouseholdStore']);
+Route::post('/updateMembers',[HouseholdRegistrationController::class,'mobileUpdateResident']);
+
+Route::get('/mobileSitios', [SitioAssignmentController::class, 'mobileSitios']);
+Route::get('/mobileHouseholdList', [HouseholdListController::class, 'mobileHouseholds']);
+Route::get('/mobileMembersList', [HouseholdListController::class, 'mobileMembers']);
+Route::get('/mobileGetHouseholdNumber', [HouseholdListController::class, 'mobileGetHouseNumber']);
+Route::get('/mobileGetOccurences', [HouseholdListController::class, 'getAllOccurencesHousehold']);

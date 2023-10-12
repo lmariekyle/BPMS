@@ -36,12 +36,12 @@ class HouseholdSeeder extends Seeder
 
         Households::create([
             'sitioID' => '2',
-            'houseNumber' => '6'
+            'houseNumber' => '6A'
         ]);
 
         Households::create([
             'sitioID' => '2',
-            'houseNumber' => '7'
+            'houseNumber' => '6B'
         ]);
 
         Households::create([
