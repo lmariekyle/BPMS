@@ -144,8 +144,12 @@ class ServicesController extends Controller
     public function view_file($file)
 {
         $extension = $file->getClientOriginalExtension;
-        dd($extension);
-        return response()->file(Storage::url($file), ['content-type' => 'application/pdf']);
+
+        if($extension == 'pdf'){
+            return response()->file(Storage::url($file), ['content-type' => 'application/pdf']);
+        }else if($extension == 'jpg'){
+            return response()->file(Storage::url($file), ['content-type' => 'application/pdf']);
+        }
 
 }
     public function storerequest(Request $request)
