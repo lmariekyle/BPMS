@@ -2,13 +2,13 @@
 
 namespace App\Listeners;
 
-use App\Notifications\ProcessingNotification;
+use App\Notifications\SignatureNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Notification;
 use App\Models\User;
 
-class SendProcessingNotification
+class SendSignatureNotification
 {
     /**
      * Create the event listener.
@@ -28,8 +28,8 @@ class SendProcessingNotification
      */
     public function handle($event)
     {
-        $user =  User::where('id', $event->transaction->userID)->get();
+        $user =  User::where('userLevel', 'Barangay Captain')->get();
 
-        Notification::send($user, new ProcessingNotification($event->transaction));
+        Notification::send($user, new SignatureNotification($event->transaction));
     }
 }

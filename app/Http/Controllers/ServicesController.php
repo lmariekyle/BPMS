@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Xendit\Xendit;
 use Xendit\Configuration;
 use Xendit\Invoice\Invoice;
@@ -19,6 +20,9 @@ use Xendit\Invoice\InvoiceApi;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\NewRequestNotification;
 use App\Notifications\ProcessingNotification;
+use App\Notifications\ReleasedNotification;
+use App\Notifications\SignatureNotification;
+use App\Notifications\SignedNotification;
 
 class ServicesController extends Controller
 {
@@ -48,12 +52,22 @@ class ServicesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function direction($id){
+        $user = Auth::user()->userLevel;
         $transaction = Transaction::where('id', $id)->first();
-        if($transaction->serviceStatus == 'Pending'){
-            return $this->manage($id);
+        if($user == 'Barangay Secretary'){
+            if($transaction->serviceStatus == 'Processing' || $transaction->serviceStatus == 'For Signature'){
+                return $this->approve($id);
+            }else{
+                return $this->manage($id);
+            }
         }else{
-            return $this->approve($id);
+            if($transaction->serviceStatus == 'Forwarded'){
+                return $this->approve($id);
+            }else{
+                return $this->manage($id);
+            }
         }
+        
     }
 
     /**
@@ -119,7 +133,7 @@ class ServicesController extends Controller
     {
         $transaction = Transaction::where('id', $id)->first();
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
-        return view('services.approve', compact('id', 'requestee'));
+        return view('services.approve', compact('id', 'transaction', 'requestee'));
     }
 
     public function dashboard()
@@ -182,6 +196,14 @@ class ServicesController extends Controller
             'failURL' =>  NULL,
         ]);
 
+        if($doctype->docType == "Barangay Certificate"){
+            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CE']);
+        }else if($doctype->docType == "Barangay Clearance"){
+            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CL']);
+        }else{
+            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-FC']);
+        }
+
         $transactionPaymentId = $transactionpayment->id;
         $transactionDetailId = $transactiondetail->id;
         $transaction->detailID = $transactionDetailId;
@@ -190,14 +212,14 @@ class ServicesController extends Controller
         $transaction->documentID = $doctype->id;
         $transaction->serviceAmount = $request->docfee;
         $transaction->serviceStatus = 'Pending';
-        $transaction->docNumber = $doctype->id;
+        $transaction->docNumber = $docId;
         $transaction->paymentMethod = $request->paymentMethod;
         $transaction->issuedDocument = $request->selectedDocument;
-        $transaction->issuedBy = 'Pending';
+        $transaction->issuedBy = $request->requesteeFName . ' ' . $request->requesteeLName;
         $transaction->issuedOn = today();
         $transaction->save();
 
-        $notifyUsers = User::where('userLevel', 'Barangay Captain')->orWhere('userLevel', 'Barangay Secretary')->get();
+        $notifyUsers = User::where('userLevel', 'Barangay Secretary')->get();
 
         Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
 
@@ -251,16 +273,48 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function approval($id){
+    public function forwarded($id){
         $transaction = Transaction::where('id', $id)->first();
+        $user = Auth::user()->residentID;
+        $resident = Resident::where('id', $user)->first();
         $transaction->fill([
-            'serviceStatus' => 'For Signature',
+            'serviceStatus' => 'Forwarded',
+            'issuedBy' => $resident->firstName . ' ' . $resident->lastName,
         ]);
         $transaction->save();
 
-        $notifyUsers = User::where('userLevel', $transaction->userID)->get();
+        $notifyUsers = User::where('id', $transaction->userID)->get();
+        $notifyCap = User::where('userLevel', 'Barangay Captain')->get();
 
         Notification::sendNow($notifyUsers, new ProcessingNotification($transaction));
+        Notification::sendNow($notifyCap, new SignatureNotification($transaction));
+        
+        $transactions = Transaction::all();
+        foreach ($transactions as $transaction){
+            $user = User::where('id', $transaction->userID)->first();
+            $transaction->resident = Resident::where('id', $user->residentID)->first();
+            $transaction->document = Document::where('id', $transaction->documentID)->first();
+            $newtime = strtotime($transaction->created_at);
+            $transaction->createdDate = date('M d, Y',$newtime);
+        }
+        return view('services.index', compact('transactions'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function approval($id){
+        $transaction = Transaction::where('id', $id)->first();
+        $user = Auth::user()->residentID;
+        $resident = Resident::where('id', $user)->first();
+        $transaction->fill([
+            'serviceStatus' => 'For Signature',
+            'issuedBy' => $resident->firstName . ' ' . $resident->lastName,
+        ]);
+        $transaction->save();
 
         $transactions = Transaction::all();
         foreach ($transactions as $transaction){
@@ -292,6 +346,59 @@ class ServicesController extends Controller
         ]);
         $payment->save();
 
+
+        $transactions = Transaction::all();
+        foreach ($transactions as $transaction){
+            $user = User::where('id', $transaction->userID)->first();
+            $transaction->resident = Resident::where('id', $user->residentID)->first();
+            $transaction->document = Document::where('id', $transaction->documentID)->first();
+            $newtime = strtotime($transaction->created_at);
+            $transaction->createdDate = date('M d, Y',$newtime);
+        }
+        return view('services.index', compact('transactions'));
+    }
+
+    public function signed($id){
+        $transaction = Transaction::where('id', $id)->first();
+        $user = Auth::user()->residentID;
+        $resident = Resident::where('id', $user)->first();
+        $transaction->fill([
+            'serviceStatus' => 'Signed',
+            'issuedOn' => today(),
+        ]);
+        $transaction->save();
+
+        $notifyUsers = User::where('id', $transaction->userID)->get();
+        Notification::sendNow($notifyUsers, new SignedNotification($transaction));
+
+        $transactions = Transaction::all();
+        foreach ($transactions as $transaction){
+            $user = User::where('id', $transaction->userID)->first();
+            $transaction->resident = Resident::where('id', $user->residentID)->first();
+            $transaction->document = Document::where('id', $transaction->documentID)->first();
+            $newtime = strtotime($transaction->created_at);
+            $transaction->createdDate = date('M d, Y',$newtime);
+        }
+        return view('services.index', compact('transactions'));
+    }
+
+    public function released($id){
+        $transaction = Transaction::where('id', $id)->first();
+        $user = Auth::user()->residentID;
+        $resident = Resident::where('id', $user)->first();
+        $transaction->fill([
+            'serviceStatus' => 'Released',
+        ]);
+        $transaction->save();
+
+        $payment = Payment::where('id', $transaction->paymentID)->first();
+        $payment->fill([
+            'paymentStatus' => 'Paid',
+        ]);
+        $payment->save();
+
+        $notifyUsers = User::where('id', $transaction->userID)->get();
+        Notification::sendNow($notifyUsers, new ReleasedNotification($transaction));
 
         $transactions = Transaction::all();
         foreach ($transactions as $transaction){

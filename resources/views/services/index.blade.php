@@ -140,7 +140,7 @@
                             {{ $transaction->createdDate }}
                         </td>
                         <td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold ">
-                            {{ $transaction->resident['firstName'] }} {{ $transaction->resident['lastName'] }}
+                            {{ $transaction->issuedBy}}
                         </td>
                         <td class="px-6 py-4 w-[450px] font-robotocondensed text-deep-green text-[16px] font-bold">
                             {{ $transaction->serviceStatus }}

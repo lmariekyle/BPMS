@@ -61,11 +61,11 @@ class TransactionController extends Controller
         $user = User::where('residentID', $request->userId)->first();
 
         if($document->docType == "Barangay Certificate"){
-            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 15, 'prefix' => 'DOC-CE']);
+            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CE']);
         }else if($document->docType == "Barangay Clearance"){
-            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 15, 'prefix' => 'DOC-CL']);
+            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CL']);
         }else{
-            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 15, 'prefix' => 'DOC-FC']);
+            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-FC']);
         }
 
         $date = Carbon::now()->format('Y-m-d');
@@ -80,11 +80,11 @@ class TransactionController extends Controller
             'serviceStatus' => "Pending",
             'paymentMethod' => $payment->paymentMethod,
             'issuedDocument' => "http://",
-            'issuedBy' => "Null",
+            'issuedBy' => $request->requesteeFName . ' ' . $request->requesteeLName,
             'issuedOn' => $date,
         ]);
 
-        $notifyUsers = User::where('userLevel', 'Barangay Captain')->orWhere('userLevel', 'Barangay Secretary')->get();
+        $notifyUsers = User::where('userLevel', 'Barangay Secretary')->get();
 
         Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
 

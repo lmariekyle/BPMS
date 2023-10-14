@@ -73,6 +73,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/approve/{id}', [ServicesController::class, 'approve'])->name('approve');
     Route::get('/deny/{id}', [ServicesController::class, 'deny'])->name('deny');
     Route::get('/approval/{id}', [ServicesController::class, 'approval'])->name('approval');
+    Route::get('/forwarded/{id}', [ServicesController::class, 'forwarded'])->name('forwarded');
+    Route::get('/signed/{id}', [ServicesController::class, 'signed'])->name('signed');
+    Route::get('/released/{id}', [ServicesController::class, 'released'])->name('released');
     Route::get('request', [ServicesController::class, 'request']);
     Route::get('requestSearch', [ServicesController::class, 'search'])->name('requestSearch');
     Route::resource('auth', \App\Http\Controllers\NotificationController::class);

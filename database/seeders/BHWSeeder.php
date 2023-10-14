@@ -78,5 +78,23 @@ class BHWSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('parkerbpms'),
         ])->assignRole('User');
+
+        //PETER//
+        ResidentList::create([
+            'residentID'=>'4',
+            'houseID'=>'3'
+        ]);
+        User::create([
+            'residentID' => '4',
+            'sitioID' => '4',
+            'assignedSitioID' => '4',
+            'idNumber' => 'C-001',
+            'contactnumber' => '09876543212',
+            'userlevel' => 'Barangay Captain',
+            'userstatus' => 'Active',
+            'email' => 'lourdeskyle09@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('lourdesbpms'),
+        ])->assignRole('Barangay Captain');
     }
 }
