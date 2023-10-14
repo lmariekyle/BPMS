@@ -13,6 +13,8 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redirect;
 
 class TransactionController extends Controller
 {
@@ -89,6 +91,78 @@ class TransactionController extends Controller
         Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
 
         $response = ['success' => true];
-        return $response;
+        return $this->createpayment($payment->id);
+    }
+
+    public function createInvoice($request)
+    {
+        $xenditKey = base64_encode(env('XENDIT_SECRET_KEY'));
+        $headers = [
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Basic ' . $xenditKey,
+        ];
+        $res = Http::withHeaders($headers)->post('https://api.xendit.co/v2/invoices', $request);
+
+        return json_decode($res->body(), true);
+    }
+
+    public function createpayment($id)
+    {
+        $payment = Payment::where('id', $id)->where('paymentStatus', 'Pending')->first();
+        $transaction = Transaction::where('paymentID', $payment->id)->first();
+        $externalID = 'INV' . date('Ymd') . '-' . rand(1000, 9999);
+
+        $payment->accountNumber = $externalID;
+        $payment->save();
+
+        $params = [
+            'external_id' => $externalID,
+            'amount' => $transaction->serviceAmount,
+            'user_id' => $transaction->userID,
+            'invoice_duration' => 3600,
+        ];
+
+        $invoice = $this->createInvoice($params);
+        $payment->update([
+            'successURL' => $invoice['invoice_url']
+        ]);
+
+        $payment->paymentStatus = 'Pending';
+
+        return Redirect::to($payment->successURL);
+    }
+
+    public function callback(Request $request)
+    {
+        try {
+            $payment = Payment::where('accountNumber', $request->external_id)->first();
+            if ($request->header('x-callback-token') != env('XENDIT_CALLBACK_TOKEN')) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid Callback Token'
+                ], 400);
+            }
+
+            if ($payment) {
+                if ($request->status == 'PAID') {
+                    $payment->update([
+                        'paymentStatus' => 'Paid'
+                    ]);
+                } else {
+                    $payment->update([
+                        'paymentStatus' => 'Expired',
+                    ]);
+                }
+            }
+
+            return response()->json([
+                'status' => 'success',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 }
