@@ -12,17 +12,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
-use Xendit\Xendit;
-use Xendit\Configuration;
-use Xendit\Invoice\Invoice;
-use Xendit\Invoice\InvoiceApi;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\NewRequestNotification;
 use App\Notifications\ProcessingNotification;
+use App\Providers\XenditServiceProvider;
 use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Barryvdh\DomPDF\Facade\PDF;
+use Illuminate\Support\Facades\Http;
+use Xendit\Configuration;
+use Xendit\Xendit;
+use Xendit\PaymentMethod\EWallet;
 
 class ServicesController extends Controller
 {
@@ -122,8 +123,8 @@ class ServicesController extends Controller
     {
         $transaction = Transaction::where('id', $id)->first();
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
-        $doc = Document::where('id', $transaction->documentID)->first();       
-        return view('services.approve', compact('id', 'requestee','doc'));
+        $doc = Document::where('id', $transaction->documentID)->first();
+        return view('services.approve', compact('id', 'requestee', 'doc'));
     }
 
     public function dashboard()
@@ -173,12 +174,13 @@ class ServicesController extends Controller
         }
     }
 
-    public function pdfGeneration($id){
+    public function pdfGeneration($id)
+    {
         //show how the page is
         $transaction = Transaction::where('id', $id)->first();
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
         $doc = Document::where('id', $transaction->documentID)->first();
-        $pdf = PDF::loadView('documents.barangaycertificate',compact('id', 'requestee','doc'));
+        $pdf = PDF::loadView('documents.barangaycertificate', compact('id', 'requestee', 'doc'));
         return $pdf->download('barangaycert.pdf');
     }
 
@@ -235,7 +237,7 @@ class ServicesController extends Controller
 
         $transactionpayment = $transaction->transactionpayment()->create([
             'paymentMethod' => $request->paymentMethod,
-            'accountNumber' => '123455678901',
+            'accountNumber' => 'Pending',
             'paymentStatus' => 'Pending',
             'successURL' => NULL,
             'failURL' =>  NULL,
@@ -258,7 +260,8 @@ class ServicesController extends Controller
 
         if ($request->paymentMethod == 'GCASH') {
             $payment = Payment::where('id', $transactionPaymentId)->first();
-            return view('services.gcash', compact('transaction', 'payment'));
+            // return view('createpayment', $transactionPaymentId);
+            return $this->createpayment($payment->id);
         } else {
             return view('services.success');
         }
@@ -266,6 +269,7 @@ class ServicesController extends Controller
 
     public function paymentrequest(Request $request)
     {
+
         $payment = Payment::where('id', $request->id)->first();
 
         if ($request->hasFile('file')) {
@@ -287,6 +291,78 @@ class ServicesController extends Controller
         $payment->save();
 
         return view('services.success');
+    }
+
+    public function createInvoice($request)
+    {
+        $xenditKey = base64_encode(env('XENDIT_SECRET_KEY'));
+        $headers = [
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Basic ' . $xenditKey,
+        ];
+        $res = Http::withHeaders($headers)->post('https://api.xendit.co/v2/invoices', $request);
+
+        return json_decode($res->body(), true);
+    }
+
+    public function createpayment($id)
+    {
+        $payment = Payment::where('id', $id)->where('paymentStatus', 'Pending')->first();
+        $transaction = Transaction::where('paymentID', $payment->id)->first();
+        $externalID = 'INV' . date('Ymd') . '-' . rand(1000, 9999);
+
+        $payment->accountNumber = $externalID;
+        $payment->save();
+
+        $params = [
+            'external_id' => $externalID,
+            'amount' => $transaction->serviceAmount,
+            'user_id' => $transaction->userID,
+            'invoice_duration' => 3600,
+        ];
+
+        $invoice = $this->createInvoice($params);
+        $payment->update([
+            'successURL' => $invoice['invoice_url']
+        ]);
+
+        $payment->paymentStatus = 'Pending';
+
+        return Redirect::to($payment->successURL);
+    }
+
+    public function callback(Request $request)
+    {
+        try {
+            $payment = Payment::where('accountNumber', $request->external_id)->first();
+            if ($request->header('x-callback-token') != env('XENDIT_CALLBACK_TOKEN')) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid Callback Token'
+                ], 400);
+            }
+
+            if ($payment) {
+                if ($request->status == 'PAID') {
+                    $payment->update([
+                        'paymentStatus' => 'Paid'
+                    ]);
+                } else {
+                    $payment->update([
+                        'paymentStatus' => 'Expired',
+                    ]);
+                }
+            }
+
+            return response()->json([
+                'status' => 'success',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
 
