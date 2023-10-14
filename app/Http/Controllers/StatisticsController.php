@@ -7,9 +7,11 @@ use App\Models\Statistics;
 use App\Models\Sitio;
 use App\Models\SitioCount;
 use App\Models\Households;
-use DB;
+
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class StatisticsController extends Controller
 {

@@ -25,14 +25,13 @@ class AccountController extends Controller
         $users = User::where('id', '>', 1)->paginate();
 
         foreach ($users as $key) {
-            $resident=Resident::where('id',$key->residentID)->first();
+            $resident = Resident::where('id', $key->residentID)->first();
 
-            $key->firstName=$resident->firstName;
-            $key->middleName=$resident->middleName;
-            $key->lastName=$resident->lastName;
-
+            $key->firstName = $resident->firstName;
+            $key->middleName = $resident->middleName;
+            $key->lastName = $resident->lastName;
         }
-        return view('accounts.index')->with('accounts',$users);
+        return view('accounts.index')->with('accounts', $users);
     }
 
     /**
@@ -43,15 +42,15 @@ class AccountController extends Controller
      */
     public function show($id)
     {
-        
-        $user=User::where('id',$id)->first();
-        $personalInfo=Resident::where('id',$user->residentID)->first();
-        $sitio=Sitio::where('id',$user->sitioID)->first();
-        $barangay=Barangay::where('id',$sitio->barangayID)->first();
-        $personalInfo->sitio=$sitio->sitioName;
-        $personalInfo->barangay=$barangay->barangayName;
 
-        return view('accounts.show',compact('user','personalInfo'));
+        $user = User::where('id', $id)->first();
+        $personalInfo = Resident::where('id', $user->residentID)->first();
+        $sitio = Sitio::where('id', $user->sitioID)->first();
+        $barangay = Barangay::where('id', $sitio->barangayID)->first();
+        $personalInfo->sitio = $sitio->sitioName;
+        $personalInfo->barangay = $barangay->barangayName;
+
+        return view('accounts.show', compact('user', 'personalInfo'));
     }
 
     /**
@@ -62,16 +61,16 @@ class AccountController extends Controller
      */
     public function edit($id)
     {
-        $sitios= Sitio::where('barangayID','2')->get();
+        $sitios = Sitio::where('barangayID', '2')->get();
         $roles = Role::where('id', '<', 4)->paginate(5);
-        $user=User::where('id',$id)->first();
-        $personalInfo=Resident::where('id',$user->residentID)->first();
-        $sitio=Sitio::where('id',$user->sitioID)->first();
-        $barangay=Barangay::where('id',$sitio->barangayID)->first();
-        $personalInfo->sitio=$sitio->sitioName;
-        $personalInfo->barangay=$barangay->barangayName;
+        $user = User::where('id', $id)->first();
+        $personalInfo = Resident::where('id', $user->residentID)->first();
+        $sitio = Sitio::where('id', $user->sitioID)->first();
+        $barangay = Barangay::where('id', $sitio->barangayID)->first();
+        $personalInfo->sitio = $sitio->sitioName;
+        $personalInfo->barangay = $barangay->barangayName;
 
-        return view('accounts.edit', compact('user','personalInfo', 'sitios','roles'));
+        return view('accounts.edit', compact('user', 'personalInfo', 'sitios', 'roles'));
     }
 
     /**
@@ -85,49 +84,49 @@ class AccountController extends Controller
     {
 
         $request->validate([
-            'profileImage' => ['image','mimes:jpeg,png,jpg,gif,svg','max:2048'],
+            'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
         ]);
 
         // $image_name=$request->file('profileImage')->getClientOriginalName();
         // dd($image_name);
 
-        $user=User::where('id', $request->id)->first();
+        $user = User::where('id', $request->id)->first();
 
-        if ($request->hasFile('profileImage')){
+        if ($request->hasFile('profileImage')) {
             // unlink($user->profileImage);
-            $image_name = time().'.'.$request->profileImage->getClientOriginalExtension();
-            $request->profileImage->move(public_path('users'),$image_name);
-            $path="users/".$image_name;
-        }else{
-            $path=$user->profileImage;
+            $image_name = time() . '.' . $request->profileImage->getClientOriginalExtension();
+            $request->profileImage->move(public_path('users'), $image_name);
+            $path = "users/" . $image_name;
+        } else {
+            $path = $user->profileImage;
         }
-        
-        $user->profileImage=$path;
-        $user->contactNumber=$request->contactNumber;
-        $user->email=$request->email;
-        $user->userLevel=$request->userLevel;
-        $user->revisedBy=$id;
-        $user->sitioID=$request->sitio;
-    
+
+        $user->profileImage = $path;
+        $user->contactNumber = $request->contactNumber;
+        $user->email = $request->email;
+        $user->userLevel = $request->userLevel;
+        $user->revisedBy = $id;
+        $user->sitioID = $request->sitio;
+
         $user->assignRole($request->userLevel);
         $user->save();
 
-        $resident=Resident::where('id',$user->residentID)->first();
-        $resident->firstName=$request->firstName;
-        $resident->middleName=$request->middleName;
-        $resident->lastName=$request->lastName;
-        $resident->dateOfBirth=$request->dateOfBirth;
+        $resident = Resident::where('id', $user->residentID)->first();
+        $resident->firstName = $request->firstName;
+        $resident->middleName = $request->middleName;
+        $resident->lastName = $request->lastName;
+        $resident->dateOfBirth = $request->dateOfBirth;
 
         $resident->save();
 
-        $personalInfo=Resident::where('id',$user->residentID)->first();
-        $sitio=Sitio::where('id',$user->sitioID)->first();
-        $barangay=Barangay::where('id',$sitio->barangayID)->first();
-        $personalInfo->sitio=$sitio->sitioName;
-        $personalInfo->barangay=$barangay->barangayName;
+        $personalInfo = Resident::where('id', $user->residentID)->first();
+        $sitio = Sitio::where('id', $user->sitioID)->first();
+        $barangay = Barangay::where('id', $sitio->barangayID)->first();
+        $personalInfo->sitio = $sitio->sitioName;
+        $personalInfo->barangay = $barangay->barangayName;
 
         // return redirect('accounts.show',compact('user','personalInfo'))->with('success','Account has been Updated!');
-        return Redirect::back()->with('success','Account has been Updated!');
+        return Redirect::back()->with('success', 'Account has been Updated!');
     }
 
 
@@ -137,41 +136,47 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
-        $user=User::where('id', $request->userID)->first();
+        $user = User::where('id', $request->userID)->first();
 
-        $user->reasonForArchive=$request->reason;
-        $user->userStatus="Archived";
-        $user->isArchived=1;
-        $user->archiveDate=Carbon::now();
-
+        if ($user->userStatus == 'Active') {
+            $user->reasonForArchive = $request->reason;
+            $user->userStatus = "Archived";
+            $user->isArchived = 1;
+            $user->archivedBy = $id;
+            $user->archiveDate = Carbon::now();
+        } elseif ($user->userStatus == 'Archived' && $request->reason == 'Active') {
+            $user->reasonForArchive = "Account is Active";
+            $user->userStatus = "Active";
+            $user->isArchived = 0;
+            $user->archiveDate = NULL;
+        }
         // $user->password=Hash::make('not active anymore'); /* temporary solution to 'deactivate' account*/
 
-        $user->archivedBy=$id;
-
         $user->save();
-        
-        return redirect('/accounts')->with('success','Account Archived');
+
+        return redirect('/accounts')->with('success', 'Account Archived');
     }
 
     public function search(Request $request)
-    { 
-        $search=$request['search'];
-        $users=Resident::where('firstName','LIKE', "%$search%")->orWhere('lastName','LIKE', "%$search%")->get();
-        
+    {
+        $search = $request['search'];
+        $users = Resident::where('firstName', 'LIKE', "%$search%")->orWhere('lastName', 'LIKE', "%$search%")->get();
+
         foreach ($users as $user) {
-            $resident=User::where('residentID',$user->id)->first();
-            $user->id=$resident->id;
-            $user->userLevel=$resident->userLevel;
-            $user->updated_at=$resident->updated_at;
-            $user->userStatus=$resident->userStatus;
+            $resident = User::where('residentID', $user->id)->first();
+            $user->id = $resident->id;
+            $user->userLevel = $resident->userLevel;
+            $user->updated_at = $resident->updated_at;
+            $user->userStatus = $resident->userStatus;
         }
 
-        return view('accounts.index')->with('accounts',$users);
+        return view('accounts.index')->with('accounts', $users);
     }
 
-    public function mobileUserData(Request $request){
+    public function mobileUserData(Request $request)
+    {
         $request->validate([
             'residentID' => 'required',
             'email' => 'required',

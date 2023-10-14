@@ -10,9 +10,9 @@ use App\Http\Controllers\Auth\AuthenticationAPIController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\HouseholdRegistrationController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\ServicesController;
 use App\Models\Transaction;
 
 /*
@@ -46,5 +46,4 @@ Route::post('/sitioAssignment', [SitioAssignmentController::class, 'mobileSitios
 Route::post('/household', 'App\Http\Controllers\HouseholdRegistrationController@mobileStore');
 Route::post('/forgotPassword', 'App\Http\Controllers\Auth\PasswordResetLinkController@mobileStore')->name('mobileForgotPassword');
 Route::post('/callback', [ServicesController::class, 'callback'])->name('callback');
-Route::post('/callback', [TransactionController::class, 'callback'])->name('callback');
 Route::post('createpayment/{id}', [TransactionController::class, 'createpayment'])->name('createpayment');

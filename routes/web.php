@@ -32,11 +32,12 @@ Route::middleware('web')->group(function () {
     Route::get('create', [ResidentUserController::class, 'create'])->name('create');
     Route::post('create', [ResidentUserController::class, 'store']);
 });
-
+Route::post('/callback', [ServicesController::class, 'callback'])->name('callback');
 Route::middleware(['role:User'])->group(function () {
     Route::get('request/{docType}', [ServicesController::class, 'request'])->name('services.request');
     Route::post('request/{docType}', [ServicesController::class, 'storerequest'])->name('services.storerequest');
-    Route::post('payment', [ServicesController::class, 'paymentrequest'])->name('services.gcash');
+    // Route::post('payment', [ServicesController::class, 'paymentrequest'])->name('services.gcash');
+    Route::post('createpayment/{id}', [ServicesController::class, 'createpayment'])->name('services.createpayment');
     Route::get('success', function () {
         return view('services.success');
     })->name('services.success');
@@ -71,6 +72,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/accepted/{id}', [ServicesController::class, 'accepted'])->name('accepted');
     Route::get('generate', [ServicesController::class, 'generate']);
     Route::get('/approve/{id}', [ServicesController::class, 'approve'])->name('approve');
+    Route::get('/pdf/viewdoc/{id}', [ServicesController::class, 'pdfGeneration'])->name('pdf.export');
     Route::get('/deny/{id}', [ServicesController::class, 'deny'])->name('deny');
     Route::get('/approval/{id}', [ServicesController::class, 'approval'])->name('approval');
     Route::get('/forwarded/{id}', [ServicesController::class, 'forwarded'])->name('forwarded');
@@ -78,6 +80,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/released/{id}', [ServicesController::class, 'released'])->name('released');
     Route::get('request', [ServicesController::class, 'request']);
     Route::get('requestSearch', [ServicesController::class, 'search'])->name('requestSearch');
+    Route::get('/view_file/{file}', [ServicesController::class, 'view_file'])->name('view_file');
     Route::resource('auth', \App\Http\Controllers\NotificationController::class);
     Route::get('index', [NotificationController::class, 'index'])->name('notifications');
 });

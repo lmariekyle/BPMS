@@ -5,19 +5,21 @@
         </h2>
     </x-slot>
     <div class="relative">
-        <div class="w-[1400px] h-[813px] ml-8 mt-16 px-5 py-5 rounded-lg border-2 absolute z-10" style="border-color: black;">
+        <div class="w-[1400px] h-max ml-8 mt-16 px-5 py-5 rounded-lg border-2 absolute z-10" style="border-color: black;">
             <div class="flex-row">
-                    <a href="{{ route('services.index') }}" class="ml-4"><i class="fa-solid fa-arrow-left text-deep-green text-[28px] py-3"></i></a>
+                <a href="{{ route('services.index') }}" class="ml-4"><i class="fa-solid fa-arrow-left text-deep-green text-[28px] py-3"></i></a>
                     @role('Barangay Secretary')
                         @if ($transaction->serviceStatus == 'For Signature')
-                            <a href="" class="float-right mr-4" style="margin-right: 16px;"><i class="fa-solid fa-print text-deep-green text-[28px] py-3"></i></a>
+                        <a href="{{route('pdf.export', $id)}}" class="float-right mr-4" style="margin-right: 16px;"><i class="fa-solid fa-print text-deep-green text-[28px] py-3"></i></a>
                         @endif
                     @endrole
             </div>
             <div class="flex flex-row mt-6">
-                <div class="w-[540px] h-[700px] bg-deep-green ml-32" style="width: 540px; height: 700px;">
-    
+                <!-- start of doc template -->
+                <div class="w-max h-max bg-dirty-white border-2 border-black ml-32 px-[3rem] py-8">
+                @include('documents.barangaycertificate')
                 </div>
+                <!-- end of doc template -->
                 <div class="ml-20 text-center items-center w-[580px] h-[700px] pt-[275px]" style="width: 580px; height: 700px; padding-top: 275px;">
                     <div class="">
                         <p class="font-robotocondensed font-bold text-[46px] text-dirty-white" style="font-size: 46px;">
@@ -42,7 +44,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-green h-[79px] w-[1440px] absolute mt-[425px]" style="width: 1440px; margin-top: 425px;">
+        <div class="bg-green h-[79px] w-max absolute mt-[425px]" style="width: 1440px; margin-top: 425px;">
 
         </div>
     </div>

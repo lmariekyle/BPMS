@@ -26,7 +26,7 @@ class CreateTransactionsTable extends Migration
             $table->string('paymentMethod');
 
             $table->string('issuedDocument'); /*filePath*/
-            
+
             $table->string('issuedBy'); /*sect id*/
             $table->date('issuedOn');
 

@@ -55,7 +55,10 @@ module.exports = {
 
                 'desktop': '1280px',
                 // => @media (min-width: 1280px) { ... }
-            }
+            },
+            textShadow: {
+                'custom': '2px 2px 4px rgba(0, 0, 0, 0.5)',
+            },
         },
     },
 

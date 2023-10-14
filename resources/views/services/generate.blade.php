@@ -8,11 +8,11 @@
         @hasanyrole('Barangay Captain|Barangay Secretary')
         <div class="w-[1400px] h-[813px] ml-8 mt-16 px-5 py-5 rounded-lg border-2 absolute z-10" style="border-color: black;">
             <div class="flex flex-row ml-4">
-                    <a href="{{ route('services.index') }}"><i class="fa-solid fa-arrow-left text-deep-green text-[28px] py-3"></i></a>
+                <a href="{{ route('services.index') }}"><i class="fa-solid fa-arrow-left text-deep-green text-[28px] py-3"></i></a>
             </div>
             <div class="flex flex-row mt-6">
                 <div class="w-[540px] h-[700px] bg-deep-green ml-32" style="width: 540px; height: 700px;">
-    
+
                 </div>
                 <div class="ml-20 text-center items-center w-[580px] h-[700px] pt-[275px]" style="width: 580px; height: 700px; padding-top: 275px;">
                     <div class="">

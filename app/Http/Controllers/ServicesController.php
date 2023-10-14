@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Xendit\Xendit;
 use Xendit\Configuration;
 use Xendit\Invoice\Invoice;
@@ -20,6 +19,15 @@ use Xendit\Invoice\InvoiceApi;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\NewRequestNotification;
 use App\Notifications\ProcessingNotification;
+use App\Providers\XenditServiceProvider;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Barryvdh\DomPDF\Facade\PDF;
+use Illuminate\Support\Facades\Http;
+use Xendit\Configuration;
+use Xendit\Xendit;
+use Xendit\PaymentMethod\EWallet;
 use App\Notifications\ReleasedNotification;
 use App\Notifications\SignatureNotification;
 use App\Notifications\SignedNotification;
@@ -35,12 +43,12 @@ class ServicesController extends Controller
     public function index()
     {
         $transactions = Transaction::all();
-        foreach ($transactions as $transaction){
+        foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
             $newtime = strtotime($transaction->created_at);
-            $transaction->createdDate = date('M d, Y',$newtime);
+            $transaction->createdDate = date('M d, Y', $newtime);
         }
         return view('services.index', compact('transactions'));
     }
@@ -52,7 +60,6 @@ class ServicesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function direction($id){
-        $user = Auth::user()->userLevel;
         $transaction = Transaction::where('id', $id)->first();
         if($user == 'Barangay Secretary'){
             if($transaction->serviceStatus == 'Processing' || $transaction->serviceStatus == 'For Signature'){
@@ -70,6 +77,7 @@ class ServicesController extends Controller
         
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -81,15 +89,17 @@ class ServicesController extends Controller
         $transaction = Transaction::where('id', $id)->first();
         $transaction->detail = DocumentDetails::where('id', $transaction->detailID)->first();
         $transaction->document = Document::where('id', $transaction->documentID)->first();
+        $filePaths = json_decode($transaction->detail->file, true);
         $transaction->payment = Payment::where('id', $transaction->paymentID)->first();
-        if($transaction->payment['paymentMethod'] == 'CASH-ON-SITE' || $transaction->payment['paymentStatus'] == 'Paid'){
+        if ($transaction->payment['paymentMethod'] == 'CASH-ON-SITE' || $transaction->payment['paymentStatus'] == 'Paid') {
             $transaction->approval = 1;
-        }else{
+        } else {
             $transaction->approval = 2;
         }
-        
-        return view('services.manage', compact('transaction'));
+
+        return view('services.manage', compact('transaction', 'filePaths'));
     }
+
 
     public function generate()
     {
@@ -102,7 +112,8 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function accepted($id){
+    public function accepted($id)
+    {
         $transaction = Transaction::where('id', $id)->first();
         $transaction->fill([
             'serviceStatus' => 'Processing',
@@ -113,12 +124,12 @@ class ServicesController extends Controller
         Notification::sendNow($notifyUsers, new ProcessingNotification($transaction));
 
         $transactions = Transaction::all();
-        foreach ($transactions as $transaction){
+        foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
             $newtime = strtotime($transaction->created_at);
-            $transaction->createdDate = date('M d, Y',$newtime);
+            $transaction->createdDate = date('M d, Y', $newtime);
         }
         return view('services.index', compact('transactions'));
     }
@@ -133,7 +144,8 @@ class ServicesController extends Controller
     {
         $transaction = Transaction::where('id', $id)->first();
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
-        return view('services.approve', compact('id', 'transaction', 'requestee'));
+        $doc = Document::where('id', $transaction->documentID)->first();
+        return view('services.approve', compact('id', 'requestee', 'doc'));
     }
 
     public function dashboard()
@@ -157,6 +169,62 @@ class ServicesController extends Controller
         return view('services.request', compact('documents', 'doctypename', 'user'));
     }
 
+    // public function view_file($file)
+    // {
+    //     $path = 'requirements/' . $file;
+    //     return response()->file(Storage::path($path), ['content-type' => 'application/pdf']);
+    // }
+
+
+
+    public function view_file($file)
+    {
+        $path = 'requirements/' . $file;
+
+        // Determine the file's extension
+        $extension = File::extension($path);
+
+        // Set the appropriate Content-Type based on the file extension
+        $contentType = $this->getContentTypeForExtension($extension);
+
+        // Check if the file exists
+        if (Storage::exists($path)) {
+            return response()->file(Storage::path($path), ['content-type' => $contentType]);
+        } else {
+            return 'File not found';
+        }
+    }
+
+    public function pdfGeneration($id)
+    {
+        //show how the page is
+        $transaction = Transaction::where('id', $id)->first();
+        $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
+        $doc = Document::where('id', $transaction->documentID)->first();
+        $pdf = PDF::loadView('documents.barangaycertificate', compact('id', 'requestee', 'doc'));
+        return $pdf->download('barangaycert.pdf');
+    }
+
+    // public function pdfGeneration(){
+
+    // }
+
+    private function getContentTypeForExtension($extension)
+    {
+        // Define content types for various file extensions
+        $contentTypes = [
+            'pdf' => 'application/pdf',
+            'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'jpg' => 'image/jpeg', // Add more as needed
+            'jpeg' => 'image/jpeg',
+            'png' => 'image/png',
+        ];
+
+        // Default to 'application/octet-stream' if the extension is not recognized
+        return $contentTypes[$extension] ?? 'application/octet-stream';
+    }
+
+
     public function storerequest(Request $request)
     {
         $certRequirements = [];
@@ -165,7 +233,7 @@ class ServicesController extends Controller
                 if ($file->isValid()) {
                     $file_name = Str::slug($request->requesteeLName) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                     $file->storeAs('requirements', $file_name);
-                    $path = "requirements/" . $file_name;
+                    $path = $file_name;
                     $certRequirements[] = $path;
                 }
             }
@@ -190,7 +258,7 @@ class ServicesController extends Controller
 
         $transactionpayment = $transaction->transactionpayment()->create([
             'paymentMethod' => $request->paymentMethod,
-            'accountNumber' => '123455678901',
+            'accountNumber' => 'Pending',
             'paymentStatus' => 'Pending',
             'successURL' => NULL,
             'failURL' =>  NULL,
@@ -225,7 +293,8 @@ class ServicesController extends Controller
 
         if ($request->paymentMethod == 'GCASH') {
             $payment = Payment::where('id', $transactionPaymentId)->first();
-            return view('services.gcash', compact('transaction', 'payment'));
+            // return view('createpayment', $transactionPaymentId);
+            return $this->createpayment($payment->id);
         } else {
             return view('services.success');
         }
@@ -233,38 +302,123 @@ class ServicesController extends Controller
 
     public function paymentrequest(Request $request)
     {
+
         $payment = Payment::where('id', $request->id)->first();
+
+        if ($request->hasFile('file')) {
+            if ($request->file->isValid()) {
+                $file_name = Str::slug($request->successURL) . '_' . uniqid() . '.' . $request->file->getClientOriginalExtension();
+                $request->file->storeAs('gcashpayments', $file_name);
+                $path = "gcashpayments/" . $file_name;
+            }
+        } else {
+            $path = NULL;
+        }
 
         $payment->paymentMethod = 'GCASH';
         $payment->accountNumber = $request->accountNumber;
         $payment->successURL = $request->successURL;
         $payment->paymentStatus = 'Pending';
+        $payment->screenshot = $path;
         $payment->failURL = NULL;
         $payment->save();
 
         return view('services.success');
     }
 
-    public function search(Request $request)
-    { 
-        $search=$request['search'];
-        $documents=Document::where('docName','LIKE', "%$search%")->get();
-        $transactions = Transaction::all();
-        
-        $count=count($transactions);
-        for($x=0;$x<$count;$x++){
-            foreach ($documents as $document)
-            if($transactions[$x]->documentID == $document->id) {
-                $user = User::where('id', $transactions[$x]->userID)->first();
-                $transactions[$x]->resident = Resident::where('id', $user->residentID)->first();
-                $transactions[$x]->document = Document::where('id', $transactions[$x]->documentID)->first();
-                $newtime = strtotime($transactions[$x]->created_at);
-                $transactions[$x]->createdDate = date('M d, Y',$newtime);
-            }else{
-                unset($transactions[$x]);
+    public function createInvoice($request)
+    {
+        $xenditKey = base64_encode(env('XENDIT_SECRET_KEY'));
+        $headers = [
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Basic ' . $xenditKey,
+        ];
+        $res = Http::withHeaders($headers)->post('https://api.xendit.co/v2/invoices', $request);
+
+        return json_decode($res->body(), true);
+    }
+
+    public function createpayment($id)
+    {
+        $payment = Payment::where('id', $id)->where('paymentStatus', 'Pending')->first();
+        $transaction = Transaction::where('paymentID', $payment->id)->first();
+        $externalID = 'INV' . date('Ymd') . '-' . rand(1000, 9999);
+
+        $payment->accountNumber = $externalID;
+        $payment->save();
+
+        $params = [
+            'external_id' => $externalID,
+            'amount' => $transaction->serviceAmount,
+            'user_id' => $transaction->userID,
+            'invoice_duration' => 3600,
+        ];
+
+        $invoice = $this->createInvoice($params);
+        $payment->update([
+            'successURL' => $invoice['invoice_url']
+        ]);
+
+        $payment->paymentStatus = 'Pending';
+
+        return Redirect::to($payment->successURL);
+    }
+
+    public function callback(Request $request)
+    {
+        try {
+            $payment = Payment::where('accountNumber', $request->external_id)->first();
+            if ($request->header('x-callback-token') != env('XENDIT_CALLBACK_TOKEN')) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid Callback Token'
+                ], 400);
             }
+
+            if ($payment) {
+                if ($request->status == 'PAID') {
+                    $payment->update([
+                        'paymentStatus' => 'Paid'
+                    ]);
+                } else {
+                    $payment->update([
+                        'paymentStatus' => 'Expired',
+                    ]);
+                }
+            }
+
+            return response()->json([
+                'status' => 'success',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
         }
-        return view('services.index')->with('transactions',$transactions);
+    }
+
+
+    public function search(Request $request)
+    {
+        $search = $request['search'];
+        $documents = Document::where('docName', 'LIKE', "%$search%")->get();
+        $transactions = Transaction::all();
+
+        $count = count($transactions);
+        for ($x = 0; $x < $count; $x++) {
+            foreach ($documents as $document)
+                if ($transactions[$x]->documentID == $document->id) {
+                    $user = User::where('id', $transactions[$x]->userID)->first();
+                    $transactions[$x]->resident = Resident::where('id', $user->residentID)->first();
+                    $transactions[$x]->document = Document::where('id', $transactions[$x]->documentID)->first();
+                    $newtime = strtotime($transactions[$x]->created_at);
+                    $transactions[$x]->createdDate = date('M d, Y', $newtime);
+                } else {
+                    unset($transactions[$x]);
+                }
+        }
+        return view('services.index')->with('transactions', $transactions);
     }
 
     /**
@@ -317,12 +471,12 @@ class ServicesController extends Controller
         $transaction->save();
 
         $transactions = Transaction::all();
-        foreach ($transactions as $transaction){
+        foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
             $newtime = strtotime($transaction->created_at);
-            $transaction->createdDate = date('M d, Y',$newtime);
+            $transaction->createdDate = date('M d, Y', $newtime);
         }
         return view('services.index', compact('transactions'));
     }
@@ -333,7 +487,8 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function deny($id){
+    public function deny($id)
+    {
         $transaction = Transaction::where('id', $id)->first();
         $transaction->fill([
             'serviceStatus' => "Not Eligible",
@@ -407,6 +562,59 @@ class ServicesController extends Controller
             $transaction->document = Document::where('id', $transaction->documentID)->first();
             $newtime = strtotime($transaction->created_at);
             $transaction->createdDate = date('M d, Y',$newtime);
+        }
+        return view('services.index', compact('transactions'));
+    }
+
+    public function signed($id){
+        $transaction = Transaction::where('id', $id)->first();
+        $user = Auth::user()->residentID;
+        $resident = Resident::where('id', $user)->first();
+        $transaction->fill([
+            'serviceStatus' => 'Signed',
+            'issuedOn' => today(),
+        ]);
+        $transaction->save();
+
+        $notifyUsers = User::where('id', $transaction->userID)->get();
+        Notification::sendNow($notifyUsers, new SignedNotification($transaction));
+
+        $transactions = Transaction::all();
+        foreach ($transactions as $transaction){
+            $user = User::where('id', $transaction->userID)->first();
+            $transaction->resident = Resident::where('id', $user->residentID)->first();
+            $transaction->document = Document::where('id', $transaction->documentID)->first();
+            $newtime = strtotime($transaction->created_at);
+            $transaction->createdDate = date('M d, Y',$newtime);
+        }
+        return view('services.index', compact('transactions'));
+    }
+
+    public function released($id){
+        $transaction = Transaction::where('id', $id)->first();
+        $user = Auth::user()->residentID;
+        $resident = Resident::where('id', $user)->first();
+        $transaction->fill([
+            'serviceStatus' => 'Released',
+        ]);
+        $transaction->save();
+
+        $payment = Payment::where('id', $transaction->paymentID)->first();
+        $payment->fill([
+            'paymentStatus' => 'Paid',
+        ]);
+        $payment->save();
+
+        $notifyUsers = User::where('id', $transaction->userID)->get();
+        Notification::sendNow($notifyUsers, new ReleasedNotification($transaction));
+
+        $transactions = Transaction::all();
+        foreach ($transactions as $transaction) {
+            $user = User::where('id', $transaction->userID)->first();
+            $transaction->resident = Resident::where('id', $user->residentID)->first();
+            $transaction->document = Document::where('id', $transaction->documentID)->first();
+            $newtime = strtotime($transaction->created_at);
+            $transaction->createdDate = date('M d, Y', $newtime);
         }
         return view('services.index', compact('transactions'));
     }

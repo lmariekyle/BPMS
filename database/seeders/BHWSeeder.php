@@ -22,11 +22,11 @@ class BHWSeeder extends Seeder
             'sitioID' => '2',
             'houseNumber' => '2'
         ]);
-        
+
         //MILES//
         ResidentList::create([
-            'residentID'=>'2',
-            'houseID'=>'2'
+            'residentID' => '2',
+            'houseID' => '2'
         ]);
 
         User::create([
@@ -42,11 +42,11 @@ class BHWSeeder extends Seeder
             'password' => Hash::make('moralesbpms'),
         ])->assignRole('Barangay Health Worker');
 
-        
+
         //GWEN//
         ResidentList::create([
-            'residentID'=>'3',
-            'houseID'=>'2'
+            'residentID' => '3',
+            'houseID' => '2'
         ]);
         User::create([
             'residentID' => '3',
@@ -60,11 +60,11 @@ class BHWSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('stacybpms'),
         ])->assignRole('Barangay Secretary');
-        
+
         //PETER//
         ResidentList::create([
-            'residentID'=>'7',
-            'houseID'=>'2'
+            'residentID' => '7',
+            'houseID' => '2'
         ]);
         User::create([
             'residentID' => '7',
