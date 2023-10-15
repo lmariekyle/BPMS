@@ -23,8 +23,9 @@
 
 <body class=" bg-dirty-white font-sans antialiased mb-5">
     <div class="min-h-screen bg-dirty-white mb-10">
+        @hasanyrole('Barangay Captain|Barangay Secretary|User|Barangay Health Worker')
         @include('layouts.navigation')
-
+        @endhasanyrole
         <!-- Page Heading -->
         <!-- <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">

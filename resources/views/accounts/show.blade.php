@@ -10,7 +10,7 @@
             <div class="">
                 <div class="">
                     <div class="max-w-sm max-h-12 w-96 h-12 text-center">
-                        <a href="{{ route('accounts') }}" class="float-left mt-4">
+                        <a href="{{ route('accounts.index') }}" class="float-left mt-4">
                             <i class="fa-sharp fa-solid fa-arrow-left text-3xl" style="color:#fdffee;"></i>
                         </a>
                         <p class="font-roboto font-bold text-dirty-white text-5xl">VIEW ACCOUNT</p>
