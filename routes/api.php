@@ -11,6 +11,10 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\HouseholdRegistrationController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HouseholdListController;
+use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\NotificationController;
+use App\Models\Transaction;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +52,10 @@ Route::get('/mobileHouseholdList', [HouseholdListController::class, 'mobileHouse
 Route::get('/mobileMembersList', [HouseholdListController::class, 'mobileMembers']);
 Route::get('/mobileGetHouseholdNumber', [HouseholdListController::class, 'mobileGetHouseNumber']);
 Route::get('/mobileGetHousehold', [HouseholdListController::class, 'getHouseholdsPerYear']);
+
+Route::post('/mobileTransactionRequest', [TransactionController::class, 'mobileTransactionRequest']);
+Route::post('/mobileNotifications', [NotificationController::class, 'mobileNotifications']);
+
+Route::post('/household', 'App\Http\Controllers\HouseholdRegistrationController@mobileStore');
+Route::post('/callback', [ServicesController::class, 'callback'])->name('callback');
+Route::post('createpayment/{id}', [TransactionController::class, 'createpayment'])->name('createpayment');

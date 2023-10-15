@@ -22,11 +22,11 @@ class BHWSeeder extends Seeder
             'sitioID' => '2',
             'houseNumber' => '2'
         ]);
-        
+
         //MILES//
         ResidentList::create([
-            'residentID'=>'2',
-            'houseID'=>'2'
+            'residentID' => '2',
+            'houseID' => '2'
         ]);
 
         User::create([
@@ -42,11 +42,11 @@ class BHWSeeder extends Seeder
             'password' => Hash::make('moralesbpms'),
         ])->assignRole('Barangay Health Worker');
 
-        
+
         //GWEN//
         ResidentList::create([
-            'residentID'=>'3',
-            'houseID'=>'2'
+            'residentID' => '3',
+            'houseID' => '2'
         ]);
         User::create([
             'residentID' => '3',
@@ -54,17 +54,17 @@ class BHWSeeder extends Seeder
             'assignedSitioID' => '3',
             'idNumber' => 'B-0002',
             'contactnumber' => '09876543212',
-            'userlevel' => 'User',
+            'userlevel' => 'Barangay Secretary',
             'userstatus' => 'Active',
             'email' => 'stacy@bpms.com',
             'email_verified_at' => now(),
             'password' => Hash::make('stacybpms'),
         ])->assignRole('Barangay Secretary');
-        
+
         //PETER//
         ResidentList::create([
-            'residentID'=>'7',
-            'houseID'=>'2'
+            'residentID' => '7',
+            'houseID' => '2'
         ]);
         User::create([
             'residentID' => '7',
@@ -77,6 +77,24 @@ class BHWSeeder extends Seeder
             'email' => 'parker@bpms.com',
             'email_verified_at' => now(),
             'password' => Hash::make('parkerbpms'),
+        ])->assignRole('User');
+
+        //PETER//
+        ResidentList::create([
+            'residentID'=>'4',
+            'houseID'=>'3'
+        ]);
+        User::create([
+            'residentID' => '4',
+            'sitioID' => '4',
+            'assignedSitioID' => '4',
+            'idNumber' => 'C-001',
+            'contactnumber' => '09876543212',
+            'userlevel' => 'Barangay Captain',
+            'userstatus' => 'Active',
+            'email' => 'lourdeskyle09@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('lourdesbpms'),
         ])->assignRole('Barangay Captain');
     }
 }
