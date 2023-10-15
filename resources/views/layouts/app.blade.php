@@ -23,7 +23,7 @@
 
 <body class=" bg-dirty-white font-sans antialiased mb-5">
     <div class="min-h-screen bg-dirty-white mb-10">
-        @hasanyrole('Barangay Captain|Barangay Secretary|User|Barangay Health Worker')
+        @hasanyrole('Admin|Barangay Captain|Barangay Secretary|User|Barangay Health Worker')
         @include('layouts.navigation')
         @endhasanyrole
         <!-- Page Heading -->

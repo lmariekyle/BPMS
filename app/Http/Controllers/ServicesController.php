@@ -146,7 +146,7 @@ class ServicesController extends Controller
         $transaction = Transaction::where('id', $id)->first();
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
         $doc = Document::where('id', $transaction->documentID)->first();
-        return view('services.approve', compact('id', 'requestee', 'doc'));
+        return view('services.approve', compact('id', 'requestee', 'doc','transaction'));
     }
 
     public function dashboard()
