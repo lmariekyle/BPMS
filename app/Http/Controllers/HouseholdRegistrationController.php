@@ -11,6 +11,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\Input;
 
 class HouseholdRegistrationController extends Controller
@@ -58,15 +59,35 @@ class HouseholdRegistrationController extends Controller
         $tempArr=explode('-',$lastRes['residentID']);
         $currResID =(int)$tempArr[1];
 
+        
 
         foreach ($request->members as $resident) {
+/*
+            $certRequirements = [];
+            if ($request->hasFile('file')) {
+                foreach ($request->file('file') as $file) {
+                    if ($file->isValid()) {
+                        $file_name = Str::slug($request->requesteeLName) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                        $file->storeAs('requirements', $file_name);
+                        $path = $file_name;
+                        $certRequirements[] = $path;
+                    }
+                }
+                $reqJson = json_encode($certRequirements);
+            } else {
+                $reqJson = NULL;
+            }*/
+
+            
+            $initDate = strtotime($resident['dateOfBirth']);
+            $date = date('Y-m-d', $initDate);
 
             $newResident = new Resident();
             $newResident->fill([
                 'firstName'=>$resident['firstName'],
                 'middleName'=>$resident['middleName'],
                 'lastName'=>$resident['lastName'],
-                'dateOfBirth'=>$resident['dateOfBirth'],
+                'dateOfBirth'=>$date,
                 'contactNumber'=>$resident['contactNumber'],
                 'email'=>$resident['email'],
                 'maritalStatus'=>$resident['maritalStatus'],
@@ -79,6 +100,9 @@ class HouseholdRegistrationController extends Controller
                 'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
                 'registeredPWD'=>$resident['registeredPWD'],
                 //'supportingDocument'=>$resident['supportingDocument']*/
+
+                'createdBy' => $resident['createdBy'],
+                'revisedBy' => $resident['revisedBy'],
             ]);
 
             if($currResID<9){
@@ -157,20 +181,23 @@ class HouseholdRegistrationController extends Controller
         $date = date('Y-m-d', $initDate);
 
         $household['dateOfVisit']=$date;
-        if(substr($household['houseNumber'],-1)=='B'){
-            
+        if(substr($household['houseNumber'],-1)=='B'){ 
             $find=Households::where('sitioID',$household['sitioID'])
             ->where('houseNumber',substr($household['houseNumber'],0,-1))
             ->orderBy('yearOfVisit','desc')
             ->get();
 
             foreach ($find as $house) {
+                $resList=ResidentList::where('houseID',$house['id'])
+                        ->first();
+
                 $house['houseNumber']=substr($household['houseNumber'],0,-1).'A';
-                $find->update();
+                $resList['houseNumber']=substr($household['houseNumber'],0,-1).'A';
+
+                $house->update();
+                $resList->update();
             }
         
-            $find['houseNumber']=substr($household['houseNumber'],0,-1).'A';
-            $find->update();
             
         }
         $household->save();
@@ -182,7 +209,7 @@ class HouseholdRegistrationController extends Controller
                             ->orderBy('yearOfVisit','asc')
                             ->first();
             
-            $yearsPassed = 2024-(int)$house['yearOfVisit'];//(int)now()->format('Y')-(int)$house['yearOfVisit'];
+            $yearsPassed = (int)now()->format('Y')-(int)$house['yearOfVisit'];
             if($yearsPassed<=6){
                 Households::where('yearOfVisit',$house['yearOfVisit'])->delete();
             }
@@ -229,12 +256,15 @@ class HouseholdRegistrationController extends Controller
                             ->first();
             if(is_null($search)){
 
+                $initDate = strtotime($resident['dateOfBirth']);
+                $date = date('Y-m-d', $initDate);
+
                 $newResident = new Resident();
                 $newResident->fill([
                     'firstName'=>$resident['firstName'],
                     'middleName'=>$resident['middleName'],
                     'lastName'=>$resident['lastName'],
-                    'dateOfBirth'=>$resident['dateOfBirth'],
+                    'dateOfBirth'=>$date,
                     'contactNumber'=>$resident['contactNumber'],
                     'email'=>$resident['email'],
                     'maritalStatus'=>$resident['maritalStatus'],
@@ -247,6 +277,10 @@ class HouseholdRegistrationController extends Controller
                     'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
                     'registeredPWD'=>$resident['registeredPWD'],
                     //'supportingDocument'=>$resident['supportingDocument']
+                    
+
+                    'createdBy' => $resident['createdBy'],
+                    'revisedBy' => $resident['revisedBy'],
                 ]);
 
                 if($currResID<9){
@@ -294,13 +328,17 @@ class HouseholdRegistrationController extends Controller
                 $count++;
             }else{
                 
+                $initDate = strtotime($resident['dateOfBirth']);
+                $birthdate = date('Y-m-d', $initDate);
+                
+
                 $updatedResident = new Resident();
                 $updatedResident->fill([
                     'residentID'=>$resident['residentID'],
                     'firstName'=>$resident['firstName'],
                     'middleName'=>$resident['middleName'],
                     'lastName'=>$resident['lastName'],
-                    'dateOfBirth'=>$resident['dateOfBirth'],
+                    'dateOfBirth'=>$birthdate,
                     'contactNumber'=>$resident['contactNumber'],
                     'email'=>$resident['email'],
                     'maritalStatus'=>$resident['maritalStatus'],
@@ -312,7 +350,12 @@ class HouseholdRegistrationController extends Controller
                     'pregnancyClassification'=>$resident['pregnancyClassification'],
                     'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
                     'registeredPWD'=>$resident['registeredPWD'],
+                    'dateOfDeath'=>$resident['dateOfDeath'],
                     //'supportingDocument'=>$resident['supportingDocument']
+                    
+
+                    'createdBy' => $resident['createdBy'],
+                    'revisedBy' => $resident['revisedBy'],
                 ]);
                 $updatedResident->save();
                

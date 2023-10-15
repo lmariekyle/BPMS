@@ -42,7 +42,7 @@ class HouseholdListController extends Controller
         return $response;
     }
 
-    public function getAllOccurencesHousehold(Request $request)
+    public function getHouseholdsPerYear(Request $request)
     {
         /* function will receive the assignedSitioID of the current user from the app then 
            return all households with that id
@@ -50,16 +50,18 @@ class HouseholdListController extends Controller
         
         $households=Households::where('sitioID', $request->sitioID)
                             ->where('houseNumber', $request->houseNumber)
+                            ->where('yearOfVisit', $request->year)
                             ->orderBy('created_at','desc')
                             ->get();
 
         $response =[
             'households' => $households,
-            'success' => true
+            'success' => true,
         ];
         
         return $response;
     }
+
 
     
     public function mobileGetHouseNumber(Request $request)
@@ -86,11 +88,12 @@ class HouseholdListController extends Controller
     {
 
         $households=Households::where('sitioID', $request->sitioID)
-                                ->where('houseNumber', $request->houseNum)
-                                ->where('created_at', $request->createdAt)
+                                ->where('houseNumber', $request->houseNumber)
+                                ->where('quarterNumber', $request->qtr)
+                                ->where('yearOfVisit', $request->year)
                                 ->first();
         
-        //edit to get specific of that particular quarter
+
         $resList=ResidentList::where('houseID', $households['id'])
                             ->orderBy('created_at','desc')
                             ->get();

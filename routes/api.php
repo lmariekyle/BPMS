@@ -47,4 +47,4 @@ Route::get('/mobileSitios', [SitioAssignmentController::class, 'mobileSitios']);
 Route::get('/mobileHouseholdList', [HouseholdListController::class, 'mobileHouseholds']);
 Route::get('/mobileMembersList', [HouseholdListController::class, 'mobileMembers']);
 Route::get('/mobileGetHouseholdNumber', [HouseholdListController::class, 'mobileGetHouseNumber']);
-Route::get('/mobileGetOccurences', [HouseholdListController::class, 'getAllOccurencesHousehold']);
+Route::get('/mobileGetHousehold', [HouseholdListController::class, 'getHouseholdsPerYear']);
