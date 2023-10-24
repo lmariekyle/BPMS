@@ -90,9 +90,9 @@ class RegisteredUserController extends Controller
 
         $resident = Resident::create([
             'id'=> $residentId,
-            'firstname' => $request->firstname,
-            'middlename' => $request->middlename,
-            'lastname' => $request->lastname,
+            'firstName' => $request->firstname,
+            'middleName' => $request->middlename,
+            'lastName' => $request->lastname,
             'dateOfBirth' => $request->dateOfBirth,
             'contactNumber' => $request->contactnumber,
             'email' => $request->email,

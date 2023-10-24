@@ -15,11 +15,12 @@ class CreateResidentListsTable extends Migration
     {
         Schema::create('resident_lists', function (Blueprint $table) {
             $table->id();
-            $table->string('residentID')->unique();
 
+            $table->foreignId('residentID')->references('id')->on('residents')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('houseID')->references('id')->on('households')->onDelete('cascade')->onUpdate('cascade');
 
             
+            $table->string('houseNumber')->nullable();
             $table->boolean('householdHead')->nullable();
             $table->smallInteger('memberNumber')->nullable();
 
@@ -27,7 +28,7 @@ class CreateResidentListsTable extends Migration
             $table->string('revisedBy')->nullable();
 
             $table->timestamps();
-            $table->foreign('residentID')->references('id')->on('residents')->onDelete('cascade')->onUpdate('cascade');
+            
         });
     }
 

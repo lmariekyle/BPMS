@@ -17,8 +17,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('residentID')->unique();
 
+            $table->foreignId('residentID')->references('id')->on('residents')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('sitioID')->references('id')->on('sitios')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('assignedSitioID')->references('id')->on('sitios')->onDelete('cascade')->onUpdate('cascade');
 
@@ -42,7 +42,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            $table->foreign('residentID')->references('id')->on('residents')->onDelete('cascade')->onUpdate('cascade');
+            
         });
     }
 

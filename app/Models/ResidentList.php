@@ -7,9 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class ResidentList extends Model
 {
-    protected $fillable = [
-        'residentID',
-    ];
 
     use HasFactory;
+    protected $fillable =[
+        'residentID',
+        'houseID',
+
+        'houseNumber',
+        'householdHead',
+        'memberNumber',
+
+        'createdBy',
+        'revisedBy'
+    ];
 }

@@ -17,12 +17,12 @@ class CreateHouseholdsTable extends Migration
             $table->id();
             $table->foreignId('sitioID')->references('id')->on('sitios')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->smallInteger('houseNumber')->unsigned()->nullable();
+            $table->string('houseNumber')->nullable();
             $table->string('street')->nullable();
-            $table->string('buildingNumber')->nullable();
+            $table->string('buildingName')->nullable();
+            $table->string('unitNumber')->nullable();
             $table->string('floorNumber')->nullable();
             $table->string('residenceType')->nullable();
-            $table->string('subdivision')->nullable();
 
             $table->string('nHTS')->nullable();
             $table->string('householdToiletFacilities')->nullable();

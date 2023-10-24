@@ -18,6 +18,9 @@ class DocumentSeeder extends Seeder
             'docName' => 'Good Moral Character',
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
+            'fee' => '100.0',
+            'requirements' => 'Residence Certificate',
+
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);
@@ -26,6 +29,9 @@ class DocumentSeeder extends Seeder
             'docName' => 'Disco',
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
+            'fee' => '100.0',
+            'requirements' => 'Residence Certificate',
+
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);
@@ -34,6 +40,9 @@ class DocumentSeeder extends Seeder
             'docName' => 'Tigbakay',
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
+            'fee' => '100.0',
+            'requirements' => 'Residence Certificate',
+
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);
@@ -42,6 +51,9 @@ class DocumentSeeder extends Seeder
             'docName' => 'Senior Citizen',
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
+            'fee' => '100.0',
+            'requirements' => 'Residence Certificate',
+
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);
@@ -50,6 +62,9 @@ class DocumentSeeder extends Seeder
             'docName' => 'Financial Assistance',
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
+            'fee' => '100.0',
+            'requirements' => 'Residence Certificate',
+
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);
@@ -58,6 +73,9 @@ class DocumentSeeder extends Seeder
             'docName' => 'Low Income',
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
+            'fee' => '100.0',
+            'requirements' => 'Residence Certificate',
+
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);
@@ -66,6 +84,9 @@ class DocumentSeeder extends Seeder
             'docName' => 'Indigency',
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
+            'fee' => '100.0',
+            'requirements' => 'Residence Certificate',
+
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);
@@ -74,6 +95,9 @@ class DocumentSeeder extends Seeder
             'docName' => 'Late Registration',
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
+            'fee' => '100.0',
+            'requirements' => 'Residence Certificate',
+
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);
@@ -82,6 +106,9 @@ class DocumentSeeder extends Seeder
             'docName' => 'Cutting/Transport of Cut Trees',
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
+            'fee' => '100.0',
+            'requirements' => 'Residence Certificate',
+
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);
@@ -90,6 +117,9 @@ class DocumentSeeder extends Seeder
             'docName' => 'Others',
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
+            'fee' => '100.0',
+            'requirements' => 'Residence Certificate',
+
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);
@@ -98,6 +128,9 @@ class DocumentSeeder extends Seeder
             'docName' => "Business/Mayor's Permit",
             'docType' => 'Barangay Clearance',
             'docTemplate' => 'ClearanceTemplate',
+            'fee' => '100.0',
+            'requirements' => 'Cedula, Copy of Previous Permit, Tax Declaration, Affidavit of Consent',
+
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);
@@ -106,6 +139,9 @@ class DocumentSeeder extends Seeder
             'docName' => 'Building Permit',
             'docType' => 'Barangay Clearance',
             'docTemplate' => 'ClearanceTemplate',
+            'fee' => '100.0',
+            'requirements' => 'Cedula, Copy of Previous Permit, Tax Declaration, Affidavit of Consent',
+
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);
@@ -114,6 +150,9 @@ class DocumentSeeder extends Seeder
             'docName' => 'Fencing Permit',
             'docType' => 'Barangay Clearance',
             'docTemplate' => 'ClearanceTemplate',
+            'fee' => '100.0',
+            'requirements' => 'Cedula, Copy of Previous Permit, Tax Declaration, Affidavit of Consent',
+
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);
@@ -122,6 +161,9 @@ class DocumentSeeder extends Seeder
             'docName' => 'Electrical Permit',
             'docType' => 'Barangay Clearance',
             'docTemplate' => 'ClearanceTemplate',
+            'fee' => '100.0',
+            'requirements' => 'Cedula, Copy of Previous Permit, "Tax Declaration, Affidavit of Consent',
+
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);
@@ -130,6 +172,9 @@ class DocumentSeeder extends Seeder
             'docName' => 'Others',
             'docType' => 'Barangay Clearance',
             'docTemplate' => 'ClearanceTemplate',
+            'fee' => '100.0',
+            'requirements' => 'Cedula, Copy of Previous Permit, Tax Declaration, Affidavit of Consent',
+
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);
@@ -138,6 +183,9 @@ class DocumentSeeder extends Seeder
             'docName' => 'Filing of Lupon Cases',
             'docType' => 'File Complain',
             'docTemplate' => 'ComplaintTemplate',
+            'fee' => '100.0',
+            'requirements' => 'Personal Appearance of the Complainant',
+
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);

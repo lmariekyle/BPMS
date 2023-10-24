@@ -57,10 +57,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function resident(){
+    public function resident()
+    {
         return $this->belongsTo(Resident::class);
     }
 
+    public function transactionuser()
+    {
+        return $this->hasOne(Transaction::class, 'userID');
+    }
     // public function sitio(){
     //     return $this->belongsTo(Sitio::class);
     // }

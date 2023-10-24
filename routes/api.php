@@ -8,8 +8,13 @@ use App\Http\Controllers\ResidentUserController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\AuthenticationAPIController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\HouseholdRegistrationController;
 use App\Http\Controllers\DocumentController;
-
+use App\Http\Controllers\HouseholdListController;
+use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\NotificationController;
+use App\Models\Transaction;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +38,24 @@ Route::get('/bhwDashboard', [BHWController::class, 'mobileDashboard']);
 Route::post('/mobileUserData', [AccountController::class, 'mobileUserData']);
 Route::post('/mobileRequestServices', [DocumentController::class, 'mobileRequestServices']);
 Route::post('/mobileGetDocuments', [DocumentController::class, 'mobileGetDocuments']);
-Route::get('/mobileSitios', [SitioAssignmentController::class, 'mobileSitios']);
 Route::post('/register', 'App\Http\Controllers\ResidentUserController@mobileStore');
+Route::post('/sitioAssignment', [SitioAssignmentController::class, 'mobileSitiosAssignment']);
 Route::post('/forgotPassword', 'App\Http\Controllers\Auth\PasswordResetLinkController@mobileStore')->name('mobileForgotPassword');
+
+Route::post('/registerHousehold',[HouseholdRegistrationController::class,'mobileHouseholdStore']);
+Route::post('/registerMembers',[HouseholdRegistrationController::class,'mobileResidentStore']);
+Route::post('/updateHousehold',[HouseholdRegistrationController::class,'mobileUpdateHouseholdStore']);
+Route::post('/updateMembers',[HouseholdRegistrationController::class,'mobileUpdateResident']);
+
+Route::get('/mobileSitios', [SitioAssignmentController::class, 'mobileSitios']);
+Route::get('/mobileHouseholdList', [HouseholdListController::class, 'mobileHouseholds']);
+Route::get('/mobileMembersList', [HouseholdListController::class, 'mobileMembers']);
+Route::get('/mobileGetHouseholdNumber', [HouseholdListController::class, 'mobileGetHouseNumber']);
+Route::get('/mobileGetHousehold', [HouseholdListController::class, 'getHouseholdsPerYear']);
+
+Route::post('/mobileTransactionRequest', [TransactionController::class, 'mobileTransactionRequest']);
+Route::post('/mobileNotifications', [NotificationController::class, 'mobileNotifications']);
+
+Route::post('/household', 'App\Http\Controllers\HouseholdRegistrationController@mobileStore');
+Route::post('/callback', [ServicesController::class, 'callback'])->name('callback');
+Route::post('createpayment/{id}', [TransactionController::class, 'createpayment'])->name('createpayment');

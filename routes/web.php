@@ -3,11 +3,18 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ResidentUserController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BHWController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\SitioCountController;
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\NotificationController;
+use App\Models\Statistics;
+use Spatie\Permission\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,30 +27,35 @@ use App\Http\Controllers\ServicesController;
 |
 */
 
-Route::get('/', [StatisticsController::class, 'index']);
-
-Route::middleware('guest')->group(function () {
+//guest//
+Route::middleware('web')->group(function () {
     Route::get('create', [ResidentUserController::class, 'create'])->name('create');
-    Route::post('create',[ResidentUserController::class, 'store']);
-
+    Route::post('create', [ResidentUserController::class, 'store']);
+});
+//Route::post('/callback', [ServicesController::class, 'callback'])->name('callback');
+Route::middleware(['role:User'])->group(function () {
+    Route::get('request/{docType}', [ServicesController::class, 'request'])->name('services.request');
+    Route::post('request/{docType}', [ServicesController::class, 'storerequest'])->name('services.storerequest');
+    // Route::post('payment', [ServicesController::class, 'paymentrequest'])->name('services.gcash');
+    Route::post('createpayment/{id}', [ServicesController::class, 'createpayment'])->name('services.createpayment');
+    Route::get('success', function () {
+        return view('services.success');
+    })->name('services.success');
 });
 
-
-Route::get('notifications', function () {
-    return view('auth.notifications');
-})->name('auth.notifications');
-
-Route::group(['middleware'=>'auth'],function (){
-    Route::get('welcome', function () {
-        return view('welcome');
-    })->name('welcome');
-    Route::get('notifications', function () {
-        return view('auth.notifications');
-    })->name('auth.notifications');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('landingpage', [LandingPageController::class, 'index'])->name('landingpage');
+    Route::get('searchResident', function () {
+        return view('searchResident');
+    })->name('searchResident');
+    Route::get('personalInfoUpdate', function () {
+        return view('personalInfoUpdate');
+    })->name('personalInfoUpdate');
     Route::get('profile', [RegisteredUserController::class, 'index'])->name('profile');
     Route::get('profile', [ResidentUserController::class, 'show'])->name('profile');
+    Route::get('change_password', [ProfileController::class, 'change_password'])->name('change_password');
+    Route::post('update_password', [ProfileController::class, 'update_password'])->name('update_password');
     Route::resource('bhw', \App\Http\Controllers\BHWController::class);
-    Route::get('bhw', [BHWController::class, 'index'])->name('bhw');
     Route::get('bhw', [BHWController::class, 'index'])->name('bhw');
     Route::get('bhwSearch', [BHWController::class, 'search'])->name('bhwSearch');
     Route::resource('assign', \App\Http\Controllers\SitioAssignmentController::class);
@@ -53,30 +65,39 @@ Route::group(['middleware'=>'auth'],function (){
     //Route::resource('welcome', \App\Http\Controllers\StatisticsController::class);
     Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics');
     Route::get('chartdata', [StatisticsController::class, 'index'])->name('chartdata');
-    Route::resource('services', \App\Http\Controllers\ServicesController::class); 
-    //Route::get('index', [ServicesController::class, 'index']);
-    Route::get('manage', [ServicesController::class, 'manage']);
+    Route::resource('services', \App\Http\Controllers\ServicesController::class);
+    Route::get('dashboard', [ServicesController::class, 'residentDashboard']);
+    Route::get('/direction/{id}', [ServicesController::class, 'direction'])->name('direction');
+    Route::get('/manage/{id}', [ServicesController::class, 'manage'])->name('manage');
+    Route::get('/accepted/{id}', [ServicesController::class, 'accepted'])->name('accepted');
     Route::get('generate', [ServicesController::class, 'generate']);
-    Route::get('approve', [ServicesController::class, 'approve']);
-    Route::get('deny', [ServicesController::class, 'deny']);
+    Route::get('/approve/{id}', [ServicesController::class, 'approve'])->name('approve');
+    Route::get('/pdf/viewdoc/{id}', [ServicesController::class, 'pdfGeneration'])->name('pdf.export');
+    Route::get('/deny/{id}', [ServicesController::class, 'deny'])->name('deny');
+    Route::get('/approval/{id}', [ServicesController::class, 'approval'])->name('approval');
+    Route::get('/forwarded/{id}', [ServicesController::class, 'forwarded'])->name('forwarded');
+    Route::get('/signed/{id}', [ServicesController::class, 'signed'])->name('signed');
+    Route::get('/released/{id}', [ServicesController::class, 'released'])->name('released');
     Route::get('request', [ServicesController::class, 'request']);
+    Route::get('requestSearch', [ServicesController::class, 'search'])->name('requestSearch');
+    Route::get('/view_file/{file}', [ServicesController::class, 'view_file'])->name('view_file');
     Route::resource('auth', \App\Http\Controllers\NotificationController::class);
-    Route::get('index', [NotificationController::class, 'index']);
+    Route::get('index', [NotificationController::class, 'index'])->name('notifications');
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {
     Route::resource('dashboard', \App\Http\Controllers\StatisticsController::class);
     return view('dashboard');
-})->middleware(['auth','verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('exportpdf', [StatisticsController::class, 'exportpdf'], function (){
+Route::get('exportpdf', [StatisticsController::class, 'exportpdf'], function () {
     Route::resource('exportpdf', \App\Http\Controllers\StatisticsController::class);
-    Route::post('exportpdf',[
-        'uses'=>'StatisticsController@print'
+    Route::post('exportpdf', [
+        'uses' => 'StatisticsController@print'
     ]);
     return view('exportpdf');
-})->middleware(['auth','verified'])->name('exportpdf');
+})->middleware(['auth', 'verified'])->name('exportpdf');
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

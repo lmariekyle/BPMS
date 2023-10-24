@@ -14,7 +14,8 @@ class CreateResidentsTable extends Migration
     public function up()
     {
         Schema::create('residents', function (Blueprint $table) {
-            $table->string('id')->unique();
+            $table->id('id');
+            $table->string('residentID');
 
             $table->string('firstName');
             $table->string('middleName');

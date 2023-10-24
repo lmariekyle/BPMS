@@ -15,7 +15,7 @@ class ResidentListSeeder extends Seeder
     public function run()
     {
         ResidentList::create([
-            'residentID'=>'RES-00001',
+            'residentID'=>'1',
             'houseID'=>'1'
         ]);
     }

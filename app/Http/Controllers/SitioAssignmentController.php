@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resident;
-use App\Models\ResidentList;
+use App\Models\Households;
 use App\Models\Sitio;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,9 +24,9 @@ class SitioAssignmentController extends Controller
         foreach ($bhws as $bhw) {
             $resident=Resident::where('id',$bhw->residentID)->first();
 
-            $bhw->firstname=$resident->firstName;
-            $bhw->middlename=$resident->middleName;
-            $bhw->lastname=$resident->lastName;
+            $bhw->firstName=$resident->firstName;
+            $bhw->middleName=$resident->middleName;
+            $bhw->lastName=$resident->lastName;
 
             $assignedSitio=Sitio::where('id',$bhw->assignedSitioID)->first();
             $bhw->assignedSitio=$assignedSitio->sitioName;
@@ -65,6 +65,17 @@ class SitioAssignmentController extends Controller
         
         $response = ['sitios'=>$sitios, 'success'=>true];
 
+        return $response;
+    }
+
+    public function mobileSitiosAssignment(Request $request)
+    {
+        $user = User::where('id',$request->id)->first();
+        $assignedSitio = $user->assignedSitioID;
+
+
+        $response = ['assignedSitioID' => $assignedSitio, 'success' => true];
+        
         return $response;
     }
 }
