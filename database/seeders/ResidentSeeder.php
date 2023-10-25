@@ -17,7 +17,7 @@ class ResidentSeeder extends Seeder
         //
         Resident::create([
             'id' => '1',
-            'residentID' => 'RES-0001',
+            'residentID' => 'RES-00001',
             'firstName' => 'Admin',
             'middleName' => 'PCSZ',
             'lastName' => 'Capstone',
@@ -30,7 +30,7 @@ class ResidentSeeder extends Seeder
 
         Resident::create([
             'id' => '2',
-            'residentID' => 'RES-0002',
+            'residentID' => 'RES-00002',
             'firstName' => 'Miles',
             'middleName' => 'Davis',
             'lastName' => 'Morales',
@@ -44,7 +44,7 @@ class ResidentSeeder extends Seeder
 
         Resident::create([
             'id' => '3',
-            'residentID' => 'RES-0003',
+            'residentID' => 'RES-00003',
             'firstName' => 'Gwen',
             'middleName' => 'Maxine',
             'lastName' => 'Stacy',
@@ -58,7 +58,7 @@ class ResidentSeeder extends Seeder
 
         Resident::create([
             'id' => '4',
-            'residentID' => 'RES-0004',
+            'residentID' => 'RES-00004',
             'firstName' => 'Lourdes',
             'middleName' => 'Marie',
             'lastName' => 'Kyle',
@@ -71,7 +71,7 @@ class ResidentSeeder extends Seeder
 
         Resident::create([
             'id' => '5',
-            'residentID' => 'RES-0005',
+            'residentID' => 'RES-00005',
             'firstName' => 'Weinstein',
             'middleName' => 'Tein',
             'lastName' => 'Dumlao',
@@ -84,7 +84,7 @@ class ResidentSeeder extends Seeder
 
         Resident::create([
             'id' => '6',
-            'residentID' => 'RES-0006',
+            'residentID' => 'RES-00006',
             'firstName' => 'John',
             'middleName' => 'Smith',
             'lastName' => 'Doe',
@@ -97,7 +97,7 @@ class ResidentSeeder extends Seeder
 
         Resident::create([
             'id' => '7',
-            'residentID' => 'RES-0007',
+            'residentID' => 'RES-00007',
             'firstName' => 'Peter',
             'middleName' => 'Benjamin',
             'lastName' => 'Parker',
@@ -107,6 +107,5 @@ class ResidentSeeder extends Seeder
             'gender' => 'Male',
             'maritalStatus' => 'Single',
         ]);
-
     }
 }

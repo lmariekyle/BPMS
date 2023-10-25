@@ -12,6 +12,7 @@ class Resident extends Model
 
     protected $fillable = [
         'id',
+        'residentID',
         'firstname',
         'middlename',
         'lastname',
@@ -32,11 +33,10 @@ class Resident extends Model
 
     ];
 
-    public $incrementing = false;
+    // public $incrementing = false;
 
     public function user()
     {
-        return $this->hasOne(User::class,'residentID');
+        return $this->hasOne(User::class, 'residentID');
     }
-
 }

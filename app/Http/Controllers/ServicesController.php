@@ -36,10 +36,9 @@ class ServicesController extends Controller
     public function index()
     {
         $transactions = Transaction::all();
-        if(auth()->user()->userLevel == 'Admin')
-        {
+        if (auth()->user()->userLevel == 'Admin') {
             //get all account update requests and mauh ray i show sa services . index
-        }else{
+        } else {
             foreach ($transactions as $transaction) {
                 $user = User::where('id', $transaction->userID)->first();
                 $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -57,26 +56,26 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function direction($id){
+    public function direction($id)
+    {
         $user = Auth::user()->userLevel;
         $transaction = Transaction::where('id', $id)->first();
-        if($user == 'Barangay Secretary'){
-            if($transaction->serviceStatus == 'Processing' || $transaction->serviceStatus == 'For Signature'){
+        if ($user == 'Barangay Secretary') {
+            if ($transaction->serviceStatus == 'Processing' || $transaction->serviceStatus == 'For Signature') {
                 return $this->approve($id);
-            }else{
+            } else {
                 return $this->manage($id);
             }
-        }else{
-            if($transaction->serviceStatus == 'Forwarded'){
+        } else {
+            if ($transaction->serviceStatus == 'Forwarded') {
                 return $this->approve($id);
-            }else{
+            } else {
                 return $this->manage($id);
             }
         }
-        
     }
 
-    
+
 
 
     /**
@@ -146,7 +145,7 @@ class ServicesController extends Controller
         $transaction = Transaction::where('id', $id)->first();
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
         $doc = Document::where('id', $transaction->documentID)->first();
-        return view('services.approve', compact('id', 'requestee', 'doc'));
+        return view('services.approve', compact('id', 'requestee', 'doc', 'transaction'));
     }
 
     public function dashboard()
@@ -246,58 +245,58 @@ class ServicesController extends Controller
         $user = Auth::user();
         $doctype = Document::where('id', $request->selectedDocument)->first();
 
-        if($doctype->docType == "Barangay Certificate"){
+        if ($doctype->docType == "Barangay Certificate") {
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CE']);
-        }else if($doctype->docType == "Barangay Clearance"){
+        } else if ($doctype->docType == "Barangay Clearance") {
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CL']);
-        }else{
+        } else {
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-FC']);
         }
 
-        if($doctype->docName != 'Filing of Lupon Cases'){
-        $transaction = new Transaction;
-        $transactiondetail =  $transaction->transactiondetail()->create([
-            'requesteeFName' => $request->requesteeFName,
-            'requesteeMName' => $request->requesteeMName,
-            'requesteeLName' => $request->requesteeLName,
-            'requesteeEmail' => $request->requesteeEmail,
-            'requesteeContactNumber' => $request->requesteeContactNumber,
-            'requestPurpose' => $request->requestPurpose,
-            'file' => $reqJson,
-        ]);
+        if ($doctype->docName != 'Filing of Lupon Cases') {
+            $transaction = new Transaction;
+            $transactiondetail =  $transaction->transactiondetail()->create([
+                'requesteeFName' => $request->requesteeFName,
+                'requesteeMName' => $request->requesteeMName,
+                'requesteeLName' => $request->requesteeLName,
+                'requesteeEmail' => $request->requesteeEmail,
+                'requesteeContactNumber' => $request->requesteeContactNumber,
+                'requestPurpose' => $request->requestPurpose,
+                'file' => $reqJson,
+            ]);
 
-        $transactionpayment = $transaction->transactionpayment()->create([
-            'paymentMethod' => $request->paymentMethod,
-            'accountNumber' => 'Pending',
-            'paymentStatus' => 'Pending',
-            'successURL' => NULL,
-            'failURL' =>  NULL,
-        ]);
+            $transactionpayment = $transaction->transactionpayment()->create([
+                'paymentMethod' => $request->paymentMethod,
+                'accountNumber' => 'Pending',
+                'paymentStatus' => 'Pending',
+                'successURL' => NULL,
+                'failURL' =>  NULL,
+            ]);
 
-        $transaction->issuedBy = $request->requesteeFName . ' ' . $request->requesteeLName;
-        }else{
+            $transaction->issuedBy = $request->requesteeFName . ' ' . $request->requesteeLName;
+        } else {
             $complain = Complain::create([
                 'complaintFName' => $request->complaintFName,
-                'complaintMName'=>$request->complaintMName,
-                'complaintLName'=>$request->complaintLName,
-                'complaintEmail'=>$request->complaintEmail,
-                'complaintContactNumber'=>$request->complaintContactNumber,
-                'complaineeFName'=>$request->complaineeFName,
-                'complaineeMName'=>$request->complaineeMName,
-                'complaineeLName'=>$request->complaineeLName,
-                'complaineeSitio'=>$request->complaineeSitio,
-                'requestPurpose'=>$request->requestPurpose,
+                'complaintMName' => $request->complaintMName,
+                'complaintLName' => $request->complaintLName,
+                'complaintEmail' => $request->complaintEmail,
+                'complaintContactNumber' => $request->complaintContactNumber,
+                'complaineeFName' => $request->complaineeFName,
+                'complaineeMName' => $request->complaineeMName,
+                'complaineeLName' => $request->complaineeLName,
+                'complaineeSitio' => $request->complaineeSitio,
+                'requestPurpose' => $request->requestPurpose,
             ]);
 
             $transaction = new Transaction;
             $transactiondetail =  $transaction->transactiondetail()->create([
-            'requesteeFName' => $request->complaintFName,
-            'requesteeMName' => $request->complaintMName,
-            'requesteeLName' => $request->complaintLName,
-            'requesteeEmail' => $request->complaintEmail,
-            'requesteeContactNumber' => $request->complaintContactNumber,
-            'requestPurpose' => $request->requestPurpose,
-            'file' => NULL,
+                'requesteeFName' => $request->complaintFName,
+                'requesteeMName' => $request->complaintMName,
+                'requesteeLName' => $request->complaintLName,
+                'requesteeEmail' => $request->complaintEmail,
+                'requesteeContactNumber' => $request->complaintContactNumber,
+                'requestPurpose' => $request->requestPurpose,
+                'file' => NULL,
             ]);
 
             $transactionpayment = $transaction->transactionpayment()->create([
@@ -309,9 +308,8 @@ class ServicesController extends Controller
             ]);
 
             $transaction->issuedBy = $request->complaintFName . ' ' . $request->complaintLName;
-
         }
-        
+
         $transactionPaymentId = $transactionpayment->id;
         $transactionDetailId = $transactiondetail->id;
         $transaction->detailID = $transactionDetailId;
@@ -329,7 +327,7 @@ class ServicesController extends Controller
         $notifyUsers = User::where('userLevel', 'Barangay Secretary')->get();
 
         Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
-        
+
 
         if ($request->paymentMethod == 'GCASH') {
             $payment = Payment::where('id', $transactionPaymentId)->first();
@@ -467,7 +465,8 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function forwarded($id){
+    public function forwarded($id)
+    {
         $transaction = Transaction::where('id', $id)->first();
         $user = Auth::user()->residentID;
         $resident = Resident::where('id', $user)->first();
@@ -482,14 +481,14 @@ class ServicesController extends Controller
 
         Notification::sendNow($notifyUsers, new ProcessingNotification($transaction));
         Notification::sendNow($notifyCap, new SignatureNotification($transaction));
-        
+
         $transactions = Transaction::all();
-        foreach ($transactions as $transaction){
+        foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
             $newtime = strtotime($transaction->created_at);
-            $transaction->createdDate = date('M d, Y',$newtime);
+            $transaction->createdDate = date('M d, Y', $newtime);
         }
         return view('services.index', compact('transactions'));
     }
@@ -500,23 +499,44 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function approval($id){
-        $transaction = Transaction::where('id', $id)->first();
-        $user = Auth::user()->residentID;
-        $resident = Resident::where('id', $user)->first();
-        $transaction->fill([
-            'serviceStatus' => 'For Signature',
-            'issuedBy' => $resident->firstName . ' ' . $resident->lastName,
-        ]);
-        $transaction->save();
+    public function approval(Request $request, $id)
+    {
+        if ($request->status == 1) {
+            $transaction = Transaction::where('id', $id)->first();
+            $user = Auth::user()->residentID;
+            $resident = Resident::where('id', $user)->first();
+            $transaction->fill([
+                'serviceStatus' => 'For Signature',
+                'issuedBy' => $resident->firstName . ' ' . $resident->lastName,
+            ]);
+            $transaction->save();
 
-        $transactions = Transaction::all();
-        foreach ($transactions as $transaction) {
-            $user = User::where('id', $transaction->userID)->first();
-            $transaction->resident = Resident::where('id', $user->residentID)->first();
-            $transaction->document = Document::where('id', $transaction->documentID)->first();
-            $newtime = strtotime($transaction->created_at);
-            $transaction->createdDate = date('M d, Y', $newtime);
+            $transactions = Transaction::all();
+            foreach ($transactions as $transaction) {
+                $user = User::where('id', $transaction->userID)->first();
+                $transaction->resident = Resident::where('id', $user->residentID)->first();
+                $transaction->document = Document::where('id', $transaction->documentID)->first();
+                $newtime = strtotime($transaction->created_at);
+                $transaction->createdDate = date('M d, Y', $newtime);
+            }
+        } else {
+            $transaction = Transaction::where('id', $id)->first();
+            $user = Auth::user()->residentID;
+            $resident = Resident::where('id', $user)->first();
+            $transaction->fill([
+                'serviceStatus' => 'Denied',
+                'issuedBy' => $resident->firstName . ' ' . $resident->lastName,
+            ]);
+            $transaction->save();
+
+            $transactions = Transaction::all();
+            foreach ($transactions as $transaction) {
+                $user = User::where('id', $transaction->userID)->first();
+                $transaction->resident = Resident::where('id', $user->residentID)->first();
+                $transaction->document = Document::where('id', $transaction->documentID)->first();
+                $newtime = strtotime($transaction->created_at);
+                $transaction->createdDate = date('M d, Y', $newtime);
+            }
         }
         return view('services.index', compact('transactions'));
     }
@@ -543,19 +563,20 @@ class ServicesController extends Controller
 
 
         $transactions = Transaction::all();
-        foreach ($transactions as $transaction){
+        foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
             $newtime = strtotime($transaction->created_at);
-            $transaction->createdDate = date('M d, Y',$newtime);
+            $transaction->createdDate = date('M d, Y', $newtime);
         }
         return view('services.index', compact('transactions'));
     }
 
-  
 
-    public function signed($id){
+
+    public function signed($id)
+    {
         $transaction = Transaction::where('id', $id)->first();
         $user = Auth::user()->residentID;
         $resident = Resident::where('id', $user)->first();
@@ -569,17 +590,18 @@ class ServicesController extends Controller
         Notification::sendNow($notifyUsers, new SignedNotification($transaction));
 
         $transactions = Transaction::all();
-        foreach ($transactions as $transaction){
+        foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
             $newtime = strtotime($transaction->created_at);
-            $transaction->createdDate = date('M d, Y',$newtime);
+            $transaction->createdDate = date('M d, Y', $newtime);
         }
         return view('services.index', compact('transactions'));
     }
 
-    public function released($id){
+    public function released($id)
+    {
         $transaction = Transaction::where('id', $id)->first();
         $user = Auth::user()->residentID;
         $resident = Resident::where('id', $user)->first();
@@ -592,12 +614,12 @@ class ServicesController extends Controller
         Notification::sendNow($notifyUsers, new ReleasedNotification($transaction));
 
         $transactions = Transaction::all();
-        foreach ($transactions as $transaction){
+        foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
             $newtime = strtotime($transaction->created_at);
-            $transaction->createdDate = date('M d, Y',$newtime);
+            $transaction->createdDate = date('M d, Y', $newtime);
         }
         return view('services.index', compact('transactions'));
     }

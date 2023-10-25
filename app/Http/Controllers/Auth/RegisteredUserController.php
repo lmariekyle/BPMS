@@ -33,16 +33,16 @@ class RegisteredUserController extends Controller
     public function index()
     {
         $id = Auth::id();
-        $user=User::where('id',$id)->first();
-        $personalInfo=Resident::where('id',$user->residentID)->first();
-        $sitio=Sitio::where('id',$user->sitioID)->first();
-        $barangay=Barangay::where('id',$sitio->barangayID)->first();
-        $personalInfo->sitio=$sitio->sitioName;
-        $personalInfo->barangay=$barangay->barangayName;
+        $user = User::where('id', $id)->first();
+        $personalInfo = Resident::where('id', $user->residentID)->first();
+        $sitio = Sitio::where('id', $user->sitioID)->first();
+        $barangay = Barangay::where('id', $sitio->barangayID)->first();
+        $personalInfo->sitio = $sitio->sitioName;
+        $personalInfo->barangay = $barangay->barangayName;
 
-        return view('auth.profile',compact('user','personalInfo'));
+        return view('auth.profile', compact('user', 'personalInfo'));
     }
-    
+
     /**
      * Display the registration view.
      *
@@ -51,9 +51,8 @@ class RegisteredUserController extends Controller
     public function create()
     {
         $roles = Role::where('id', '<', 4)->paginate(5);
-        $sitios = Sitio::where('barangayID','2')->get();
-        return view('auth.register',compact('roles','sitios'));
-    
+        $sitios = Sitio::where('barangayID', '2')->get();
+        return view('auth.register', compact('roles', 'sitios'));
     }
 
     /**
@@ -68,28 +67,28 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'profileImage' => ['image','mimes:jpeg,png,jpg,gif,svg','max:2048'],
+            'password' => ['required', 'confirmed'],
+            'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
         ]);
-        
- 
 
-        $residentId = IdGenerator::generate(['table' => 'residents','field'=>'id', 'length' => 9, 'prefix' =>'RES-']);
-        
+
+
+        $residentId = IdGenerator::generate(['table' => 'residents', 'field' => 'residentID', 'length' => 9, 'prefix' => 'RES-']);
+
         // $image_name = time().'.'.$request->profileImage->extension();
         // $request->profileImage->move(public_path('users'),$image_name);
         // $path="users/".$image_name;
 
-        if ($request->hasFile('profileImage')){
-            $image_name = time().'.'.$request->profileImage->getClientOriginalExtension();
-            $request->profileImage->move(public_path('users'),$image_name);
-            $path="users/".$image_name;
-        }else{
-            $path="users/default.jpg";
+        if ($request->hasFile('profileImage')) {
+            $image_name = time() . '.' . $request->profileImage->getClientOriginalExtension();
+            $request->profileImage->move(public_path('users'), $image_name);
+            $path = "users/" . $image_name;
+        } else {
+            $path = "users/default.jpg";
         }
 
         $resident = Resident::create([
-            'id'=> $residentId,
+            'residentID' => $residentId,
             'firstname' => $request->firstname,
             'middlename' => $request->middlename,
             'lastname' => $request->lastname,
@@ -98,17 +97,19 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
         ]);
 
-        if($request->userlevel == "Barangay Captain"){
-            $userId = IdGenerator::generate(['table' => 'users','field'=>'idNumber', 'length' => 6, 'prefix' =>'C-']);
-        }else if($request->userlevel == "Barangay Secretary"){
-            $userId = IdGenerator::generate(['table' => 'users','field'=>'idNumber', 'length' => 6, 'prefix' =>'S-']);
-        }else if($request->userlevel == "Barangay Health Worker"){
-            $userId = IdGenerator::generate(['table' => 'users','field'=>'idNumber', 'length' => 6, 'prefix' =>'B-']);
-        }else{
-            $userId = IdGenerator::generate(['table' => 'users','field'=>'idNumber', 'length' => 6, 'prefix' =>date('y')]);
+        if ($request->userlevel == "Barangay Captain") {
+            $userId = IdGenerator::generate(['table' => 'users', 'field' => 'idNumber', 'length' => 6, 'prefix' => 'C-']);
+        } else if ($request->userlevel == "Barangay Secretary") {
+            $userId = IdGenerator::generate(['table' => 'users', 'field' => 'idNumber', 'length' => 6, 'prefix' => 'S-']);
+        } else if ($request->userlevel == "Barangay Health Worker") {
+            $userId = IdGenerator::generate(['table' => 'users', 'field' => 'idNumber', 'length' => 6, 'prefix' => 'B-']);
+        } else {
+            $userId = IdGenerator::generate(['table' => 'users', 'field' => 'idNumber', 'length' => 6, 'prefix' => date('y')]);
         };
 
+
         $resident->user()->create([
+            'residentID' => $resident->id,
             'idNumber' => $userId,
             'profileImage' => $path,
             'userlevel' => $request->userlevel,
@@ -121,10 +122,10 @@ class RegisteredUserController extends Controller
         $resident->user->assignRole($request->userlevel);
 
 
-        event(new Registered($resident->user));
+        // event(new Registered($resident->user));
 
         // Auth::login($user);
         Mail::to($request->email)->send(new AccountMail($resident->user));
-        return Redirect::back()->with('success','Email for registration has been sent!');
+        return Redirect::back()->with('success', 'Email for registration has been sent!');
     }
 }

@@ -41,8 +41,6 @@ class CreateUsersTable extends Migration
             $table->string('permissionToken')->unique()->nullable();
             $table->rememberToken();
             $table->timestamps();
-
-            
         });
     }
 

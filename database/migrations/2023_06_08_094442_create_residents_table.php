@@ -41,7 +41,7 @@ class CreateResidentsTable extends Migration
             $table->date('dateOfDeath')->nullable();
 
             $table->string('supportingDocument')->nullable(); /*filePath*/
-            
+
             $table->string('createdBy')->nullable();;
             $table->string('revisedBy')->nullable();;
             $table->timestamps();

@@ -106,16 +106,14 @@
             <div class="ml-10 mt-12">
                 <div class="ml-40 h-[172px]" style="height: 172px;">
                     <p class="font-robotocondensed text-[32px] font-bold text-deep-green ml-8 flex" style="font-size: 32px;">Uploaded Documents</p>
-                    @if($transaction->document['docName'] != 'Filing of Lupon Cases')
-                    @foreach($filePaths as $file)
+                    @forelse($filePaths as $file)
                     <div class="flex flex-col justify-start px-2 py-2 w-[100px]">
                         <p class="font-poppins text-[18px]">{{$file}}</p>
                         <a href="{{ route('view_file', $file) }}" class="bg-olive-green text-dirty-white text-center px-1 py-1">VIEW</a>
                     </div>
-                    @endforeach
-                    @else
+                    @empty
                     <p class="font-poppins text-[18px] mt-3 ml-10 font-semibold">No Uploaded Documents</p>
-                    @endif
+                    @endforelse
                 </div>
                 <div class="ml-24 mt-12" style="margin-left: 92px;">
                     <div class="font-robotocondensed font-bold text-[32px] text-deep-green" style="font-size: 32px;">
@@ -134,28 +132,28 @@
             </div>
         </div>
         @role('Barangay Secretary')
-            @if ($transaction->serviceStatus == 'Pending')
-                <div class="justify-center flex flex-row mt-14">
-                    <form method="GET" action="{{ route('accepted', $transaction->id) }}">
-                        @if($transaction->approval != 1)
-                            <button type="submit" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-dirty-white bg-deep-green px-4 py-2" style="width: 400px; font-size: 32px;" disabled>Approve Request </button>
-                        @else
-                            <button type="submit" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-dirty-white bg-deep-green px-4 py-2" style="width: 400px; font-size: 32px;">Approve Request </button>
-                        @endif
-                    </form>
-                    <form method="GET" action="{{ route('deny', $transaction->id) }}">
-                        <button type="submit" class="text-center w-[400px] ml-8 font-robotocondensed font-bold text-[32px] text-dirty-white px-4 py-2" style="width: 400px; font-size: 32px; background-color: #D86F4D;">Deny Request</button>
-                    </form>
-                </div>
-            @elseif ($transaction->serviceStatus == 'Signed')   
-                <div class="justify-center flex flex-row mt-14">
-                    <form method="GET" action="{{ route('released', $transaction->id) }}">
-                        <button type="submit" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-dirty-white bg-deep-green px-4 py-2" style="width: 400px; font-size: 32px;">Confirm Pickup</button>
-                    </form>
-                </div>
-            @endif
+        @if ($transaction->serviceStatus == 'Pending')
+        <div class="justify-center flex flex-row mt-14">
+            <form method="GET" action="{{ route('accepted', $transaction->id) }}">
+                @if($transaction->approval != 1)
+                <button type="submit" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-dirty-white bg-deep-green px-4 py-2" style="width: 400px; font-size: 32px;" disabled>Approve Request </button>
+                @else
+                <button type="submit" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-dirty-white bg-deep-green px-4 py-2" style="width: 400px; font-size: 32px;">Approve Request </button>
+                @endif
+            </form>
+            <form method="GET" action="{{ route('deny', $transaction->id) }}">
+                <button type="submit" class="text-center w-[400px] ml-8 font-robotocondensed font-bold text-[32px] text-dirty-white px-4 py-2" style="width: 400px; font-size: 32px; background-color: #D86F4D;">Deny Request</button>
+            </form>
+        </div>
+        @elseif ($transaction->serviceStatus == 'Signed')
+        <div class="justify-center flex flex-row mt-14">
+            <form method="GET" action="{{ route('released', $transaction->id) }}">
+                <button type="submit" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-dirty-white bg-deep-green px-4 py-2" style="width: 400px; font-size: 32px;">Confirm Pickup</button>
+            </form>
+        </div>
+        @endif
         @endrole
-        
+
     </div>
 </x-app-layout>
 @endhasanyrole

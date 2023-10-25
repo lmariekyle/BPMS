@@ -81,8 +81,8 @@ class BHWSeeder extends Seeder
 
         //PETER//
         ResidentList::create([
-            'residentID'=>'4',
-            'houseID'=>'3'
+            'residentID' => '4',
+            'houseID' => '3'
         ]);
         User::create([
             'residentID' => '4',
