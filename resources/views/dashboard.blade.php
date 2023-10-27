@@ -102,16 +102,31 @@
                                 </h1>
                             </div>
                             @if (($request->sitio || $request->gender || $request->ageclass) && $totalResidentCount>0)
-                            <div class="w-[500px] l-[500px] mt-2 mx-auto" id="residentPiechart" style=""></div>
+                            <div class="w-[525px] h-[300px] mt-2 mx-auto" id="residentPiechart" style=""></div>
                             <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
-                            <div class="hide bg-green py-2 px-2 rounded-xl self-end mt-[15rem] mr-8">
-                                <p class="text-xs font-robotocondensed w-80 text-justify text-dirty-white">
+                            <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end mt-[15rem] mr-8">
+                                <div class="mb-2 w-80 text-justify">
+                                    <p class="py-2 text-xl">LEGEND</p>
+                                    Gender:
+                                    <br>
+                                    - ( M ) Male
+                                    <br>
+                                    - ( F ) Female
+                                    <br><br>
+                                    Age Classification:
+                                    <br>
+                                    @foreach ($ageClassification as $age)
+                                    <p>- {{ $age->ageGroup }} Years</p>
+                                    @endforeach
+                                    </div>
+                                <hr>
+                                <p class="mt-2 w-80 text-justify">
                                     Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
                                     the Sitio, that means there are currently 0 Residents there.
                                 </p>
                             </div>
                             @else
-                            <div class="w-[300px] l-[300px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyPiechart" style=""></div>
+                            <div class="w-[525px] h-[300px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyPiechart" style=""></div>
                             @endif
                         </div>
 
@@ -129,24 +144,24 @@
                             </div>
                             <div class="">
                                 @if(isset($request->gender) || isset($request->ageclass) && $totalHouseholdCount>0)
-                                @if ($request->gender=="NULL" && $request->ageclass=="NULL" && $totalHouseholdCount>0)
-                                <div class="w-[500px] l-[500px] mt-2 mx-auto" id="householdPiechart"></div>
-                                <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
-                                <div class="hide bg-green py-2 px-2 rounded-xl self-end mt-[15rem] mr-8">
-                                    <p class="text-xs font-robotocondensed w-80 text-justify text-dirty-white">
-                                        Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
-                                        the Sitio, that means there are currently 0 Households there.
-                                    </p>
-                                </div>
-                                @else
-                                <div class="w-[250px] h-[80px] mt-16 px-2 flex items-center justify-center">
-                                    <p class="text-xs font-robotocondensed w-80 text-center text-dirty-white">
+                                    @if($request->gender=="NULL" && $request->ageclass=="NULL")
+                                    <div class="w-[525px] h-[300px] mt-2 mx-auto" id="householdPiechart"></div>
+                                    <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
+                                    <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end ml-8 w-80 text-justify">
+                                        <p class="py-1">
+                                            Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
+                                            the Sitio, that means there are currently 0 Households there.
+                                        </p>
+                                    </div>
+                                    @else
+                                    <div class="w-[525px] h-[324px] mt-2 px-2 flex items-center justify-center">
+                                        <p class="text-xl font-robotocondensed w-80 text-center text-deep-green">
                                         Since Age/Gender filters are applied or there are no Households present in the Sitio, Household Information is unavailable.
-                                    </p>
-                                </div>
-                                @endif
+                                        </p>
+                                    </div>
+                                    @endif
                                 @else
-                                <div class="w-[300px] l-[300px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyTwochart"></div>
+                                    <div class="w-[525px] h-[300px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyTwochart"></div>
                                 @endif
                             </div>
                         </div>
@@ -172,7 +187,7 @@
                                 <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS AS OF {{ date("Y") }}</p>
                             </div>
                             <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                                <p class="font-roboto m-auto text-center font-black text-8xl text-dirty-white">
+                                <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
                                     @if ($totalHouseholdCount>0)
                                     {{ $totalHouseholdCount }}
                                     @else

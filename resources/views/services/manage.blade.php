@@ -76,8 +76,8 @@
             {{ __('Barangay Health Workers') }}
         </h2>
     </x-slot>
-
-    <div class="w-[1400px] h-[813px] ml-8 mt-16 px-5 py-5 rounded-lg border-2" style="border-color: black;">
+    
+    <div class="w-[1400px] h-[813px] ml-8 mt-16 px-5 py-5 rounded-lg border-2 border-black" style="border-color: black;">
         <div class="flex flex-row">
             <div>
                 <div class="flex flex-row ml-10 mt-12">

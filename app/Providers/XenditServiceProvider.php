@@ -14,7 +14,7 @@ class XenditServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Configuration::setXenditKey('xnd_development_6AFxxJiXEQTOK5912UFuvRYDDQxQQkn7PcPEVn7ovbIPGaYWAqza1WkhVTgiR');
+        //Configuration::setXenditKey('xnd_development_6AFxxJiXEQTOK5912UFuvRYDDQxQQkn7PcPEVn7ovbIPGaYWAqza1WkhVTgiR');
     }
 
     /**
