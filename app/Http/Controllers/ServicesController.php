@@ -37,7 +37,7 @@ class ServicesController extends Controller
     public function index()
     {
         $transactions = Transaction::all();
-        $account = AccountInfoChange::all();
+        $accounts = AccountInfoChange::all();
 
         foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
@@ -46,7 +46,7 @@ class ServicesController extends Controller
             $newtime = strtotime($transaction->created_at);
             $transaction->createdDate = date('M d, Y', $newtime);
         }
-        return view('services.index', compact('transactions', 'account'));
+        return view('services.index', compact('transactions', 'accounts'));
     }
 
     /**
@@ -250,11 +250,11 @@ class ServicesController extends Controller
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CE']);
         } else if ($doctype->docType == "Barangay Clearance") {
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CL']);
-        } else {
+        } else if ($doctype->docType == "Filing of Lupon Cases") {
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-FC']);
         }
 
-        if ($doctype->docName != 'Filing of Lupon Cases') {
+        if ($doctype->docName != 'Filing of Lupon Cases' && $doctype->docName != 'Account Information Change') {
             $transaction = new Transaction;
             $transactiondetail =  $transaction->transactiondetail()->create([
                 'requesteeFName' => $request->requesteeFName,
@@ -275,7 +275,7 @@ class ServicesController extends Controller
             ]);
 
             $transaction->issuedBy = $request->requesteeFName . ' ' . $request->requesteeLName;
-        } else {
+        } else if ($doctype->docType == "Filing of Lupon Cases") {
             $complain = Complain::create([
                 'complaintFName' => $request->complaintFName,
                 'complaintMName' => $request->complaintMName,
@@ -288,6 +288,7 @@ class ServicesController extends Controller
                 'complaineeSitio' => $request->complaineeSitio,
                 'requestPurpose' => $request->requestPurpose,
             ]);
+
 
             $transaction = new Transaction;
             $transactiondetail =  $transaction->transactiondetail()->create([
@@ -309,25 +310,37 @@ class ServicesController extends Controller
             ]);
 
             $transaction->issuedBy = $request->complaintFName . ' ' . $request->complaintLName;
+        } else if ($doctype->docType == "Account Information Change") {
+            $account = AccountInfoChange::create([
+                'userID' => $request->requestee,
+                'selectedInformation' => $request->selectedInformation,
+                'requesteeOldInformation' => $request->requesteeOldInformation,
+                'requesteeNewInformation' => $request->requesteeNewInformation,
+                'requestPurpose' => $request->requestPurpose,
+                'file' => $reqJson,
+                'status' => 'PENDING',
+            ]);
         }
 
-        $transactionPaymentId = $transactionpayment->id;
-        $transactionDetailId = $transactiondetail->id;
-        $transaction->detailID = $transactionDetailId;
-        $transaction->userID = $user->id;
-        $transaction->paymentID = $transactionPaymentId;
-        $transaction->documentID = $doctype->id;
-        $transaction->serviceAmount = $request->docfee;
-        $transaction->serviceStatus = 'Pending';
-        $transaction->docNumber = $docId;
-        $transaction->paymentMethod = $request->paymentMethod;
-        $transaction->issuedDocument = $request->selectedDocument;
-        $transaction->issuedOn = today();
-        $transaction->save();
+        if ($doctype->docName != 'Account Information Change') {
+            $transactionPaymentId = $transactionpayment->id;
+            $transactionDetailId = $transactiondetail->id;
+            $transaction->detailID = $transactionDetailId;
+            $transaction->userID = $user->id;
+            $transaction->paymentID = $transactionPaymentId;
+            $transaction->documentID = $doctype->id;
+            $transaction->serviceAmount = $request->docfee;
+            $transaction->serviceStatus = 'Pending';
+            $transaction->docNumber = $docId;
+            $transaction->paymentMethod = $request->paymentMethod;
+            $transaction->issuedDocument = $request->selectedDocument;
+            $transaction->issuedOn = today();
+            $transaction->save();
 
-        $notifyUsers = User::where('userLevel', 'Barangay Secretary')->get();
+            $notifyUsers = User::where('userLevel', 'Barangay Secretary')->get();
 
-        Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
+            Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
+        }
 
 
         if ($request->paymentMethod == 'GCASH') {
