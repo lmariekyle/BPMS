@@ -37,9 +37,8 @@
         <div class="bg-dirty-white w-[1400px] h-max absolute mt-20 -ml-5 border shadow-inner">
             <!--TABLE HEADER-->
             <div class="bg-green w-[1400px] h-[48px] absolute flex flex-row border border-white shadow-lg">
-                <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-6">REQUEST ID</p>
-                <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-20">REQUEST TYPE</p>
-                <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-40">REQUEST DATE</p>
+                <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-6">ID</p>
+                <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-20">SELECTED INFORMATION</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">REQUESTED BY</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">REQUEST STATUS</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-44">ACTION</p>

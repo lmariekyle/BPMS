@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccountInfoChange;
 use App\Models\Complain;
 use App\Models\Document;
 use App\Models\DocumentDetails;
@@ -36,18 +37,16 @@ class ServicesController extends Controller
     public function index()
     {
         $transactions = Transaction::all();
-        if (auth()->user()->userLevel == 'Admin') {
-            //get all account update requests and mauh ray i show sa services . index
-        } else {
-            foreach ($transactions as $transaction) {
-                $user = User::where('id', $transaction->userID)->first();
-                $transaction->resident = Resident::where('id', $user->residentID)->first();
-                $transaction->document = Document::where('id', $transaction->documentID)->first();
-                $newtime = strtotime($transaction->created_at);
-                $transaction->createdDate = date('M d, Y', $newtime);
-            }
+        $account = AccountInfoChange::all();
+
+        foreach ($transactions as $transaction) {
+            $user = User::where('id', $transaction->userID)->first();
+            $transaction->resident = Resident::where('id', $user->residentID)->first();
+            $transaction->document = Document::where('id', $transaction->documentID)->first();
+            $newtime = strtotime($transaction->created_at);
+            $transaction->createdDate = date('M d, Y', $newtime);
         }
-        return view('services.index', compact('transactions'));
+        return view('services.index', compact('transactions', 'account'));
     }
 
     /**
@@ -164,6 +163,8 @@ class ServicesController extends Controller
             $doctypename = 'BARANGAY CLEARANCE';
         } elseif ($docType == 'File Complain') {
             $doctypename = 'FILE COMPLAIN';
+        } elseif ($docType == 'Account Information Change') {
+            $doctypename = 'ACCOUNT INFORMATION CHANGE';
         }
         $documents = Document::where('docType', $docType)->get();
         return view('services.request', compact('documents', 'doctypename', 'user'));

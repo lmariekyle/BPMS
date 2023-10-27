@@ -19,12 +19,12 @@
                 <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 ml-[30rem]">
                     <a href="{{ route('services.index') }}" class="font-robotocondensed text-[40px] text-dirty-white text-center">MANAGE REQUESTS</a>
                 </div>
-    
+
                 <!-- Authentication -->
                 <div class="bg-green h-[40px] w-[140px] text-center ml-[40rem] mt-[3rem]">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-    
+
                         <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
                                             this.closest('form').submit();">
                             {{ __('LOGOUT') }}
@@ -258,7 +258,7 @@
                         <li>Supporting Documents that will validate the requested change</li>
                     </ul>
                     <div class="mt-[8rem]">
-                        <a href="{{ route('services.request', ['docType' => 'Barangay Clearance']) }}" class="px-3 py-2 bg-deep-green text-dirty-white font-medium">REQUEST PERSONAL INFORMATION CHANGE</a>
+                        <a href="{{ route('services.request', ['docType' => 'Account Information Change']) }}" class="px-3 py-2 bg-deep-green text-dirty-white font-medium">REQUEST PERSONAL INFORMATION CHANGE</a>
                     </div>
                 </div>
             </div>
