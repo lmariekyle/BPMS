@@ -47,13 +47,13 @@
             <!--DISPLAY ONLY PLS CHANGE WHEN CODING WITH THE ACTUAL DATABASE-->
             <table class="mt-10">
                 <tbody>
-
+                    @foreach($accounts as $account)
                     <tr class="border shadow-md">
                         <td class="px-6 py-4 w-[295px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 225px">
-                            0001
+                            {{$account->id}}
                         </td>
                         <td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 360px">
-                            BARANGAY CERTIFICATE
+                            {{$account->requestee}}
                         </td>
                         <td class="px-6 py-4 w-[490px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 348px">
                             11-11-22

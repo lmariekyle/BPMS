@@ -118,7 +118,7 @@
                                     @foreach ($ageClassification as $age)
                                     <p>- {{ $age->ageGroup }} Years</p>
                                     @endforeach
-                                    </div>
+                                </div>
                                 <hr>
                                 <p class="mt-2 w-80 text-justify">
                                     Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
@@ -144,24 +144,24 @@
                             </div>
                             <div class="">
                                 @if(isset($request->gender) || isset($request->ageclass) && $totalHouseholdCount>0)
-                                    @if($request->gender=="NULL" && $request->ageclass=="NULL")
-                                    <div class="w-[525px] h-[300px] mt-2 mx-auto" id="householdPiechart"></div>
-                                    <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
-                                    <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end ml-8 w-80 text-justify">
-                                        <p class="py-1">
-                                            Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
-                                            the Sitio, that means there are currently 0 Households there.
-                                        </p>
-                                    </div>
-                                    @else
-                                    <div class="w-[525px] h-[324px] mt-2 px-2 flex items-center justify-center">
-                                        <p class="text-xl font-robotocondensed w-80 text-center text-deep-green">
-                                        Since Age/Gender filters are applied or there are no Households present in the Sitio, Household Information is unavailable.
-                                        </p>
-                                    </div>
-                                    @endif
+                                @if($request->gender=="NULL" && $request->ageclass=="NULL")
+                                <div class="w-[525px] h-[300px] mt-2 mx-auto" id="householdPiechart"></div>
+                                <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
+                                <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end ml-8 w-80 text-justify">
+                                    <p class="py-1">
+                                        Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
+                                        the Sitio, that means there are currently 0 Households there.
+                                    </p>
+                                </div>
                                 @else
-                                    <div class="w-[525px] h-[300px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyTwochart"></div>
+                                <div class="w-[525px] h-[324px] mt-2 px-2 flex items-center justify-center">
+                                    <p class="text-xl font-robotocondensed w-80 text-center text-deep-green">
+                                        Since Age/Gender filters are applied or there are no Households present in the Sitio, Household Information is unavailable.
+                                    </p>
+                                </div>
+                                @endif
+                                @else
+                                <div class="w-[525px] h-[300px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyTwochart"></div>
                                 @endif
                             </div>
                         </div>

@@ -15,10 +15,10 @@ class CreateAccountInfoChangesTable extends Migration
     {
         Schema::create('account_info_changes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('userID')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
 
             $table->string('selectedInformation');
-            $table->string('requestee');
             $table->string('requesteeOldInformation');
             $table->string('requesteeNewInformation');
             $table->string('requestPurpose');
