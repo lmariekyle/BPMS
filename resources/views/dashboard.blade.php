@@ -69,16 +69,19 @@
                                 @endforeach
                             </select>
                         </div>
-
-                        <button class="float-left mt-12" type="submit"><i class="fa-solid fa-filter text-deep-green text-[28px] self-end ml-[28rem]"></i></button>
+                        <div class="w-[30px] h-[30px] float-left mt-8 ml-[28rem]">
+                            <button class="" type="submit"><i class="fa-solid fa-filter text-deep-green text-[28px] self-end"></i></button>
+                        </div>
                     </form>
                     <form class="flex flex-row" action="{{ route('exportpdf') }}" method="GET">
                         <input name="sitio" type="hidden" value="{{$request->sitio}}"></input>
                         <input name="gender" type="hidden" value="{{$request->gender}}"></input>
                         <input name="ageclass" type="hidden" value="{{$request->ageclass}}"></input>
-                        <button type="submit" class="mt-12 ml-10">
-                            <i class="fa-solid fa-print text-deep-green text-[28px]"></i>
-                        </button>
+                        <div class="w-[30px] h-[30px] mt-8">
+                            <button type="submit" class="">
+                                <i class="fa-solid fa-print text-deep-green text-[28px]"></i>
+                            </button>
+                        </div>
                     </form>
                 </div>
 

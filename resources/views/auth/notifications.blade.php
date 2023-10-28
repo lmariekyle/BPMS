@@ -18,8 +18,8 @@
             <div class="overflow-y-scroll max-h-[630px] h-[630px] bg-stone-200 border-2 border-stone-500">
                 @forelse($notifications as $notification)
                     <div class="flex flex-row h-[108px] border-1 border-stone-500">
-                        <div class="float-left w-[900px] pl-4 py-2">
-                            <p class="font-bold text-2xl">{{ $notification->data['type'] }} Notification (NOTIFICATION #{{ $notification->id }})</p>
+                        <div class="float-left w-[900px] pl-4 py-2 pr-2">
+                            <p class="font-bold text-[22px]">{{ $notification->data['type'] }} Notification (NOTIFICATION #{{ $notification->id }})</p>
                             <div class="inline">
                                 @if($notification->data['type'] == 'Transaction')
                                 <div class="text-xl">
@@ -74,13 +74,13 @@
                         }
                     </script>
                 @empty
-                    <p class="text-xs font-robotocondensed w-80 text-justify">
-                        <br>
-                        NO NOTIFICATION
-                        <br>
-                        <br>
-                        <hr>
-                    </p>
+                    <div class="py-8">
+                        <hr class="h-2 mt-4 w-[315px] ml-[388px] bg-stone-700 border-0">
+                        <p class="mt-4 text-4xl ml-[395px] font-robotocondensed w-80 text-justify">
+                            NOTHING HERE TO SEE
+                        </p>
+                        <hr class="h-2 mt-4 w-[315px] ml-[388px] bg-stone-700 border-0">
+                    </div>
                 @endforelse
             </div>
         </div>

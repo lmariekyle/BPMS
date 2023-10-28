@@ -40,7 +40,7 @@
                                             replace the rest of the text with [...]-->
                                 <hr class="h-px bg-stone-500 border-0">
                                 @empty
-                                <p class="text-xs font-robotocondensed w-80 text-justify">
+                                <p class="text-base ml-4 font-robotocondensed w-80 text-justify">
                                     <br>
                                     NO NEW NOTIFICATIONS
                                     <br>

@@ -40,7 +40,7 @@
                 @if($request->sitio != "NULL")
                 {{ $request->sitio }}
                 @else
-                --
+                ALL 
                 @endif
         </h3>
         <h3>
@@ -51,10 +51,10 @@
                     @elseif($request->gender == "F")
                         Female
                     @else
-                        --
+                        ALL
                     @endif
                 @else
-                --
+                ALL
                 @endif
         </h3>
         <h3>
@@ -62,7 +62,7 @@
                 @if($request->ageclass != "NULL")
                 {{ $request->ageclass }}
                 @else
-                --
+                ALL
                 @endif
         </h3>
         <h2>Total Residents:
@@ -133,7 +133,6 @@
     
     @else
         <h2>No options were selected and applied on the previous page. Please go back and try again.</h2>
-        <h3>LOSER</h3>
     @endif
 </body>
 </html>
