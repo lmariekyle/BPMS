@@ -9,26 +9,25 @@
     <div class="py-1 mt-[8rem] flex flex-col justify-center bg-dirty-white">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @role('Admin')
-            <div class="absolute px-5 py-5 flex flex-col justify-center h-[250px] bg-olive-green w-[1900px] -mt-[9rem] -ml-[60rem]">
-                <div class="mb-12 mt-[43rem] ml-[590px] w-64 h-64 rounded-full border-2 bg-dirty-white border-green flex justify-center items-center">
+            <div class="absolute px-5 py-5 flex flex-col justify-center h-[250px] bg-olive-green w-[1750px] -mt-[17rem] -ml-[60rem]">
+                <div class="mb-12 mt-[43rem] ml-[5rem] w-64 h-64 rounded-full border-2 bg-dirty-white border-green self-center">
                     <img src="{{ asset('images/PoblacionDalLogo.png') }}" alt="">
                 </div>
-                <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 mt-[100px] ml-[30rem]">
+                <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 mt-[50px] self-center ml-[5rem] border-2 border-deep-green">
                     <a href="{{ route('accounts.index') }}" class="font-robotocondensed text-[40px] text-dirty-white text-center">MANAGE ACCOUNTS</a>
                 </div>
-                <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 ml-[30rem]">
+                <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 self-center ml-[5rem] border-2 border-deep-green">
                     <a href="{{ route('services.index') }}" class="font-robotocondensed text-[40px] text-dirty-white text-center">MANAGE REQUESTS</a>
                 </div>
 
                 <!-- Authentication -->
-                <div class="bg-green h-[40px] w-[140px] text-center ml-[40rem] mt-[3rem]">
+                <div class="bg-green h-[40px] w-[140px] text-center ml-[5rem] mt-[1rem] px-2 py-1 font-semibold self-center border-2 border-deep-green rounded-md">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-
-                        <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
-                                            this.closest('form').submit();">
-                            {{ __('LOGOUT') }}
-                        </x-responsive-nav-link>
+                        <a href="route('logout')" onclick="event.preventDefault();
+                                                        this.closest('form').submit();" class="text-dirty-white">
+                                            {{ __('LOGOUT') }}
+                        </a>
                     </form>
                 </div>
             </div>

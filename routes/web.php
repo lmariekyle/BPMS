@@ -83,6 +83,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/view_file/{file}', [ServicesController::class, 'view_file'])->name('view_file');
     Route::resource('auth', \App\Http\Controllers\NotificationController::class);
     Route::get('index', [NotificationController::class, 'index'])->name('notifications');
+    Route::get('edit/{id}', [ResidentUserController::class, 'edit'])->name('auth.updateinfo');
+    Route::post('update/{id}', [ResidentUserController::class, 'update'])->name('updateinfo');;
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {

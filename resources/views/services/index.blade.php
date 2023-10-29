@@ -37,7 +37,7 @@
         <div class="bg-dirty-white w-[1400px] h-max absolute mt-20 -ml-5 border shadow-inner">
             <!--TABLE HEADER-->
             <div class="bg-green w-[1400px] h-[48px] absolute flex flex-row border border-white shadow-lg">
-                <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-6">ID</p>
+                <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-6">REQUEST NO.</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-20">SELECTED INFORMATION</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">REQUESTED BY</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">REQUEST STATUS</p>
@@ -53,25 +53,19 @@
                             {{$account->id}}
                         </td>
                         <td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 360px">
-                            {{$account->requestee}}
+                            {{$account->selectedInformation}}
                         </td>
                         <td class="px-6 py-4 w-[490px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 348px">
-                            11-11-22
+                            {{$resident->firstName}}
                         </td>
                         <td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 330px">
-                            LOSER, L
-                        </td>
-                        <td class="px-6 py-4 w-[450px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 415px">
-                            <select class="bg-transparent adminStatus">
-                                <option>PROCESSING</option>
-                                <option>DONE</option>
-                            </select>
+                        {{$account->status}}
                         </td>
                         <td class="px-6 py-4 w-[190px]" style="width: 230px">
-                            <a href="" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
+                            <a href="{{ route('auth.updateinfo', $resident->id) }}" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
                         </td>
                     </tr>
-
+                    @endforeach
                 </tbody>
             </table>
 

@@ -41,7 +41,7 @@
             </form>
         </div>
 
-        <a href="{{ route('register') }}" class="button h-8 w-max text-center mt-6 ml-[500px] py-1">Add Account</a>
+        <a href="{{ route('register') }}" class="button h-8 w-max text-center mt-6 ml-[500px] bg-deep-green px-3 py-1 text-dirty-white border-dirty-white border-2">Add Account</a>
         <a href=""><i class="fa-solid fa-filter text-dirty-white text-[28px] mt-6 ml-7"></i></a>  
                     <!--ACTUAL TABLE -->
 

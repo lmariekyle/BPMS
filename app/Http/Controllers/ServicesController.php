@@ -38,7 +38,6 @@ class ServicesController extends Controller
     {
         $transactions = Transaction::all();
         $accounts = AccountInfoChange::all();
-
         foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -46,7 +45,11 @@ class ServicesController extends Controller
             $newtime = strtotime($transaction->created_at);
             $transaction->createdDate = date('M d, Y', $newtime);
         }
-        return view('services.index', compact('transactions', 'accounts'));
+        foreach ($accounts as $account) {
+            $user = User::where('id', $account->userID)->first();
+            $resident = Resident::where('id', $user->residentID)->first();
+        }
+        return view('services.index', compact('transactions', 'accounts','resident'));
     }
 
     /**
@@ -312,7 +315,7 @@ class ServicesController extends Controller
             $transaction->issuedBy = $request->complaintFName . ' ' . $request->complaintLName;
         } else if ($doctype->docType == "Account Information Change") {
             $account = AccountInfoChange::create([
-                'userID' => $request->requestee,
+                'userID' => $user->id,
                 'selectedInformation' => $request->selectedInformation,
                 'requesteeOldInformation' => $request->requesteeOldInformation,
                 'requesteeNewInformation' => $request->requesteeNewInformation,
@@ -320,6 +323,7 @@ class ServicesController extends Controller
                 'file' => $reqJson,
                 'status' => 'PENDING',
             ]);
+            $account->userID = $user->id;
         }
 
         if ($doctype->docName != 'Account Information Change') {
@@ -637,4 +641,6 @@ class ServicesController extends Controller
         }
         return view('services.index', compact('transactions'));
     }
+
+    
 }

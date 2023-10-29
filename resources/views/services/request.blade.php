@@ -19,7 +19,7 @@
             <div class="flex flex-row">
                 <div>
                     <div class="ml-12 mt-[4rem] font-bold w-[650px]">
-                        @if ($doctypename == 'BARANGAY CERTIFICATE' && $doctypename == 'BARANGAY CLEARANCE' )
+                        @if ($doctypename == 'BARANGAY CERTIFICATE' || $doctypename == 'BARANGAY CLEARANCE' )
                         <div class="">
                             <label>TYPE OF CERTIFICATE</label>
                             <select class="rounded-lg border-2 w-full h-[50px] text-[26px]" style="border-color: #414833;" name="selectedDocument">
@@ -125,6 +125,7 @@
                         </div>
                         @elseif($doctypename == 'ACCOUNT INFORMATION CHANGE')
                         <div class="flex flex-col">
+                        <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="17" name="selectedDocument">
                             <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="{{$user->id}}" name="requestee">
                             <div class="">
                                 <label>SELECT INFORMATION TO CHANGE</label>
