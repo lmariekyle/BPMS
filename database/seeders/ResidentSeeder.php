@@ -72,9 +72,9 @@ class ResidentSeeder extends Seeder
         Resident::create([
             'id' => '5',
             'residentID' => 'RES-00005',
-            'firstName' => 'Weinstein',
-            'middleName' => 'Tein',
-            'lastName' => 'Dumlao',
+            'firstName' => 'Zen Christopher',
+            'middleName' => 'Camp',
+            'lastName' => 'Alonso',
             'dateOfBirth' => '2004-06-04',
             'contactNumber' => '1234567890',
             'email' => 'mariekylec@gmail.com',

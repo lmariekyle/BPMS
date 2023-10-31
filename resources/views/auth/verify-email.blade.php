@@ -6,17 +6,17 @@
             </a>
         </x-slot>
 
-        <div class="font-robotocondensed  text-[18px] text-deep-green px-4  text-center indent-4 break-normal w-max h-max"">
+        <div class="font-robotocondensed  text-[22px] text-deep-green px-4  text-center indent-4 break-normal w-[900px] h-max">
             {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
         </div>
 
         @if (session('status') == 'verification-link-sent')
-            <div class="font-robotocondensed  text-[18px] text-deep-green px-4  text-center indent-4 break-normal w-max h-max"">
+            <div class="font-robotocondensed mt-8 ml-5 text-[18px] text-green px-4 text-center indent-4 break-normal w-max h-max">
                 {{ __('A new verification link has been sent to the email address you provided during registration.') }}
             </div>
         @endif
 
-        <div class="mt-4 flex items-center justify-center text-dirty-white">
+        <div class="mt-8 flex items-center justify-center text-dirty-white">
             <form method="POST" action="{{ route('verification.send') }}">
                 @csrf
 
@@ -30,7 +30,7 @@
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
 
-                <button type="submit" class="bg-green h-[40px] w-[140px] text-center mt-8 -ml-48 absolute">
+                <button type="submit" class="bg-deep-green text-dirty-white rounded-md h-[30px] w-[140px] text-center mt-12 -ml-48 absolute">
                     {{ __('LOGOUT') }}
                 </button>
             </form>

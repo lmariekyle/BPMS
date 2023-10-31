@@ -1,8 +1,7 @@
-@role('User')
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Barangay Health Workers') }}
+            {{ __('Resident') }}
         </h2>
     </x-slot>
 
@@ -119,8 +118,8 @@
                                 <label>SITIO</label>
                             </div>
                         </div>
-                        <div class="mt-[3rem]">
-                            <label>PURPOSE OF REQUEST</label>
+                        <div class="mt-[2rem]">
+                            <label>STATE REASON OF COMPLAIN</label>
                             <textarea class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;" name="requestPurpose"> </textarea>
                         </div>
                         @elseif($doctypename == 'ACCOUNT INFORMATION CHANGE')
@@ -207,7 +206,7 @@
                 <input type="radio" name="paymentMethod" id="cash-on-site" value="CASH-ON-SITE" class="w-[20px] h-[20px] mb-1">
             </div>
             @else
-            <p class="mb-2 mt-4 font-robotocondensed text-[24px] text-deep-green font-semibold underline underline-offset-8 mt-[10rem]">THIS SERVICE HAS NO CHARGE</p>
+            <p class="mb-2 font-robotocondensed text-[24px] text-deep-green font-semibold underline underline-offset-8 mt-[8rem]">THIS SERVICE HAS NO CHARGE</p>
             <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="0" name="docfee">
             <input name="paymentMethod" id="cash-on-site" value="FREE" class="hidden w-[20px] h-[20px] mb-1">
             @endif
@@ -216,4 +215,3 @@
         </div>
     </form>
 </x-app-layout>
-@endrole

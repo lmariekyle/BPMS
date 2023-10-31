@@ -7,15 +7,19 @@
         
 
         <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
 
         <!-- Validation Errors -->
         <div class="bg-dirty-white">
             <form method="POST" action="{{ route('login') }}" class="mt-28 bg-green z-0 w-[594px] l-[594px]">
                 @csrf
-
                 <p class="font-dancingscript text-8xl text-dirty-white text-center pt-52">Welcome</p>
-                <x-auth-validation-errors class="mb-2 ml-12" :errors="$errors" />  
+                <div class="flex flex-col">
+                    <x-auth-session-status class="mb-4" :status="session('status')" />
+                    <x-auth-validation-errors class="mb-2 ml-12 text-white" :errors="$errors"/>  
+                    <div class="ml-10">
+                    @include('components.flash')
+                    </div>
+                </div>
                 <div class="ml-12">
                     <!-- Email Address -->
                     <div class="mt-3">

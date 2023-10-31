@@ -22,7 +22,7 @@ class CreateAccountInfoChangesTable extends Migration
             $table->string('requesteeOldInformation');
             $table->string('requesteeNewInformation');
             $table->string('requestPurpose');
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->string('status')->default('Pending');
         });
     }

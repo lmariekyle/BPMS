@@ -39,7 +39,7 @@ class AuthenticatedSessionController extends Controller
 
             $request->session()->regenerateToken();
 
-            return Redirect::back()->with('error', 'Account has been Archived!');
+            return Redirect::back()->with('error', 'Sorry, Account has been Archived.');
         } else {
             $request->session()->regenerate();
 

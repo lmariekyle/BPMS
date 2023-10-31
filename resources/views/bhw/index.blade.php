@@ -41,7 +41,7 @@
             </div>
         </form>
 
-        <a href="/assign" class="button h-8 w-max text-center mt-6 py-1 ml-[200px]">Assign Sitio</a>
+        <a href="/assign" class="button h-8 w-max text-center mt-6 ml-[200px] bg-deep-green px-3 text-dirty-white border-dirty-white border-2 font-semibold">Assign Sitio</a>
 
                     <!--ACTUAL TABLE -->
 

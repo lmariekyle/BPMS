@@ -168,8 +168,8 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
   <div style="font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">
     <p style="line-height: 140%;">Hello,</p>
 <p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;">&nbsp;</p>
-<p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;">Thank you for registering with BPMS! We're excited to have you.<br><br></p>
-<p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;">To activate your account, please click on the verification link below:</p>
+<p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;">You are receiving this email because we received a password reset request for your account. This password reset link will expire in 60 minutes.<br><br></p>
+<p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;">If you did not request this, please disregard email. We also advise you to change your password for security reasons.</p>
   </div>
 
       </td>
@@ -186,7 +186,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
 <div align="center">
   <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="$actionUrl" style="height:37px; v-text-anchor:middle; width:114px;" arcsize="11%"  stroke="f" fillcolor="#389962"><w:anchorlock/><center style="color:#FFFFFF;"><![endif]-->
     <a href="{{url($actionUrl)}}" target="_blank" class="v-button" style="box-sizing: border-box;display: inline-block;text-decoration: none;text-align: center;color: #FFFFFF; background-color: #389962; border-radius: 4px;  width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; font-size: 14px;">
-      <span style="display:block;padding:10px 20px;line-height:120%;"><span style="line-height: 16.8px;">Verify Email</span></span>
+      <span style="display:block;padding:10px 20px;line-height:120%;"><span style="line-height: 16.8px;">Reset Password</span></span>
     </a>
     <!--[if mso]></center></v:roundrect><![endif]-->
 </div>

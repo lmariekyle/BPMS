@@ -29,10 +29,12 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 class ServicesController extends Controller
 {
 
-    // public function __construct()
-    // {
-    //     Configuration::setXenditKey("xnd_development_6AFxxJiXEQTOK5912UFuvRYDDQxQQkn7PcPEVn7ovbIPGaYWAqza1WkhVTgiR");
-    // }
+
+    public function dashboard()
+    {
+        $documents = Document::all();
+        return view('dashboard', compact('documents'));
+    }
 
     public function index()
     {
@@ -47,9 +49,9 @@ class ServicesController extends Controller
         }
         foreach ($accounts as $account) {
             $user = User::where('id', $account->userID)->first();
-            $resident = Resident::where('id', $user->residentID)->first();
+            $account->resident = Resident::where('id', $user->residentID)->first();
         }
-        return view('services.index', compact('transactions', 'accounts','resident'));
+        return view('services.index', compact('transactions', 'accounts'));
     }
 
     /**
@@ -77,9 +79,6 @@ class ServicesController extends Controller
         }
     }
 
-
-
-
     /**
      * Display the specified resource.
      *
@@ -91,7 +90,11 @@ class ServicesController extends Controller
         $transaction = Transaction::where('id', $id)->first();
         $transaction->detail = DocumentDetails::where('id', $transaction->detailID)->first();
         $transaction->document = Document::where('id', $transaction->documentID)->first();
-        $filePaths = json_decode($transaction->detail->file, true);
+        if ($transaction->detail && $transaction->detail->file) {
+            $filePaths = json_decode($transaction->detail->file, true);
+        } else {
+            $filePaths = [];
+        }        
         $transaction->payment = Payment::where('id', $transaction->paymentID)->first();
         if ($transaction->payment['paymentMethod'] == 'CASH-ON-SITE' || $transaction->payment['paymentStatus'] == 'Paid') {
             $transaction->approval = 1;
@@ -150,11 +153,6 @@ class ServicesController extends Controller
         return view('services.approve', compact('id', 'requestee', 'doc', 'transaction'));
     }
 
-    public function dashboard()
-    {
-        $documents = Document::all();
-        return view('dashboard', compact('documents'));
-    }
 
     public function request(string $docType)
     {
@@ -172,13 +170,6 @@ class ServicesController extends Controller
         $documents = Document::where('docType', $docType)->get();
         return view('services.request', compact('documents', 'doctypename', 'user'));
     }
-
-    // public function view_file($file)
-    // {
-    //     $path = 'requirements/' . $file;
-    //     return response()->file(Storage::path($path), ['content-type' => 'application/pdf']);
-    // }
-
 
 
     public function view_file($file)
@@ -209,9 +200,6 @@ class ServicesController extends Controller
         return $pdf->download('barangaycert.pdf');
     }
 
-    // public function pdfGeneration(){
-
-    // }
 
     private function getContentTypeForExtension($extension)
     {
@@ -246,6 +234,8 @@ class ServicesController extends Controller
             $reqJson = NULL;
         }
 
+       
+
         $user = Auth::user();
         $doctype = Document::where('id', $request->selectedDocument)->first();
 
@@ -253,11 +243,11 @@ class ServicesController extends Controller
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CE']);
         } else if ($doctype->docType == "Barangay Clearance") {
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CL']);
-        } else if ($doctype->docType == "Filing of Lupon Cases") {
+        } else if ($doctype->docType == "File Complain") {
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-FC']);
         }
 
-        if ($doctype->docName != 'Filing of Lupon Cases' && $doctype->docName != 'Account Information Change') {
+        if ($doctype->docType != 'File Complain' && $doctype->docType != 'Account Information Change') {
             $transaction = new Transaction;
             $transactiondetail =  $transaction->transactiondetail()->create([
                 'requesteeFName' => $request->requesteeFName,
@@ -278,7 +268,7 @@ class ServicesController extends Controller
             ]);
 
             $transaction->issuedBy = $request->requesteeFName . ' ' . $request->requesteeLName;
-        } else if ($doctype->docType == "Filing of Lupon Cases") {
+        } else if ($doctype->docType == "File Complain") {
             $complain = Complain::create([
                 'complaintFName' => $request->complaintFName,
                 'complaintMName' => $request->complaintMName,
@@ -292,7 +282,7 @@ class ServicesController extends Controller
                 'requestPurpose' => $request->requestPurpose,
             ]);
 
-
+            
             $transaction = new Transaction;
             $transactiondetail =  $transaction->transactiondetail()->create([
                 'requesteeFName' => $request->complaintFName,
@@ -313,6 +303,7 @@ class ServicesController extends Controller
             ]);
 
             $transaction->issuedBy = $request->complaintFName . ' ' . $request->complaintLName;
+            
         } else if ($doctype->docType == "Account Information Change") {
             $account = AccountInfoChange::create([
                 'userID' => $user->id,
@@ -326,7 +317,7 @@ class ServicesController extends Controller
             $account->userID = $user->id;
         }
 
-        if ($doctype->docName != 'Account Information Change') {
+        if ($doctype->docType != 'Account Information Change') {
             $transactionPaymentId = $transactionpayment->id;
             $transactionDetailId = $transactiondetail->id;
             $transaction->detailID = $transactionDetailId;
@@ -345,7 +336,6 @@ class ServicesController extends Controller
 
             Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
         }
-
 
         if ($request->paymentMethod == 'GCASH') {
             $payment = Payment::where('id', $transactionPaymentId)->first();
@@ -389,7 +379,12 @@ class ServicesController extends Controller
             'Content-Type' => 'application/json',
             'Authorization' => 'Basic ' . $xenditKey,
         ];
-        $res = Http::withHeaders($headers)->post('https://api.xendit.co/v2/invoices', $request);
+
+        $res = Http::withHeaders($headers)
+            ->withOptions([
+                'curl' => [CURLOPT_SSL_VERIFYPEER => false],
+            ])
+            ->post('https://api.xendit.co/v2/invoices', $request);
 
         return json_decode($res->body(), true);
     }

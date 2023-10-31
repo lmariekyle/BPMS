@@ -224,7 +224,7 @@ class ResidentUserController extends Controller
             $user->save();
             $account->save();
         }else if($request->status == "2"){
-            $account->status ='DONE';
+            $account->status ='DENIED';
             $user->save();
         }
         return back();

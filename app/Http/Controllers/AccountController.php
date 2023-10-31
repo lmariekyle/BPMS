@@ -22,7 +22,8 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $users = User::where('id', '>', 1)->paginate();
+        $users = User::where('id', '>', 1)->paginate(10);
+        
 
         foreach ($users as $key) {
             $resident = Resident::where('id', $key->residentID)->first();
@@ -31,7 +32,7 @@ class AccountController extends Controller
             $key->middleName = $resident->middleName;
             $key->lastName = $resident->lastName;
         }
-        return view('accounts.index')->with('accounts', $users);
+        return view('accounts.index')->with('accounts',$users);
     }
 
     /**
@@ -162,7 +163,7 @@ class AccountController extends Controller
     public function search(Request $request)
     {
         $search = $request['search'];
-        $users = Resident::where('firstName', 'LIKE', "%$search%")->orWhere('lastName', 'LIKE', "%$search%")->get();
+        $users = Resident::where('firstName', 'LIKE', "%$search%")->orWhere('lastName', 'LIKE', "%$search%")->paginate(10);
 
         foreach ($users as $user) {
             $resident = User::where('residentID', $user->id)->first();

@@ -98,14 +98,29 @@ class RegisteredUserController extends Controller
         ]);
 
         if ($request->userlevel == "Barangay Captain") {
-            $userId = IdGenerator::generate(['table' => 'users', 'field' => 'idNumber', 'length' => 6, 'prefix' => 'C-']);
+            $lastCaptain = User::where('userlevel', 'Barangay Captain')->orderBy('idNumber', 'desc')->first();
+            $lastId = $lastCaptain ? (int)substr($lastCaptain->idNumber, 2) : 0;
+            $userId = 'C-' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
         } else if ($request->userlevel == "Barangay Secretary") {
-            $userId = IdGenerator::generate(['table' => 'users', 'field' => 'idNumber', 'length' => 6, 'prefix' => 'S-']);
+            $lastSecretary = User::where('userlevel', 'Barangay Secretary')->orderBy('idNumber', 'desc')->first();
+            $lastId = $lastSecretary ? (int)substr($lastSecretary->idNumber, 2) : 0;
+            $userId = 'S-' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
         } else if ($request->userlevel == "Barangay Health Worker") {
-            $userId = IdGenerator::generate(['table' => 'users', 'field' => 'idNumber', 'length' => 6, 'prefix' => 'B-']);
+            $lastWorker = User::where('userlevel', 'Barangay Health Worker')->orderBy('idNumber', 'desc')->first();
+            $lastId = $lastWorker ? (int)substr($lastWorker->idNumber, 2) : 0;
+            $userId = 'B-' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
         } else {
-            $userId = IdGenerator::generate(['table' => 'users', 'field' => 'idNumber', 'length' => 6, 'prefix' => date('y')]);
-        };
+            // For other user levels, you can use the current year as a prefix
+            $yearPrefix = date('y');
+            $lastUser = User::where('userlevel', '<>', 'Barangay Captain')
+                             ->where('userlevel', '<>', 'Barangay Secretary')
+                             ->where('userlevel', '<>', 'Barangay Health Worker')
+                             ->where('idNumber', 'like', $yearPrefix . '%')
+                             ->orderBy('idNumber', 'desc')
+                             ->first();
+            $lastId = $lastUser ? (int)substr($lastUser->idNumber, 2) : 0;
+            $userId = $yearPrefix . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
+        }
 
 
         $resident->user()->create([
@@ -121,11 +136,8 @@ class RegisteredUserController extends Controller
         ]);
         $resident->user->assignRole($request->userlevel);
 
-
-        // event(new Registered($resident->user));
-
-        // Auth::login($user);
+        event(new Registered($resident->user));
         Mail::to($request->email)->send(new AccountMail($resident->user));
-        return Redirect::back()->with('success', 'Email for registration has been sent!');
+        return Redirect::back()->with('success', 'User Account has been created.');
     }
 }
