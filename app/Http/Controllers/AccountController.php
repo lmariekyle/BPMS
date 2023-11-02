@@ -166,7 +166,7 @@ class AccountController extends Controller
 
         foreach ($users as $user) {
             $resident = User::where('residentID', $user->id)->first();
-            $user->id = $resident->id;
+            $user->idNumber = $resident->idNumber;
             $user->userLevel = $resident->userLevel;
             $user->updated_at = $resident->updated_at;
             $user->userStatus = $resident->userStatus;

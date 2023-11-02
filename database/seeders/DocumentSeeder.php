@@ -189,5 +189,16 @@ class DocumentSeeder extends Seeder
             'createdBy' => 'A-001',
             'revisedBy' => 'A-001',
         ]);
+
+        Document::create([
+            'docName' => 'Account Information Change',
+            'docType' => 'Account Information Change',
+            'docTemplate' => 'NONE',
+            'fee' => '000.0',
+            'requirements' => 'Amended Birth Certificate, Certificate of Finality',
+
+            'createdBy' => 'A-001',
+            'revisedBy' => 'A-001',
+        ]);
     }
 }

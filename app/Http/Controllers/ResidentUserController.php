@@ -9,6 +9,7 @@ use App\Models\Resident;
 use App\Models\Barangay;
 use App\Models\Household;
 use App\Models\Document;
+use App\Models\AccountInfoChange;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -199,7 +200,10 @@ class ResidentUserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::where('residentID',$id)->first();
+        $request = AccountInfoChange::where('userID',$user->id)->first();
+        
+        return view('auth.updateinfo',compact('user','request'));
     }
 
     /**
@@ -211,7 +215,19 @@ class ResidentUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $account = AccountInfoChange::where('userID',$id)->first();
+        $requested = $request->selectedInformation;
+        $user = User::where('id',$id)->first();
+        if($request->status == "1"){
+            $user->{$requested} = $request->requesteeNewInformation;
+            $account->status ='DONE';
+            $user->save();
+            $account->save();
+        }else if($request->status == "2"){
+            $account->status ='DONE';
+            $user->save();
+        }
+        return back();
     }
 
     /**

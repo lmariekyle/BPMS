@@ -6,7 +6,7 @@ use App\Models\Statistics;
 use App\Models\Sitio;
 use App\Models\SitioCount;
 use App\Models\Households;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Http\Request;
 

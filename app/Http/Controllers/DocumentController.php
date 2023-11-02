@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Resident;
 use App\Models\Document;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class DocumentController extends Controller
 {
@@ -39,9 +39,12 @@ class DocumentController extends Controller
         $userData->token = $request->token;
 
         $documents = Document::where('docType', $request->docType)->get();
-
-
-        $response = ['user' => $userData, 'documentType' => $request->docType ,'documents' => $documents, 'success' => true];
+        if($request->docType == 'File Complain'){
+            $sitios=DB::select('select sitioName from sitios');
+            $response = ['user' => $userData, 'documentType' => $request->docType ,'documents' => $documents, 'sitios' => $sitios,'success' => true];
+        }else{
+            $response = ['user' => $userData, 'documentType' => $request->docType ,'documents' => $documents, 'success' => true];
+        }
         return $response;
     }
 }

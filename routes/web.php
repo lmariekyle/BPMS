@@ -83,6 +83,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/view_file/{file}', [ServicesController::class, 'view_file'])->name('view_file');
     Route::resource('auth', \App\Http\Controllers\NotificationController::class);
     Route::get('index', [NotificationController::class, 'index'])->name('notifications');
+    Route::get('/markRead/{id}', [NotificationController::class, 'markRead'])->name('viewNotifications');
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {

@@ -36,7 +36,9 @@
                             </p>
                         </div>
                         <div class="float-right flex flex-row max-h-[30px] ml-4 mt-10">
-                            <button id="btn{{ $notification->id }}" class="hover:text-green"><i class="fa-solid fa-eye"></i></button>
+                            <form method="GET" action="{{ route('viewNotifications', $notification->id) }}">
+                                <button id="btn{{ $notification->id }}" class="hover:text-green"><i class="fa-solid fa-eye"></i></button>
+                            </form>
                             <button class="hover:text-green ml-8 mr-4"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <div id="NotifModal" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[150px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">

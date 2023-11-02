@@ -107,12 +107,12 @@
                 <div class="ml-40 h-[172px]" style="height: 172px;">
                     <p class="font-robotocondensed text-[32px] font-bold text-deep-green ml-8 flex" style="font-size: 32px;">Uploaded Documents</p>
                     @if($transaction->document['docName'] != 'Filing of Lupon Cases')
-                    @foreach($filePaths as $file)
+                    {{-- @foreach($filePaths as $file)
                     <div class="flex flex-col justify-start px-2 py-2 w-[100px]">
                         <p class="font-poppins text-[18px]">{{$file}}</p>
                         <a href="{{ route('view_file', $file) }}" class="bg-olive-green text-dirty-white text-center px-1 py-1">VIEW</a>
                     </div>
-                    @endforeach
+                    @endforeach --}}
                     @else
                     <p class="font-poppins text-[18px] mt-3 ml-10 font-semibold">No Uploaded Documents</p>
                     @endif
