@@ -159,6 +159,9 @@ class TransactionController extends Controller
     
             Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
         }
+        if($request->paymentMethod == '2'){
+            return $this->createpayment($payment->id);
+        }
 
         $user->token = $request->token;
         $user->success = true;
@@ -205,11 +208,13 @@ class TransactionController extends Controller
         ]);
 
         $payment->paymentStatus = 'Pending';
+        $payment->success = true;
 
-        return Redirect::to($payment->successURL);
+        return $payment;
+        // return Redirect::to($payment->successURL);
     }
 
-    public function callback(Request $request)
+    public function mobileCallback(Request $request)
     {
         try {
             $payment = Payment::where('accountNumber', $request->external_id)->first();
