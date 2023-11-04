@@ -101,10 +101,15 @@ class TransactionController extends Controller
             'Content-Type' => 'application/json',
             'Authorization' => 'Basic ' . $xenditKey,
         ];
-        $res = Http::withHeaders($headers)->post('https://api.xendit.co/v2/invoices', $request);
-
+    
+        $res = Http::withHeaders($headers)
+            ->withOptions([
+                'curl' => [CURLOPT_SSL_VERIFYPEER => false],
+            ])
+            ->post('https://api.xendit.co/v2/invoices', $request);
+    
         return json_decode($res->body(), true);
-    }
+            }
 
     public function createpayment($id)
     {
@@ -128,8 +133,9 @@ class TransactionController extends Controller
         ]);
 
         $payment->paymentStatus = 'Pending';
+        $payment->success = true;
 
-        return Redirect::to($payment->successURL);
+        return $payment;
     }
 
     public function callback(Request $request)

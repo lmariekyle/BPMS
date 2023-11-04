@@ -12,10 +12,15 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\Resident;
 use App\Models\Sitio;
+use App\Notifications\NewResetPasswordNotification;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
+
+    public function sendPasswordResetNotification($token){
+        $this->notify(new NewResetPasswordNotification($token));
+    }
 
     /**
      * The attributes that are mass assignable.

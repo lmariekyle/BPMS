@@ -73,6 +73,20 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
 </head>
 
 <body class="clean-body u_body" style="margin: 0;padding: 0;background-color: #ffffff;color: #000000">
+
+{{-- Action Button --}}
+@isset($actionText)
+<?php
+    switch ($level) {
+        case 'success':
+        case 'error':
+            $color = $level;
+            break;
+        default:
+            $color = 'primary';
+    }
+?>
+@endisset
   <!--[if IE]><div class="ie-container"><![endif]-->
   <!--[if mso]><div class="mso-container"><![endif]-->
   <table id="u_body" style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;vertical-align: top;min-width: 320px;Margin: 0 auto;background-color: #ffffff;width:100%" cellpadding="0" cellspacing="0">
@@ -168,9 +182,12 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
   <div style="font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">
     <p style="line-height: 140%;">Hello,</p>
 <p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;">&nbsp;</p>
-<p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;">Thank you for registering with BPMS! We're excited to have you.<br><br></p>
-<p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;">To activate your account, please click on the verification link below:</p>
-  </div>
+<!-- <p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;">Thank you for registering with BPMS! We're excited to have you.<br><br></p>
+<p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;">To activate your account, please click on the verification link below:</p> -->
+    @foreach ($introLines as $line)
+    <p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;">{{$line}}</p>
+    @endforeach 
+</div>
 
       </td>
     </tr>
@@ -186,7 +203,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
 <div align="center">
   <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="$actionUrl" style="height:37px; v-text-anchor:middle; width:114px;" arcsize="11%"  stroke="f" fillcolor="#389962"><w:anchorlock/><center style="color:#FFFFFF;"><![endif]-->
     <a href="{{url($actionUrl)}}" target="_blank" class="v-button" style="box-sizing: border-box;display: inline-block;text-decoration: none;text-align: center;color: #FFFFFF; background-color: #389962; border-radius: 4px;  width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; font-size: 14px;">
-      <span style="display:block;padding:10px 20px;line-height:120%;"><span style="line-height: 16.8px;">Verify Email</span></span>
+      <span style="display:block;padding:10px 20px;line-height:120%;"><span style="line-height: 16.8px;">{{ $actionText }}</span></span>
     </a>
     <!--[if mso]></center></v:roundrect><![endif]-->
 </div>
@@ -212,7 +229,10 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
       <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
         
   <div style="font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="line-height: 140%;"><span style="color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff; float: none; display: inline; line-height: 19.6px;">If you're having trouble clicking the "Verify Email Address" button, copy and paste the URL below into your web browser: </span></p>
+    <!-- <p style="line-height: 140%;"><span style="color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff; float: none; display: inline; line-height: 19.6px;">If you're having trouble clicking the "Verify Email Address" button, copy and paste the URL below into your web browser: </span></p> -->
+      @foreach ($outroLines as $line)
+      <p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;">{{$line}}</p>
+      @endforeach 
   </div>
 
       </td>

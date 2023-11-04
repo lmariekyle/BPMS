@@ -25,6 +25,7 @@ use App\Notifications\ReleasedNotification;
 use App\Notifications\SignatureNotification;
 use App\Notifications\SignedNotification;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Carbon\Carbon;
 
 class ServicesController extends Controller
 {
@@ -90,6 +91,8 @@ class ServicesController extends Controller
         $transaction = Transaction::where('id', $id)->first();
         $transaction->detail = DocumentDetails::where('id', $transaction->detailID)->first();
         $transaction->document = Document::where('id', $transaction->documentID)->first();
+        $date = Carbon::now();
+        $date->toArray();
         if ($transaction->detail && $transaction->detail->file) {
             $filePaths = json_decode($transaction->detail->file, true);
         } else {
@@ -102,7 +105,7 @@ class ServicesController extends Controller
             $transaction->approval = 2;
         }
 
-        return view('services.manage', compact('transaction', 'filePaths'));
+        return view('services.manage', compact('transaction', 'filePaths','date'));
     }
 
 
@@ -150,7 +153,9 @@ class ServicesController extends Controller
         $transaction = Transaction::where('id', $id)->first();
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
         $doc = Document::where('id', $transaction->documentID)->first();
-        return view('services.approve', compact('id', 'requestee', 'doc', 'transaction'));
+        $date = Carbon::now();
+        $date->toArray();
+        return view('services.approve', compact('id', 'requestee', 'doc', 'transaction','date'));
     }
 
 
@@ -196,7 +201,9 @@ class ServicesController extends Controller
         $transaction = Transaction::where('id', $id)->first();
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
         $doc = Document::where('id', $transaction->documentID)->first();
-        $pdf = PDF::loadView('documents.barangaycertificate', compact('id', 'requestee', 'doc'));
+        $date = Carbon::now();
+        $date->toArray();
+        $pdf = PDF::loadView('documents.barangaycertificate', compact('id', 'requestee', 'doc','date'));
         return $pdf->download('barangaycert.pdf');
     }
 

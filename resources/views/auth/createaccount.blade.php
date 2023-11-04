@@ -154,12 +154,12 @@
             </div>
             <div class="text-center text-2xl mt-4">
                 <label for="terms_and_agreement" class="inline-flex items-center">
-                    <input id="terms_and_agreement" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="termsAndAgreement">
+                    <input id="terms_and_agreement" type="checkbox" class="checkbox rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="termsAndAgreement">
                     <span class="ml-2 text-dirty-white">{{ __('I HAVE READ THE TERMS AND AGREEMENT') }}</span>
                 </label>
             </div>
             <div class="text-center">
-                <x-button class="mt-4 bg-deep-green text-dirty-white border-0 w-60 l-12">
+                <x-button class="button mt-4 bg-deep-green text-dirty-white border-0 w-60 l-12">
                     <div class="m-auto">
                         {{ __('Create Account') }}
                     </div>
@@ -167,4 +167,23 @@
             </div>
         </div>
     </form>
+
+    <script>
+    let button = document.querySelector(".button");
+    let checkbox = document.querySelector(".checkbox");
+
+    button.disabled = true; // Setting the button state to disabled
+
+    // Update the event listener to listen for changes in the input and checkbox elements.
+    checkbox.addEventListener("change", stateHandle);
+
+    function stateHandle() {
+        if (!checkbox.checked) {
+            button.disabled = true; // Button remains disabled
+        } else {
+            button.disabled = false; // Button is enabled
+        }
+    }
+</script>
+
 </x-page-layout>
