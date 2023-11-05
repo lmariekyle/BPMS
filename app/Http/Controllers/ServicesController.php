@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Route;
 use App\Notifications\ReleasedNotification;
 use App\Notifications\SignatureNotification;
 use App\Notifications\SignedNotification;
@@ -241,8 +242,6 @@ class ServicesController extends Controller
             $reqJson = NULL;
         }
 
-       
-
         $user = Auth::user();
         $doctype = Document::where('id', $request->selectedDocument)->first();
 
@@ -334,7 +333,6 @@ class ServicesController extends Controller
             $transaction->serviceAmount = $request->docfee;
             $transaction->serviceStatus = 'Pending';
             $transaction->docNumber = $docId;
-            $transaction->paymentMethod = $request->paymentMethod;
             $transaction->issuedDocument = $request->selectedDocument;
             $transaction->issuedOn = today();
             $transaction->save();
@@ -349,35 +347,10 @@ class ServicesController extends Controller
             // return view('createpayment', $transactionPaymentId);
             return $this->createpayment($payment->id);
         } else {
-            return view('services.success');
+            return view('services.success', $payment->id);
         }
     }
 
-    public function paymentrequest(Request $request)
-    {
-
-        $payment = Payment::where('id', $request->id)->first();
-
-        if ($request->hasFile('file')) {
-            if ($request->file->isValid()) {
-                $file_name = Str::slug($request->successURL) . '_' . uniqid() . '.' . $request->file->getClientOriginalExtension();
-                $request->file->storeAs('gcashpayments', $file_name);
-                $path = "gcashpayments/" . $file_name;
-            }
-        } else {
-            $path = NULL;
-        }
-
-        $payment->paymentMethod = 'GCASH';
-        $payment->accountNumber = $request->accountNumber;
-        $payment->successURL = $request->successURL;
-        $payment->paymentStatus = 'Pending';
-        $payment->screenshot = $path;
-        $payment->failURL = NULL;
-        $payment->save();
-
-        return view('services.success');
-    }
 
     public function createInvoice($request)
     {
@@ -398,18 +371,25 @@ class ServicesController extends Controller
 
     public function createpayment($id)
     {
-        $payment = Payment::where('id', $id)->where('paymentStatus', 'Pending')->first();
+        $payment = Payment::where('id', $id)->first();
         $transaction = Transaction::where('paymentID', $payment->id)->first();
         $externalID = 'INV' . date('Ymd') . '-' . rand(1000, 9999);
 
         $payment->accountNumber = $externalID;
         $payment->save();
+       
+        $successRedirectUrl = route('services.success', $payment->id);
+        $failureRedirectUrl = route('services.failure', $payment->id);
 
         $params = [
             'external_id' => $externalID,
             'amount' => $transaction->serviceAmount,
             'user_id' => $transaction->userID,
-            'invoice_duration' => 3600,
+            'success_redirect_url' => $successRedirectUrl,
+            'failure_redirect_url' => $failureRedirectUrl,
+            'payment_methods' => ['GCASH'],
+            'currency' => 'PHP',
+            'invoice_duration' => 30000,
         ];
 
         $invoice = $this->createInvoice($params);
@@ -419,42 +399,56 @@ class ServicesController extends Controller
 
         $payment->paymentStatus = 'Pending';
 
-        return Redirect::to($payment->successURL);
+        return Redirect::to($payment->successURL); 
     }
 
-    public function callback(Request $request)
-    {
-        try {
-            $payment = Payment::where('accountNumber', $request->external_id)->first();
-            if ($request->header('x-callback-token') != env('XENDIT_CALLBACK_TOKEN')) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Invalid Callback Token'
-                ], 400);
-            }
+    public function successpayment($id){
 
-            if ($payment) {
-                if ($request->status == 'PAID') {
-                    $payment->update([
-                        'paymentStatus' => 'Paid'
-                    ]);
-                } else {
-                    $payment->update([
-                        'paymentStatus' => 'Expired',
-                    ]);
-                }
-            }
+        $payment = Payment::where('id', $id)->first();
 
-            return response()->json([
-                'status' => 'success',
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ], 500);
-        }
+        $payment->update([
+            'paymentStatus' => 'Paid'
+        ]);
+
+        $payment->save();
     }
+
+
+
+    // public function callback(Request $request)
+    // {
+        
+    //     try {
+    //         $payment = Payment::where('accountNumber', $request->external_id)->first();
+    //         if ($request->header('x-callback-token') != env('XENDIT_CALLBACK_TOKEN')) {
+    //             return response()->json([
+    //                 'status' => 'error',
+    //                 'message' => 'Invalid Callback Token'
+    //             ], 400);
+    //         }
+
+    //         if ($payment) {
+    //             if ($request->status == 'PAID') {
+    //                 $payment->update([
+    //                     'paymentStatus' => 'Paid'
+    //                 ]);
+    //             } else {
+    //                 $payment->update([
+    //                     'paymentStatus' => 'Expired',
+    //                 ]);
+    //             }
+    //         }
+
+    //         return response()->json([
+    //             'status' => 'success',
+    //         ]);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'message' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
 
 
     public function search(Request $request)

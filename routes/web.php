@@ -87,9 +87,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('request/{docType}', [ServicesController::class, 'request'])->name('services.request');
     Route::post('request/{docType}', [ServicesController::class, 'storerequest'])->name('services.storerequest');
     Route::post('createpayment/{id}', [ServicesController::class, 'createpayment'])->name('services.createpayment');
-    Route::get('success', function () {
-        return view('services.success');
+    // Route::get('successpayment/{id}', [ServicesController::class, 'successpayment'])->name('services.success');
+    Route::get('successpayment/{id}', function () {
+      return view('services.success');
     })->name('services.success');
+    Route::get('failurepayment/{id}', [ServicesController::class, 'failurepayment'])->name('services.failure');
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {

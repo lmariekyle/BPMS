@@ -23,7 +23,6 @@ class Transaction extends Model
         'serviceAmount',
         'docNumber',
         'serviceStatus',
-        'paymentMethod',
         'issuedDocument',
         'issuedBy',
         'issuedOn',
