@@ -17,12 +17,26 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class TransactionController extends Controller
 {
     public function mobileTransactionRequest(Request $request){
+
+        if ($request->hasFile('fileUpload')) {
+            foreach ($request->file('fileUpload') as $file) {
+                if ($file->isValid()) {
+                    $file_name = Str::slug($request->requesteeLName) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                    $file->storeAs('requirements', $file_name);
+                    $path = $file_name;
+                    $certRequirements[] = $path;
+                }
+            }
+            $reqJson = json_encode($certRequirements);
+        } else {
+            $reqJson = NULL;
+        }
 
         $document = Document::where('id', $request->documentId)->first();
         $user = User::where('residentID', $request->userId)->first();
@@ -83,6 +97,7 @@ class TransactionController extends Controller
                 'requesteeOldInformation' => $request->oldInformation,
                 'requesteeNewInformation' => $request->newInformation,
                 'requestPurpose' => $request->changeReason,
+                'file' => $reqJson,
                 'status' => 'PENDING',
             ]);
 
@@ -121,6 +136,7 @@ class TransactionController extends Controller
                 'requesteeEmail'  => $request->email,
                 'requesteeContactNumber' => $request->contactNumber,
                 'requestPurpose' => $request->requestPurpose,
+                'file' => $reqJson,
             ]);
 
             if($document->docType == "Barangay Certificate"){
@@ -160,7 +176,16 @@ class TransactionController extends Controller
             Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
         }
         if($request->paymentMethod == '2'){
-            return $this->createpayment($payment->id);
+            $receivedPayment = $this->createpayment($payment->id);
+
+            $user->token = $request->token;
+            $user->success = true;
+
+            $documents = DB::select('select DISTINCT docType from documents');
+            $userData = Resident::where('id', $request->userId)->first();
+
+            $response = ['user' => $userData, 'documents' => $documents, 'payment' => $receivedPayment, 'success' => true];
+            return $response;
         }
 
         $user->token = $request->token;
@@ -169,7 +194,7 @@ class TransactionController extends Controller
         $documents = DB::select('select DISTINCT docType from documents');
         $userData = Resident::where('id', $request->userId)->first();
 
-        $response = ['user' => $userData, 'documents' => $documents, 'success' => true];
+        $response = ['user' => $userData, 'documents' => $documents, 'success' => true, 'filePath' => $request->fileUpload];
         return $response;
         // return $this->createpayment($payment->id);
     }
