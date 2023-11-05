@@ -10,7 +10,6 @@ use App\Models\Barangay;
 use App\Models\Household;
 use App\Models\Document;
 use App\Models\AccountInfoChange;
-use App\Models\AccountInfoChange;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
