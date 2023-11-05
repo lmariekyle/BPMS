@@ -57,5 +57,5 @@ Route::post('/mobileTransactionRequest', [TransactionController::class, 'mobileT
 Route::post('/mobileNotifications', [NotificationController::class, 'mobileNotifications']);
 
 Route::post('/household', 'App\Http\Controllers\HouseholdRegistrationController@mobileStore');
-Route::post('/callback', [ServicesController::class, 'callback'])->name('callback');
+Route::get('/callback', [TransactionController::class, 'mobileCallback'])->name('callback');
 Route::post('createpayment/{id}', [TransactionController::class, 'createpayment'])->name('createpayment');

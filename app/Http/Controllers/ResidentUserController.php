@@ -10,6 +10,7 @@ use App\Models\Barangay;
 use App\Models\Household;
 use App\Models\Document;
 use App\Models\AccountInfoChange;
+use App\Models\AccountInfoChange;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -200,6 +201,10 @@ class ResidentUserController extends Controller
      */
     public function edit($id)
     {
+        $user = User::where('residentID',$id)->first();
+        $request = AccountInfoChange::where('userID',$user->id)->first();
+        
+        return view('auth.updateinfo',compact('user','request'));
         $user = User::where('residentID',$id)->first();
         $request = AccountInfoChange::where('userID',$user->id)->first();
         

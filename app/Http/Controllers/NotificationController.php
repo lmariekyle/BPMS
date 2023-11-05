@@ -7,17 +7,12 @@ use App\Models\User;
 use App\Models\Resident;
 use App\Models\Document;
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Notifications\DatabaseNotification;
 
 class NotificationController extends Controller
 {
     public function index(){
-        // $notifications = [
-        //     'unread' => auth()->user()->unreadnotifications,
-        //     'read' => auth()->user()->notifications->whereNotNull('read_at')->get(),
-        // ];
             $notifications = auth()->user()->notifications;
-        // $notifications = auth()->user()->unreadNotifications;
         foreach($notifications as $notification){
             $notification->user = User::where('id', $notification->data['transaction']['userID'])->first();
             $notification->resident = Resident::where('id',$notification->user['residentID'])->first();
@@ -36,6 +31,14 @@ class NotificationController extends Controller
         }
         $response = ['notifications' => $notifications, 'success' => true];
         return $response;
+    }
+
+    public function markRead($id){
+        $notification = DatabaseNotification::where('id', $id)->first();
+        $notification->read_at = today();
+        $notification->save();
+
+        return response()->noContent();
     }
 }
 
