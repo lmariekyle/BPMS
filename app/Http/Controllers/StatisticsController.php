@@ -7,8 +7,11 @@ use App\Models\Statistics;
 use App\Models\Sitio;
 use App\Models\SitioCount;
 use App\Models\Households;
+use App\Models\Resident;
+use App\Models\ResidentList;
 
 use Barryvdh\DomPDF\Facade\PDF;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,6 +20,20 @@ class StatisticsController extends Controller
 {
     public function index()
     {
+        $SitioCounts = SitioCount::all();
+        foreach($SitioCounts as $SitioCount){
+            $sitioResCounter = DB::table('resident_lists')
+                ->join('households','resident_lists.houseID','=','households.id')
+                ->join('residents','resident_lists.residentID','=','residents.id')
+                ->where('households.sitioID', '=', $SitioCount->sitioID)
+                ->where('residents.gender', 'LIKE', $SitioCount->genderGroup)
+                ->where('residents.ageClassification', 'LIKE', $SitioCount->ageGroup)
+                ->count();
+            $SitioCount->residentCount = $sitioResCounter;
+            $SitioCount->save();
+        }
+        
+
         //Gets the statistic data that is the most recently added
         $currentYear = date('Y');
         $currentQuarter = Statistics::max('quarter');

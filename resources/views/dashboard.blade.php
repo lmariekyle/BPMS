@@ -68,7 +68,22 @@
                                 <option value="{{$age->ageGroup}}" class="bg-dirty-white">{{ $age->ageGroup }}</option>
                                 @endforeach
                             </select>
+                            <a class="info w-[16px] self-end ml-2"><i class="fa fa-question-circle-o text-[15px]"></i></a>
+                            <div class="text-dirty-white text-xs font-robotocondensed hide bg-green p-2 border-2 rounded-xl self-end ml-40">
+                                <div class="w-80 text-justify">
+                                    <p>Age Classification:</p>
+                                    <p>N - Newborn (0-28 Days Old)</p>
+                                    <p>I - Infant (29 Days - 11 Months Old)</p>
+                                    <p>U - Under-five (1-4 Years Old)</p>
+                                    <p>S - School-Aged Children (5-9 Years Old)</p>
+                                    <p>A - Adolescents (10-19 Years Old)</p>
+                                    <p>WRA - 15-49 Years Old, not Pregnant and non Post Partum</p>
+                                    <p>AB - Adult (20-59 Years Old)</p>
+                                    <p>SC - Senior Citizen (60 Years Old and Above)</p>
+                                </div>
+                            </div>
                         </div>
+                        
                         <div class="w-[30px] h-[30px] float-left mt-8 ml-[28rem]">
                             <button class="" type="submit"><i class="fa-solid fa-filter text-deep-green text-[28px] self-end"></i></button>
                         </div>
@@ -110,19 +125,27 @@
                             <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end mt-[15rem] mr-8">
                                 <div class="mb-2 w-80 text-justify">
                                     <p class="py-2 text-xl">LEGEND</p>
-                                    Gender:
-                                    <br>
-                                    - ( M ) Male
-                                    <br>
-                                    - ( F ) Female
-                                    <br><br>
-                                    Age Classification:
-                                    <br>
-                                    @foreach ($ageClassification as $age)
-                                    <p>- {{ $age->ageGroup }} Years</p>
-                                    @endforeach
+                                    <div>
+                                        Gender:
+                                        <br>
+                                        M - Male
+                                        <br>
+                                        F - Female
+                                    </div>
+                                    <div class="my-2">
+                                        Age Classification:
+                                        <br>
+                                        <p>N - Newborn (0-28 Days Old)</p>
+                                        <p>I - Infant (29 Days - 11 Months Old)</p>
+                                        <p>U - Under-five (1-4 Years Old)</p>
+                                        <p>S - School-Aged Children (5-9 Years Old)</p>
+                                        <p>A - Adolescents (10-19 Years Old)</p>
+                                        <p>WRA - 15-49 Years Old, not Pregnant and non Post Partum</p>
+                                        <p>AB - Adult (20-59 Years Old)</p>
+                                        <p>SC - Senior Citizen (60 Years Old and Above)</p>
                                     </div>
                                 <hr>
+                                </div>
                                 <p class="mt-2 w-80 text-justify">
                                     Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
                                     the Sitio, that means there are currently 0 Residents there.

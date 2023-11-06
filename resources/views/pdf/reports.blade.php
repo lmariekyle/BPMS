@@ -86,6 +86,20 @@
             @endif
         </h2>
         <hr>
+            <h2>LEGEND</h2>
+            <h3>Gender:</h3>
+                <p>M - Male</p>
+                <p>F - Female</p>
+            <h3>Age Classification:</h3>
+                <p>N - Newborn (0-28 Days Old)</p>
+                <p>I - Infant (29 Days - 11 Months Old)</p>
+                <p>U - Under-five (1-4 Years Old)</p>
+                <p>S - School-Aged Children (5-9 Years Old)</p>
+                <p>A - Adolescents (10-19 Years Old)</p>
+                <p>WRA - 15-49 Years Old, not Pregnant and non Post Partum</p>
+                <p>AB - Adult (20-59 Years Old)</p>
+                <p>SC - Senior Citizen (60 Years Old and Above)</p>
+        <hr>
         @if($totalResidentCount !== 0)
         <h2>RESIDENTS</h2>
         <table>
