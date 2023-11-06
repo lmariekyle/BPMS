@@ -342,8 +342,8 @@ class ServicesController extends Controller
             Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
         }
 
+        $payment = Payment::where('id', $transactionPaymentId)->first();
         if ($request->paymentMethod == 'GCASH') {
-            $payment = Payment::where('id', $transactionPaymentId)->first();
             // return view('createpayment', $transactionPaymentId);
             return $this->createpayment($payment->id);
         } else {

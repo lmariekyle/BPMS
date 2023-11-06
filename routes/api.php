@@ -54,6 +54,7 @@ Route::get('/mobileGetHouseholdNumber', [HouseholdListController::class, 'mobile
 Route::get('/mobileGetHousehold', [HouseholdListController::class, 'getHouseholdsPerYear']);
 
 Route::post('/mobileTransactionRequest', [TransactionController::class, 'mobileTransactionRequest']);
+Route::post('/mobileFileUpload', [TransactionController::class, 'fileUpload']);
 Route::post('/mobileNotifications', [NotificationController::class, 'mobileNotifications']);
 
 Route::post('/household', 'App\Http\Controllers\HouseholdRegistrationController@mobileStore');
