@@ -173,7 +173,11 @@ class StatisticsController extends Controller
         } else {
             $filterGender = "";
         }
-
+        
+        //to change to age range so like
+        //it will be
+        //$variable1 = lowest value selected
+        //$variable2 = highest value selected
         if ($request['ageclass'] != "NULL") {
             $filterAgeGroup = $request['ageclass'];
         } else {
