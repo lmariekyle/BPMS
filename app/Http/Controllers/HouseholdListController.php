@@ -35,6 +35,7 @@ class HouseholdListController extends Controller
             
             array_push($households,$house);
         }
+        
         $houseNum = array_column($households, 'houseNumber');
 
         array_multisort($houseNum, SORT_ASC, $households);

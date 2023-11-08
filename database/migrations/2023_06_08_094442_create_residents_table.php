@@ -29,9 +29,9 @@ class CreateResidentsTable extends Migration
             $table->string('maritalStatus')->nullable();
             $table->string('gender')->nullable();
 
-            $table->string('philHealthNumber')->default('none')->nullable();
-            $table->string('occupation')->default('none')->nullable();
-            $table->string('monthlyIncome')->default('none')->nullable();
+            $table->string('philHealthNumber')->default('None')->nullable();
+            $table->string('occupation')->default('None')->nullable();
+            $table->string('monthlyIncome')->default('None')->nullable();
 
             $table->string('ageClassification')->default('AB')->nullable();
             $table->string('pregnancyClassification')->default('WBA')->nullable();

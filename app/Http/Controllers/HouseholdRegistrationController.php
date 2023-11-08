@@ -239,6 +239,7 @@ class HouseholdRegistrationController extends Controller
                             ->where('houseNumber',$request->houseNumber)
                             ->where('quarterNumber',$request->qtr)
                             ->where('yearOfVisit',$request->yearOfVisit)
+                            ->orderby('created_at','DESC')
                             ->first();
         
        
@@ -351,7 +352,7 @@ class HouseholdRegistrationController extends Controller
                     'pregnancyClassification'=>$resident['pregnancyClassification'],
                     'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
                     'registeredPWD'=>$resident['registeredPWD'],
-                    'dateOfDeath'=>$resident['dateOfDeath'],
+                    'dateOfDeath'=>($resident['dateOfDeath']=='NotDead')?null:$resident['dateOfDeath'],
                     //'supportingDocument'=>$resident['supportingDocument']
                     
 

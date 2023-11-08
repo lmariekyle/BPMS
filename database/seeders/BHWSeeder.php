@@ -20,13 +20,34 @@ class BHWSeeder extends Seeder
     {
         Households::create([
             'sitioID' => '2',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'street'=>'TOOOOOOO',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'yearOfVisit'=>2022,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2022-10-15',
+            'respondentName'=>'Rook',
+            'createdBy'=>2,
+            'revisedBy'=>2
         ]);
 
         //MILES//
         ResidentList::create([
             'residentID' => '2',
-            'houseID' => '2'
+            'houseID' => '25',
+            'houseNumber'=>2,
+            'householdHead'=>1,
+            'memberNumber'=>1,
+            'createdBy'=>1,
+            'revisedBy'=>1,
         ]);
 
         User::create([
@@ -37,9 +58,9 @@ class BHWSeeder extends Seeder
             'contactnumber' => '09876543211',
             'userlevel' => 'Barangay Health Worker',
             'userstatus' => 'Active',
+            'profileImage' => 'images/morales.jpg',
             'email' => 'morales@bpms.com',
             'email_verified_at' => now(),
-            'profileImage' => 'images/morales.jpg',
             'password' => Hash::make('moralesbpms'),
         ])->assignRole('Barangay Health Worker');
 
@@ -47,7 +68,12 @@ class BHWSeeder extends Seeder
         //GWEN//
         ResidentList::create([
             'residentID' => '3',
-            'houseID' => '2'
+            'houseID' => '25',
+            'houseNumber'=>2,
+            'householdHead'=>0,
+            'memberNumber'=>2,
+            'createdBy'=>1,
+            'revisedBy'=>1,
         ]);
         User::create([
             'residentID' => '3',
@@ -57,35 +83,45 @@ class BHWSeeder extends Seeder
             'contactnumber' => '09876543212',
             'userlevel' => 'Barangay Secretary',
             'userstatus' => 'Active',
+            'profileImage' => 'images/stacy.jpg',
             'email' => 'stacy@bpms.com',
             'email_verified_at' => now(),
-            'profileImage' => 'images/stacy.jpg',
             'password' => Hash::make('stacybpms'),
         ])->assignRole('Barangay Secretary');
 
         //PETER//
         ResidentList::create([
             'residentID' => '7',
-            'houseID' => '2'
+            'houseID' => '25',
+            'houseNumber'=>2,
+            'householdHead'=>0,
+            'memberNumber'=>3,
+            'createdBy'=>1,
+            'revisedBy'=>1,
         ]);
         User::create([
             'residentID' => '7',
             'sitioID' => '3',
             'assignedSitioID' => '3',
-            'idNumber' => '231031',
+            'idNumber' => '23101',
             'contactnumber' => '09876543212',
             'userlevel' => 'User',
             'userstatus' => 'Active',
+            'profileImage' => 'images/peter.webp',
             'email' => 'parker@bpms.com',
             'email_verified_at' => now(),
-            'profileImage' => 'images/peter.jpg',
             'password' => Hash::make('parkerbpms'),
         ])->assignRole('User');
 
-        //PETER//
+        //Lourdes//
         ResidentList::create([
-            'residentID' => '4',
-            'houseID' => '3'
+            'residentID'=>'4',
+            'houseID'=>'3',
+            'houseNumber'=>4,
+            'householdHead'=>1,
+            'memberNumber'=>1,
+            'createdBy'=>1,
+            'revisedBy'=>1,
         ]);
         User::create([
             'residentID' => '4',
@@ -95,10 +131,10 @@ class BHWSeeder extends Seeder
             'contactnumber' => '09876543212',
             'userlevel' => 'Barangay Captain',
             'userstatus' => 'Active',
-            'email' => 'francine@bpms.com',
+            'profileImage' => 'images/bc.jpg',
+            'email' => 'lourdeskyle09@gmail.com',
             'email_verified_at' => now(),
-            'profileImage' => 'images/lourdes.jpg',
-            'password' => Hash::make('francinebpms'),
+            'password' => Hash::make('lourdesbpms'),
         ])->assignRole('Barangay Captain');
     }
 }

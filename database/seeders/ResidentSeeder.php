@@ -26,6 +26,7 @@ class ResidentSeeder extends Seeder
             'email' => 'adminPersonalEmail@gmail.com',
             'gender' => 'Female',
             'maritalStatus' => 'Single',
+            'dateOfDeath' => '1000-01-01',
         ]);
 
         Resident::create([
@@ -39,6 +40,7 @@ class ResidentSeeder extends Seeder
             'email' => 'morales@gmail.com',
             'gender' => 'Male',
             'maritalStatus' => 'Single',
+            'dateOfDeath' => '1000-01-01',
         ]);
 
 
@@ -53,6 +55,7 @@ class ResidentSeeder extends Seeder
             'email' => 'stacy@gmail.com',
             'gender' => 'Female',
             'maritalStatus' => 'Single',
+            'dateOfDeath' => '1000-01-01',
         ]);
 
 
@@ -67,6 +70,7 @@ class ResidentSeeder extends Seeder
             'email' => 'francine@gmail.com',
             'gender' => 'Female',
             'maritalStatus' => 'Single',
+            'dateOfDeath' => '1000-01-01',
         ]);
 
         Resident::create([
@@ -80,6 +84,7 @@ class ResidentSeeder extends Seeder
             'email' => 'mariekylec@gmail.com',
             'gender' => 'Male',
             'maritalStatus' => 'Single',
+            'dateOfDeath' => '1000-01-01',
         ]);
 
         Resident::create([
@@ -93,6 +98,7 @@ class ResidentSeeder extends Seeder
             'email' => 'residentbpms@gmail.com',
             'gender' => 'Male',
             'maritalStatus' => 'Single',
+            'dateOfDeath' => '1000-01-01',
         ]);
 
         Resident::create([
@@ -106,6 +112,7 @@ class ResidentSeeder extends Seeder
             'email' => 'parker@bpms.com',
             'gender' => 'Male',
             'maritalStatus' => 'Single',
+            'dateOfDeath' => '1000-01-01',
         ]);
     }
 }
