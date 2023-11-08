@@ -39,6 +39,7 @@ class BHWSeeder extends Seeder
             'userstatus' => 'Active',
             'email' => 'morales@bpms.com',
             'email_verified_at' => now(),
+            'profileImage' => 'images/morales.jpg',
             'password' => Hash::make('moralesbpms'),
         ])->assignRole('Barangay Health Worker');
 
@@ -58,6 +59,7 @@ class BHWSeeder extends Seeder
             'userstatus' => 'Active',
             'email' => 'stacy@bpms.com',
             'email_verified_at' => now(),
+            'profileImage' => 'images/stacy.jpg',
             'password' => Hash::make('stacybpms'),
         ])->assignRole('Barangay Secretary');
 
@@ -76,6 +78,7 @@ class BHWSeeder extends Seeder
             'userstatus' => 'Active',
             'email' => 'parker@bpms.com',
             'email_verified_at' => now(),
+            'profileImage' => 'images/peter.jpg',
             'password' => Hash::make('parkerbpms'),
         ])->assignRole('User');
 
@@ -92,9 +95,10 @@ class BHWSeeder extends Seeder
             'contactnumber' => '09876543212',
             'userlevel' => 'Barangay Captain',
             'userstatus' => 'Active',
-            'email' => 'lourdeskyle09@gmail.com',
+            'email' => 'francine@bpms.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('lourdesbpms'),
+            'profileImage' => 'images/lourdes.jpg',
+            'password' => Hash::make('francinebpms'),
         ])->assignRole('Barangay Captain');
     }
 }

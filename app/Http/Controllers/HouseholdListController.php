@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Households;
 use App\Models\Resident;
 use App\Models\ResidentList;
+use App\Models\User;
+
+use function PHPUnit\Framework\isEmpty;
 
 class HouseholdListController extends Controller
 {
     public function mobileHouseholds(Request $request)
     {
-        /* function will receive the assignedSitioID of the current user from the app then 
-           return all households with that id
-        */
         
         $tempHousehold=Households::select('houseNumber')
                                 ->where('sitioID', $request->sitioID)
@@ -27,6 +27,11 @@ class HouseholdListController extends Controller
                                 ->where('houseNumber', $houseNum['houseNumber'])
                                 ->orderBy('created_at','desc')
                                 ->first();
+            $user=User::where('id', $house['revisedBy'])
+                                ->first();
+            $name=Resident::where('id',$user['residentID'])
+                                ->first();
+            $house['revisedByName']=$name['firstName']. ' '.$name['lastName'];
             
             array_push($households,$house);
         }
@@ -36,7 +41,7 @@ class HouseholdListController extends Controller
 
         $response =[
             'households' => $households,
-            'success' => true
+            'success' => true,
         ];
         
         return $response;
@@ -71,14 +76,31 @@ class HouseholdListController extends Controller
                                 ->where('sitioID', $request->sitioID)
                                 ->groupBy('houseNumber')
                                 ->orderBy('created_at','desc')
-                                ->first();
+                                ->get();
+        $numbersList = [];
+        $houseNumber = 0;
+        
+        if(count($households)!=0){
 
-        $houseNum = (is_numeric($households['houseNumber']))?$households['houseNumber']:substr($households['houseNumber'],0,-1);
+            foreach ($households as $numbers) {
+                $houseNum = (is_numeric($numbers['houseNumber']))?$numbers['houseNumber']:substr($numbers['houseNumber'],0,-1);
+                $tempObj['houseNumber']=$houseNum;
+                
+                array_push($numbersList,$tempObj);
+            }
 
-        $houseNumber =(int)$houseNum+1;
+            $column = array_column($numbersList,'houseNumber');
+            array_multisort($column, SORT_DESC,$numbersList);
+            
+            $houseNumber =(int)$numbersList[0]['houseNumber']+1;
+        }else{
+            $houseNumber = 1;
+        }
+
+        
         $response =[
             'houseNum' => (string)$houseNumber,
-            'success' => true
+            'success' => true,
         ];
         
         return $response;
@@ -115,4 +137,78 @@ class HouseholdListController extends Controller
         
         return $response;
     }
+
+    public function mobileRecentMembers(Request $request)
+    {
+
+        $households=Households::where('sitioID', $request->sitioID)
+                                ->where('houseNumber', $request->houseNumber)
+                                ->first();
+        
+
+        $resList=ResidentList::where('houseID', $households['id'])
+                            ->orderBy('created_at','desc')
+                            ->get();
+        $members=[];
+
+        
+        foreach ($resList as $res) {
+            $mem=Resident::where('id',$res['residentID'])
+                        ->orderby('created_at','desc')
+                        ->first();
+        
+            array_push($members,$mem);
+        }
+        
+    
+        $response =[
+            'resList' => $resList,
+            'members' => $members,
+            'success' => true
+        ];
+        
+        return $response;
+    }
+
+    public function getExistingHouseholdList(Request $request)
+    {
+        
+        $tempHousehold=Households::select('houseNumber')
+                                ->where('sitioID', $request->sitioID)
+                                ->groupBy('houseNumber')
+                                ->get();
+
+        $households=[];
+
+        for ($i=0; $i < count($tempHousehold); $i++) {
+
+            $house=Households::where('sitioID', $request->sitioID)
+                                ->where('houseNumber', $tempHousehold[$i]['houseNumber'])
+                                ->orderBy('created_at','desc')
+                                ->first();
+
+            if(is_numeric($tempHousehold[$i]['houseNumber'])){
+                array_push($households,$house);
+            }else{
+                if(count($tempHousehold)==$i+1){
+                    array_push($households,$house);
+                }else if(substr($tempHousehold[$i+1]['houseNumber'],0,1)!=substr($tempHousehold[$i]['houseNumber'],0,1)){
+                    array_push($households,$house);
+                }
+            }
+            
+        }
+        
+        $houseNum = array_column($households, 'houseNumber');
+
+        array_multisort($houseNum, SORT_ASC, $households);
+
+        $response =[
+            'households' => $households,
+            'success' => true,
+        ];
+        
+        return $response;
+    }
+
 }

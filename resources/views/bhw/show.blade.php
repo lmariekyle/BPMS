@@ -60,7 +60,7 @@
                                             @if (null!==$user->archiveDate)
                                             <p>{{$user->archiveDate}}</p>
                                             @else
-                                            <p>---------------------</p>
+                                            <p>Account is still Active</p>
                                             @endif
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                             @if (null!==$user->archivedBy)
                                             <p>{{$user->archivedBy}}</p>
                                             @else
-                                            <p>---------------------</p>
+                                            <p>Account is still Active</p>
                                             @endif
                                     </div>
                                 </div>

@@ -411,6 +411,8 @@ class ServicesController extends Controller
         ]);
 
         $payment->save();
+
+        return view('services.success');
     }
 
 
