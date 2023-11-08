@@ -24,23 +24,10 @@ class TransactionController extends Controller
 {
     public function mobileTransactionRequest(Request $request){
 
-        if ($request->hasFile('fileUpload')) {
-            foreach ($request->file('fileUpload') as $file) {
-                if ($file->isValid()) {
-                    $file_name = Str::slug($request->requesteeLName) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                    $file->storeAs('requirements', $file_name);
-                    $path = $file_name;
-                    $certRequirements[] = $path;
-                }
-            }
-            $reqJson = json_encode($certRequirements);
-        } else {
-            $reqJson = NULL;
-        }
-
         $document = Document::where('id', $request->documentId)->first();
         $user = User::where('residentID', $request->userId)->first();
         $date = Carbon::now()->format('Y-m-d');
+        $docType = $document->docType;
 
         if($document->docType == "File Complain"){
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-FC']);
@@ -97,7 +84,6 @@ class TransactionController extends Controller
                 'requesteeOldInformation' => $request->oldInformation,
                 'requesteeNewInformation' => $request->newInformation,
                 'requestPurpose' => $request->changeReason,
-                'file' => $reqJson,
                 'status' => 'PENDING',
             ]);
 
@@ -136,7 +122,6 @@ class TransactionController extends Controller
                 'requesteeEmail'  => $request->email,
                 'requesteeContactNumber' => $request->contactNumber,
                 'requestPurpose' => $request->requestPurpose,
-                'file' => $reqJson,
             ]);
 
             if($document->docType == "Barangay Certificate"){
@@ -184,7 +169,7 @@ class TransactionController extends Controller
             $documents = DB::select('select DISTINCT docType from documents');
             $userData = Resident::where('id', $request->userId)->first();
 
-            $response = ['user' => $userData, 'documents' => $documents, 'payment' => $receivedPayment, 'success' => true];
+            $response = ['user' => $userData, 'documents' => $documents, 'payment' => $receivedPayment, 'success' => true, 'transaction' => $transaction, 'docType' => $docType];
             return $response;
         }
 
@@ -194,9 +179,66 @@ class TransactionController extends Controller
         $documents = DB::select('select DISTINCT docType from documents');
         $userData = Resident::where('id', $request->userId)->first();
 
-        $response = ['user' => $userData, 'documents' => $documents, 'success' => true, 'filePath' => $request->fileUpload];
+        if($document->docType == "Account Information Change"){
+            $response = ['user' => $userData, 'documents' => $documents, 'success' => true, 'account' => $account, 'docType' => $docType];
+        }else{
+            $response = ['user' => $userData, 'documents' => $documents, 'success' => true, 'transaction' => $transaction, 'docType' => $docType];
+        }
+        
         return $response;
         // return $this->createpayment($payment->id);
+    }
+
+    public function fileUpload(Request $request){
+        $transaction = Transaction::find($request->transaction);
+        $documents = DB::select('select DISTINCT docType from documents');
+        $user = User::where('id', $transaction->userID)->first();
+        $userData = Resident::where('id', $user->residentID)->first();
+        $certRequirements = [];
+        $file_name = " ";
+        $printable = "it went in";
+
+        if ($request->hasFile('file')) {
+            $file_name = Str::slug($userData->lastname) . '_' . uniqid() . '.' . $request->file->getClientOriginalExtension();
+            $request->file->storeAs('requirements', $file_name);
+            $path = $file_name;
+            $certRequirements[] = $path;
+
+            // foreach ($request->file as $file) {
+            //     return $printable;
+            //     //if ($file->isValid()) {
+            //         //$file_name = Str::slug($request->requesteeLName) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            //         $file_name = Str::slug("Phillip") . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            //         $file->storeAs('requirements', $file_name);
+            //         $path = $file_name;
+            //         $certRequirements[] = $path;
+            //     //}
+            // }
+            $reqJson = json_encode($certRequirements);
+        } else {
+            $reqJson = NULL;
+        }
+
+        if($request->docType == "Account Information Change"){
+            $account = AccountInfoChange::where('id', $transaction->transaction);
+            $account->update([
+                'file' => $reqJson,
+            ]);
+        }else{
+            $transaction = Transaction::find($request->transaction);
+            $userData = User::where('id', $transaction->userID)->first();
+            $payment = Payment::where('id', $transaction->paymentID)->first();
+            $detail = DocumentDetails::where('id', $transaction->detailID)->first();
+            $detail->update([
+                'file' => $reqJson,
+            ]);
+            if($request->paymentMethod == '2'){
+                $response = ['user' => $userData, 'documents' => $documents, 'payment' => $payment, 'success' => true];
+            }
+        }
+        
+        $response = ['user' => $userData, 'documents' => $documents, 'success' => true];
+        return $response;
     }
 
     public function createInvoice($request)
@@ -223,21 +265,27 @@ class TransactionController extends Controller
         return json_decode($res->body(), true);
     }
 
-
     public function createpayment($id)
     {
-        $payment = Payment::where('id', $id)->where('paymentStatus', 'Pending')->first();
+        $payment = Payment::where('id', $id)->first();
         $transaction = Transaction::where('paymentID', $payment->id)->first();
         $externalID = 'INV' . date('Ymd') . '-' . rand(1000, 9999);
 
         $payment->accountNumber = $externalID;
         $payment->save();
+       
+        $successRedirectUrl = route('services.success', $payment->id);
+        $failureRedirectUrl = route('services.failure', $payment->id);
 
         $params = [
             'external_id' => $externalID,
             'amount' => $transaction->serviceAmount,
             'user_id' => $transaction->userID,
-            'invoice_duration' => 3600,
+            'success_redirect_url' => $successRedirectUrl,
+            'failure_redirect_url' => $failureRedirectUrl,
+            'payment_methods' => ['GCASH'],
+            'currency' => 'PHP',
+            'invoice_duration' => 30000,
         ];
 
         $invoice = $this->createInvoice($params);
@@ -249,40 +297,50 @@ class TransactionController extends Controller
         $payment->success = true;
 
         return $payment;
-        // return Redirect::to($payment->successURL);
     }
 
-    public function mobileCallback(Request $request)
-    {
-        try {
-            $payment = Payment::where('accountNumber', $request->external_id)->first();
-            if ($request->header('x-callback-token') != env('XENDIT_CALLBACK_TOKEN')) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Invalid Callback Token'
-                ], 400);
-            }
+    public function successpayment($id){
 
-            if ($payment) {
-                if ($request->status == 'PAID') {
-                    $payment->update([
-                        'paymentStatus' => 'Paid'
-                    ]);
-                } else {
-                    $payment->update([
-                        'paymentStatus' => 'Expired',
-                    ]);
-                }
-            }
+        $payment = Payment::where('id', $id)->first();
 
-            return response()->json([
-                'status' => 'success',
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ], 500);
-        }
+        $payment->update([
+            'paymentStatus' => 'Paid'
+        ]);
+
+        $payment->save();
     }
+
+    // public function mobileCallback(Request $request)
+    // {
+    //     try {
+    //         $payment = Payment::where('accountNumber', $request->external_id)->first();
+    //         if ($request->header('x-callback-token') != env('XENDIT_CALLBACK_TOKEN')) {
+    //             return response()->json([
+    //                 'status' => 'error',
+    //                 'message' => 'Invalid Callback Token'
+    //             ], 400);
+    //         }
+
+    //         if ($payment) {
+    //             if ($request->status == 'PAID') {
+    //                 $payment->update([
+    //                     'paymentStatus' => 'Paid'
+    //                 ]);
+    //             } else {
+    //                 $payment->update([
+    //                     'paymentStatus' => 'Expired',
+    //                 ]);
+    //             }
+    //         }
+
+    //         return response()->json([
+    //             'status' => 'success',
+    //         ]);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'message' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
 }

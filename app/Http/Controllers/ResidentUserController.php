@@ -221,8 +221,8 @@ class ResidentUserController extends Controller
     {
         $account = AccountInfoChange::where('userID',$id)->first();
         $requested = $request->selectedInformation;
-        if($request->status == "1"){
-            $user = User::where('id',$id)->first();
+        $user = User::where('id',$id)->first();
+        if($request->status == "1"){        
             $user->{$requested} = $request->requesteeNewInformation;
             $account->status ='DONE';
             $user->save();
