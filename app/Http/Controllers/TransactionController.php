@@ -28,6 +28,25 @@ class TransactionController extends Controller
         $user = User::where('residentID', $request->userId)->first();
         $date = Carbon::now()->format('Y-m-d');
         $docType = $document->docType;
+        $certRequirements = [];
+
+        if ($request->hasFile('file')) {
+            foreach ($request->file('file') as $file) {
+                if ($file->isValid()) {
+                    if($document->docType == "File Complain"){
+                        $file_name = Str::slug($request->complaintLName) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                    }else{
+                        $file_name = Str::slug($request->lastName) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                    }
+                    $file->storeAs('requirements', $file_name);
+                    $path = $file_name;
+                    $certRequirements[] = $path;
+                }
+            }
+            $reqJson = json_encode($certRequirements);
+        } else {
+            $reqJson = NULL;
+        }
 
         if($document->docType == "File Complain"){
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-FC']);
@@ -59,6 +78,7 @@ class TransactionController extends Controller
                 'requesteeEmail'  => $complain->complaintEmail,
                 'requesteeContactNumber' => $complain->complaintContactNumber,
                 'requestPurpose' => $complain->requestPurpose,
+                'file' => $reqJson,
             ]);
 
             $transaction = Transaction::create([
@@ -84,6 +104,7 @@ class TransactionController extends Controller
                 'requesteeOldInformation' => $request->oldInformation,
                 'requesteeNewInformation' => $request->newInformation,
                 'requestPurpose' => $request->changeReason,
+                'file' => $reqJson,
                 'status' => 'PENDING',
             ]);
 
@@ -122,6 +143,7 @@ class TransactionController extends Controller
                 'requesteeEmail'  => $request->email,
                 'requesteeContactNumber' => $request->contactNumber,
                 'requestPurpose' => $request->requestPurpose,
+                'file' => $reqJson,
             ]);
 
             if($document->docType == "Barangay Certificate"){
@@ -185,59 +207,6 @@ class TransactionController extends Controller
             $response = ['user' => $userData, 'documents' => $documents, 'success' => true, 'transaction' => $transaction, 'docType' => $docType];
         }
         
-        return $response;
-        // return $this->createpayment($payment->id);
-    }
-
-    public function fileUpload(Request $request){
-        $transaction = Transaction::find($request->transaction);
-        $documents = DB::select('select DISTINCT docType from documents');
-        $user = User::where('id', $transaction->userID)->first();
-        $userData = Resident::where('id', $user->residentID)->first();
-        $certRequirements = [];
-        $file_name = " ";
-        $printable = "it went in";
-
-        if ($request->hasFile('file')) {
-            $file_name = Str::slug($userData->lastname) . '_' . uniqid() . '.' . $request->file->getClientOriginalExtension();
-            $request->file->storeAs('requirements', $file_name);
-            $path = $file_name;
-            $certRequirements[] = $path;
-
-            // foreach ($request->file as $file) {
-            //     return $printable;
-            //     //if ($file->isValid()) {
-            //         //$file_name = Str::slug($request->requesteeLName) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            //         $file_name = Str::slug("Phillip") . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            //         $file->storeAs('requirements', $file_name);
-            //         $path = $file_name;
-            //         $certRequirements[] = $path;
-            //     //}
-            // }
-            $reqJson = json_encode($certRequirements);
-        } else {
-            $reqJson = NULL;
-        }
-
-        if($request->docType == "Account Information Change"){
-            $account = AccountInfoChange::where('id', $transaction->transaction);
-            $account->update([
-                'file' => $reqJson,
-            ]);
-        }else{
-            $transaction = Transaction::find($request->transaction);
-            $userData = User::where('id', $transaction->userID)->first();
-            $payment = Payment::where('id', $transaction->paymentID)->first();
-            $detail = DocumentDetails::where('id', $transaction->detailID)->first();
-            $detail->update([
-                'file' => $reqJson,
-            ]);
-            if($request->paymentMethod == '2'){
-                $response = ['user' => $userData, 'documents' => $documents, 'payment' => $payment, 'success' => true];
-            }
-        }
-        
-        $response = ['user' => $userData, 'documents' => $documents, 'success' => true];
         return $response;
     }
 
