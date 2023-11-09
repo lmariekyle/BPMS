@@ -681,9 +681,6 @@ select {
 .collapse {
   visibility: collapse;
 }
-.static {
-  position: static;
-}
 .fixed {
   position: fixed;
 }
@@ -1046,6 +1043,9 @@ select {
 .ml-\[28rem\] {
   margin-left: 28rem;
 }
+.ml-\[2rem\] {
+  margin-left: 2rem;
+}
 .ml-\[400px\] {
   margin-left: 400px;
 }
@@ -1108,6 +1108,9 @@ select {
 }
 .mr-\[1rem\] {
   margin-right: 1rem;
+}
+.mr-\[5rem\] {
+  margin-right: 5rem;
 }
 .mr-\[7rem\] {
   margin-right: 7rem;
@@ -1213,6 +1216,9 @@ select {
 }
 .mt-\[8rem\] {
   margin-top: 8rem;
+}
+.ml-\[2\.5rem\] {
+  margin-left: 2.5rem;
 }
 .block {
   display: block;
@@ -1651,6 +1657,9 @@ select {
 .w-\[725px\] {
   width: 725px;
 }
+.w-\[760px\] {
+  width: 760px;
+}
 .w-\[890px\] {
   width: 890px;
 }
@@ -1915,6 +1924,9 @@ select {
 }
 .border-t {
   border-top-width: 1px;
+}
+.border-t-2 {
+  border-top-width: 2px;
 }
 .border-solid {
   border-style: solid;
@@ -2271,6 +2283,12 @@ select {
 .text-start {
   text-align: start;
 }
+.text-end {
+  text-align: end;
+}
+.indent-10 {
+  text-indent: 2.5rem;
+}
 .indent-4 {
   text-indent: 1rem;
 }
@@ -2279,6 +2297,9 @@ select {
 }
 .font-libre {
   font-family: 'Libre Baskerville', serif;
+}
+.font-lora {
+  font-family: 'Lora, serif;
 }
 .font-playfair {
   font-family: 'Playfair Display', serif;

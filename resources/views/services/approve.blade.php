@@ -16,11 +16,11 @@
             </div>
             <div class="flex flex-row mt-6">
                 <!-- start of doc template -->
-                <div class="w-max h-max bg-dirty-white border-2 border-black ml-32 px-[3rem] py-8">
+                <div class="w-max h-max bg-dirty-white border-2 border-black ml-[2rem] px-[3rem] py-4">
                     @include('documents.barangaycertificate')
                 </div>
                 <!-- end of doc template -->
-                <div class="ml-20 text-center items-center w-[580px] h-[700px] pt-[275px]" style="width: 580px; height: 700px; padding-top: 275px;">
+                <div class="ml-[2.5rem] text-center items-center w-[580px] h-[700px] pt-[275px]" style="width: 580px; height: 700px; padding-top: 275px;">
                     <div class="">
                         <p class="font-robotocondensed font-bold text-[46px] text-dirty-white" style="font-size: 46px;">
                             {{ $requestee->requesteeLName }}, {{ $requestee->requesteeFName }}

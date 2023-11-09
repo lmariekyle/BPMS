@@ -347,7 +347,7 @@ class ServicesController extends Controller
             // return view('createpayment', $transactionPaymentId);
             return $this->createpayment($payment->id);
         } else {
-            return view('services.success', $payment->id);
+            return view('services.success');
         }
     }
 
