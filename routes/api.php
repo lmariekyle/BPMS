@@ -41,8 +41,8 @@ Route::get('/mobileSitios', [SitioAssignmentController::class, 'mobileSitios']);
 Route::post('/mobileHouseList', [SitioAssignmentController::class, 'mobileHouseList']);
 Route::post('/mobileTransactionRequest', [TransactionController::class, 'mobileTransactionRequest']);
 Route::post('/mobileNotifications', [NotificationController::class, 'mobileNotifications']);
-Route::post('/register', 'App\Http\Controllers\ResidentUserController@mobileStore');
-Route::post('/sitioAssignment', [SitioAssignmentController::class, 'mobileSitiosAssignment']);
+Route::post('/mobileNotificationDetails', [NotificationController::class, 'mobileNotificationDetails']);
+
 Route::post('/household', 'App\Http\Controllers\HouseholdRegistrationController@mobileStore');
 Route::post('/forgotPassword', 'App\Http\Controllers\Auth\PasswordResetLinkController@mobileStore')->name('mobileForgotPassword');
 Route::post('/callback', [ServicesController::class, 'callback'])->name('callback');

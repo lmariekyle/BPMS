@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Resident;
 use App\Models\Document;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
 use DB;
 
 class NotificationController extends Controller
@@ -22,6 +23,10 @@ class NotificationController extends Controller
             $notification->user = User::where('id', $notification->data['transaction']['userID'])->first();
             $notification->resident = Resident::where('id',$notification->user['residentID'])->first();
             $notification->document = Document::where('id',$notification->data['transaction']['documentID'])->first();
+            $notification->processedBy = User::where('id',$notification->data['transaction']['issuedBy'])->first();
+            $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+            $newtime = strtotime($notification->data['transaction']['created_at']);
+            $notification->notificationCreated = date('M d, Y', $newtime);
         }
         return view('auth.notifications', compact('notifications'));
     }
@@ -33,8 +38,25 @@ class NotificationController extends Controller
             $notification->user = User::where('id', $notification->data['transaction']['userID'])->first();
             $notification->resident = Resident::where('id',$notification->user['residentID'])->first();
             $notification->document = Document::where('id',$notification->data['transaction']['documentID'])->first();
+            $notification->processedBy = User::where('id',$notification->data['transaction']['issuedBy'])->first();
+            $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+            $newtime = strtotime($notification->data['transaction']['created_at']);
+            $notification->notificationCreated = date('M d, Y', $newtime);
         }
-        $response = ['notifications' => $notifications, 'success' => true];
+        $response = ['success' => true,'notifications' => $notifications];
+        return $response;
+    }
+
+    public function mobileNotificationDetails(Request $request){
+        $notification = DatabaseNotification::where('id',$request->id)->first();
+        $notification->user = User::where('id', $notification->data['transaction']['userID'])->first();
+        $notification->resident = Resident::where('id',$notification->user['residentID'])->first();
+        $notification->document = Document::where('id',$notification->data['transaction']['documentID'])->first();
+        $notification->processedBy = User::where('id',$notification->data['transaction']['issuedBy'])->first();
+        $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+        $newtime = strtotime($notification->data['transaction']['created_at']);
+        $notification->notificationCreated = date('M d, Y', $newtime);
+        $response = ['notifications' => $notification, 'success' => true,];
         return $response;
     }
 }

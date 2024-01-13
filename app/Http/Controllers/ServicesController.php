@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccountInfoChange;
 use App\Models\Complain;
 use App\Models\Document;
 use App\Models\DocumentDetails;
@@ -24,6 +25,8 @@ use App\Notifications\ReleasedNotification;
 use App\Notifications\SignatureNotification;
 use App\Notifications\SignedNotification;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Carbon\Carbon;
+
 
 class ServicesController extends Controller
 {
@@ -36,19 +39,22 @@ class ServicesController extends Controller
     public function index()
     {
         $transactions = Transaction::all();
-        if(auth()->user()->userLevel == 'Admin')
-        {
-            //get all account update requests and mauh ray i show sa services . index
-        }else{
-            foreach ($transactions as $transaction) {
-                $user = User::where('id', $transaction->userID)->first();
-                $transaction->resident = Resident::where('id', $user->residentID)->first();
-                $transaction->document = Document::where('id', $transaction->documentID)->first();
-                $newtime = strtotime($transaction->created_at);
-                $transaction->createdDate = date('M d, Y', $newtime);
-            }
+        $accounts = AccountInfoChange::all();
+        foreach ($transactions as $transaction) {
+            $user = User::where('id', $transaction->userID)->first();
+            $transaction->resident = Resident::where('id', $user->residentID)->first();
+            $transaction->document = Document::where('id', $transaction->documentID)->first();
+            $level = User::where('id', $transaction->issuedBy)->first();
+            $levelUser = Resident::where('id', $level->residentID)->first();
+            $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
+            $newtime = strtotime($transaction->created_at);
+            $transaction->createdDate = date('M d, Y', $newtime);
         }
-        return view('services.index', compact('transactions'));
+        foreach ($accounts as $account) {
+            $user = User::where('id', $account->userID)->first();
+            $account->resident = Resident::where('id', $user->residentID)->first();
+        }
+        return view('services.index', compact('transactions', 'accounts'));
     }
 
     /**
@@ -90,7 +96,16 @@ class ServicesController extends Controller
         $transaction = Transaction::where('id', $id)->first();
         $transaction->detail = DocumentDetails::where('id', $transaction->detailID)->first();
         $transaction->document = Document::where('id', $transaction->documentID)->first();
-        $filePaths = json_decode($transaction->detail->file, true);
+        $level = User::where('id', $transaction->issuedBy)->first();
+        $levelUser = Resident::where('id', $level->residentID)->first();
+        $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
+        $date = Carbon::now();
+        $date->toArray();
+        if ($transaction->detail && $transaction->detail->file) {
+            $filePaths = json_decode($transaction->detail->file, true);
+        } else {
+            $filePaths = [];
+        }        
         $transaction->payment = Payment::where('id', $transaction->paymentID)->first();
         if ($transaction->payment['paymentMethod'] == 'CASH-ON-SITE' || $transaction->payment['paymentStatus'] == 'Paid') {
             $transaction->approval = 1;
@@ -115,9 +130,11 @@ class ServicesController extends Controller
      */
     public function accepted($id)
     {
+        $user = Auth::user();
         $transaction = Transaction::where('id', $id)->first();
         $transaction->fill([
             'serviceStatus' => 'Processing',
+            'issuedBy' => $user->id,
         ]);
         $transaction->save();
 
@@ -129,6 +146,9 @@ class ServicesController extends Controller
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
+            $level = User::where('id', $transaction->issuedBy)->first();
+            $levelUser = Resident::where('id', $level->residentID)->first();
+            $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
             $newtime = strtotime($transaction->created_at);
             $transaction->createdDate = date('M d, Y', $newtime);
         }
@@ -274,8 +294,8 @@ class ServicesController extends Controller
             'failURL' =>  NULL,
         ]);
 
-        $transaction->issuedBy = $request->requesteeFName . ' ' . $request->requesteeLName;
-        }else{
+        $transaction->issuedBy = $user->id;
+        } else if ($doctype->docType == "File Complain") {
             $complain = Complain::create([
                 'complaintFName' => $request->complaintFName,
                 'complaintMName'=>$request->complaintMName,
@@ -308,8 +328,21 @@ class ServicesController extends Controller
                 'failURL' =>  NULL,
             ]);
 
-            $transaction->issuedBy = $request->complaintFName . ' ' . $request->complaintLName;
+            $transaction->issuedBy = $user->id;
+            
+        } else if ($doctype->docType == "Account Information Change") {
+            $account = AccountInfoChange::create([
+                'userID' => $user->id,
+                'selectedInformation' => $request->selectedInformation,
+                'requesteeOldInformation' => $request->requesteeOldInformation,
+                'requesteeNewInformation' => $request->requesteeNewInformation,
+                'requestPurpose' => $request->requestPurpose,
+                'file' => $reqJson,
+                'status' => 'PENDING',
+            ]);
+            $account->userID = $user->id;
 
+            return view('services.success');
         }
         
         $transactionPaymentId = $transactionpayment->id;
@@ -472,8 +505,8 @@ class ServicesController extends Controller
         $user = Auth::user()->residentID;
         $resident = Resident::where('id', $user)->first();
         $transaction->fill([
-            'serviceStatus' => 'Forwarded',
-            'issuedBy' => $resident->firstName . ' ' . $resident->lastName,
+            'serviceStatus' => 'Endorsed',
+            'issuedBy' => $user->id,
         ]);
         $transaction->save();
 
@@ -488,6 +521,9 @@ class ServicesController extends Controller
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
+            $level = User::where('id', $transaction->issuedBy)->first();
+            $levelUser = Resident::where('id', $level->residentID)->first();
+            $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
             $newtime = strtotime($transaction->created_at);
             $transaction->createdDate = date('M d, Y',$newtime);
         }
@@ -500,23 +536,56 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function approval($id){
-        $transaction = Transaction::where('id', $id)->first();
-        $user = Auth::user()->residentID;
-        $resident = Resident::where('id', $user)->first();
-        $transaction->fill([
-            'serviceStatus' => 'For Signature',
-            'issuedBy' => $resident->firstName . ' ' . $resident->lastName,
-        ]);
-        $transaction->save();
+    public function approval(Request $request, $id)
+    {
+        if ($request->status == 1) {
+            $transaction = Transaction::where('id', $id)->first();
+            $user = Auth::user()->residentID;
+            $resident = Resident::where('id', $user)->first();
+            $transaction->fill([
+                'serviceStatus' => 'For Signature',
+                'issuedBy' => $user->id,
+            ]);
+            $transaction->save();
 
-        $transactions = Transaction::all();
-        foreach ($transactions as $transaction) {
-            $user = User::where('id', $transaction->userID)->first();
-            $transaction->resident = Resident::where('id', $user->residentID)->first();
-            $transaction->document = Document::where('id', $transaction->documentID)->first();
-            $newtime = strtotime($transaction->created_at);
-            $transaction->createdDate = date('M d, Y', $newtime);
+            $transactions = Transaction::all();
+            foreach ($transactions as $transaction) {
+                $user = User::where('id', $transaction->userID)->first();
+                $transaction->resident = Resident::where('id', $user->residentID)->first();
+                $transaction->document = Document::where('id', $transaction->documentID)->first();
+                $level = User::where('id', $transaction->issuedBy)->first();
+                $levelUser = Resident::where('id', $level->residentID)->first();
+                $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
+                $newtime = strtotime($transaction->created_at);
+                $transaction->createdDate = date('M d, Y', $newtime);
+            }
+        } else {
+            $transaction = Transaction::where('id', $id)->first();
+            $user = Auth::user()->residentID;
+            $resident = Resident::where('id', $user)->first();
+            $transaction->fill([
+                'serviceStatus' => 'Denied',
+                'issuedBy' => $user->id,
+            ]);
+            $transaction->save();
+
+            $payment = Payment::where('id', $transaction->paymentID)->first();
+            $payment->fill([
+                'paymentStatus' => "Refunded",
+            ]);
+            $payment->save();
+
+            $transactions = Transaction::all();
+            foreach ($transactions as $transaction) {
+                $user = User::where('id', $transaction->userID)->first();
+                $transaction->resident = Resident::where('id', $user->residentID)->first();
+                $transaction->document = Document::where('id', $transaction->documentID)->first();
+                $level = User::where('id', $transaction->issuedBy)->first();
+                $levelUser = Resident::where('id', $level->residentID)->first();
+                $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
+                $newtime = strtotime($transaction->created_at);
+                $transaction->createdDate = date('M d, Y', $newtime);
+            }
         }
         return view('services.index', compact('transactions'));
     }
@@ -529,9 +598,12 @@ class ServicesController extends Controller
      */
     public function deny($id)
     {
+        $user = Auth::user();
+        $resident = Resident::find($user->residentID);
         $transaction = Transaction::where('id', $id)->first();
         $transaction->fill([
             'serviceStatus' => "Not Eligible",
+            'issuedBy' => $user->id,
         ]);
         $transaction->save();
 
@@ -547,6 +619,9 @@ class ServicesController extends Controller
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
+            $level = User::where('id', $transaction->issuedBy)->first();
+            $levelUser = Resident::where('id', $level->residentID)->first();
+            $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
             $newtime = strtotime($transaction->created_at);
             $transaction->createdDate = date('M d, Y',$newtime);
         }
@@ -573,6 +648,9 @@ class ServicesController extends Controller
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
+            $level = User::where('id', $transaction->issuedBy)->first();
+            $levelUser = Resident::where('id', $level->residentID)->first();
+            $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
             $newtime = strtotime($transaction->created_at);
             $transaction->createdDate = date('M d, Y',$newtime);
         }
@@ -596,6 +674,9 @@ class ServicesController extends Controller
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
+            $level = User::where('id', $transaction->issuedBy)->first();
+            $levelUser = Resident::where('id', $level->residentID)->first();
+            $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
             $newtime = strtotime($transaction->created_at);
             $transaction->createdDate = date('M d, Y',$newtime);
         }
