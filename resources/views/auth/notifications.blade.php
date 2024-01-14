@@ -15,20 +15,24 @@
             <p class="text-5xl">NOTIFICATIONS</p>
             <hr class="h-px bg-stone-500 border-0">
             <br>
-            <div class="overflow-y-scroll max-h-[630px] h-[630px] bg-stone-300 p-6">
+            <div class="overflow-y-scroll max-h-[630px] h-[630px] bg-stone-200 border-2 border-stone-500">
                 @forelse($notifications as $notification)
                     <div class="flex flex-row h-[108px] border-1 border-stone-500">
                         <div class="float-left w-[900px] pl-4 py-2">
                             <p class="font-bold text-2xl">{{ $notification->data['type'] }} Notification</p>
                             <div class="inline">
                                 @if($notification->data['type'] == 'Transaction')
-                                    <p class="text-xs font-robotocondensed text-justify">
+                                <div class="text-xl">
+                                    <p class="font-robotocondensed text-justify">
                                         {{ $notification->resident['firstName'] }} {{ $notification->resident['lastName'] }} requested {{ $notification->document['docName'] }}
                                     </p>
+                                </div>
                                 @else
-                                    <p class="text-xs font-robotocondensed text-justify">
+                                <div class="text-xl">
+                                    <p class="font-robotocondensed text-justify">
                                         {{ $notification->document['docName'] }} is now {{ $notification->data['transaction']['serviceStatus'] }}
                                     </p>
+                                </div>
                                 @endif
                                 @if($notification->read_at==NULL) <!--Probably the only idea I got rn if the notification is [Unread] LMAO-->
                                     <p class="inline text-red-600">[ New ]</p>
@@ -76,10 +80,7 @@
                             </div>
                         @endhasanyrole
                     </div>
-                    <br>
                     <hr class="h-px bg-stone-700 border-0">
-                    <br>
-
                     <script>
                         var modal = document.getElementById("NotifModal");
                         

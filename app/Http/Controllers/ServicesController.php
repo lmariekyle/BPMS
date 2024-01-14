@@ -166,7 +166,9 @@ class ServicesController extends Controller
         $transaction = Transaction::where('id', $id)->first();
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
         $doc = Document::where('id', $transaction->documentID)->first();
-        return view('services.approve', compact('id', 'requestee', 'doc'));
+        $date = Carbon::now();
+        $date->toArray();
+        return view('services.approve', compact('id', 'requestee', 'doc', 'transaction','date'));
     }
 
     public function dashboard()
@@ -502,8 +504,8 @@ class ServicesController extends Controller
      */
     public function forwarded($id){
         $transaction = Transaction::where('id', $id)->first();
-        $user = Auth::user()->residentID;
-        $resident = Resident::where('id', $user)->first();
+        $user = Auth::user();
+        $resident = Resident::where('id', $user->residentID)->first();
         $transaction->fill([
             'serviceStatus' => 'Endorsed',
             'issuedBy' => $user->id,
