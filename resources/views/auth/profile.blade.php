@@ -17,35 +17,37 @@
                         <a href="{{ route('notifications') }}" class="info absolute right-0 mr-14 -mt-[3rem] border-2 border-dirty-white rounded-full w-[12rem] px-2 py-2 bg-green text-dirty-white font-robotocondensed text=[24px] shadow-lg font-bold">
                             NOTIFICATIONS
                         </a>
-                        <div class="still hide bg-dirty-white py-2 px-2 border-2 rounded-xl right-0 mr-10">
-                            <hr class="h-px bg-stone-500 border-0">
-                            @forelse($notifications as $notification)
-                            <p class="text-xs font-robotocondensed w-80 text-justify">
-                                <br>
-                                New {{ $notification->data['type'] }} Notification
+                        <div class="still hide p-1 border-2 bg-green rounded right-0 mr-10">
+                            <div class="bg-dirty-white border-2 border-stone-500 rounded">
+                                @forelse($notifications as $notification)
+                                <p class="font-bold pt-1 text-xl font-robotocondensed mx-2 w-80 text-justify">
+                                    New {{ $notification->data['type'] }} Notification
+                                </p>
                                 @if($notification->data['type'] == 'Transaction')
-                            <p class="text-xs font-robotocondensed text-justify">
-                                {{ $notification->resident['firstName'] }} {{ $notification->resident['lastName'] }} requested {{ $notification->document['docName'] }}
-                            </p>
-                            @else
-                            <p class="text-xs font-robotocondensed text-justify">
-                                {{ $notification->document['docName'] }} is now {{ $notification->data['transaction']['serviceStatus'] }}
-                            </p>
-                            @endif
-                            <!--Notification title then like at most 20 letters per notif (if exceeded then
-                                        replace the rest of the text with [...]-->
-                            </p>
-                            <br>
-                            <hr class="h-px bg-stone-500 border-0">
-                            @empty
-                            <p class="text-xs font-robotocondensed w-80 text-justify">
-                                <br>
-                                NO NEW NOTIFICATIONS LOSER
-                                <br>
-                                <br>
-                                <hr>
-                            </p>
-                            @endforelse
+                                <div class="text-base font-robotocondensed text-justify mr-3 ml-4 mb-1 flex flex-row">
+                                    <p>• {{ $notification->resident['firstName'] }} {{ $notification->resident['lastName'] }} requested</p>
+                                    <p class="ml-1 text-red-500">[{{ $notification->document['docName'] }}]</p>
+                                    <p>.</p>
+                                </div>
+                                @else
+                                <div class="text-base font-robotocondensed text-justify mr-3 ml-4 mb-1 flex flex-row">
+                                    <p>• {{ $notification->document['docName'] }} is now</p>
+                                    <p class="ml-1 text-red-500">[{{ $notification->data['transaction']['serviceStatus'] }}]</p>
+                                    <p>.</p>
+                                </div>
+                                @endif
+                                <!--Notification title then like at most 20 letters per notif (if exceeded then
+                                            replace the rest of the text with [...]-->
+                                <hr class="h-px bg-stone-500 border-0">
+                                @empty
+                                <p class="text-xs font-robotocondensed w-80 text-justify ml-3">
+                                    <br>
+                                    NO NEW NOTIFICATIONS
+                                    <br>
+                                    <br>
+                                    <hr>
+                                </p>
+                                @endforelse
                         </div>
                     </div>
 
@@ -61,7 +63,7 @@
                                     Change Password
                                 </a>
                                 @endrole
-                                <a href="{{ route('password.request') }}" class="right-0 button w-[228px] h-[49px] text-deep-green text-center px-1 py-2 text-[18px] bg-dirty-white hover:shadow-md border-2 border-green">
+                                <a href="{{ route('services.request', ['docType' => 'Account Information Change']) }}" class="right-0 button w-[228px] h-[49px] text-deep-green text-center px-1 py-2 text-[18px] bg-dirty-white hover:shadow-md border-2 border-green">
                                     Request Account Update
                                 </a>
                                 <div class="left-0 button w-[228px] h-[49px] text-deep-green  text-center px-1 py-2 text-[18px] bg-dirty-white border-2 hover:shadow-md border-green">

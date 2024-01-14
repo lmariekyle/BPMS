@@ -30,10 +30,9 @@ class Resident extends Model
         'registeredPWD',
         'dateOfDeath',
         'supportingDocument',
-
     ];
 
-    public $incrementing = false;
+    //public $incrementing = false;
 
     public function user()
     {

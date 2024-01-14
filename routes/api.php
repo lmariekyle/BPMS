@@ -45,5 +45,5 @@ Route::post('/mobileNotificationDetails', [NotificationController::class, 'mobil
 
 Route::post('/household', 'App\Http\Controllers\HouseholdRegistrationController@mobileStore');
 Route::post('/forgotPassword', 'App\Http\Controllers\Auth\PasswordResetLinkController@mobileStore')->name('mobileForgotPassword');
-Route::post('/callback', [ServicesController::class, 'callback'])->name('callback');
+Route::post('/callback', [ServicesController::class, 'callback'])->name('mobileCallback');
 Route::post('createpayment/{id}', [TransactionController::class, 'createpayment'])->name('createpayment');

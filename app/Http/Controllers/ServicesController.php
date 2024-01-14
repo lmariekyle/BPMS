@@ -53,6 +53,17 @@ class ServicesController extends Controller
         foreach ($accounts as $account) {
             $user = User::where('id', $account->userID)->first();
             $account->resident = Resident::where('id', $user->residentID)->first();
+            if($account->selectedInformation == "firstName"){
+                $account->selectedInformation = "First Name";
+            }else if($account->selectedInformation == "middleName"){
+                $account->selectedInformation = "Middle Name";
+            }else if($account->selectInformation == "lastName"){
+                $account->selectedInformation = "Last Name";
+            }else if($account->selectInformation == "email"){
+                $account->selectedInformation = "Email Address";
+            }else{
+                $account->selectedInformation = "Contact Number";
+            }
         }
         return view('services.index', compact('transactions', 'accounts'));
     }
@@ -73,7 +84,7 @@ class ServicesController extends Controller
                 return $this->manage($id);
             }
         }else{
-            if($transaction->serviceStatus == 'Forwarded'){
+            if($transaction->serviceStatus == 'Endorsed'){
                 return $this->approve($id);
             }else{
                 return $this->manage($id);
@@ -187,6 +198,8 @@ class ServicesController extends Controller
             $doctypename = 'BARANGAY CLEARANCE';
         } elseif ($docType == 'File Complain') {
             $doctypename = 'FILE COMPLAIN';
+        } elseif ($docType == 'Account Information Change') {
+            $doctypename = 'ACCOUNT INFORMATION CHANGE';
         }
         $documents = Document::where('docType', $docType)->get();
         return view('services.request', compact('documents', 'doctypename', 'user'));
@@ -268,58 +281,59 @@ class ServicesController extends Controller
         $user = Auth::user();
         $doctype = Document::where('id', $request->selectedDocument)->first();
 
-        if($doctype->docType == "Barangay Certificate"){
+        if ($doctype->docType == "Barangay Certificate") {
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CE']);
-        }else if($doctype->docType == "Barangay Clearance"){
+        } else if ($doctype->docType == "Barangay Clearance") {
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CL']);
-        }else{
+        } else if ($doctype->docType == "File Complain") {
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-FC']);
         }
 
-        if($doctype->docName != 'Filing of Lupon Cases'){
-        $transaction = new Transaction;
-        $transactiondetail =  $transaction->transactiondetail()->create([
-            'requesteeFName' => $request->requesteeFName,
-            'requesteeMName' => $request->requesteeMName,
-            'requesteeLName' => $request->requesteeLName,
-            'requesteeEmail' => $request->requesteeEmail,
-            'requesteeContactNumber' => $request->requesteeContactNumber,
-            'requestPurpose' => $request->requestPurpose,
-            'file' => $reqJson,
-        ]);
+        if ($doctype->docType != 'File Complain' && $doctype->docType != 'Account Information Change') {
+            $transaction = new Transaction;
+            $transactiondetail =  $transaction->transactiondetail()->create([
+                'requesteeFName' => $request->requesteeFName,
+                'requesteeMName' => $request->requesteeMName,
+                'requesteeLName' => $request->requesteeLName,
+                'requesteeEmail' => $request->requesteeEmail,
+                'requesteeContactNumber' => $request->requesteeContactNumber,
+                'requestPurpose' => $request->requestPurpose,
+                'file' => $reqJson,
+            ]);
 
-        $transactionpayment = $transaction->transactionpayment()->create([
-            'paymentMethod' => $request->paymentMethod,
-            'accountNumber' => 'Pending',
-            'paymentStatus' => 'Pending',
-            'successURL' => NULL,
-            'failURL' =>  NULL,
-        ]);
+            $transactionpayment = $transaction->transactionpayment()->create([
+                'paymentMethod' => $request->paymentMethod,
+                'accountNumber' => 'Pending',
+                'paymentStatus' => 'Pending',
+                'successURL' => NULL,
+                'failURL' =>  NULL,
+            ]);
 
-        $transaction->issuedBy = $user->id;
+            $transaction->issuedBy = $request->requesteeFName . ' ' . $request->requesteeLName;
         } else if ($doctype->docType == "File Complain") {
             $complain = Complain::create([
                 'complaintFName' => $request->complaintFName,
-                'complaintMName'=>$request->complaintMName,
-                'complaintLName'=>$request->complaintLName,
-                'complaintEmail'=>$request->complaintEmail,
-                'complaintContactNumber'=>$request->complaintContactNumber,
-                'complaineeFName'=>$request->complaineeFName,
-                'complaineeMName'=>$request->complaineeMName,
-                'complaineeLName'=>$request->complaineeLName,
-                'complaineeSitio'=>$request->complaineeSitio,
-                'requestPurpose'=>$request->requestPurpose,
+                'complaintMName' => $request->complaintMName,
+                'complaintLName' => $request->complaintLName,
+                'complaintEmail' => $request->complaintEmail,
+                'complaintContactNumber' => $request->complaintContactNumber,
+                'complaineeFName' => $request->complaineeFName,
+                'complaineeMName' => $request->complaineeMName,
+                'complaineeLName' => $request->complaineeLName,
+                'complaineeSitio' => $request->complaineeSitio,
+                'requestPurpose' => $request->requestPurpose,
             ]);
 
+            
             $transaction = new Transaction;
             $transactiondetail =  $transaction->transactiondetail()->create([
-            'requesteeFName' => $request->complaintFName,
-            'requesteeMName' => $request->complaintMName,
-            'requesteeLName' => $request->complaintLName,
-            'requesteeEmail' => $request->complaintEmail,
-            'requesteeContactNumber' => $request->complaintContactNumber,
-            'requestPurpose' => $request->requestPurpose,
-            'file' => NULL,
+                'requesteeFName' => $request->complaintFName,
+                'requesteeMName' => $request->complaintMName,
+                'requesteeLName' => $request->complaintLName,
+                'requesteeEmail' => $request->complaintEmail,
+                'requesteeContactNumber' => $request->complaintContactNumber,
+                'requestPurpose' => $request->requestPurpose,
+                'file' => NULL,
             ]);
 
             $transactionpayment = $transaction->transactionpayment()->create([
@@ -330,7 +344,7 @@ class ServicesController extends Controller
                 'failURL' =>  NULL,
             ]);
 
-            $transaction->issuedBy = $user->id;
+            $transaction->issuedBy = $request->complaintFName . ' ' . $request->complaintLName;
             
         } else if ($doctype->docType == "Account Information Change") {
             $account = AccountInfoChange::create([
@@ -346,28 +360,28 @@ class ServicesController extends Controller
 
             return view('services.success');
         }
-        
-        $transactionPaymentId = $transactionpayment->id;
-        $transactionDetailId = $transactiondetail->id;
-        $transaction->detailID = $transactionDetailId;
-        $transaction->userID = $user->id;
-        $transaction->paymentID = $transactionPaymentId;
-        $transaction->documentID = $doctype->id;
-        $transaction->serviceAmount = $request->docfee;
-        $transaction->serviceStatus = 'Pending';
-        $transaction->docNumber = $docId;
-        $transaction->paymentMethod = $request->paymentMethod;
-        $transaction->issuedDocument = $request->selectedDocument;
-        $transaction->issuedOn = today();
-        $transaction->save();
 
-        $notifyUsers = User::where('userLevel', 'Barangay Secretary')->get();
+        if ($doctype->docType != 'Account Information Change') {
+            $transactionPaymentId = $transactionpayment->id;
+            $transactionDetailId = $transactiondetail->id;
+            $transaction->detailID = $transactionDetailId;
+            $transaction->userID = $user->id;
+            $transaction->paymentID = $transactionPaymentId;
+            $transaction->documentID = $doctype->id;
+            $transaction->serviceAmount = $request->docfee;
+            $transaction->serviceStatus = 'Pending';
+            $transaction->docNumber = $docId;
+            $transaction->issuedDocument = $request->selectedDocument;
+            $transaction->issuedOn = today();
+            $transaction->save();
 
-        Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
-        
+            $notifyUsers = User::where('userLevel', 'Barangay Secretary')->get();
 
+            Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
+        }
+
+        $payment = Payment::where('id', $transactionPaymentId)->first();
         if ($request->paymentMethod == 'GCASH') {
-            $payment = Payment::where('id', $transactionPaymentId)->first();
             // return view('createpayment', $transactionPaymentId);
             return $this->createpayment($payment->id);
         } else {
@@ -542,8 +556,8 @@ class ServicesController extends Controller
     {
         if ($request->status == 1) {
             $transaction = Transaction::where('id', $id)->first();
-            $user = Auth::user()->residentID;
-            $resident = Resident::where('id', $user)->first();
+            $user = Auth::user();
+            $resident = Resident::where('id', $user->residentID)->first();
             $transaction->fill([
                 'serviceStatus' => 'For Signature',
                 'issuedBy' => $user->id,
@@ -563,8 +577,8 @@ class ServicesController extends Controller
             }
         } else {
             $transaction = Transaction::where('id', $id)->first();
-            $user = Auth::user()->residentID;
-            $resident = Resident::where('id', $user)->first();
+            $user = Auth::user();
+            $resident = Resident::where('id', $user->residentID)->first();
             $transaction->fill([
                 'serviceStatus' => 'Denied',
                 'issuedBy' => $user->id,

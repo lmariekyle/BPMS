@@ -31,14 +31,22 @@
                     </div>
                     <div class="justify-center flex mt-6">
                         @role('Barangay Secretary')
-                            @if ($transaction->serviceStatus == 'Processing')
-                                <a href="{{ route('forwarded', $id) }}" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-deep-green bg-[#a9ce5f] px-4 py-2" style="width: 400px; font-size: 32px; background-color: #a9ce5f;">Forward to Barangay Captain</a>
-                            @else
-                                <a href="{{ route('signed', $id) }}" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-deep-green bg-[#a9ce5f] px-4 py-2" style="width: 400px; font-size: 32px; background-color: #a9ce5f;">Approve Pickup</a>
-                            @endif
+                        @if ($transaction->serviceStatus == 'Processing')
+                        <a href="{{ route('forwarded', $id) }}" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-deep-green bg-[#a9ce5f] px-4 py-2" style="width: 400px; font-size: 32px; background-color: #a9ce5f;">Forward to Barangay Captain</a>
+                        @else
+                        <a href="{{ route('signed', $id) }}" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-deep-green bg-[#a9ce5f] px-4 py-2" style="width: 400px; font-size: 32px; background-color: #a9ce5f;">Approve Pickup</a>
+                        @endif
                         @endrole
                         @role('Barangay Captain')
-                            <a href="{{ route('approval', $id) }}" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-deep-green bg-[#a9ce5f] px-4 py-2" style="width: 400px; font-size: 32px; background-color: #a9ce5f;">Approve Request</a>
+                        <form action="{{ route('approval', $id)}}" method="get">
+                            @csrf
+                            <select name="status" id="status" class="text-center w-[400px] font-robotocondensed font-bold text-[24px] text-deep-green bg-dirty-white border-2 border-deep-green px-4 h-[50px]">
+                                <option value=" 0" class="">Request</option>
+                                <option value="1" class="">Approve Request</option>
+                                <option value="2" class="">Deny Request</option>
+                            </select>
+                            <button class="bg-deep-green text-dirty-white rounded-md h-[50px] px-8 text-center mt-8 font-semibold text-[18px]">Forward</button>
+                        </form>
                         @endrole
                     </div>
                 </div>
