@@ -7,8 +7,11 @@ use App\Models\Statistics;
 use App\Models\Sitio;
 use App\Models\SitioCount;
 use App\Models\Households;
+use App\Models\Resident;
+use App\Models\ResidentList;
 
 use Barryvdh\DomPDF\Facade\PDF;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,11 +20,67 @@ class StatisticsController extends Controller
 {
     public function index()
     {
+        $SitioCounts = SitioCount::all();
+        foreach($SitioCounts as $SitioCount){
+            $sitioResCounter = DB::table('resident_lists')
+                ->join('households','resident_lists.houseID','=','households.id')
+                ->join('residents','resident_lists.residentID','=','residents.id')
+                ->where('households.sitioID', '=', $SitioCount->sitioID)
+                ->where('residents.gender', 'LIKE', $SitioCount->genderGroup)
+                ->where('residents.ageClassification', 'LIKE', $SitioCount->ageGroup)
+                ->count();
+            $SitioCount->residentCount = $sitioResCounter;
+            $SitioCount->save();
+        }
+        
+
         //Gets the statistic data that is the most recently added
         $currentYear = date('Y');
-        $currentQuarter = Statistics::max('quarter');
+        $currentDate = date('m-d');
+
+        //Establishes the static dates for determining the quarter to be used
+        //Q = quarter | B = start or beginning | E = end
+        $dateQoneB = '01-01';
+        $dateQoneE = '03-31';
+        $dateQtwoB = '04-01';
+        $dateQtwoE = '06-30';
+        $dateQthreeB = '07-01';
+        $dateQthreeE = '09-30';
+        //no need to make for quarter 4 because if such case happens, it implies that the current date provided
+        //is later than the three comparisons done
+
+        if($currentDate >= $dateQoneB && $currentDate <= $dateQoneE){
+        //if currentDatetime is between Jan 1 and March 31
+            $currentQuarter = 1;
+        } else if($currentDate >= $dateQtwoB && $currentDate <= $dateQtwoE){
+        //if currentDatetime is between April 1 and June 30
+            $currentQuarter = 2;
+        } else if($currentDate >= $dateQthreeB && $currentDate <= $dateQthreeE){
+        //if currentDatetime is between July 1 and September 30
+            $currentQuarter = 3;
+        } else {
+        //if currentDatetime is as early or later than October 1
+            $currentQuarter = 4;
+        }
 
         $statistics = Statistics::where('year', $currentYear)->where('quarter', $currentQuarter)->first();
+        if($statistics == NULL){
+            if($currentQuarter == 1){
+                $oldStatisticsData = Statistics::where('year', $currentYear - 1)->where('quarter', 4)->first();
+            } else{
+                $oldStatisticsData = Statistics::where('year', $currentYear)->where('quarter', $currentQuarter - 1)->first();
+            }
+            $statistics = Statistics::create([
+                'year' => $currentYear,
+                'quarter' => $currentQuarter,
+                'totalHouseholdsSitio' => $oldStatisticsData->totalHouseholdsSitio,
+                'totalResidentsSitio' => $oldStatisticsData->totalResidentsSitio,
+                'totalHouseholdsBarangay' => $oldStatisticsData->totalHouseholdsBarangay,
+                'totalResidentsBarangay' => $oldStatisticsData->totalResidentsBarangay,
+                'revisedBy' => $oldStatisticsData->revisedBy,
+            ]);
+            $statistics->save();
+        }
 
         //-------------------------------------
 
@@ -156,7 +215,11 @@ class StatisticsController extends Controller
         } else {
             $filterGender = "";
         }
-
+        
+        //to change to age range so like
+        //it will be
+        //$variable1 = lowest value selected
+        //$variable2 = highest value selected
         if ($request['ageclass'] != "NULL") {
             $filterAgeGroup = $request['ageclass'];
         } else {
