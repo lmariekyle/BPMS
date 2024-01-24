@@ -136,7 +136,7 @@ class ServicesController extends Controller
         foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
-            $transaction->document = Document::where('id', $transaction->documentID)->first();
+        $transaction->document = Document::where('id', $transaction->documentID)->first();
             $newtime = strtotime($transaction->created_at);
             $transaction->createdDate = date('M d, Y', $newtime);
         }
@@ -342,8 +342,9 @@ class ServicesController extends Controller
             Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
         }
 
-        $payment = Payment::where('id', $transactionPaymentId)->first();
+        
         if ($request->paymentMethod == 'GCASH') {
+            $payment = Payment::where('id', $transactionPaymentId)->first();
             // return view('createpayment', $transactionPaymentId);
             return $this->createpayment($payment->id);
         } else {

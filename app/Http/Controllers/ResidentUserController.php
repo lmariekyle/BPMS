@@ -61,6 +61,7 @@ class ResidentUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'dateOfBirth' => ['required', 'date', 'before:' . now()->subYears(18)->format('Y-m-d')],
         ]);
 
         //Auto Generate ID 
@@ -221,15 +222,15 @@ class ResidentUserController extends Controller
     {
         $account = AccountInfoChange::where('userID',$id)->first();
         $requested = $request->selectedInformation;
-        $user = User::where('id',$id)->first();
+        $resident = Resident::where('id',$id)->first();
         if($request->status == "1"){        
-            $user->{$requested} = $request->requesteeNewInformation;
+            $resident->{$requested} = $request->requesteeNewInformation;
             $account->status ='DONE';
-            $user->save();
+            $resident->save();
             $account->save();
         }else if($request->status == "2"){
             $account->status ='DENIED';
-            $user->save();
+            $resident->save();
         }
         return back();
     }
