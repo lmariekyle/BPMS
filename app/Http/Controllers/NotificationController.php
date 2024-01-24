@@ -59,6 +59,14 @@ class NotificationController extends Controller
         $response = ['notifications' => $notification, 'success' => true,];
         return $response;
     }
+
+    public function markRead($id){
+        $notification = DatabaseNotification::where('id', $id)->first();
+        $notification->read_at = today();
+        $notification->save();
+
+        return response()->noContent();
+    }
 }
 
 ?>
