@@ -13,9 +13,9 @@ class Resident extends Model
     protected $fillable = [
         'id',
         'residentID',
-        'firstname',
-        'middlename',
-        'lastname',
+        'firstName',
+        'middleName',
+        'lastName',
         'dateOfBirth',
         'contactNumber',
         'email',
@@ -30,10 +30,9 @@ class Resident extends Model
         'registeredPWD',
         'dateOfDeath',
         'supportingDocument',
-
     ];
 
-    // public $incrementing = false;
+    //public $incrementing = false;
 
     public function user()
     {

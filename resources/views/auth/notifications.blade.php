@@ -18,8 +18,8 @@
             <div class="overflow-y-scroll max-h-[630px] h-[630px] bg-stone-200 border-2 border-stone-500">
                 @forelse($notifications as $notification)
                     <div class="flex flex-row h-[108px] border-1 border-stone-500">
-                        <div class="float-left w-[900px] pl-4 py-2 pr-2">
-                            <p class="font-bold text-[22px]">{{ $notification->data['type'] }} Notification (NOTIFICATION #{{ $notification->id }})</p>
+                        <div class="float-left w-[900px] pl-4 py-2">
+                            <p class="font-bold text-2xl">{{ $notification->data['type'] }} Notification</p>
                             <div class="inline">
                                 @if($notification->data['type'] == 'Transaction')
                                 <div class="text-xl">
@@ -39,21 +39,46 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="float-right flex flex-row max-h-[30px] ml-4 mt-10">
-                            <form method="GET" action="{{ route('viewNotifications', $notification->id) }}">
-                                <button id="btn{{ $notification->id }}" class="hover:text-green"><i class="fa-solid fa-eye"></i></button>
-                            </form>
-                            <button class="hover:text-green ml-8 mr-4"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <div id="NotifModal" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[150px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
-                            <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
-                                <span class="close font-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
-                                <div class="">
-                                    <p class="font-robotocondensed text-[28px] text-deep-green" >NOTIFICATION TITLE (NOTIFICATION #{{ $notification->id }})</p>
-                                    <p>{{ $notification->resident['firstName'] }} {{ $notification->resident['lastName'] }} requested {{ $notification->document['docName'] }} Document {{ $notification->created_at }}</p>
+                        @hasanyrole('Barangay Captain|Barangay Secretary')
+                            <div class="float-right flex flex-row max-h-[30px] ml-4 mt-10">
+                                <form method="GET" action="{{ route('viewNotifications', $notification->id) }}">
+                                    <button id="btn{{ $notification->id }}" class="hover:text-green"><i class="fa-solid fa-eye"></i></button>
+                                </form>
+                                <button class="hover:text-green ml-8 mr-4"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                            <div id="NotifModal" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[150px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
+                                <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
+                                    <span class="close font-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
+                                    <div class="">
+                                        <p class="font-robotocondensed text-[28px] text-deep-green" >{{ $notification->document['docName'] }} Document</p>
+                                        <p>{{ $notification->resident['firstName'] }} {{ $notification->resident['lastName'] }} requested {{ $notification->document['docName'] }} Document</p>
+                                        <br>
+                                        <p>{{ $notification->notificationCreated }}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endhasanyrole
+                        @hasanyrole('User|Barangay Health Worker')
+                            <div class="float-right flex flex-row max-h-[30px] ml-4 mt-10">
+                                <form method="GET" action="{{ route('viewNotifications', $notification->id) }}">
+                                    <button id="btn{{ $notification->id }}" class="hover:text-green"><i class="fa-solid fa-eye"></i></button>
+                                </form>
+                                <button class="hover:text-green ml-8 mr-4"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                            <div id="NotifModal" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[150px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
+                                <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
+                                    <span class="close font-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
+                                    <div class="">
+                                        <p class="font-robotocondensed text-[28px] text-deep-green" >{{ $notification->document['docName'] }} {{ $notification->data['transaction']['serviceStatus'] }}</p>
+                                        <p>Your Document {{ $notification->document['docName'] }} with a document number: {{ $notification->data['transaction']['docNumber'] }} is being {{ $notification->data['transaction']['serviceStatus'] }} by {{ $notification->processedByUser['firstName'] }} {{ $notification->processedByUser['lastName'] }}.</p>
+                                        <br>
+                                        <p>{{ $notification->processedByUser['firstName'] }} {{ $notification->processedByUser['lastName'] }}</p>
+                                        <p>{{ $notification->processedBy['userLevel'] }}</p>
+                                        <p>{{ $notification->notificationCreated }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endhasanyrole
                     </div>
                     <hr class="h-px bg-stone-700 border-0">
                     <script>
@@ -71,6 +96,7 @@
                         // Close Modal (using the X button)
                         span.onclick = function() {
                             modal.style.display = "none";
+                            window.location.reload();
                         }
                     </script>
                 @empty

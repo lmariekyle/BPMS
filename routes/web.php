@@ -32,10 +32,11 @@ Route::middleware('web')->group(function () {
     Route::get('create', [ResidentUserController::class, 'create'])->name('create');
     Route::post('create', [ResidentUserController::class, 'store']);
 });
-
+Route::post('/callback', [ServicesController::class, 'callback'])->name('callback');
 // Route::middleware(['role:User'])->group(function () {
 //     Route::get('request/{docType}', [ServicesController::class, 'request'])->name('services.request');
 //     Route::post('request/{docType}', [ServicesController::class, 'storerequest'])->name('services.storerequest');
+//     // Route::post('payment', [ServicesController::class, 'paymentrequest'])->name('services.gcash');
 //     Route::post('createpayment/{id}', [ServicesController::class, 'createpayment'])->name('services.createpayment');
 //     Route::get('success', function () {
 //         return view('services.success');

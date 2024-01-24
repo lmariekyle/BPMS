@@ -90,7 +90,7 @@ class TransactionController extends Controller
                 'docNumber' => $docId,
                 'serviceStatus' => "Pending",
                 'issuedDocument' => "Pending",
-                'issuedBy' => $detail->requesteeFName . ' ' . $detail->requesteeLName,
+                'issuedBy' => $user->id,
                 'issuedOn' => $date,
             ]);
 
@@ -158,7 +158,7 @@ class TransactionController extends Controller
                     'docNumber' => $docId,
                     'serviceStatus' => "Pending",
                     'issuedDocument' => "Pending",
-                    'issuedBy' => $detail->requesteeFName . ' ' . $detail->requesteeLName,
+                    'issuedBy' => $user->id,
                     'issuedOn' => $date,
                 ]);
             }else if($document->docType == "Barangay Clearance"){
@@ -173,7 +173,7 @@ class TransactionController extends Controller
                     'docNumber' => $docId,
                     'serviceStatus' => "Pending",
                     'issuedDocument' => "Pending",
-                    'issuedBy' => $detail->requesteeFName . ' ' . $detail->requesteeLName,
+                    'issuedBy' => $user->id,
                     'issuedOn' => $date,
                 ]);
             }

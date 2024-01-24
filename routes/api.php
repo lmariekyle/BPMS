@@ -57,9 +57,11 @@ Route::get('/mobileExistingHouseholdList', [HouseholdListController::class, 'get
 Route::post('/mobileTransactionRequest', [TransactionController::class, 'mobileTransactionRequest']);
 Route::post('/mobileFileUpload', [TransactionController::class, 'fileUpload']);
 Route::post('/mobileNotifications', [NotificationController::class, 'mobileNotifications']);
+Route::post('/mobileNotificationDetails', [NotificationController::class, 'mobileNotificationDetails']);
 
 Route::post('/household', 'App\Http\Controllers\HouseholdRegistrationController@mobileStore');
-Route::post('/callback', [ServicesController::class, 'callback'])->name('callback');
+Route::post('/forgotPassword', 'App\Http\Controllers\Auth\PasswordResetLinkController@mobileStore')->name('mobileForgotPassword');
+Route::post('/callback', [ServicesController::class, 'callback'])->name('mobileCallback');
 Route::post('createpayment/{id}', [TransactionController::class, 'createpayment'])->name('createpayment');
 
 //Route::middleware(['role:Barangay Health Worker'])->group(function () {

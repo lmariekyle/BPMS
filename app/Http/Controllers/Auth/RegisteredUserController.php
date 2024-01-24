@@ -73,8 +73,8 @@ class RegisteredUserController extends Controller
 
 
 
-        $residentId = IdGenerator::generate(['table' => 'residents', 'field' => 'residentID', 'length' => 9, 'prefix' => 'RES-']);
-
+        $residentId = IdGenerator::generate(['table' => 'residents','field'=>'residentID', 'length' => 9, 'prefix' =>'RES-']);
+        
         // $image_name = time().'.'.$request->profileImage->extension();
         // $request->profileImage->move(public_path('users'),$image_name);
         // $path="users/".$image_name;
@@ -88,10 +88,10 @@ class RegisteredUserController extends Controller
         }
 
         $resident = Resident::create([
-            'residentID' => $residentId,
-            'firstname' => $request->firstname,
-            'middlename' => $request->middlename,
-            'lastname' => $request->lastname,
+            'residentID'=> $residentId,
+            'firstName' => $request->firstname,
+            'middleName' => $request->middlename,
+            'lastName' => $request->lastname,
             'dateOfBirth' => $request->dateOfBirth,
             'contactNumber' => $request->contactnumber,
             'email' => $request->email,
@@ -126,6 +126,7 @@ class RegisteredUserController extends Controller
         $resident->user()->create([
             'residentID' => $resident->id,
             'idNumber' => $userId,
+            'residentID' => $resident->id,
             'profileImage' => $path,
             'userlevel' => $request->userlevel,
             'email' => $request->email,

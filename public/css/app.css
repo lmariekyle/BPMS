@@ -2102,6 +2102,7 @@ select {
 .bg-stone-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(231 229 228 / var(--tw-bg-opacity));
+  background-color: rgb(231 229 228 / var(--tw-bg-opacity));
 }
 .bg-stone-500 {
   --tw-bg-opacity: 1;

@@ -183,7 +183,7 @@ class ResidentUserController extends Controller
         $barangay=Barangay::where('id',$sitio->barangayID)->first();
         $personalInfo->sitio=$sitio->sitioName;
         $personalInfo->barangay=$barangay->barangayName;
-        $notifications = auth()->user()->unreadNotifications;
+        $notifications = auth()->user()->unreadNotifications->take(5);
         foreach($notifications as $notification){
             $notification->user = User::where('id', $notification->data['transaction']['userID'])->first();
             $notification->resident = Resident::where('id',$notification->user['residentID'])->first();
@@ -222,15 +222,20 @@ class ResidentUserController extends Controller
     {
         $account = AccountInfoChange::where('userID',$id)->first();
         $requested = $request->selectedInformation;
-        $resident = Resident::where('id',$id)->first();
+        $user = User::where('id',$id)->first();
+        $resident = Resident::where('id', $user->residentID)->first();
         if($request->status == "1"){        
             $resident->{$requested} = $request->requesteeNewInformation;
+            if($requested == "email" || $requested == "contactNumber"){
+                $user->{$requested} = $request->requesteeNewInformation;
+            }
             $account->status ='DONE';
             $resident->save();
+            $user->save();
             $account->save();
         }else if($request->status == "2"){
             $account->status ='DENIED';
-            $resident->save();
+            $account->save();
         }
         return back();
     }
