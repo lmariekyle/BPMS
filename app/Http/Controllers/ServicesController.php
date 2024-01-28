@@ -119,12 +119,11 @@ class ServicesController extends Controller
             $filePaths = [];
         }        
         $transaction->payment = Payment::where('id', $transaction->paymentID)->first();
-        if ($transaction->payment['paymentMethod'] == 'CASH-ON-SITE' || $transaction->payment['paymentStatus'] == 'Paid') {
+        if ($transaction->payment['paymentMethod'] == 'CASH-ON-SITE' || $transaction->payment['paymentStatus'] == 'PAID') {
             $transaction->approval = 1;
         } else {
             $transaction->approval = 2;
         }
-
         return view('services.manage', compact('transaction', 'filePaths','date'));
     }
 
@@ -297,7 +296,7 @@ class ServicesController extends Controller
                 'failURL' =>  NULL,
             ]);
 
-            $transaction->issuedBy = $request->requesteeFName . ' ' . $request->requesteeLName;
+            $transaction->issuedBy = $user->id;
         } else if ($doctype->docType == "File Complain") {
             $complain = Complain::create([
                 'complaintFName' => $request->complaintFName,
@@ -332,7 +331,7 @@ class ServicesController extends Controller
                 'failURL' =>  NULL,
             ]);
 
-            $transaction->issuedBy = $request->complaintFName . ' ' . $request->complaintLName;
+            $transaction->issuedBy = $user->id;
             
         } else if ($doctype->docType == "Account Information Change") {
             $account = AccountInfoChange::create([
