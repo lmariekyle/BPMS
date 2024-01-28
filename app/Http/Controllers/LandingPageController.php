@@ -16,7 +16,32 @@ class LandingPageController extends Controller
     {
         //Gets the statistic data that is the most recently added
         $currentYear = date('Y');
-        $currentQuarter = Statistics::max('quarter');
+        $currentDate = date('m-d');
+
+        //Establishes the static dates for determining the quarter to be used
+        //Q = quarter | B = start or beginning | E = end
+        $dateQoneB = '01-01';
+        $dateQoneE = '03-31';
+        $dateQtwoB = '04-01';
+        $dateQtwoE = '06-30';
+        $dateQthreeB = '07-01';
+        $dateQthreeE = '09-30';
+        //no need to make for quarter 4 because if such case happens, it implies that the current date provided
+        //is later than the three comparisons done
+
+        if($currentDate >= $dateQoneB && $currentDate <= $dateQoneE){
+        //if currentDatetime is between Jan 1 and March 31
+            $currentQuarter = 1;
+        } else if($currentDate >= $dateQtwoB && $currentDate <= $dateQtwoE){
+        //if currentDatetime is between April 1 and June 30
+            $currentQuarter = 2;
+        } else if($currentDate >= $dateQthreeB && $currentDate <= $dateQthreeE){
+        //if currentDatetime is between July 1 and September 30
+            $currentQuarter = 3;
+        } else {
+        //if currentDatetime is as early or later than October 1
+            $currentQuarter = 4;
+        }
 
         $statistics = Statistics::where('year', $currentYear)->where('quarter', $currentQuarter)->first();
 
