@@ -119,12 +119,11 @@ class ServicesController extends Controller
             $filePaths = [];
         }        
         $transaction->payment = Payment::where('id', $transaction->paymentID)->first();
-        if ($transaction->payment['paymentMethod'] == 'CASH-ON-SITE' || $transaction->payment['paymentStatus'] == 'Paid') {
+        if ($transaction->payment['paymentMethod'] == 'CASH-ON-SITE' || $transaction->payment['paymentStatus'] == 'PAID') {
             $transaction->approval = 1;
         } else {
             $transaction->approval = 2;
         }
-
         return view('services.manage', compact('transaction', 'filePaths','date'));
     }
 
