@@ -3,7 +3,6 @@
 @if ($errors->any())
     <div {{ $attributes }} class="alert">
         <div class="bg-red-100 border border-red-400 text-red-700 px-2 py-2 rounded relative text-[12px] w-[500px]" role="alert">
-        <strong>There was an error with your E-Mail/Password combination. Please try again.</strong>
         <br>
             @foreach ($errors->all() as $error)
                 <span class="block sm:inline">{{ $error }}</span>

@@ -42,7 +42,7 @@ Route::post('/callback', [ServicesController::class, 'callback'])->name('callbac
 //         return view('services.success');
 //     })->name('services.success');
 // });
-
+Route::get('/residents/get-current-user-info', [ResidentUserController::class, 'getUserInfo']);
 Route::group(['middleware' => 'auth'], function () {
     Route::get('landingpage', [LandingPageController::class, 'index'])->name('landingpage');
     Route::get('searchResident', function () {

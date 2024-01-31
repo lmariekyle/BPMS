@@ -297,7 +297,7 @@ class ServicesController extends Controller
                 'failURL' =>  NULL,
             ]);
 
-            $transaction->issuedBy = $request->requesteeFName . ' ' . $request->requesteeLName;
+            $transaction->issuedBy = $user->id;
         } else if ($doctype->docType == "File Complain") {
             $complain = Complain::create([
                 'complaintFName' => $request->complaintFName,
@@ -332,7 +332,7 @@ class ServicesController extends Controller
                 'failURL' =>  NULL,
             ]);
 
-            $transaction->issuedBy = $request->complaintFName . ' ' . $request->complaintLName;
+            $transaction->issuedBy = $user->id;
             
         } else if ($doctype->docType == "Account Information Change") {
             $account = AccountInfoChange::create([
@@ -442,41 +442,6 @@ class ServicesController extends Controller
     }
 
 
-
-    // public function callback(Request $request)
-    // {
-        
-    //     try {
-    //         $payment = Payment::where('accountNumber', $request->external_id)->first();
-    //         if ($request->header('x-callback-token') != env('XENDIT_CALLBACK_TOKEN')) {
-    //             return response()->json([
-    //                 'status' => 'error',
-    //                 'message' => 'Invalid Callback Token'
-    //             ], 400);
-    //         }
-
-    //         if ($payment) {
-    //             if ($request->status == 'PAID') {
-    //                 $payment->update([
-    //                     'paymentStatus' => 'Paid'
-    //                 ]);
-    //             } else {
-    //                 $payment->update([
-    //                     'paymentStatus' => 'Expired',
-    //                 ]);
-    //             }
-    //         }
-
-    //         return response()->json([
-    //             'status' => 'success',
-    //         ]);
-    //     } catch (\Exception $e) {
-    //         return response()->json([
-    //             'status' => 'error',
-    //             'message' => $e->getMessage()
-    //         ], 500);
-    //     }
-    // }
 
 
     public function search(Request $request)

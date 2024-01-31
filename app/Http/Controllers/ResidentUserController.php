@@ -21,6 +21,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountMail;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
@@ -47,6 +48,14 @@ class ResidentUserController extends Controller
         return view('auth.createaccount', compact('resident', 'sitios'));
     }
 
+    public function getUserInfo()
+    {
+        $user = Auth::user();
+        $resId = $user->residentID;
+        // Fetch related information
+        $relatedInfo = Resident::find($resId);
+        return response()->json(['user' => $user,'relatedInfo' => $relatedInfo]);
+    }
     /**
      * Handle an incoming registration request.
      *
@@ -59,9 +68,13 @@ class ResidentUserController extends Controller
     {
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed'],
             'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            'dateOfBirth' => ['required', 'date', 'before:' . now()->subYears(18)->format('Y-m-d')],
+            'dateOfBirth' => 'required|date|before:' . Carbon::now()->subYears(18),
+        ],
+        [
+            'dateOfBirth.before' => 'User must be 18 Years Old and Above to Register!',
+            'profileImage.required' => 'File Types must only be jpeg, png, jpg, gif, svg'
         ]);
 
         //Auto Generate ID 
@@ -201,10 +214,6 @@ class ResidentUserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::where('residentID',$id)->first();
-        $request = AccountInfoChange::where('userID',$user->id)->first();
-        
-        return view('auth.updateinfo',compact('user','request'));
         $user = User::where('residentID',$id)->first();
         $request = AccountInfoChange::where('userID',$user->id)->first();
         
