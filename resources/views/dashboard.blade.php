@@ -9,26 +9,25 @@
     <div class="py-1 mt-[8rem] flex flex-col justify-center bg-dirty-white">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @role('Admin')
-            <div class="absolute px-5 py-5 flex flex-col justify-center h-[250px] bg-olive-green w-[1900px] -mt-[9rem] -ml-[60rem]">
-                <div class="mb-12 mt-[43rem] ml-[590px] w-64 h-64 rounded-full border-2 bg-dirty-white border-green flex justify-center items-center">
+            <div class="absolute px-5 py-5 flex flex-col justify-center h-[250px] bg-olive-green w-[1750px] -mt-[17rem] -ml-[60rem]">
+                <div class="mb-12 mt-[33rem] ml-[5rem] w-64 h-64 rounded-full border-2 bg-dirty-white border-green self-center">
                     <img src="{{ asset('images/PoblacionDalLogo.png') }}" alt="">
                 </div>
-                <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 mt-[100px] ml-[30rem]">
+                <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 mt-[20px] self-center ml-[5rem] border-2 border-deep-green">
                     <a href="{{ route('accounts.index') }}" class="font-robotocondensed text-[40px] text-dirty-white text-center">MANAGE ACCOUNTS</a>
                 </div>
-                <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 ml-[30rem]">
+                <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 self-center ml-[5rem] -mt-3 border-2 border-deep-green">
                     <a href="{{ route('services.index') }}" class="font-robotocondensed text-[40px] text-dirty-white text-center">MANAGE REQUESTS</a>
                 </div>
 
                 <!-- Authentication -->
-                <div class="bg-green h-[40px] w-[140px] text-center ml-[40rem] mt-[3rem]">
+                <div class="bg-green h-[40px] w-[140px] text-center ml-[5rem] mt-[1rem] px-2 py-1 font-semibold self-center border-2 border-deep-green rounded-md">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-
-                        <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
-                                            this.closest('form').submit();">
-                            {{ __('LOGOUT') }}
-                        </x-responsive-nav-link>
+                        <a href="route('logout')" onclick="event.preventDefault();
+                                                        this.closest('form').submit();" class="text-dirty-white">
+                                            {{ __('LOGOUT') }}
+                        </a>
                     </form>
                 </div>
             </div>
@@ -170,24 +169,24 @@
                             </div>
                             <div class="">
                                 @if(isset($request->gender) || isset($request->ageclass) && $totalHouseholdCount>0)
-                                    @if($request->gender=="NULL" && $request->ageclass=="NULL")
-                                    <div class="w-[525px] h-[300px] mt-2 mx-auto" id="householdPiechart"></div>
-                                    <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
-                                    <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end ml-8 w-80 text-justify">
-                                        <p class="py-1">
-                                            Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
-                                            the Sitio, that means there are currently 0 Households there.
-                                        </p>
-                                    </div>
-                                    @else
-                                    <div class="w-[525px] h-[324px] mt-2 px-2 flex items-center justify-center">
-                                        <p class="text-xl font-robotocondensed w-80 text-center text-deep-green">
-                                        Since Age/Gender filters are applied or there are no Households present in the Sitio, Household Information is unavailable.
-                                        </p>
-                                    </div>
-                                    @endif
+                                @if($request->gender=="NULL" && $request->ageclass=="NULL")
+                                <div class="w-[525px] h-[300px] mt-2 mx-auto" id="householdPiechart"></div>
+                                <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
+                                <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end ml-8 w-80 text-justify">
+                                    <p class="py-1">
+                                        Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
+                                        the Sitio, that means there are currently 0 Households there.
+                                    </p>
+                                </div>
                                 @else
-                                    <div class="w-[525px] h-[300px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyTwochart"></div>
+                                <div class="w-[525px] h-[324px] mt-2 px-2 flex items-center justify-center">
+                                    <p class="text-xl font-robotocondensed w-80 text-center text-deep-green">
+                                        Since Age/Gender filters are applied or there are no Households present in the Sitio, Household Information is unavailable.
+                                    </p>
+                                </div>
+                                @endif
+                                @else
+                                <div class="w-[525px] h-[300px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyTwochart"></div>
                                 @endif
                             </div>
                         </div>
@@ -200,9 +199,9 @@
                             <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
                                 <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
                                     @if ($totalResidentCount>0)
-                                    {{ $totalResidentCount }}
+                                    {{ $totalResidentCount }} RESIDENTS
                                     @else
-                                    --
+                                    {{ $totalResidentCount }}
                                     @endif
                                 </p>
                             </div>
@@ -215,9 +214,9 @@
                             <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
                                 <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
                                     @if ($totalHouseholdCount>0)
-                                    {{ $totalHouseholdCount }}
+                                    {{ $totalHouseholdCount }} HOUSEHOLDS
                                     @else
-                                    --
+                                    {{ $totalResidentCount }}
                                     @endif
                                 </p>
                             </div>
@@ -230,8 +229,8 @@
 
             @hasanyrole('User|Barangay Health Worker')
             <div class="w-max h-max grid grid-rows-2 grid-flow-col gap-16 -ml-32 -mt-20 px-5 py-5 justify-between font-bold">
-                <div class="bg-dirty-white w-[472px] h-[421px] border">
-                    <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border border-deep-green px-1 py-1 text-center">BARANGAY CERTIFICATE</p>
+                <div class="bg-dirty-white w-[472px] h-[421px] border-2 border-deep-green">
+                    <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border px-1 py-1 text-center">BARANGAY CERTIFICATE</p>
                     <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">PURPOSES BARANGAY CERTIFICATION:</p>
                     <ul class="ml-10 mt-2 list-disc font-roboto text-deep-green">
                         @foreach($documents as $document)
@@ -248,8 +247,8 @@
                         <a href="{{ route('services.request', ['docType' => 'Barangay Certificate']) }}" class="px-3 py-2 bg-deep-green text-dirty-white font-medium">REQUEST BARANGAY CERTIFICATE</a>
                     </div>
                 </div>
-                <div class="bg-dirty-white w-[472px] h-[300px] border">
-                    <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border border-deep-green px-1 py-1 text-center">FILING OF COMPLAINTS</p>
+                <div class="bg-dirty-white w-[472px] h-[300px] border-2 border-deep-green mt-10">
+                    <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border px-1 py-1 text-center">FILING OF COMPLAINTS</p>
                     <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">PURPOSE:</p>
                     <ul class="ml-10 mt-2 list-disc font-roboto text-deep-green">
                         @foreach($documents as $document)
@@ -267,8 +266,8 @@
                         <a href="{{ route('services.request', ['docType' => 'File Complain']) }}" class="px-3 py-2 bg-deep-green text-dirty-white font-medium">FILE COMPLAIN</a>
                     </div>
                 </div>
-                <div class="bg-dirty-white w-max h-[421px] border">
-                    <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border border-deep-green px-1 py-1 text-center">BARANGAY CLEARANCE</p>
+                <div class="bg-dirty-white w-max h-[421px] border-2 border-deep-green">
+                    <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border px-1 py-1 text-center">BARANGAY CLEARANCE</p>
                     <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">PURPOSE:</p>
                     <ul class="ml-10 mt-2 list-disc font-roboto text-deep-green">
                         @foreach($documents as $document)
@@ -288,8 +287,8 @@
                         <a href="{{ route('services.request', ['docType' => 'Barangay Clearance']) }}" class="px-3 py-2 bg-deep-green text-dirty-white font-medium">REQUEST BARANGAY CLEARANCE</a>
                     </div>
                 </div>
-                <div class="bg-dirty-white w-[620px] h-[300px] border">
-                    <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border border-deep-green px-1 py-1 text-center">PERSONAL INFORMATION CHANGE</p>
+                <div class="bg-dirty-white w-[620px] h-[300px] border-2 border-deep-green mt-10">
+                    <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border  px-1 py-1 text-center">PERSONAL INFORMATION CHANGE</p>
                     <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">PURPOSE:</p>
                     <ul class="ml-10 mt-2 list-disc font-roboto text-deep-green">
                         <li>Up-to-date Personal Record</li>
@@ -302,17 +301,6 @@
                         <a href="{{ route('services.request', ['docType' => 'Account Information Change']) }}" class="px-3 py-2 bg-deep-green text-dirty-white font-medium">REQUEST PERSONAL INFORMATION CHANGE</a>
                     </div>
                 </div>
-            </div>
-
-            <div class="bg-green h-[40px] w-[140px] text-center ml-32">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('LOGOUT') }}
-                    </x-responsive-nav-link>
-                </form>
             </div>
 
             @endhasanyrole

@@ -17,7 +17,7 @@
                         <a href="{{ route('notifications') }}" class="info absolute right-0 mr-14 -mt-[3rem] border-2 border-dirty-white rounded-full w-[12rem] px-2 py-2 bg-green text-dirty-white font-robotocondensed text=[24px] shadow-lg font-bold">
                             NOTIFICATIONS
                         </a>
-                        <div class="still hide bg-dirty-white p-1 border-2 bg-green rounded right-0 mr-10">
+                        <div class="still hide p-1 border-2 bg-green rounded right-0 mr-10">
                             <div class="bg-dirty-white border-2 border-stone-500 rounded">
                                 @forelse($notifications as $notification)
                                 <p class="font-bold pt-1 text-xl font-robotocondensed mx-2 w-80 text-justify">
@@ -40,7 +40,7 @@
                                             replace the rest of the text with [...]-->
                                 <hr class="h-px bg-stone-500 border-0">
                                 @empty
-                                <p class="text-base ml-4 font-robotocondensed w-80 text-justify">
+                                <p class="text-xs font-robotocondensed w-80 text-justify ml-3">
                                     <br>
                                     NO NEW NOTIFICATIONS
                                     <br>
@@ -51,7 +51,7 @@
                         </div>
                     </div>
 
-                    <div class="max-h-[837px] h-[550px] max-w-[1178px] w-[1178px] mt-[8rem] ml-[18rem] p-14 border-2 border-deep-green shadow-md rounded bg-dirty-white font-roboto">
+                    <div class="max-h-[837px] h-[550px] max-w-[1178px] w-[1178px] mt-[4rem] ml-[8rem] p-14 border-2 border-deep-green shadow-md rounded bg-dirty-white font-roboto">
                         <div class="relative">
                             <div class="mr-14 float-left max-h-[324px] max-w-[273px] place-content-center bg-dirty-white border-2 border-green h-[324px] w-[273px]">
                                 <img src="/{{$user->profileImage}}" class="max-h-[324px] max-w-[273px] h-[324px] w-[273px]" alt="Profile Image">
@@ -59,11 +59,11 @@
                             
                             <div class="absolute flex flex-row w-max h-max mt-[22rem] ml-[20.5rem] space-x-4">
                                 @role('User')
-                                <a href="{{ route('password.request') }}" class="left-0 button w-[228px] h-[49px] text-deep-green  text-center px-1 py-2 text-[18px] bg-dirty-white hover:shadow-md border-2 border-green">
+                                <a href="{{ route('change_password') }}" class="left-0 button w-[228px] h-[49px] text-deep-green  text-center px-1 py-2 text-[18px] bg-dirty-white hover:shadow-md border-2 border-green">
                                     Change Password
                                 </a>
                                 @endrole
-                                <a href="{{ route('password.request') }}" class="right-0 button w-[228px] h-[49px] text-deep-green text-center px-1 py-2 text-[18px] bg-dirty-white hover:shadow-md border-2 border-green">
+                                <a href="{{ route('services.request', ['docType' => 'Account Information Change']) }}" class="right-0 button w-[228px] h-[49px] text-deep-green text-center px-1 py-2 text-[18px] bg-dirty-white hover:shadow-md border-2 border-green">
                                     Request Account Update
                                 </a>
                                 <div class="left-0 button w-[228px] h-[49px] text-deep-green  text-center px-1 py-2 text-[18px] bg-dirty-white border-2 hover:shadow-md border-green">

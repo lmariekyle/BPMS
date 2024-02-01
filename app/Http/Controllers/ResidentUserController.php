@@ -9,6 +9,7 @@ use App\Models\Resident;
 use App\Models\Barangay;
 use App\Models\Household;
 use App\Models\Document;
+use App\Models\AccountInfoChange;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountMail;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
@@ -46,6 +48,14 @@ class ResidentUserController extends Controller
         return view('auth.createaccount', compact('resident', 'sitios'));
     }
 
+    public function getUserInfo()
+    {
+        $user = Auth::user();
+        $resId = $user->residentID;
+        // Fetch related information
+        $relatedInfo = Resident::find($resId);
+        return response()->json(['user' => $user,'relatedInfo' => $relatedInfo]);
+    }
     /**
      * Handle an incoming registration request.
      *
@@ -58,8 +68,13 @@ class ResidentUserController extends Controller
     {
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed'],
             'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'dateOfBirth' => 'required|date|before:' . Carbon::now()->subYears(18),
+        ],
+        [
+            'dateOfBirth.before' => 'User must be 18 Years Old and Above to Register!',
+            'profileImage.required' => 'File Types must only be jpeg, png, jpg, gif, svg'
         ]);
 
         //Auto Generate ID 
@@ -181,7 +196,7 @@ class ResidentUserController extends Controller
         $barangay=Barangay::where('id',$sitio->barangayID)->first();
         $personalInfo->sitio=$sitio->sitioName;
         $personalInfo->barangay=$barangay->barangayName;
-        $notifications = auth()->user()->unreadNotifications;
+        $notifications = auth()->user()->unreadNotifications->take(5);
         foreach($notifications as $notification){
             $notification->user = User::where('id', $notification->data['transaction']['userID'])->first();
             $notification->resident = Resident::where('id',$notification->user['residentID'])->first();
@@ -199,7 +214,10 @@ class ResidentUserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::where('residentID',$id)->first();
+        $request = AccountInfoChange::where('userID',$user->id)->first();
+        
+        return view('auth.updateinfo',compact('user','request'));
     }
 
     /**
@@ -211,7 +229,24 @@ class ResidentUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $account = AccountInfoChange::where('userID',$id)->first();
+        $requested = $request->selectedInformation;
+        $user = User::where('id',$id)->first();
+        $resident = Resident::where('id', $user->residentID)->first();
+        if($request->status == "1"){        
+            $resident->{$requested} = $request->requesteeNewInformation;
+            if($requested == "email" || $requested == "contactNumber"){
+                $user->{$requested} = $request->requesteeNewInformation;
+            }
+            $account->status ='DONE';
+            $resident->save();
+            $user->save();
+            $account->save();
+        }else if($request->status == "2"){
+            $account->status ='DENIED';
+            $account->save();
+        }
+        return back();
     }
 
     /**

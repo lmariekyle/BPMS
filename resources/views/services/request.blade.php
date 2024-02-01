@@ -1,8 +1,7 @@
-@role('User')
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Barangay Health Workers') }}
+            {{ __('Resident') }}
         </h2>
     </x-slot>
 
@@ -19,7 +18,7 @@
             <div class="flex flex-row">
                 <div>
                     <div class="ml-12 mt-[4rem] font-bold w-[650px]">
-                        @if ($doctypename == 'BARANGAY CERTIFICATE' && $doctypename == 'BARANGAY CLEARANCE' )
+                        @if ($doctypename == 'BARANGAY CERTIFICATE' || $doctypename == 'BARANGAY CLEARANCE' )
                         <div class="">
                             <label>TYPE OF CERTIFICATE</label>
                             <select class="rounded-lg border-2 w-full h-[50px] text-[26px]" style="border-color: #414833;" name="selectedDocument">
@@ -119,16 +118,18 @@
                                 <label>SITIO</label>
                             </div>
                         </div>
-                        <div class="mt-[3rem]">
-                            <label>PURPOSE OF REQUEST</label>
+                        <div class="mt-[2rem]">
+                            <label>STATE REASON OF COMPLAIN</label>
                             <textarea class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;" name="requestPurpose"> </textarea>
                         </div>
                         @elseif($doctypename == 'ACCOUNT INFORMATION CHANGE')
                         <div class="flex flex-col">
+                        <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="17" name="selectedDocument">
                             <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="{{$user->id}}" name="requestee">
                             <div class="">
-                                <label>SELECT INFORMATION TO CHANGE</label>
-                                <select class="rounded-lg border-2 w-full h-[50px] text-[26px]" style="border-color: #414833;" name="selectedInformation">
+                                <label>INFORMATION TO CHANGE</label>
+                                <select class="rounded-lg border-2 w-full h-[50px] text-[26px]" id="info-type" style="border-color: #414833;" name="selectedInformation">
+                                    <option value="">SELECT INFORMATION</option>
                                     <option value="firstName">First Name</option>
                                     <option value="middleName">Middle Name</option>
                                     <option value="lastName">Last Name</option>
@@ -136,10 +137,12 @@
                                     <option value="contactNumber">Contact Number</option>
                                 </select>
                             </div>
-                            <div class=" mt-10">
-                                <input class="px-2 focus:outline-none border-2 w-[650px] bg-white text-deep-green" style="border-color: #414833;" value="" name="requesteeOldInformation">
+                            <div class="mt-10">
+                                    <div id="current-info-container" class="px-2 py-2 focus:outline-none border-2 w-[650px] h-[50px] bg-white text-deep-green" style="border-color: #414833;">
+                                    </div>
+                                <!-- <input class="px-2 focus:outline-none border-2 w-[650px] bg-white text-deep-green" style="border-color: #414833;" name="requesteeOldInformation">
                                 <br>
-                                <label class="mt-8">OLD INFORMATION</label>
+                                <label class="mt-8">OLD INFORMATION</label> -->
                             </div>
                             <div class=" mt-10">
                                 <input class="px-2 focus:outline-none border-2 w-[650px] bg-white text-deep-green" style="border-color: #414833;" value="" name="requesteeNewInformation">
@@ -202,11 +205,11 @@
                 <label for="gcash" class="mr-2 font-robotocondensed text-[22px] text-deep-green font-semibold">GCASH</label>
                 <input type="radio" name="paymentMethod" id="gcash" value="GCASH" class="w-[20px] h-[20px] mb-1">
                 <br>
-                <label for="cash-on-site" class="mr-2 font-robotocondensed text-[22px] text-deep-green font-semibold">CASH-ON-SITE</label>
+                <label for="cash-on-site" class="mr-2 font-robotocondensed text-[22px] text-deep-green font-semibold">CASH ON PICK-UP</label>
                 <input type="radio" name="paymentMethod" id="cash-on-site" value="CASH-ON-SITE" class="w-[20px] h-[20px] mb-1">
             </div>
             @else
-            <p class="mb-2 mt-4 font-robotocondensed text-[24px] text-deep-green font-semibold underline underline-offset-8 mt-[10rem]">THIS SERVICE HAS NO CHARGE</p>
+            <p class="mb-2 font-robotocondensed text-[24px] text-deep-green font-semibold underline underline-offset-8 mt-[8rem]">THIS SERVICE HAS NO CHARGE</p>
             <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="0" name="docfee">
             <input name="paymentMethod" id="cash-on-site" value="FREE" class="hidden w-[20px] h-[20px] mb-1">
             @endif
@@ -215,4 +218,3 @@
         </div>
     </form>
 </x-app-layout>
-@endrole

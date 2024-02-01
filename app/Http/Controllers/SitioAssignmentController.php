@@ -7,7 +7,7 @@ use App\Models\Households;
 use App\Models\Sitio;
 use App\Models\User;
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class SitioAssignmentController extends Controller
 {

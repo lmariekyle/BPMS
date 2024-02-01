@@ -136,9 +136,9 @@
         <div class="justify-center flex flex-row mt-14">
             <form method="GET" action="{{ route('accepted', $transaction->id) }}">
                 @if($transaction->approval != 1)
-                <button type="submit" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-dirty-white bg-deep-green px-4 py-2" style="width: 400px; font-size: 32px;" disabled>Approve Request </button>
+                    <button type="submit" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-dirty-white bg-deep-green px-4 py-2" style="width: 400px; font-size: 32px;" disabled>Approve Request </button>
                 @else
-                <button type="submit" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-dirty-white bg-deep-green px-4 py-2" style="width: 400px; font-size: 32px;">Approve Request </button>
+                    <button type="submit" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-dirty-white bg-deep-green px-4 py-2" style="width: 400px; font-size: 32px;">Approve Request </button>
                 @endif
             </form>
             <form method="GET" action="{{ route('deny', $transaction->id) }}">

@@ -40,7 +40,7 @@
                                 <div class="float-left mr-10">
                                     <label for="firstname" class="font-roboto">First Name</label>
                                     <br>
-                                    <input type="text" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" name="firstName" value="{{$personalInfo->firstName}}">
+                                    <input type="text" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" name="firstName" value="{{$personalInfo->firstName}}" required>
                                 </div>
                                 <div class="">
                                         <label for="barangay" class="font-roboto">Barangay</label>
@@ -53,7 +53,7 @@
                                 <div class="float-left mr-10">
                                     <label for="lastname" class="font-roboto">Last Name</label>
                                     <br>
-                                    <input type="text" name="lastName" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$personalInfo->lastName}}">
+                                    <input type="text" name="lastName" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$personalInfo->lastName}}" required>
                                 </div>
                                
                                 <div class="">

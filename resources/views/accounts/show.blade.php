@@ -69,7 +69,7 @@
                                         @if (null!==$user->archiveDate)
                                         <p>{{$user->archiveDate}}</p>
                                         @else
-                                        <p>---------------------</p>
+                                        <p>Account is still Active</p>
                                         @endif
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                         @if (null!==$user->archivedBy)
                                         <p>{{$user->archivedBy}}</p>
                                         @else
-                                        <p>---------------------</p>
+                                        <p>Account is still Active</p>
                                         @endif
                                     </div>
                                 </div>
@@ -119,7 +119,7 @@
                                     <input type="hidden" name="userID" value="{{$user->id}}">
                                     @if($user->userStatus == 'Active')
                                     <label for="reason" class="font-robotocondensed text-[28px] text-deep-green">Reason for Archiving Account</label>
-                                    <input type="text" name="reason" class="block mt-4 w-full h-[100px] bg-dirty-white">
+                                    <input type="text" name="reason" class="block mt-4 w-full h-[100px] bg-dirty-white" maxlength="225" required>
                                     @elseif($user->userStatus == 'Archived')
                                     <select id="reason" name="reason" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green">
                                         <option value="">Are you sure to Un-Archive Account?</option>

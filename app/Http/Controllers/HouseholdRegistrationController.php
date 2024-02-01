@@ -62,12 +62,12 @@ class HouseholdRegistrationController extends Controller
         
 
         foreach ($request->members as $resident) {
-/*
-            $certRequirements = [];
-            if ($request->hasFile('file')) {
-                foreach ($request->file('file') as $file) {
+
+        /*    $certRequirements = [];
+            if ($resident->hasFile('supportingDocument')) {
+                foreach ($resident->file('supportingDocument') as $file) {
                     if ($file->isValid()) {
-                        $file_name = Str::slug($request->requesteeLName) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                        $file_name = Str::slug($resident['lastName']+$resident['firstName'][0]) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                         $file->storeAs('requirements', $file_name);
                         $path = $file_name;
                         $certRequirements[] = $path;
@@ -84,22 +84,22 @@ class HouseholdRegistrationController extends Controller
 
             $newResident = new Resident();
             $newResident->fill([
-                'firstName'=>$resident['firstName'],
-                'middleName'=>$resident['middleName'],
-                'lastName'=>$resident['lastName'],
-                'dateOfBirth'=>$date,
-                'contactNumber'=>$resident['contactNumber'],
-                'email'=>$resident['email'],
-                'maritalStatus'=>$resident['maritalStatus'],
-                'gender'=>$resident['gender'],
-                'philHealthNumber'=>$resident['philHealthNumber'],
-                'occupation'=>$resident['occupation'],
-                'monthlyIncome'=>$resident['monthlyIncome'],
-                'ageClassification'=>$resident['ageClassification'],
-                'pregnancyClassification'=>$resident['pregnancyClassification'],
-                'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
-                'registeredPWD'=>$resident['registeredPWD'],
-                //'supportingDocument'=>$resident['supportingDocument']*/
+                    'firstName'=>$resident['firstName'],
+                    'middleName'=>$resident['middleName'],
+                    'lastName'=>$resident['lastName'],
+                    'dateOfBirth'=>$date,
+                    'contactNumber'=>$resident['contactNumber'],
+                    'email'=>$resident['email'],
+                    'maritalStatus'=>$resident['maritalStatus'],
+                    'gender'=>$resident['gender'],
+                    'philHealthNumber'=>$resident['philHealthNumber'],
+                    'occupation'=>$resident['occupation'],
+                    'monthlyIncome'=>$resident['monthlyIncome'],
+                    'ageClassification'=>$resident['ageClassification'],
+                    'pregnancyClassification'=>$resident['pregnancyClassification'],
+                    'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
+                    'registeredPWD'=>$resident['registeredPWD'],
+                    //'supportingDocument'=>$reqJson,
 
                 'createdBy' => $resident['createdBy'],
                 'revisedBy' => $resident['revisedBy'],
@@ -157,7 +157,8 @@ class HouseholdRegistrationController extends Controller
             $count++;
         }
         
-        return response()->json([
+        
+         return response()->json([
             'success' => true
         ]);
     }

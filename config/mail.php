@@ -104,7 +104,7 @@ return [
 
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'dbarangaypoblacion@gmail.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'dbarangaypob@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'BPMS'),
     ],
 

@@ -53,7 +53,7 @@ class PasswordResetLinkController extends Controller
     public function mobileStore(Request $request)
     {
         $request->validate([
-            'email' => ['required', 'email'],
+            'email' => ['required', 'emailpass'],
         ]);
 
         // We will send the password reset link to this user. Once we have attempted

@@ -41,8 +41,8 @@
             </form>
         </div>
 
-        <a href="{{ route('register') }}" class="button h-8 w-max text-center mt-6 ml-[500px] py-1">Add Account</a>
-        <a href=""><i class="fa-solid fa-filter text-dirty-white text-[28px] mt-6 ml-7"></i></a>  
+        <a href="{{ route('register') }}" class="button h-8 w-max text-center mt-6 ml-[500px] bg-deep-green px-3 text-dirty-white border-dirty-white border-2 font-semibold">Add Account</a>
+    
                     <!--ACTUAL TABLE -->
 
         <div class="bg-dirty-white w-[1400px] h-max absolute mt-20 -ml-5 border shadow-inner">
@@ -79,12 +79,12 @@
                             <a href="{{ route('accounts.show', $account->id) }}" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
                         </td>
                     </tr>
-                @endforeach
-                                      
+                @endforeach         
                 </tbody>
             </table>
-
-
+            <div class="flex flex-row justify-evenly mt-4 mb-2">
+                {{$accounts->links()}}
+            </div>  
         </div>      
     </div>
     

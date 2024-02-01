@@ -33,14 +33,17 @@
             @endrole('Admin')
 
             <div class="absolute left-[333px] top-[181px]">
+                <div class="-mt-6 mb-2">
+                    <p class="font-poppins font-light text-dirty-white text-[12px]">Fields with * are required fields.</p>
+                </div>
                 <div>
-                    <x-label for="firstname" :value="__('First Name')" class="font-roboto text-xl" style="color:white;" />
+                    <x-label for="firstname" :value="__('* First Name')" class="font-roboto text-xl" style="color:white;" />
 
                     <x-input id="firstname" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="firstname" :value="old('name')" required autofocus />
                 </div>
 
                 <div>
-                    <x-label for="lastname" :value="__('Last Name')" class="font-roboto text-xl" style="color:white;" />
+                    <x-label for="lastname" :value="__('* Last Name')" class="font-roboto text-xl" style="color:white;" />
 
                     <x-input id="lastname" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="lastname" :value="old('lastname')" required autofocus />
                 </div>
@@ -48,24 +51,24 @@
                 <div>
                     <x-label for="middlename" :value="__('Middle Name')" class="font-roboto text-xl" style="color:white;" />
 
-                    <x-input id="middlename" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="middlename" :value="old('middlename')" required autofocus />
+                    <x-input id="middlename" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="middlename" :value="old('middlename')" autofocus />
                 </div>
 
                 <!-- Email Address -->
                 <div>
-                    <x-label for="email" :value="__('Email')" class="font-roboto text-xl" style="color:white;" />
+                    <x-label for="email" :value="__('* Email')" class="font-roboto text-xl" style="color:white;" />
 
                     <x-input id="email" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="email" name="email" :value="old('email')" required />
                 </div>
 
                 <div>
-                    <x-label for="contactnumber" :value="__('Contact Number')" class="font-roboto text-xl" style="color:white;" />
+                    <x-label for="contactnumber" :value="__('* Contact Number')" class="font-roboto text-xl" style="color:white;" />
 
                     <x-input id="contactnumber" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="contactnumber" :value="old('contactnumber')" required autofocus />
                 </div>
 
                 <div>
-                    <x-label for="dateOfBirth" :value="__('Date of Birth')" class="font-roboto text-xl" style="color:white;" />
+                    <x-label for="dateOfBirth" :value="__('* Date of Birth')" class="font-roboto text-xl" style="color:white;" />
 
                     <x-input id="dateOfBirth" class="block mb-4 w-52 h-[42px] bg-dirty-white" type="date" name="dateOfBirth" :value="old('dateOfBirth')" required autofocus />
                 </div>
@@ -73,13 +76,13 @@
 
             <div class="absolute left-[866px] top-[181px]">
                 <div>
-                    <x-label for="barangay" :value="__('Barangay')" class="font-roboto text-xl" style="color:white;" />
+                    <x-label for="barangay" :value="__('* Barangay')" class="font-roboto text-xl" style="color:white;" />
 
                     <x-input id="barangay" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="barangay" :value="'Poblacion'" readonly="readonly" required autofocus />
                 </div>
 
                 <div>
-                    <x-label for="sitio" :value="__('Sitio')" class="font-roboto text-xl" style="color:white;" />
+                    <x-label for="sitio" :value="__('* Sitio')" class="font-roboto text-xl" style="color:white;" />
                     <select id="sitio" class="block mb-4 w-[500px] h-[42px] bg-dirty-white rounded border-1" name="sitio" :value="old('sitio')" required autofocus>
                         @foreach($sitios as $sitio)
                         <option value="{{$sitio->id}}">{{$sitio->sitioName}}</option>
@@ -89,7 +92,7 @@
 
                 @role('Admin')
                 <div>
-                    <x-label for="userlevel" :value="__('Account Type')" class="font-roboto text-xl" style="color:white;" />
+                    <x-label for="userlevel" :value="__('* Account Type')" class="font-roboto text-xl" style="color:white;" />
                     <select id="userlevel" class="block mb-4 w-[500px] h-[42px] bg-dirty-white rounded border-1" name="userlevel" :value="old('userlevel')" required autofocus>
                         @foreach($roles as $role)
                         <option value="{{$role->name}}">{{$role->name}}</option>

@@ -32,17 +32,17 @@ Route::middleware('web')->group(function () {
     Route::get('create', [ResidentUserController::class, 'create'])->name('create');
     Route::post('create', [ResidentUserController::class, 'store']);
 });
-//Route::post('/callback', [ServicesController::class, 'callback'])->name('callback');
-Route::middleware(['role:User'])->group(function () {
-    Route::get('request/{docType}', [ServicesController::class, 'request'])->name('services.request');
-    Route::post('request/{docType}', [ServicesController::class, 'storerequest'])->name('services.storerequest');
-    // Route::post('payment', [ServicesController::class, 'paymentrequest'])->name('services.gcash');
-    Route::post('createpayment/{id}', [ServicesController::class, 'createpayment'])->name('services.createpayment');
-    Route::get('success', function () {
-        return view('services.success');
-    })->name('services.success');
-});
-
+Route::post('/callback', [ServicesController::class, 'callback'])->name('callback');
+// Route::middleware(['role:User'])->group(function () {
+//     Route::get('request/{docType}', [ServicesController::class, 'request'])->name('services.request');
+//     Route::post('request/{docType}', [ServicesController::class, 'storerequest'])->name('services.storerequest');
+//     // Route::post('payment', [ServicesController::class, 'paymentrequest'])->name('services.gcash');
+//     Route::post('createpayment/{id}', [ServicesController::class, 'createpayment'])->name('services.createpayment');
+//     Route::get('success', function () {
+//         return view('services.success');
+//     })->name('services.success');
+// });
+Route::get('/residents/get-current-user-info', [ResidentUserController::class, 'getUserInfo']);
 Route::group(['middleware' => 'auth'], function () {
     Route::get('landingpage', [LandingPageController::class, 'index'])->name('landingpage');
     Route::get('searchResident', function () {
@@ -83,6 +83,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/view_file/{file}', [ServicesController::class, 'view_file'])->name('view_file');
     Route::resource('auth', \App\Http\Controllers\NotificationController::class);
     Route::get('index', [NotificationController::class, 'index'])->name('notifications');
+    Route::get('edit/{id}', [ResidentUserController::class, 'edit'])->name('auth.updateinfo');
+    Route::post('update/{id}', [ResidentUserController::class, 'update'])->name('updateinfo');;
+    Route::get('request/{docType}', [ServicesController::class, 'request'])->name('services.request');
+    Route::post('request/{docType}', [ServicesController::class, 'storerequest'])->name('services.storerequest');
+    Route::post('createpayment/{id}', [ServicesController::class, 'createpayment'])->name('services.createpayment');
+    Route::get('successpayment/{id}', [ServicesController::class, 'successpayment'])->name('services.success');
+    // Route::get('successpayment/{id}', function () {
+    //   return view('services.success');
+    // })->name('services.success');
+    Route::get('failurepayment/{id}', [ServicesController::class, 'failurepayment'])->name('services.failure');
+    Route::get('/markRead/{id}', [NotificationController::class, 'markRead'])->name('viewNotifications');
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {

@@ -20,6 +20,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountMail;
+use Carbon\Carbon;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class RegisteredUserController extends Controller
@@ -69,12 +70,17 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed'],
             'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'dateOfBirth' => 'required|date|before:' . Carbon::now()->subYears(18),
+        ],
+        [
+            'dateOfBirth.before' => 'User must be 18 Years Old and Above to Register!',
+            'profileImage.required' => 'File Types must only be jpeg, png, jpg, gif, svg'
         ]);
 
 
 
-        $residentId = IdGenerator::generate(['table' => 'residents', 'field' => 'residentID', 'length' => 9, 'prefix' => 'RES-']);
-
+        $residentId = IdGenerator::generate(['table' => 'residents','field'=>'residentID', 'length' => 9, 'prefix' =>'RES-']);
+        
         // $image_name = time().'.'.$request->profileImage->extension();
         // $request->profileImage->move(public_path('users'),$image_name);
         // $path="users/".$image_name;
@@ -88,29 +94,45 @@ class RegisteredUserController extends Controller
         }
 
         $resident = Resident::create([
-            'residentID' => $residentId,
-            'firstname' => $request->firstname,
-            'middlename' => $request->middlename,
-            'lastname' => $request->lastname,
+            'residentID'=> $residentId,
+            'firstName' => $request->firstname,
+            'middleName' => $request->middlename,
+            'lastName' => $request->lastname,
             'dateOfBirth' => $request->dateOfBirth,
             'contactNumber' => $request->contactnumber,
             'email' => $request->email,
         ]);
 
         if ($request->userlevel == "Barangay Captain") {
-            $userId = IdGenerator::generate(['table' => 'users', 'field' => 'idNumber', 'length' => 6, 'prefix' => 'C-']);
+            $lastCaptain = User::where('userlevel', 'Barangay Captain')->orderBy('idNumber', 'desc')->first();
+            $lastId = $lastCaptain ? (int)substr($lastCaptain->idNumber, 2) : 0;
+            $userId = 'C-' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
         } else if ($request->userlevel == "Barangay Secretary") {
-            $userId = IdGenerator::generate(['table' => 'users', 'field' => 'idNumber', 'length' => 6, 'prefix' => 'S-']);
+            $lastSecretary = User::where('userlevel', 'Barangay Secretary')->orderBy('idNumber', 'desc')->first();
+            $lastId = $lastSecretary ? (int)substr($lastSecretary->idNumber, 2) : 0;
+            $userId = 'S-' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
         } else if ($request->userlevel == "Barangay Health Worker") {
-            $userId = IdGenerator::generate(['table' => 'users', 'field' => 'idNumber', 'length' => 6, 'prefix' => 'B-']);
+            $lastWorker = User::where('userlevel', 'Barangay Health Worker')->orderBy('idNumber', 'desc')->first();
+            $lastId = $lastWorker ? (int)substr($lastWorker->idNumber, 2) : 0;
+            $userId = 'B-' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
         } else {
-            $userId = IdGenerator::generate(['table' => 'users', 'field' => 'idNumber', 'length' => 6, 'prefix' => date('y')]);
-        };
+            // For other user levels, you can use the current year as a prefix
+            $yearPrefix = date('y');
+            $lastUser = User::where('userlevel', '<>', 'Barangay Captain')
+                             ->where('userlevel', '<>', 'Barangay Secretary')
+                             ->where('userlevel', '<>', 'Barangay Health Worker')
+                             ->where('idNumber', 'like', $yearPrefix . '%')
+                             ->orderBy('idNumber', 'desc')
+                             ->first();
+            $lastId = $lastUser ? (int)substr($lastUser->idNumber, 2) : 0;
+            $userId = $yearPrefix . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
+        }
 
 
         $resident->user()->create([
             'residentID' => $resident->id,
             'idNumber' => $userId,
+            'residentID' => $resident->id,
             'profileImage' => $path,
             'userlevel' => $request->userlevel,
             'email' => $request->email,
@@ -121,11 +143,8 @@ class RegisteredUserController extends Controller
         ]);
         $resident->user->assignRole($request->userlevel);
 
-
-        // event(new Registered($resident->user));
-
-        // Auth::login($user);
+        event(new Registered($resident->user));
         Mail::to($request->email)->send(new AccountMail($resident->user));
-        return Redirect::back()->with('success', 'Email for registration has been sent!');
+        return Redirect::back()->with('success', 'User Account has been created.');
     }
 }

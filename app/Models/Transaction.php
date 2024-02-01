@@ -23,7 +23,6 @@ class Transaction extends Model
         'serviceAmount',
         'docNumber',
         'serviceStatus',
-        'paymentMethod',
         'issuedDocument',
         'issuedBy',
         'issuedOn',
@@ -34,7 +33,8 @@ class Transaction extends Model
      *
      * @var array<string, string>
      */
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
