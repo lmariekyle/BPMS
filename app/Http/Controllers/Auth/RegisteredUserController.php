@@ -20,6 +20,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountMail;
+use Carbon\Carbon;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class RegisteredUserController extends Controller
@@ -69,6 +70,11 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed'],
             'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'dateOfBirth' => 'required|date|before:' . Carbon::now()->subYears(18),
+        ],
+        [
+            'dateOfBirth.before' => 'User must be 18 Years Old and Above to Register!',
+            'profileImage.required' => 'File Types must only be jpeg, png, jpg, gif, svg'
         ]);
 
 
