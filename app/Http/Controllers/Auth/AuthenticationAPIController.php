@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Sitio;
+use App\Models\Statistics;
 use DB;
 use Carbon\Carbon;
 
@@ -25,20 +26,19 @@ class AuthenticationAPIController extends Controller
         if($user && Hash::check($request->password, $user->password)){
             $token = $user->createToken($user->residentID)->plainTextToken;
             if($user->userLevel == "Barangay Health Worker"){
-                $quarter = 1;
-                $year = Carbon::now()->format('Y');
                 $sitio = Sitio::where('id', $user->assignedSitioID)->first();
                 $user->assignedSitio  = $sitio->sitioName;
 
+                $quarter = 1;
                 $statistic = null;
-                $statistics=DB::select('select * from statistics where year = ' . $year ); 
-                foreach($statistics as $stat){
-                    if($stat->quarter > $quarter){
-                        $statistic = $stat;
-                        $quarter = $stat->quarter;
+                $year =  Statistics::max('year');
+                $statisticsYear = Statistics::where('year', $year)->get();
+                foreach($statisticsYear as $statistics){
+                    if($statistics->quarter > $quarter){
+                        $statistic = $statistics;
+                        $quarter = $statistic->quarter;
                     }
                 }
-
                 $response = ['user' => $user, 'statistics' => $statistic,'token' => $token, 'success' => true];
             }else{
                 $response = ['user' => $user, 'token' => $token, 'success' => true];
