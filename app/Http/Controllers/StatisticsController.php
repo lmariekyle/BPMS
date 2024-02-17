@@ -128,7 +128,7 @@ class StatisticsController extends Controller
 
         //adds to the most recent statistic data row in the DB
         $totalResidentCount = DB::table('sitio_counts')->sum('residentCount');
-        $totalHouseholdCount = DB::table('households')->count('id');
+        $totalHouseholdCount = DB::table('households')->count('houseNumber');
 
         $statistics->totalResidentsBarangay = $totalResidentCount;
         $statistics->totalHouseholdsBarangay = $totalHouseholdCount;
@@ -140,8 +140,34 @@ class StatisticsController extends Controller
     public function landingpage()
     {
         //Gets the statistic data that is the most recently added
+        //Gets the statistic data that is the most recently added
         $currentYear = date('Y');
-        $currentQuarter = Statistics::max('quarter');
+        $currentDate = date('m-d');
+
+        //Establishes the static dates for determining the quarter to be used
+        //Q = quarter | B = start or beginning | E = end
+        $dateQoneB = '01-01';
+        $dateQoneE = '03-31';
+        $dateQtwoB = '04-01';
+        $dateQtwoE = '06-30';
+        $dateQthreeB = '07-01';
+        $dateQthreeE = '09-30';
+        //no need to make for quarter 4 because if such case happens, it implies that the current date provided
+        //is later than the three comparisons done
+
+        if($currentDate >= $dateQoneB && $currentDate <= $dateQoneE){
+        //if currentDatetime is between Jan 1 and March 31
+            $currentQuarter = 1;
+        } else if($currentDate >= $dateQtwoB && $currentDate <= $dateQtwoE){
+        //if currentDatetime is between April 1 and June 30
+            $currentQuarter = 2;
+        } else if($currentDate >= $dateQthreeB && $currentDate <= $dateQthreeE){
+        //if currentDatetime is between July 1 and September 30
+            $currentQuarter = 3;
+        } else {
+        //if currentDatetime is as early or later than October 1
+            $currentQuarter = 4;
+        }
 
         $statistics = Statistics::where('year', $currentYear)->where('quarter', $currentQuarter)->first();
 
@@ -191,7 +217,7 @@ class StatisticsController extends Controller
 
         //adds to the most recent statistic data row in the DB
         $totalResidentCount = DB::table('sitio_counts')->sum('residentCount');
-        $totalHouseholdCount = DB::table('households')->count('id');
+        $totalHouseholdCount = DB::table('households')->count('houseNumber');
 
         $statistics->totalResidentsBarangay = $totalResidentCount;
         $statistics->totalHouseholdsBarangay = $totalHouseholdCount;
@@ -305,7 +331,7 @@ class StatisticsController extends Controller
             $totalHouseholdCount = $householdCount;
         }
 
-        //checks if gender or age has any value, if they have any then resets the dataHousehold
+        //checks if gender and age has any value, if they have any then resets the dataHousehold
         if ($request['gender'] != "NULL" && $request['ageClass'] != "NULL") {
             $dataHousehold = "";
             $totalHouseholdCount = 0;
