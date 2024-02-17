@@ -1,27 +1,28 @@
 <x-page-layout>
 
-    <div class="absolute left-[33px] top-[49px] flex justify-start">
-        <a href="{{ route('welcome') }}">
-            <i class="fa-sharp fa-solid fa-arrow-left text-3xl mt-4" style="color:#fdffee;"></i>
-        </a>
-        <p class="font-robotocondensed font-bold ml-[20px] text-dirty-white text-5xl">Register</p>
-        <div class="ml-12 mt-3">
-            @include('components.flash')
-        </div>
-    </div>
-
-
-    <!-- Validation Errors -->
-    <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+    <div class="absolute left-[33px] top-[49px] flex justify-start">
+        <a href="{{ route('welcome') }}">
+            <i class="fa-sharp fa-solid fa-arrow-left text-3xl mt-4"></i>
+        </a>
+        <p class="font-robotocondensed font-bold ml-[20px] text-dirty-white text-5xl">Register</p>
+        <div class="ml-12 mt-3">
+             <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        </div>
+    </div>
+
 
     <form method="POST" action="{{ route('create') }}" class="font-robotocondensed" enctype="multipart/form-data">
         @csrf
 
         <div class="absolute left-36 top-[143px] text-2xl">
+                <div class="-mt-6 mb-2">
+                    <p class="font-poppins font-light text-dirty-white text-[12px]">Fields with * are required fields.</p>
+                </div>
             <!-- Name -->
             <div>
                 <!-- <x-label for="idNumber" :value="__('ID Number')" /> -->
@@ -32,7 +33,7 @@
 
 
             <div>
-                <x-label for="firstname" :value="__('First Name')" class="font-roboto" style="color:white;" />
+                <x-label for="firstname" :value="__('* First Name')" class="font-roboto" style="color:white;" />
 
                 <x-input id="firstname" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="firstname" :value="old('firstname')" required autofocus />
             </div>
@@ -44,21 +45,24 @@
             </div>
 
             <div>
-                <x-label for="lastname" :value="__('Last Name')" class="font-roboto" style="color:white;" />
+                <x-label for="lastname" :value="__('* Last Name')" class="font-roboto" style="color:white;" />
 
                 <x-input id="lastname" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="lastname" :value="old('lastname')" required autofocus />
             </div>
 
             <div>
-                <x-label for="dateOfBirth" :value="__('Date of Birth')" class="font-roboto" style="color:white;" />
+                <x-label for="dateOfBirth" :value="__('* Date of Birth')" class="font-roboto" style="color:white;" />
 
                 <x-input id="dateOfBirth" class="block mb-4 w-52 h-[42px] bg-dirty-white" type="date" name="dateOfBirth" :value="old('dateOfBirth')" required autofocus />
             </div>
 
             <div>
-                <x-label for="contactnumber" :value="__('Contact Number')" class="font-roboto" style="color:white;" />
-
-                <x-input id="contactnumber" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="contactnumber" :value="old('contactnumber')" required autofocus />
+                <x-label for="contactnumber" :value="__('* Contact Number')" class="font-roboto" style="color:white;" />
+                <div class="flex flex-row">
+                <input type="text" class="block mb-4 w-[50px] h-[42px] bg-dirty-white rounded-md" id="contactnumber" name="contactnumber" value="+63" readonly>
+                <x-input id="contactnumber" class="block mb-4 w-[450px] h-[42px] bg-dirty-white" type="text" name="contactnumber" :value="old('contactnumber')" required autofocus />
+                </div>
+               
             </div>
 
             <div>
@@ -68,7 +72,7 @@
             </div>
 
             <div>
-                <x-label for="sitio" :value="__('Sitio')" class="font-roboto" style="color:white;" />
+                <x-label for="sitio" :value="__('* Sitio')" class="font-roboto" style="color:white;" />
                 <select id="sitio" class="block mb-4 w-[500px] h-[42px] bg-dirty-white rounded border-1" name="sitio" :value="old('sitio')" required autofocus>
                     @foreach($sitios as $sitio)
                     <option value="{{$sitio->id}}">{{$sitio->sitioName}}</option>
@@ -82,7 +86,7 @@
             </div>
 
             <div class="mt-4">
-                <x-label for="email" :value="__('Email')" class="font-roboto" style="color:white;" />
+                <x-label for="email" :value="__('* Email')" class="font-roboto" style="color:white;" />
 
                 <x-input id="email" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="email" name="email" :value="old('email')" required />
             </div>
@@ -90,7 +94,7 @@
             <!-- Password -->
 
             <div class="mt-4">
-                <x-label for="password" :value="__('Password')" class="font-roboto" style="color:white;" />
+                <x-label for="password" :value="__('* Password')" class="font-roboto" style="color:white;" />
                 <div class="input-group">
                     <x-input id="password" class="form-control block mb-4 w-[500px] h-[42px] bg-dirty-white" type="password" name="password" required autocomplete="new-password" />
                 </div>
@@ -98,7 +102,7 @@
 
             <!-- Confirm Password -->
             <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" class="font-roboto" style="color:white;" />
+                <x-label for="password_confirmation" :value="__('* Confirm Password')" class="font-roboto" style="color:white;" />
                 <div class="input-group">
                     <x-input id="password_confirmation" class="form-control block mb-4 w-[500px] h-[42px] bg-dirty-white" type="password" name="password_confirmation" required />
                 </div>
@@ -120,8 +124,8 @@
     -->
         </div>
         <div class="absolute left-[739px] top-[143px]">
-            <div class="border-2 w-[545px] l-[617px] bg-dirty-white text-deep-green">
-                <p class="text-center text-5xl font-bold mt-6">TERMS AND AGREEMENT</p>
+            <div class="border-2 border-deep-green shadow-md w-[545px] h-max py-8 l-[617px] bg-dirty-white text-deep-green">
+                <p class="text-center text-5xl font-bold">TERMS AND AGREEMENT</p>
                 <div class="text-justify text-base mx-[18px] mt-8">
                     <p class="mb-4">Welcome to Barangay Poblacion Management System (BPMS). The terms and agreement for you
                         (the users) are stated that:

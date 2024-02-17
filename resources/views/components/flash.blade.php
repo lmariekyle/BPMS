@@ -35,8 +35,8 @@
 @endif
 
 
-@if ($errors->any())
+<!-- @if ($errors->any())
 <div class="alert alert w-max h-max font-roboto bg-red-200 text-deep-green text-[18px] px-1 py-1 drop-shadow-md border rounded-md" id="alert">	
 	Please check the form below for errors
 </div>
-@endif
+@endif -->

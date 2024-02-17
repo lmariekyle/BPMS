@@ -106,11 +106,11 @@
             @if (Route::has('login'))
             <div class="hidden absolute right-3 mt-20 px-6 py-4 sm:block">
                 @auth
-                <a href="{{ url('/dashboard') }}" class="p-2 border-2 border-deep-green rounded text-xl mx-2 text-deep-green bg-dirty-white font-robotocondensed">DASHBOARD</a>
+                <a href="{{ url('/dashboard') }}" class="p-2 rounded text-xl mx-3 text-dirty-white hover:bg-dirty-white hover:text-deep-green bg-olive-green font-robotocondensed hover:shadow-md">DASHBOARD</a>
                 @else
-                <a href="{{ route('login') }}" class="p-2  border-2 border-deep-green rounded text-xl mx-3 text-deep-green bg-dirty-white font-robotocondensed">LOGIN</a>
+                <a href="{{ route('login') }}" class="p-2 rounded text-xl mx-3 text-dirty-white hover:bg-dirty-white hover:text-deep-green bg-olive-green font-robotocondensed hover:shadow-md">LOGIN</a>
                 @if (Route::has('create'))
-                <a href="{{ route('create') }}" class="p-2  border-2 border-deep-green rounded text-xl mx-3 text-deep-green bg-dirty-white font-robotocondensed">
+                <a href="{{ route('create') }}" class="p-2 rounded text-xl mx-3 text-dirty-white hover:bg-dirty-white hover:text-deep-green bg-olive-green font-robotocondensed hover:shadow-md">
                     REGISTER
                 </a>
                 @endif
