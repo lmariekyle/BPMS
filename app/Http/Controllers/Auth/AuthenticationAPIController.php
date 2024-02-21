@@ -39,9 +39,9 @@ class AuthenticationAPIController extends Controller
                         $quarter = $statistic->quarter;
                     }
                 }
-                $response = ['user' => $user, 'statistics' => $statistic,'token' => $token, 'success' => true];
+                $response = ['success' => true, 'user' => $user, 'statistics' => $statistic,'token' => $token];
             }else{
-                $response = ['user' => $user, 'token' => $token, 'success' => true];
+                $response = ['success' => true, 'user' => $user, 'token' => $token];
             }
             return response()->json($response, 200);
         }else{

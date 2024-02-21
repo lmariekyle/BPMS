@@ -210,10 +210,10 @@ class HouseholdRegistrationController extends Controller
                             ->orderBy('yearOfVisit','asc')
                             ->first();
             
-            $yearsPassed = (int)now()->format('Y')-(int)$house['yearOfVisit'];
+            /*$yearsPassed = (int)now()->format('Y')-(int)$house['yearOfVisit'];
             if($yearsPassed<=6){
                 Households::where('yearOfVisit',$house['yearOfVisit'])->delete();
-            }
+            }*/
             
 
         }
