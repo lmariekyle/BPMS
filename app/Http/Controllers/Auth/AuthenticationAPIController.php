@@ -16,39 +16,28 @@ class AuthenticationAPIController extends Controller
 {
     public function mobileLogin(Request $request)
     {
-        $rules = [
-            'email' => 'required',
-            'password' => 'required|string',
-        ];
-        $request->validate($rules);
+        $user = User::where('id', $request->id)->first();
+        $resident = Resident::where('id', $user->residentID)->first();
+        $user->username = $resident->firstName . ' ' . $resident->lastName;
+        if($user->userLevel == "Barangay Health Worker"){
+            $sitio = Sitio::where('id', $user->assignedSitioID)->first();
+            $user->assignedSitio  = $sitio->sitioName;
 
-        $user = User::where('email', $request->email)->first();
-
-        if($user && Hash::check($request->password, $user->password)){
-            $token = $user->createToken($user->residentID)->plainTextToken;
-            if($user->userLevel == "Barangay Health Worker"){
-                $sitio = Sitio::where('id', $user->assignedSitioID)->first();
-                $user->assignedSitio  = $sitio->sitioName;
-
-                $quarter = 1;
-                $statistic = null;
-                $year =  Statistics::max('year');
-                $statisticsYear = Statistics::where('year', $year)->get();
-                foreach($statisticsYear as $statistics){
-                    if($statistics->quarter > $quarter){
-                        $statistic = $statistics;
-                        $quarter = $statistic->quarter;
-                    }
+            $quarter = 1;
+            $statistic = null;
+            $year =  Statistics::max('year');
+            $statisticsYear = Statistics::where('year', $year)->get();
+            foreach($statisticsYear as $statistics){
+                if($statistics->quarter > $quarter){
+                    $statistic = $statistics;
+                    $quarter = $statistic->quarter;
                 }
-                $response = ['user' => $user, 'statistics' => $statistic,'token' => $token, 'success' => true];
-            }else{
-                $response = ['user' => $user, 'token' => $token, 'success' => true];
             }
-            return response()->json($response, 200);
+            $response = ['user' => $user, 'statistics' => $statistic,'success' => true];
         }else{
-            $response = ['message' => 'Incorrect email or password', 'success' => false];
-            return response()->json($response, 400);
+            $response = ['user' => $user, 'success' => true];
         }
+        return response()->json($response, 200);
     }
 
     public function mobileLogout(Request $request){
@@ -80,24 +69,7 @@ class AuthenticationAPIController extends Controller
             $token = $user->createToken($user->residentID)->plainTextToken;
             $resident = Resident::where('id', $user->residentID)->first();
             $user->username = $resident->firstName . ' ' . $resident->lastName;
-            if($user->userLevel == "Barangay Health Worker"){
-                $sitio = Sitio::where('id', $user->assignedSitioID)->first();
-                $user->assignedSitio  = $sitio->sitioName;
-
-                $quarter = 1;
-                $statistic = null;
-                $year =  Statistics::max('year');
-                $statisticsYear = Statistics::where('year', $year)->get();
-                foreach($statisticsYear as $statistics){
-                    if($statistics->quarter > $quarter){
-                        $statistic = $statistics;
-                        $quarter = $statistic->quarter;
-                    }
-                }
-                $response = ['user' => $user, 'statistics' => $statistic,'token' => $token, 'success' => true];
-            }else{
-                $response = ['user' => $user, 'token' => $token, 'success' => true];
-            }
+            $response = ['user' => $user, 'token' => $token, 'success' => true];
             return response()->json($response, 200);
         }else{
             $response = ['message' => 'Incorrect email or password', 'success' => false];

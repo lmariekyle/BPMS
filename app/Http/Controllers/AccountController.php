@@ -181,12 +181,10 @@ class AccountController extends Controller
         $request->validate([
             'residentID' => 'required',
             'email' => 'required',
-            'token' => 'required',
         ]);
 
         $userData = Resident::where('id', $request->residentID)->first();
         $userData->email = $request->email;
-        $userData->token = $request->token;
         $userData->success = true;
 
         return $userData;
