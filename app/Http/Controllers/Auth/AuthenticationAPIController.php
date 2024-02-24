@@ -40,21 +40,21 @@ class AuthenticationAPIController extends Controller
         return response()->json($response, 200);
     }
 
-    public function mobileLogout(Request $request){
-        $rules = [
-            'residentID' => 'required',
-        ];
-        $request->validate($rules);
+    // public function mobileLogout(Request $request){
+    //     $rules = [
+    //         'residentID' => 'required',
+    //     ];
+    //     $request->validate($rules);
 
-        $token = DB::select('delete from personal_access_tokens where name = ' . $request->residentID); 
-        $token = DB::select('select * from personal_access_tokens where name = ' . $request->residentID); 
-        if($token == null){
+    //     $token = DB::select('delete from personal_access_tokens where name = ' . $request->residentID); 
+    //     $token = DB::select('select * from personal_access_tokens where name = ' . $request->residentID); 
+    //     if($token == null){
 
-            return $response = ['success' => true];
-        }else{
-            return $response = ['success' => false];
-        }
-    }
+    //         return $response = ['success' => true];
+    //     }else{
+    //         return $response = ['success' => false];
+    //     }
+    // }
 
     public function sanctumLogin(Request $request){
         $request->validate([
@@ -66,7 +66,7 @@ class AuthenticationAPIController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if($user && Hash::check($request->password, $user->password)){
-            $token = $user->createToken($user->residentID)->plainTextToken;
+            $token = $user->createToken($request->device_name)->plainTextToken;
             $resident = Resident::where('id', $user->residentID)->first();
             $user->username = $resident->firstName . ' ' . $resident->lastName;
             $response = ['user' => $user, 'token' => $token, 'success' => true];
