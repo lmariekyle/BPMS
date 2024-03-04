@@ -32,6 +32,18 @@ class Resident extends Model
         'supportingDocument',
     ];
 
+    protected $hidden = [
+        'firstName',
+        'middleName',
+        'lastName',
+    ];
+
+    protected $casts = [
+        'firstName' => 'encrypted',
+        'middleName' => 'encrypted',
+        'lastName' => 'encrypted',
+    ];
+
     //public $incrementing = false;
 
     public function user()

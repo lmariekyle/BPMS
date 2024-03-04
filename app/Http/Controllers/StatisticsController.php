@@ -64,9 +64,12 @@ class StatisticsController extends Controller
         }
 
         $statistics = Statistics::where('year', $currentYear)->where('quarter', $currentQuarter)->first();
+        //if the statistics for the current period does not exist.
         if($statistics == NULL){
+            //if the new statistics is the first for the year (Year: 2024 | Date: 01/01->03/31)
             if($currentQuarter == 1){
                 $oldStatisticsData = Statistics::where('year', $currentYear - 1)->where('quarter', 4)->first();
+            //if the new statistics is otherwise (e.g. : (Year: 2024 | Date: 04/01->06/30))
             } else{
                 $oldStatisticsData = Statistics::where('year', $currentYear)->where('quarter', $currentQuarter - 1)->first();
             }
