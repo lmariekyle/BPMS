@@ -57,13 +57,12 @@ class AuthenticationAPIController extends Controller
             //if the statistics for the current period does not exist.
             if($statistics == NULL){
                 //if the new statistics is the first for the year (Year: 2024 | Date: 01/01->03/31)
-                    $quarter = 1;
-                    $year =  Statistics::max('year');
-                    $statisticsYear = Statistics::where('year', $year)->get();
+                    //$year =  Statistics::max('year');
+                    $statisticsYear = Statistics::where('year', '<=' ,$currentYear)->get();
                     foreach($statisticsYear as $statistics){
-                        if($statistics->quarter > $quarter){
+                        if($statistics->quarter < $currentQuarter){
                             $statistic = $statistics;
-                            $quarter = $statistic->quarter;
+                            $currentQuarter = $statistic->quarter;
                         }
                     }
             }else{               
