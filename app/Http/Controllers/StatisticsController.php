@@ -19,21 +19,7 @@ use Illuminate\Support\Facades\DB;
 class StatisticsController extends Controller
 {
     public function index()
-    {
-        $SitioCounts = SitioCount::all();
-        foreach($SitioCounts as $SitioCount){
-            $sitioResCounter = DB::table('resident_lists')
-                ->join('households','resident_lists.houseID','=','households.id')
-                ->join('residents','resident_lists.residentID','=','residents.id')
-                ->where('households.sitioID', '=', $SitioCount->sitioID)
-                ->where('residents.gender', 'LIKE', $SitioCount->genderGroup)
-                ->where('residents.ageClassification', 'LIKE', $SitioCount->ageGroup)
-                ->count();
-            $SitioCount->residentCount = $sitioResCounter;
-            $SitioCount->save();
-        }
-        
-
+    {   
         //Gets the statistic data that is the most recently added
         $currentYear = date('Y');
         $currentDate = date('m-d');
@@ -85,13 +71,56 @@ class StatisticsController extends Controller
             $statistics->save();
         }
 
+        //gets the necessary rows from sitio_counts, which are the rows for the current statistics
+        $SitioCounts = SitioCount::whereIn('statID',[$statistics->id])->get();
+        //if there is no Sitio Counter for the current statistics, then make new rows 
+        if($SitioCounts->isEmpty()){
+            for($sInitializer=2; $sInitializer<15; $sInitializer++){
+                DB::table('sitio_counts')->insert(
+                    [
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'M', 'ageGroup' => 'N', 'residentCount' => 0],
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 0],
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'M', 'ageGroup' => 'S', 'residentCount' => 0],
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 0],
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 0],
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 0],
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
+                        ['sitioID' => $sInitializer, 'statID' => $statistics->id, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
+                    ]
+                );
+            }
+        }
+
+        $SitioCounts = SitioCount::whereIn('statID',[$statistics->id])->get();
+        //insert on each Sitio Counter
+        foreach($SitioCounts as $SitioCount){
+            $sitioResCounter = DB::table('resident_lists')
+                ->join('households','resident_lists.houseID','=','households.id')
+                ->join('residents','resident_lists.residentID','=','residents.id')
+                ->where('households.sitioID', '=', $SitioCount->sitioID)
+                ->where('residents.gender', 'LIKE', $SitioCount->genderGroup)
+                ->where('residents.ageClassification', 'LIKE', $SitioCount->ageGroup)
+                ->count();
+            $SitioCount->residentCount = $sitioResCounter;
+            $SitioCount->save();
+        }
+
         //-------------------------------------
 
         //Resident
         $dataResident = "";
 
-        $maxValueResident = DB::table('sitio_counts')->max('sitioID');
-        //maxValue gets the value of the highest sitioID recorded in the sitio_counts table
+        $maxValueResident = DB::table('sitio_counts')->where('residentCount','>',0)->max('sitioID');
+        //maxValue gets the value from the sitio_counts table that HAS at least 1 resident the highest sitioID recorded
 
         $indexResident = 2;
         //index starts at 2 because 1 is the sitioFiller option
@@ -99,9 +128,11 @@ class StatisticsController extends Controller
         //adds information for the Pie Chart for Resident
         while ($indexResident <= $maxValueResident) {
             $sitioName = Sitio::where('id', $indexResident)->value('sitioName');
-            $sumRes = DB::table('sitio_counts')->where('sitioID', $indexResident)->sum('residentCount');
-            $dataResident .= "['$sitioName'," . $sumRes . "],";
-
+            $sumRes = DB::table('sitio_counts')->where('sitioID', $indexResident)->where('statID',$statistics->id)->sum('residentCount');
+            //if sumRes has no residents (0), then it should skip over to the next sitio
+            if($sumRes > 0){
+                $dataResident .= "['$sitioName'," . $sumRes . "],";
+            }
             $indexResident++;
         }
 
@@ -130,14 +161,14 @@ class StatisticsController extends Controller
         //-------------------------------------
 
         //adds to the most recent statistic data row in the DB
-        $totalResidentCount = DB::table('sitio_counts')->sum('residentCount');
+        $totalResidentCount = DB::table('sitio_counts')->where('statID',$statistics->id)->sum('residentCount');
         $totalHouseholdCount = DB::table('households')->count('houseNumber');
 
         $statistics->totalResidentsBarangay = $totalResidentCount;
         $statistics->totalHouseholdsBarangay = $totalHouseholdCount;
         $statistics->save();
 
-        return view('welcome', compact('statistics', 'chartdataResident', 'chartdataHousehold'));
+        return view('welcome', compact('statistics', 'chartdataResident', 'chartdataHousehold', 'SitioCounts'));
     }
 
     public function landingpage()

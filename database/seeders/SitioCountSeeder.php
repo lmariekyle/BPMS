@@ -18,7 +18,7 @@ class SitioCountSeeder extends Seeder
             'sitioID' => '2',
             'statID' => '4',
             'genderGroup' => 'M',
-            'ageGroup' => '41-60',
+            'ageGroup' => 'N',
             'residentCount' => '7',
         ]);
 
@@ -26,7 +26,7 @@ class SitioCountSeeder extends Seeder
             'sitioID' => '2',
             'statID' => '4',
             'genderGroup' => 'F',
-            'ageGroup' => '0-20',
+            'ageGroup' => 'N',
             'residentCount' => '5',
         ]);
 
@@ -34,7 +34,7 @@ class SitioCountSeeder extends Seeder
             'sitioID' => '2',
             'statID' => '4',
             'genderGroup' => 'M',
-            'ageGroup' => '21-40',
+            'ageGroup' => 'I',
             'residentCount' => '6',
         ]);
 
@@ -42,160 +42,112 @@ class SitioCountSeeder extends Seeder
             'sitioID' => '2',
             'statID' => '4',
             'genderGroup' => 'F',
-            'ageGroup' => '21-40',
+            'ageGroup' => 'I',
             'residentCount' => '5',
         ]);
 
         SitioCount::create([
-            'sitioID' => '3',
+            'sitioID' => '2',
             'statID' => '4',
             'genderGroup' => 'M',
-            'ageGroup' => '0-20',
+            'ageGroup' => 'U',
             'residentCount' => '4',
         ]);
 
         SitioCount::create([
-            'sitioID' => '3',
+            'sitioID' => '2',
             'statID' => '4',
             'genderGroup' => 'F',
-            'ageGroup' => '0-20',
+            'ageGroup' => 'U',
             'residentCount' => '7',
         ]);
 
         SitioCount::create([
-            'sitioID' => '3',
+            'sitioID' => '2',
             'statID' => '4',
             'genderGroup' => 'M',
-            'ageGroup' => '21-40',
+            'ageGroup' => 'S',
             'residentCount' => '8',
         ]);
 
         SitioCount::create([
-            'sitioID' => '3',
+            'sitioID' => '2',
             'statID' => '4',
             'genderGroup' => 'F',
-            'ageGroup' => '21-40',
+            'ageGroup' => 'S',
             'residentCount' => '9',
         ]);
 
         SitioCount::create([
-            'sitioID' => '4',
+            'sitioID' => '2',
             'statID' => '4',
             'genderGroup' => 'M',
-            'ageGroup' => '0-20',
+            'ageGroup' => 'A',
             'residentCount' => '3',
         ]);
 
         SitioCount::create([
-            'sitioID' => '4',
+            'sitioID' => '2',
             'statID' => '4',
             'genderGroup' => 'F',
-            'ageGroup' => '0-20',
+            'ageGroup' => 'A',
             'residentCount' => '5',
         ]);
 
         SitioCount::create([
-            'sitioID' => '4',
+            'sitioID' => '2',
             'statID' => '4',
-            'genderGroup' => 'M',
-            'ageGroup' => '21-40',
+            'genderGroup' => 'F',
+            'ageGroup' => 'WRA',
             'residentCount' => '11',
         ]);
 
         SitioCount::create([
-            'sitioID' => '4',
+            'sitioID' => '2',
             'statID' => '4',
             'genderGroup' => 'F',
-            'ageGroup' => '21-40',
+            'ageGroup' => 'P',
             'residentCount' => '6',
         ]);
 
         SitioCount::create([
-            'sitioID' => '5',
+            'sitioID' => '2',
             'statID' => '4',
-            'genderGroup' => 'M',
-            'ageGroup' => '0-20',
+            'genderGroup' => 'F',
+            'ageGroup' => 'AP',
             'residentCount' => '10',
         ]);
 
         SitioCount::create([
-            'sitioID' => '6',
+            'sitioID' => '2',
             'statID' => '4',
             'genderGroup' => 'F',
-            'ageGroup' => '0-20',
+            'ageGroup' => 'PP',
             'residentCount' => '11',
         ]);
 
         SitioCount::create([
-            'sitioID' => '7',
+            'sitioID' => '2',
             'statID' => '4',
             'genderGroup' => 'M',
-            'ageGroup' => '21-40',
+            'ageGroup' => 'AB',
             'residentCount' => '12',
         ]);
 
         SitioCount::create([
-            'sitioID' => '8',
+            'sitioID' => '2',
             'statID' => '4',
-            'genderGroup' => 'F',
-            'ageGroup' => '21-40',
+            'genderGroup' => 'M',
+            'ageGroup' => 'SC',
             'residentCount' => '22',
         ]);
 
         SitioCount::create([
-            'sitioID' => '9',
+            'sitioID' => '2',
             'statID' => '4',
-            'genderGroup' => 'M',
-            'ageGroup' => '0-20',
+            'genderGroup' => 'F',
+            'ageGroup' => 'SC',
             'residentCount' => '0',
-        ]);
-
-        SitioCount::create([
-            'sitioID' => '10',
-            'statID' => '4',
-            'genderGroup' => 'F',
-            'ageGroup' => '41-60',
-            'residentCount' => '24',
-        ]);
-
-        SitioCount::create([
-            'sitioID' => '11',
-            'statID' => '4',
-            'genderGroup' => 'M',
-            'ageGroup' => '21-40',
-            'residentCount' => '8',
-        ]);
-
-        SitioCount::create([
-            'sitioID' => '11',
-            'statID' => '4',
-            'genderGroup' => 'F',
-            'ageGroup' => '21-40',
-            'residentCount' => '7',
-        ]);
-
-        SitioCount::create([
-            'sitioID' => '12',
-            'statID' => '4',
-            'genderGroup' => 'F',
-            'ageGroup' => '41-60',
-            'residentCount' => '20',
-        ]);
-
-        SitioCount::create([
-            'sitioID' => '13',
-            'statID' => '4',
-            'genderGroup' => 'M',
-            'ageGroup' => '21-40',
-            'residentCount' => '31',
-        ]);
-
-        SitioCount::create([
-            'sitioID' => '14',
-            'statID' => '4',
-            'genderGroup' => 'F',
-            'ageGroup' => '21-40',
-            'residentCount' => '50',
         ]);
     }
 }
