@@ -28,7 +28,6 @@ use App\Models\Transaction;
 */
 
 Route::get('/mobileLogin', 'App\Http\Controllers\Auth\AuthenticationAPIController@mobileLogin')->name('mobileLogin');
-//Route::post('/mobileLogout', 'App\Http\Controllers\Auth\AuthenticationAPIController@mobileLogout')->name('mobileLogout');
 
 Route::post('/sanctum/token', 'App\Http\Controllers\Auth\AuthenticationAPIController@sanctumLogin');
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
