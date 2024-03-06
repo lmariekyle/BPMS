@@ -17,6 +17,7 @@ class DocumentController extends Controller
         ]);
 
         $userData = Resident::where('id', $request->residentID)->first();
+        $userData->makeVisible('firstName', 'middleName', 'lastName');
         $userData->email = $request->email;
         $userData->token = $request->token;
         $userData->success = true;
@@ -35,6 +36,7 @@ class DocumentController extends Controller
         ]);
 
         $userData = Resident::where('id', $request->residentID)->first();
+        $userData->makeVisible('firstName', 'middleName', 'lastName');
         $userData->email = $request->email;
         $userData->token = $request->token;
 
