@@ -1050,6 +1050,9 @@ select {
 .ml-\[2rem\] {
   margin-left: 2rem;
 }
+.ml-\[35rem\] {
+  margin-left: 35rem;
+}
 .ml-\[388px\] {
   margin-left: 388px;
 }
@@ -1230,6 +1233,9 @@ select {
 .mt-\[8rem\] {
   margin-top: 8rem;
 }
+.mt-\[90px\] {
+  margin-top: 90px;
+}
 .block {
   display: block;
 }
@@ -1313,6 +1319,9 @@ select {
 }
 .h-\[250px\] {
   height: 250px;
+}
+.h-\[262px\] {
+  height: 262px;
 }
 .h-\[300px\] {
   height: 300px;

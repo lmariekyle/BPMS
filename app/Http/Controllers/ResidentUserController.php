@@ -140,6 +140,7 @@ class ResidentUserController extends Controller
             'password' => ['required', 'same:passwordConfirm', Rules\Password::defaults()],
         ]);
 
+        $userId = IdGenerator::generate(['table' => 'users', 'field' => 'id', 'length' => 6, 'prefix' => date('y')]);
         $initDate = strtotime($request->dateOfBirth);
         $date = date('Y-m-d', $initDate);
 
@@ -163,7 +164,7 @@ class ResidentUserController extends Controller
                     $sitio = Sitio::where('sitioName', $request->sitio)->first();
                     $user = User::create([
                         'residentID' => $verify->id,
-                        'idNumber' => $verify->id,
+                        'idNumber' => $userId,
                         'userlevel' => 'User',
                         'email' => $request->email,
                         'sitioID' => $sitio->id,
