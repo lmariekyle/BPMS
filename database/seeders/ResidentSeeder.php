@@ -37,7 +37,7 @@ class ResidentSeeder extends Seeder
             'dateOfBirth' => '2000-01-01',
             'contactNumber' => '09876543211',
             'email' => 'morales@gmail.com',
-            'gender' => 'Male',
+            'gender' => 'M',
             'maritalStatus' => 'Single',
         ]);
 
@@ -51,7 +51,7 @@ class ResidentSeeder extends Seeder
             'dateOfBirth' => '2000-01-01',
             'contactNumber' => '09876543212',
             'email' => 'stacy@gmail.com',
-            'gender' => 'Female',
+            'gender' => 'F',
             'maritalStatus' => 'Single',
         ]);
 
@@ -65,7 +65,7 @@ class ResidentSeeder extends Seeder
             'dateOfBirth' => '2000-11-11',
             'contactNumber' => '1234567890',
             'email' => 'francine@gmail.com',
-            'gender' => 'Female',
+            'gender' => 'F',
             'maritalStatus' => 'Single',
         ]);
 
@@ -78,7 +78,7 @@ class ResidentSeeder extends Seeder
             'dateOfBirth' => '2004-06-04',
             'contactNumber' => '1234567890',
             'email' => 'mariekylec@gmail.com',
-            'gender' => 'Male',
+            'gender' => 'M',
             'maritalStatus' => 'Single',
         ]);
 
@@ -91,7 +91,7 @@ class ResidentSeeder extends Seeder
             'dateOfBirth' => '1999-10-09',
             'contactNumber' => '1234567890',
             'email' => 'residentbpms@gmail.com',
-            'gender' => 'Male',
+            'gender' => 'M',
             'maritalStatus' => 'Single',
         ]);
 
@@ -104,7 +104,7 @@ class ResidentSeeder extends Seeder
             'dateOfBirth' => '1999-10-09',
             'contactNumber' => '1234567890',
             'email' => 'parker@bpms.com',
-            'gender' => 'Male',
+            'gender' => 'M',
             'maritalStatus' => 'Single',
         ]);
     }
