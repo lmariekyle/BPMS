@@ -7,11 +7,11 @@
 
     <div class="absolute left-[33px] top-[49px] flex justify-start">
         <a href="{{ route('welcome') }}">
-            <i class="fa-sharp fa-solid fa-arrow-left text-3xl mt-4"></i>
+            <i class="fa-sharp fa-solid fa-arrow-left text-3xl mt-4 text-dirty-white"></i>
         </a>
         <p class="font-robotocondensed font-bold ml-[20px] text-dirty-white text-5xl">Register</p>
         <div class="ml-12 mt-3">
-             <x-auth-validation-errors class="mb-4" :errors="$errors" />
+             <x-auth-validation-errors class="mb-4" id="close" :errors="$errors" />
         </div>
     </div>
 
@@ -110,7 +110,7 @@
 
             <div class="w-[13rem] h-[8rem]">
                 <!-- <i class="fa-solid fa-image text-[200px] text-dirty-white"></i> -->
-                <x-label for="profileImage" :value="__('Profile Image')" class="font-roboto" style="color:white;" />
+                <x-label for="profileImage" :value="__('Upload Profile Image')" class="font-roboto" style="color:white;" />
                 <div>
                     <input id="profileImage" class="-mt-[5px] w-[15rem] h-[42px] px-2 py-2 text-center text-[14px] text-dirty-white file:w-[7rem] file:h-[42px]file:overflow-hidden file:bg-deep-green file:text-[14px] file:text-dirty-white file:font-robotocondensed file:cursor-pointer" type="file" name="profileImage" />
                 </div>

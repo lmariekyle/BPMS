@@ -15,6 +15,10 @@
         }
     </style>
 
+    @role('Admin')
+    @include('layouts.navigation')
+    @endrole
+
     <div class="bg-olive-green w-[1400px] h-[813px] ml-8 mt-16 px-5 py-5 rounded-[48px] flex flex-row">
         @role('Admin')
         <p class="text-dirty-white font-robotocondensed ml-3 font-bold text-[48px] text-start">REQUESTS</p>

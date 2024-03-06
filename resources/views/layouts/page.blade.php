@@ -11,8 +11,8 @@
     <script src="https://kit.fontawesome.com/c0346081e5.js" crossorigin="anonymous"></script>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Libre+Baskerville&family=Lora&family=Playfair+Display&family=Poppins&family=Roboto&family=Roboto+Condensed&family=Rozha+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Libre+Baskerville&family=Lora&family=Playfair+Display&family=Poppins&family=Roboto&family=Roboto+Condensed&family=Rozha+One&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -30,6 +30,14 @@
     </div>
 
     <script>
+        var span = document.getElementsByClassName("close")[0];
+
+        // Close Modal (using the X button)
+        span.onclick = function() {
+            modal.style.display = "none";
+            window.location.reload();
+        }
+
         $(document).ready(function() {
 
             function generatePassword() {

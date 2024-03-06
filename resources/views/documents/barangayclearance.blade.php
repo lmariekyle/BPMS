@@ -32,7 +32,7 @@
 <div class="document">
   <page size="A4">
     <div style="margin-top:12px;">
-      <img src="images/RepublicofthePhilippines.png" width="1040" border="0" alt="" style="display: block; width: 100%; max-width: 640px; margin-left:42px;">
+      <img src="images/BarangayPobHeader.png" width="1040" border="0" alt="" style="display: block; width: 100%; max-width: 640px; margin-left:42px;">
     </div>
     <hr style="border: 1px solid black; margin-top: 2px;">
     <div style="margin-top:32px; align-self:center;">
@@ -45,13 +45,13 @@
       <h2 style="font-family: 'Lora', serif; font-size: 18px;text-align: start; margin-left: 44px;">TO WHOM IT MAY CONCERN,</h2>
     </div>
     <div style="margin-top:32px; width:750px;">
-      <p style="font-family: 'Lora', serif; font-size: 14px; text-align: start; margin-left: 44px; margin-right: 44px; text-indent: 22px; font-weight:400">This is to certify that <span style="text-decoration: underline;">{{$requestee->requesteeFName}} {{$requestee->requesteeMName}} {{$requestee->requesteeLName}}</span>, <span style="text-decoration: underline;">{{$age}}</span> years old, is a resident of Poblacion, Dalaguete, Cebu, of good moral character, law abiding citizen and with good social standing in the community</span></p>
+      <p style="font-family: 'Lora', serif; font-size: 14px; text-align: start; margin-left: 44px; margin-right: 44px; text-indent: 22px; font-weight:400">This is to certify that the Barangay interposes no objection in the application of <span style="text-decoration: underline;">{{$requestee->requesteeFName}} {{$requestee->requesteeMName}} {{$requestee->requesteeLName}}</span> whose business is <span style="text-decoration: underline;">{{$requestee->requestPurpose}}</span> at Poblacion Dalaguete, Cebu for the period from <span style="text-decoration: underline;">{{$date->month}}, {{$date->day}}, {{$date->year}} to December 31, 2024</span></p>
     </div>
     <div style="margin-top:32px; width:750px;">
       <p style="font-family: 'Lora', serif;font-size: 14px;text-align: start;margin-left: 44px;margin-right: 44px;text-indent: 22px; font-weight:400">It is further certify that the above-mentioned person has no derogatory record in the barangay as to this date.</p>
     </div>
     <div style="margin-top:32px; width:750px;">
-      <p style="font-family: 'Lora', serif;font-size: 14px;text-align: start;margin-left: 44px;margin-right: 44px; text-indent: 22px;">Issued this <span style="text-decoration: underline;">{{$date->day}} </span>of &nbsp;<span style="text-decoration: underline;">{{$monthWord}}</span> , <span style="text-decoration: underline;">{{$date->year}}</span> at Poblacion, Dalaguete, Cebu, Philippines upon the request of <span style="text-decoration: underline;">{{$requestee->requesteeFName}} {{$requestee->requesteeMName}} {{$requestee->requesteeLName}}</span> for <span style="text-decoration: underline;">{{$requestee->requestPurpose}}</span> purposes.</p>
+      <p style="font-family: 'Lora', serif;font-size: 14px;text-align: start;margin-left: 44px;margin-right: 44px; text-indent: 22px;">Issued this <span style="text-decoration: underline;">{{$date->day}} </span>of &nbsp;<span style="text-decoration: underline;">{{$monthWord}}</span>, <span style="text-decoration: underline;">{{$date->year}}</span> at Poblacion, Dalaguete, Cebu, Philippines upon the request of <span style="text-decoration: underline;">{{$requestee->requesteeFName}} {{$requestee->requesteeMName}} {{$requestee->requesteeLName}}</span> for the period from <span style="text-decoration: underline;">{{$date->month}}, {{$date->day}}, {{$date->year}}</span></p>
     </div>
     <div style="display: flex;flex-direction: column;margin-top: 54px; margin-right:2rem">
   <hr style="align-self: end;border: 2px solid black;border-top-width: 2px;width: 250px;margin-right: 80px;margin-top: 10px;">
@@ -62,7 +62,7 @@
       <p style="margin-top: 1px;text-align: start;margin-left: 5px;font-family: 'Lora', serif;font-size: 14px;">O.R. No. 000000</p>
       <p style="margin-top: 1px;text-align: start;margin-left: 5px;font-family: 'Lora', serif;font-size: 14px;">CTC No. 000000</p>
       <p style="margin-top: 1px;text-align: start;margin-left: 5px; font-family: 'Lora', serif;font-size: 14px;">Issued at <span style="text-decoration: underline;text-underline-offset: 4px;"> Barangay Poblacion, Dalaguete, Cebu</span></p>
-  <p style="margin-top: 1px;text-align: start;margin-left: 5px;font-family: 'Lora', serif;font-size: 14px;">On <span style="text-decoration: underline;text-underline-offset: 4px;">{{$monthWord}} {{$date->day}}, {{$date->year}}</span></p>
+  <p style="margin-top: 1px;text-align: start;margin-left: 5px;font-family: 'Lora', serif;font-size: 14px;">On <span style="text-decoration: underline;text-underline-offset: 4px;">{{$date->month}}, {{$date->day}}, {{$date->year}}</span></p>
       <p style="margin-left: 5px; margin-top: 5px; font-family: 'Lora', serif; font-size: 16px; text-align: start; font-weight: 600;">NOT VALID WITHOUT</p>
     <p style="margin-left: 25px; font-family: 'Lora', serif; font-size: 16px; text-align: start; font-weight: 600;">OFFICIAL SEAL</p>
     </div>

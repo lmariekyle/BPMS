@@ -138,11 +138,11 @@
                                 </select>
                             </div>
                             <div class="mt-10">
-                                    <div id="current-info-container" class="px-2 py-2 focus:outline-none border-2 w-[650px] h-[50px] bg-white text-deep-green" style="border-color: #414833;">
+                                    <div id="current-info-container" class="px-2 py-2 focus:outline-none border-2 w-[650px] h-[50px] bg-white text-deep-green" style="border-color: #414833;" name="requesteeOldInformation">
+  
                                     </div>
-                                <!-- <input class="px-2 focus:outline-none border-2 w-[650px] bg-white text-deep-green" style="border-color: #414833;" name="requesteeOldInformation">
-                                <br>
-                                <label class="mt-8">OLD INFORMATION</label> -->
+                                <!-- <input class="px-2 focus:outline-none border-2 w-[650px] bg-white text-deep-green" style="border-color: #414833;" name="requesteeOldInformation"> -->
+                                <label id="current-info-label"></label>
                             </div>
                             <div class=" mt-10">
                                 <input class="px-2 focus:outline-none border-2 w-[650px] bg-white text-deep-green" style="border-color: #414833;" value="" name="requesteeNewInformation">
@@ -159,25 +159,37 @@
                 </div>
 
                 <div class="flex flex-col ml-[5rem] mt-[3rem]">
-                    <div class="mt-8 justify-center rounded-lg text-center bg-dirty-white text-deep-green border-2 border-black shadow-md w-[510px] h-[332px]">
+                    <div class="mt-8 justify-center rounded-lg text-center bg-dirty-white text-deep-green border-2 border-black shadow-md w-max h-max px-4 py-8">
                         @if($doctypename == 'BARANGAY CERTIFICATE')
-                        <p class="py-6 text-[24px] font-semibold">REQUIREMENTS FOR THE TYPE OF CERTIFICATE</p>
-                        <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">Resident Certificate</li>
+                        <p class="text-[24px] font-semibold">REQUIREMENTS FOR THE TYPE OF CERTIFICATE</p>
+                        <ul class="list-disc mt-4">
+                            <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">Resident Certificate</li>
+                        </ul>
                         @elseif($doctypename == 'BARANGAY CLEARANCE')
-                        <p class="py-6 text-[24px] font-semibold">REQUIREMENTS FOR THE TYPE OF CERTIFICATE</p>
-                        <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">Cedula</p>
-                        <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">Copy of Previous Permit</p>
-                        <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">Tax Declaration</p>
-                        <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">Affidavit of Consent</p>
+                        <p class="text-[24px] font-semibold">REQUIREMENTS FOR THE TYPE OF CERTIFICATE</p>
+                        <ul class="list-disc mt-4">
+                            <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">Cedula</p>
+                            <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">Copy of Previous Permit</p>
+                            <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">Tax Declaration</p>
+                            <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">Affidavit of Consent</p>
+                        </ul>
+
                             @elseif($doctypename == 'FILE COMPLAIN')
-                            <p class="py-6 text-[24px] font-semibold">REQUIREMENT FOR FILING OF COMPLAIN</p>
-                        <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">COMPLAINEE MUST BE A RESIDENT OF BARANGAY POBLACION FOR COMPLAIN TO BE PROCESSED</p>
-                        <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">HEARINGS ARE ONE DONE AT BARANGAY POBLACION, DALAGUETE BARANGAY HALL.</p>
-                            @elseif($doctypename == 'ACCOUNT INFORMATION CHANGE')
-                            <p class="py-6 text-[24px] font-semibold">REQUIREMENT FOR ACCOUNT INFORMATION CHANGE</p>
-                            <ul class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">FOR CHANGE OF NAME OR BIRTH OF DATE</p>
-                                <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px] mt-2x">Amended Birth Certificate</li>
+                            <p class="text-[24px] font-semibold">REQUIREMENT FOR FILING OF COMPLAIN</p>
+                            <ul class="list-disc ml-16 mt-4">
+                                <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">COMPLAINEE MUST BE A RESIDENT OF BARANGAY POBLACION FOR COMPLAIN TO BE PROCESSED</p>
+                                <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">HEARINGS ARE ONE DONE AT BARANGAY POBLACION, DALAGUETE BARANGAY HALL.</p>
+                           
+                                <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">COMPLAINEE MUST BE A RESIDENT OF BARANGAY POBLACION FOR COMPLAIN TO BE PROCESSED</p>
+                                <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">HEARINGS ARE ONE DONE AT BARANGAY POBLACION, DALAGUETE BARANGAY HALL.</p>
+                        </ul>   
+                        @elseif($doctypename == 'ACCOUNT INFORMATION CHANGE')
+                            <p class="text-[22px] font-semibold">REQUIREMENT FOR ACCOUNT INFORMATION CHANGE</p>
+                            <p class="font-poppins text-[20px] text-start ml-10 mt-4 font-semibold w-[410px]">FOR CHANGE OF NAME OR BIRTH OF DATE:</p>
+                            <ul class="list-disc ml-12">
+                                <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px] mt-2">Amended Birth Certificate</li>
                                 <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px] mt-4">Certificate of Finality</li>
+                            </ul>
                                 @endif
                     </div>
                     <div class="py-1">
@@ -191,8 +203,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="flex flex-col -mt-[13.5rem] text-left ml-[5rem]">
+            <div class="flex flex-col text-left ml-[3rem] -mt-[2rem]">
             @if($doctypename != 'FILE COMPLAIN' && $doctypename != 'ACCOUNT INFORMATION CHANGE')
             <div class="w-[300px]">
                 <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">CERTIFICATE FEE:</p>
@@ -209,12 +220,14 @@
                 <input type="radio" name="paymentMethod" id="cash-on-site" value="CASH-ON-SITE" class="w-[20px] h-[20px] mb-1">
             </div>
             @else
-            <p class="mb-2 font-robotocondensed text-[24px] text-deep-green font-semibold underline underline-offset-8 mt-[8rem]">THIS SERVICE HAS NO CHARGE</p>
+            <p class="mb-2 font-robotocondensed text-[24px] text-deep-green font-semibold underline underline-offset-8 -mt-[2rem]">THIS SERVICE HAS NO CHARGE</p>
             <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="0" name="docfee">
             <input name="paymentMethod" id="cash-on-site" value="FREE" class="hidden w-[20px] h-[20px] mb-1">
             @endif
             <br>
-            <button class="border-2 rounded-lg px-3 py-1 -mt-[5rem] ml-[70rem] font-robotocondensed text-[24px] text-deep-green font-semibold w-max hover:bg-deep-green hover:text-dirty-white" style="border-color: #414833;">PROCEED</button>
+            <button class="border-2 rounded-lg px-3 py-1 -mt-[1rem] ml-[75rem] font-robotocondensed text-[24px] text-deep-green font-semibold w-max hover:bg-deep-green hover:text-dirty-white" style="border-color: #414833;">PROCEED</button>
         </div>
+        </div>
+        
     </form>
 </x-app-layout>

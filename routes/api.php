@@ -27,12 +27,17 @@ use App\Models\Transaction;
 |
 */
 
-Route::post('/mobileLogin', 'App\Http\Controllers\Auth\AuthenticationAPIController@mobileLogin')->name('mobileLogin');
-Route::post('/mobileLogout', 'App\Http\Controllers\Auth\AuthenticationAPIController@mobileLogout')->name('mobileLogout');
+Route::get('/mobileLogin', 'App\Http\Controllers\Auth\AuthenticationAPIController@mobileLogin')->name('mobileLogin');
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::post('/sanctum/token', 'App\Http\Controllers\Auth\AuthenticationAPIController@sanctumLogin');
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+Route::middleware('auth:sanctum')->get('/user/revoke', function (Request $request) {
+        $user = $request->user();
+        $user->tokens()->delete();
+        return $response = ['success' => true];
+    });
 
 Route::get('/bhwDashboard', [BHWController::class, 'mobileDashboard']);
 Route::post('/mobileUserData', [AccountController::class, 'mobileUserData']);

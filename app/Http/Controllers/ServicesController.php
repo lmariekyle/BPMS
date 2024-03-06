@@ -9,6 +9,7 @@ use App\Models\DocumentDetails;
 use App\Models\Payment;
 use App\Models\Resident;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -80,6 +81,7 @@ class ServicesController extends Controller
      */
     public function direction($id)
     {
+        
         $user = Auth::user()->userLevel;
         $transaction = Transaction::where('id', $id)->first();
         if ($user == 'Barangay Secretary') {
@@ -174,12 +176,52 @@ class ServicesController extends Controller
      */
     public function approve($id)
     {
+     
         $transaction = Transaction::where('id', $id)->first();
-        $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
+        $requestee = DocumentDetails::where('id', $transaction->detailID)->first(); 
+        
+        $check_res = DB::table('residents')
+        ->where('firstName', '=', $requestee->requesteeFName)
+        ->where('middleName', '=', $requestee->requesteeMName)
+        ->where('lastName', '=', $requestee->requesteeLName)
+        ->first();
+    
+        $birthdateCarbon = Carbon::createFromFormat('Y-m-d', $check_res->dateOfBirth);
+
+        $age = $birthdateCarbon->age;
+
         $doc = Document::where('id', $transaction->documentID)->first();
         $date = Carbon::now();
-        $date->toArray();
-        return view('services.approve', compact('id', 'requestee', 'doc', 'transaction','date'));
+        $date_string=$date->toArray();
+
+
+        
+        // Assuming you have the month number (e.g., $date['month'] = 4 for April)
+        // $dateObject = Carbon::createFromFormat('Y-m-d', $date_string);
+        $monthNumber = $date_string['month'];
+        $dateNum = $date_string['day']; 
+        $year = $date_string['year']; 
+
+        // Map month numbers to month names
+        $monthNames = [
+            1 => "January",
+            2 => "February",
+            3 => "March",
+            4 => "April",
+            5 => "May",
+            6 => "June",
+            7 => "July",
+            8 => "August",
+            9 => "September",
+            10 => "October",
+            11 => "November",
+            12 => "December"
+        ];
+
+        // Get the corresponding month name
+        $monthWord = $monthNames[$monthNumber] ?? "Invalid month";
+
+        return view('services.approve', compact('id', 'requestee', 'doc', 'transaction','date','age','dateNum','year','monthWord'));
     }
 
 
@@ -203,6 +245,7 @@ class ServicesController extends Controller
 
     public function view_file($file)
     {
+        
         $path = 'requirements/' . $file;
 
         // Determine the file's extension
@@ -222,13 +265,58 @@ class ServicesController extends Controller
     public function pdfGeneration($id)
     {
         //show how the page is
+
         $transaction = Transaction::where('id', $id)->first();
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
+
+        $check_res = DB::table('residents')
+        ->where('firstName', '=', $requestee->requesteeFName)
+        ->where('middleName', '=', $requestee->requesteeMName)
+        ->where('lastName', '=', $requestee->requesteeLName)
+        ->first();
+
+        // Convert the birthdate string to a Carbon instance
+        $birthdateCarbon = Carbon::createFromFormat('Y-m-d', $check_res->dateOfBirth);
+
+        // Calculate the age
+        $age = $birthdateCarbon->age;
+
         $doc = Document::where('id', $transaction->documentID)->first();
         $date = Carbon::now();
-        $date->toArray();
-        $pdf = PDF::loadView('documents.barangaycertificate', compact('id', 'requestee', 'doc','date'));
-        return $pdf->download('barangaycert.pdf');
+        $doc = Document::where('id', $transaction->documentID)->first();
+        $date = Carbon::now();
+        $date_string=$date->toArray();
+
+
+        
+        // Assuming you have the month number (e.g., $date['month'] = 4 for April)
+        // $dateObject = Carbon::createFromFormat('Y-m-d', $date_string);
+        $monthNumber = $date_string['month'];
+        $dateNum = $date_string['day']; 
+        $year = $date_string['year']; 
+
+        // Map month numbers to month names
+        $monthNames = [
+            1 => "January",
+            2 => "February",
+            3 => "March",
+            4 => "April",
+            5 => "May",
+            6 => "June",
+            7 => "July",
+            8 => "August",
+            9 => "September",
+            10 => "October",
+            11 => "November",
+            12 => "December"
+        ];
+
+        // Get the corresponding month name
+        $monthWord = $monthNames[$monthNumber] ?? "Invalid month";
+
+        $pdf = PDF::loadView('documents.barangaycertificate', compact('id', 'requestee', 'doc','date','age','monthWord','dateNum','year'));
+        $filename = "{$requestee->requesteeLName}_{$doc->docType}.pdf";
+        return $pdf->download($filename);                 
     }
 
 

@@ -129,7 +129,7 @@
                 <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
                     <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE {{ date("Y") }} CENSUS DATA</p>
                 </div>
-                <p class="font-poppin text-[16px] text-black text-center mt-1 ">Last updated on {{ $statistics->updated_at->format('F d, Y') }}</p>
+                <p class="font-poppin text-[16px] text-black text-center mt-8">Last updated on {{ $statistics->updated_at->format('F d, Y') }}</p>
                 <div class="flex flex-row self-center space-x-8 mt-[4rem]">
                     <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
                         <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">

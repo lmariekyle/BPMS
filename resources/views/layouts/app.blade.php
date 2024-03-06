@@ -21,7 +21,7 @@
 
 <body class=" bg-dirty-white font-sans antialiased mb-5">
     <div class="min-h-screen bg-dirty-white mb-10">
-        @hasanyrole('Admin|Barangay Captain|Barangay Secretary|User|Barangay Health Worker')
+        @hasanyrole('Barangay Captain|Barangay Secretary|User|Barangay Health Worker')
         @include('layouts.navigation')
         @endhasanyrole
         <!-- Page Heading -->
@@ -47,6 +47,7 @@
         document.addEventListener('DOMContentLoaded', function () {
     const infoTypeSelect = document.getElementById('info-type');
     const infoContainer = document.getElementById('current-info-container');
+    const infoLabel = document.getElementById('current-info-label');
 
     infoTypeSelect.addEventListener('change', function () {
         const selectedType = this.value;
@@ -67,7 +68,8 @@
                     
                     // Update the current-info-container with fetched data
                     if (currentInfo !== null && currentInfo !== undefined) {
-                        infoContainer.innerHTML = `OLD INFORMATION : ${currentInfo}`;
+                        infoContainer.innerHTML = `${currentInfo}`;
+                        infoLabel.innerHTML = `OLD INFORMATION`;
                     } else {
                         infoContainer.innerHTML = `No data available for ${selectedType}`;
                     }
@@ -77,7 +79,8 @@
             })
             .catch(error => {
                 console.error('Fetch error:', error);
-                infoContainer.innerHTML = `Error: Unable to fetch user information`;
+                infoContainer.innerHTML = `Unable to fetch user information`;
+                infoLabel.innerHTML = `Error`;
             });
     });
 });

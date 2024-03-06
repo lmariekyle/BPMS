@@ -34,6 +34,9 @@ module.exports = {
                 '7xl': '80px',
                 '8xl': '96px',
             },
+            boxShadow:{
+                inner: 'inset 0 5px 7px 0 rgba(0, 0, 0, 0.06)',
+            },
             colors: {
                 'dirty-white': '#fdffee',
                 'deep-green': '#414833',

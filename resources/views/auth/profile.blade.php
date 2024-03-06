@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="pt-10 pb-14 bg-green">
+    <div class="pt-10 pb-14">
         <div class="max-w-max max-h-max sm:px-6 lg:px-8">
             <div class="">
                 <div class="">
@@ -18,7 +18,7 @@
                             NOTIFICATIONS
                         </a>
                         <div class="still hide p-1 border-2 bg-green rounded right-0 mr-10">
-                            <div class="bg-dirty-white border-2 border-stone-500 rounded">
+                            <div class="bg-[#fffcf7] border-2 border-stone-500 rounded">
                                 @forelse($notifications as $notification)
                                 <p class="font-bold pt-1 text-xl font-robotocondensed mx-2 w-80 text-justify">
                                     New {{ $notification->data['type'] }} Notification
@@ -53,20 +53,20 @@
 
                     <div class="max-h-[837px] h-[550px] max-w-[1178px] w-[1178px] mt-[4rem] ml-[8rem] p-14 border-2 border-deep-green shadow-md rounded bg-dirty-white font-roboto">
                         <div class="relative">
-                            <div class="mr-14 float-left max-h-[324px] max-w-[273px] place-content-center bg-dirty-white border-2 border-green h-[324px] w-[273px]">
-                                <img src="/{{$user->profileImage}}" class="max-h-[324px] max-w-[273px] h-[324px] w-[273px]" alt="Profile Image">
+                            <div class="mr-14 mt-2 float-left max-h-[324px] max-w-[273px] place-content-center">
+                                <img src="/{{$user->profileImage}}" class="max-h-[324px] max-w-[273px] h-[324px] w-[273px] rounded-lg border-8 shadow-sm border-white" alt="Profile Image">
                             </div>
                             
-                            <div class="absolute flex flex-row w-max h-max mt-[22rem] ml-[20.5rem] space-x-4">
+                            <div class="absolute flex flex-col w-max h-max mt-[22rem] space-y-2 ml-[1rem]">
                                 @role('User')
-                                <a href="{{ route('change_password') }}" class="left-0 button w-[228px] h-[49px] text-deep-green  text-center px-1 py-2 text-[18px] bg-dirty-white hover:shadow-md border-2 border-green">
+                                <a href="{{ route('change_password') }}" class="left-0 button w-[228px] h-max text-deep-green  text-center px-1 py-1 text-[14px] bg-[#fffcf7] hover:shadow-md border-2 border-green">
                                     Change Password
                                 </a>
                                 @endrole
-                                <a href="{{ route('services.request', ['docType' => 'Account Information Change']) }}" class="right-0 button w-[228px] h-[49px] text-deep-green text-center px-1 py-2 text-[18px] bg-dirty-white hover:shadow-md border-2 border-green">
+                                <a href="{{ route('services.request', ['docType' => 'Account Information Change']) }}" class="right-0 button w-[228px] h-max text-deep-green text-center px-1 py-1 text-[14px] bg-[#fffcf7] hover:shadow-md border-2 border-green">
                                     Request Account Update
                                 </a>
-                                <div class="left-0 button w-[228px] h-[49px] text-deep-green  text-center px-1 py-2 text-[18px] bg-dirty-white border-2 hover:shadow-md border-green">
+                                <div class="left-0 button w-[228px] h-max text-deep-green  text-center px-1 py-1 text-[14px] bg-[#fffcf7] border-2 hover:shadow-md border-green">
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <a href="route('logout')" onclick="event.preventDefault();
@@ -77,33 +77,33 @@
                                 </div>
                             </div>
 
-                            <div class="pt-9 pb-10 max-h-[324px] max-w-[725px] h-[324px] w-[725px] border border-green text-2xl float-left">
+                            <div class="pt-9 pb-10 max-h-[324px] max-w-[725px] h-[324px] w-[725px] text-2xl float-left -mt-8">
                                 <div class="float-left">
-                                    <div>
-                                        <p class="pl-3 text-deep-green">First Name:</p>
-                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$personalInfo->firstName}}</div>
+                                    <div class="">
+                                        <p class="text-left text-deep-green text-[18px]">First Name:</p>
+                                        <div class="text-center w-[318px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->firstName}}</div>
                                     </div>
-                                    <div class="mt-4">
-                                        <p class="pl-3 text-deep-green">Last Name:</p>
-                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$personalInfo->lastName}}</div>
+                                    <div class="mt-8">
+                                        <p class="text-left text-deep-green text-[18px]">Last Name:</p>
+                                        <div class="text-centerw-[318px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->lastName}}</div>
                                     </div>
-                                    <div class="mt-4">
-                                        <p class="pl-3 text-deep-green">Middle Initial:</p>
-                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$personalInfo->middleName[0]}}.</div>
+                                    <div class="mt-8">
+                                        <p class="text-left text-deep-green text-[18px]">Middle Initial:</p>
+                                        <div class="text-center w-[318px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->middleName[0]}}.</div>
                                     </div>
                                 </div>
                                 <div class="float-right ml-20">
                                     <div>
-                                        <p class="pl-3 text-deep-green">Address:</p>
-                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$personalInfo->sitio}}, {{$personalInfo->barangay}}</div>
+                                        <p class="text-left text-deep-green text-[18px]">Address:</p>
+                                        <div class="text-center w-[318px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->sitio}}, {{$personalInfo->barangay}}</div>
                                     </div>
-                                    <div class="mt-4">
-                                        <p class="pl-3 text-deep-green">Email:</p>
-                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$user->email}}</div>
+                                    <div class="mt-8">
+                                        <p class="text-left text-deep-green text-[18px]">Email:</p>
+                                        <div class="text-center w-[318px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$user->email}}</div>
                                     </div>
-                                    <div class="mt-4">
-                                        <p class="pl-3 text-deep-green">Contact Number:</p>
-                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$user->contactNumber}}</div>
+                                    <div class="mt-8">
+                                        <p class="text-left text-deep-green text-[18px]">Contact Number:</p>
+                                        <div class="text-center w-[318px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$user->contactNumber}}</div>
                                     </div>
                                 </div>
                             </div>
