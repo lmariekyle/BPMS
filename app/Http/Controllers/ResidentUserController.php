@@ -24,6 +24,7 @@ use App\Mail\AccountMail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\Crypt;
 
 class ResidentUserController extends Controller
 {
@@ -69,12 +70,12 @@ class ResidentUserController extends Controller
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed'],
-            'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'profileImage' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'dateOfBirth' => 'required|date|before:' . Carbon::now()->subYears(18),
         ],
         [
             'dateOfBirth.before' => 'User must be 18 Years Old and Above to Register!',
-            'profileImage.required' => 'File Types must only be jpeg, png, jpg, gif, svg'
+            'profileImage.required' => 'File Types must only be jpeg, png, jpg'
         ]);
 
         //Auto Generate ID 
@@ -89,25 +90,26 @@ class ResidentUserController extends Controller
         } else {
             $path = "users/default.jpg";
         }
+        
 
-        $check_res = DB::table('residents')
-            ->where('firstName', '=', $request->firstname)
-            ->where('middleName', '=', $request->middlename)
-            ->where('lastName', '=', $request->lastname)
-            ->where('dateOfBirth', '=', $request->dateOfBirth)
-            ->get();
+        $residents = Resident::all();
+        $residents->makeVisible('firstName', 'middleName', 'lastName');
+        
+        $check_res = $residents->first(function ($resident) use ($request) {
+            return (
+                $resident->firstName == $request->firstname &&
+                $resident->middleName == $request->middlename &&
+                $resident->lastName == $request->lastname &&
+                $resident->dateOfBirth == $request->dateOfBirth
+            );
+        });
 
-
-        if ($check_res->isEmpty()) {
+        if ($check_res == null) {
             return view('auth.sorry-resident-notice');
         } else {
-            foreach ($check_res as $verify) {
-                if (
-                    $verify->firstName == $request->firstname && $verify->middleName == $request->middlename
-                    && $verify->lastName == $request->lastname && $verify->dateOfBirth == $request->dateOfBirth
-                ) {
+        
                     $user = User::create([
-                        'residentID' => $verify->id,
+                        'residentID' => $check_res->id,
                         'idNumber' => $userId,
                         'profileImage' => $path,
                         'userlevel' => $request->userlevel,
@@ -120,9 +122,28 @@ class ResidentUserController extends Controller
                     $user->assignRole($request->userlevel); //assign account role as User
                     event(new Registered($user)); //send email verification
                     return Redirect::back()->with('success', 'Email for registration has been sent!');
-                }
-            }
+                
+           
         }
+
+        // $check_res = DB::table('residents')
+        // ->where('firstName', '=', $request->firstname)
+        // ->where('middleName', '=', $request->middlename)
+        // ->where('lastName', '=', $request->lastname)
+        // ->where('dateOfBirth', '=', $request->dateOfBirth)
+        // ->get();
+
+        // $encryptionKey = base64_encode("qlIB9vAI/CHU1GdxywbhbPM8GNH2vLVtw10AyY5dELE=");
+
+        // $check_res = DB::table('residents')
+        // ->where(DB::raw("AES_DECRYPT(firstName, '{$encryptionKey}')"), '=', $request->firstname)
+        // ->where(DB::raw("AES_DECRYPT(middleName, '{$encryptionKey}')"), '=', $request->middlename)
+        // ->where(DB::raw("AES_DECRYPT(lastName, '{$encryptionKey}')"), '=', $request->lastname)
+        // ->where('dateOfBirth', '=', $request->dateOfBirth)
+        // ->get();
+        
+
+
     }
 
     /**

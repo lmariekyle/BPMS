@@ -107,5 +107,18 @@ class ResidentSeeder extends Seeder
             'gender' => 'M',
             'maritalStatus' => 'Single',
         ]);
+
+        Resident::create([
+            'id' => '8',
+            'residentID' => 'RES-00008',
+            'firstName' => 'Horeb',
+            'middleName' => 'Mendez',
+            'lastName' => 'Barriga',
+            'dateOfBirth' => '2001-11-18',
+            'contactNumber' => '1234567890',
+            'email' => 'horeb@bpms.com',
+            'gender' => 'M',
+            'maritalStatus' => 'Married',
+        ]);
     }
 }

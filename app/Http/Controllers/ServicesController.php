@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AccountInfoChange;
+use Illuminate\Support\Facades\Crypt;
 use App\Models\Complain;
 use App\Models\Document;
 use App\Models\DocumentDetails;
@@ -179,16 +180,6 @@ class ServicesController extends Controller
      
         $transaction = Transaction::where('id', $id)->first();
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first(); 
-        
-        $check_res = DB::table('residents')
-        ->where('firstName', '=', $requestee->requesteeFName)
-        ->where('middleName', '=', $requestee->requesteeMName)
-        ->where('lastName', '=', $requestee->requesteeLName)
-        ->first();
-    
-        $birthdateCarbon = Carbon::createFromFormat('Y-m-d', $check_res->dateOfBirth);
-
-        $age = $birthdateCarbon->age;
 
         $doc = Document::where('id', $transaction->documentID)->first();
         $date = Carbon::now();
@@ -221,7 +212,24 @@ class ServicesController extends Controller
         // Get the corresponding month name
         $monthWord = $monthNames[$monthNumber] ?? "Invalid month";
 
-        return view('services.approve', compact('id', 'requestee', 'doc', 'transaction','date','age','dateNum','year','monthWord'));
+        if($transaction->documentID == 1){
+        // $check_res = DB::table('residents')
+        // ->where('firstName', '=', $requestee->requesteeFName)
+        // ->where('middleName', '=', $requestee->requesteeMName)
+        // ->where('lastName', '=', $requestee->requesteeLName)
+        // ->first();
+        $requestee_user = User::where('id', $transaction->userID)->first();
+        $resident = Resident::where('id', $requestee_user->residentID)->first();
+
+        $birthdateCarbon = Carbon::createFromFormat('Y-m-d', $resident->dateOfBirth);
+
+        $age = $birthdateCarbon->age;
+
+            return view('services.approve', compact('id', 'requestee', 'doc', 'transaction','age','date','dateNum','year','monthWord'));
+        }else{
+            return view('services.approve', compact('id', 'requestee', 'doc', 'transaction','date','dateNum','year','monthWord'));
+        }
+
     }
 
 
@@ -266,6 +274,7 @@ class ServicesController extends Controller
     {
         //show how the page is
 
+        
         $transaction = Transaction::where('id', $id)->first();
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
 
@@ -275,6 +284,7 @@ class ServicesController extends Controller
         ->where('lastName', '=', $requestee->requesteeLName)
         ->first();
 
+        
         // Convert the birthdate string to a Carbon instance
         $birthdateCarbon = Carbon::createFromFormat('Y-m-d', $check_res->dateOfBirth);
 
