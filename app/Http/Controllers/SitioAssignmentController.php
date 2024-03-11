@@ -8,6 +8,7 @@ use App\Models\Sitio;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class SitioAssignmentController extends Controller
 {
@@ -62,8 +63,9 @@ class SitioAssignmentController extends Controller
     public function mobileSitios()
     {
         $sitios=DB::select('select sitioName from sitios');
+        $ageLimit = Carbon::now()->subYears(18)->toDateTime();
         
-        $response = ['sitios'=>$sitios, 'success'=>true];
+        $response = ['sitios'=>$sitios, 'ageLimit'=>$ageLimit, 'success'=>true];
 
         return $response;
     }
