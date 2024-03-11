@@ -162,17 +162,72 @@ class AccountController extends Controller
 
     public function search(Request $request)
     {
-        $search = $request['search'];
-        $users = Resident::where('firstName', 'LIKE', "%$search%")->orWhere('lastName', 'LIKE', "%$search%")->paginate(10);
+        $search=$request['search'];
+        $users = [];
+        $usersFirstName = Resident::all();
+        $usersFirstName->makeVisible('firstName');
 
-        foreach ($users as $user) {
-            $resident = User::where('residentID', $user->id)->first();
-            $user->idNumber = $resident->idNumber;
-            $user->userLevel = $resident->userLevel;
-            $user->updated_at = $resident->updated_at;
-            $user->userStatus = $resident->userStatus;
+        foreach($usersFirstName as $x=>$userFirstName){
+            if(strcasecmp($userFirstName->firstName,$search) != 0){
+                unset($usersFirstName[$x]);
+            }
         }
 
+        $usersLastName = Resident::all();
+        $usersLastName->makeVisible('lastName');
+
+        foreach($usersLastName as $x=>$userLastName){
+            if(strcasecmp($userLastName->lastName,$search) != 0){
+                unset($usersLastName[$x]);
+            }
+        }
+
+        $usersFullName = Resident::all();
+        $usersFullName->makeVisible('firstName', 'lastName');
+
+        foreach($usersFullName as $x=>$userFullName){
+            $userFullName->fullName = $userFullName->firstName . ' ' . $userFullName->lastName;
+            if(strcasecmp($userFullName->fullName,$search) != 0){
+                unset($usersFullName[$x]);
+            }
+        }
+
+        $usersName = $usersFirstName->concat($usersLastName)->concat($usersFullName);
+        $usersName->makeVisible('firstName', 'middleName', 'lastName');
+
+        if($usersName->isNotEmpty()){
+            foreach ($usersName as $user) {
+                $resident = User::where('residentID', $user->id)->first();
+                $user->idNumber = $resident->idNumber;
+                $user->userLevel = $resident->userLevel;
+                $user->updated_at = $resident->updated_at;
+                $user->userStatus = $resident->userStatus;
+            }
+            $users = $usersName;
+            dd("enters name");
+        }
+        
+        if($search != NULL){
+            $userLevel = User::where('userLevel', 'LIKE', "%$search%")->get();
+        
+            if($userLevel->isNotEmpty()){
+                foreach($userLevel as $user){
+                    $resident = Resident::where('id', $user->residentID)->first();
+                    $resident->makeVisible('firstName', 'middleName', 'lastName');
+                    $user->firstName = $resident->firstName;
+                    $user->middleName = $resident->middleName;
+                    $user->lastName = $resident->lastName;
+                }
+                if($usersName->isNotEmpty()){
+                    $users = $usersName->concat($userLevel);
+                }else{
+                    $users = $userLevel;
+                }
+            }else{
+                unset($userLevel);
+            }
+        }
+        
         return view('accounts.index')->with('accounts', $users);
     }
 

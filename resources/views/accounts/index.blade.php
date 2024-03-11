@@ -58,7 +58,7 @@
 
             <table class="mt-10">
                 <tbody>
-                @foreach ($accounts as $account)
+                @forelse($accounts as $account)
                      <tr class="border shadow-md">
                         <td class="px-6 py-4 w-[295px] font-robotocondensed text-deep-green text-[16px] font-bold">
                             {{ $account->idNumber }}
@@ -79,12 +79,18 @@
                             <a href="{{ route('accounts.show', $account->id) }}" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
                         </td>
                     </tr>
-                @endforeach         
+                    @empty
+                    <tr class="border shadow-md">
+                        <td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                            No users
+                        </td>
+                    </tr>
+                @endforelse        
                 </tbody>
             </table>
-            <div class="flex flex-row justify-evenly mt-4 mb-2">
+            {{-- <div class="flex flex-row justify-evenly mt-4 mb-2">
                 {{$accounts->links()}}
-            </div>  
+            </div>   --}}
         </div>      
     </div>
     
