@@ -21,6 +21,13 @@ class DocumentDetails extends Model
         'file'
     ];
 
+    protected $casts = [
+        'requesteeFName' => 'encrypted',
+        'requesteeMName' => 'encrypted',
+        'requesteeLName' => 'encrypted',
+        'requesteeContactNumber' => 'encrypted',
+    ];
+
     public function transactiondetail()
     {
         return $this->hasOne(Transaction::class, 'detailID');

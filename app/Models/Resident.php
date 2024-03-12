@@ -36,12 +36,14 @@ class Resident extends Model
         'firstName',
         'middleName',
         'lastName',
+        'contactNumber',
     ];
 
     protected $casts = [
         'firstName' => 'encrypted',
         'middleName' => 'encrypted',
         'lastName' => 'encrypted',
+        'contactNumber' => 'encrypted',
     ];
 
     //public $incrementing = false;
