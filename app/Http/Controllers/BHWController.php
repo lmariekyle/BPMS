@@ -117,19 +117,46 @@ class BHWController extends Controller
     public function search(Request $request)
     { 
         $search=$request['search'];
-        $bhws=Resident::where('firstName','LIKE', "%$search%")->orWhere('lastName','LIKE', "%$search%")->get();
+        $bhwsFirstName = Resident::all();
+        $bhwsFirstName->makeVisible('firstName');
+
+        foreach($bhwsFirstName as $x=>$bhwFirstName){
+            if(strcasecmp($bhwFirstName->firstName,$search) != 0){
+                unset($bhwsFirstName[$x]);
+            }
+        }
+
+        $bhwsLastName = Resident::all();
+        $bhwsLastName->makeVisible('lastName');
+
+        foreach($bhwsLastName as $x=>$bhwLastName){
+            if(strcasecmp($bhwLastName->lastName,$search) != 0){
+                unset($bhwsLastName[$x]);
+            }
+        }
+
+        $bhwsFullName = Resident::all();
+        $bhwsFullName->makeVisible('firstName', 'lastName');
+
+        foreach($bhwsFullName as $x=>$bhwFullName){
+            $bhwFullName->fullName = $bhwFullName->firstName . ' ' . $bhwFullName->lastName;
+            if(strcasecmp($bhwFullName->fullName,$search) != 0){
+                unset($bhwsFullName[$x]);
+            }
+        }
+
+        $bhws = $bhwsFirstName->concat($bhwsLastName)->concat($bhwsFullName);
         
-        $count=count($bhws);
-        for($x=0;$x<$count;$x++){
-            $resident=User::where('residentID',$bhws[$x]->id)->first();
+        foreach($bhws as $x=>$bhw){
+            $resident=User::where('residentID',$bhw->id)->first();
             if($resident->userLevel== "Barangay Health Worker") {
-                $bhws[$x]->id=$resident->id;
-                $bhws[$x]->idNumber=$resident->idNumber;
-                $bhws[$x]->userLevel=$resident->userLevel;
-                $bhws[$x]->updated_at=$resident->updated_at;
-                $bhws[$x]->userStatus=$resident->userStatus;
+                $bhw->id=$resident->id;
+                $bhw->idNumber=$resident->idNumber;
+                $bhw->userLevel=$resident->userLevel;
+                $bhw->updated_at=$resident->updated_at;
+                $bhw->userStatus=$resident->userStatus;
                 $sitio=Sitio::where('id',$resident->assignedSitioID)->first();
-                $bhws[$x]->assignedSitioName=$sitio->sitioName;
+                $bhw->assignedSitioName=$sitio->sitioName;
             }else{
                 unset($bhws[$x]);
             }

@@ -30,6 +30,7 @@ use App\Notifications\SignedNotification;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Carbon\Carbon;
 
+use function PHPUnit\Framework\isEmpty;
 
 class ServicesController extends Controller
 {
@@ -590,21 +591,86 @@ class ServicesController extends Controller
     {
         $search = $request['search'];
         $documents = Document::where('docName', 'LIKE', "%$search%")->get();
-        $transactions = Transaction::all();
+        $transactions1 = Transaction::all();
+        $transactions2 = Transaction::all();
+        $transactions = Null;
 
-        $count = count($transactions);
-        for ($x = 0; $x < $count; $x++) {
-            foreach ($documents as $document)
-                if ($transactions[$x]->documentID == $document->id) {
-                    $user = User::where('id', $transactions[$x]->userID)->first();
-                    $transactions[$x]->resident = Resident::where('id', $user->residentID)->first();
-                    $transactions[$x]->document = Document::where('id', $transactions[$x]->documentID)->first();
-                    $newtime = strtotime($transactions[$x]->created_at);
-                    $transactions[$x]->createdDate = date('M d, Y', $newtime);
-                } else {
-                    unset($transactions[$x]);
-                }
+        $residentsFirstName = Resident::all();
+        $residentsFirstName->makeVisible('firstName');
+
+        foreach($residentsFirstName as $x=>$residentFirstName){
+            if(strcasecmp($residentFirstName->firstName,$search) != 0){
+                unset($residentsFirstName[$x]);
+            }
         }
+
+        $residentsLastName = Resident::all();
+        $residentsLastName->makeVisible('lastName');
+
+        foreach($residentsLastName as $x=>$residentLastName){
+            if(strcasecmp($residentLastName->lastName,$search) != 0){
+                unset($residentsLastName[$x]);
+            }
+        }
+
+        $residentsFullName = Resident::all();
+        $residentsFullName->makeVisible('firstName', 'lastName');
+
+        foreach($residentsFullName as $x=>$residentFullName){
+            $residentFullName->fullName = $residentFullName->firstName . ' ' . $residentFullName->lastName;
+            if(strcasecmp($residentFullName->fullName,$search) != 0){
+                unset($residentsFullName[$x]);
+            }
+        }
+
+        $residents = $residentsFirstName->concat($residentsLastName)->concat($residentsFullName);
+
+        if($documents->isNotEmpty()){
+            foreach($transactions1 as $x=>$transaction1){
+                foreach ($documents as $document){
+                    if ($transaction1->documentID == $document->id) {
+                        $user = User::where('id', $transaction1->userID)->first();
+                        $transaction1->resident = Resident::where('id', $user->residentID)->first();
+                        $transaction1->resident->makeVisible('firstName', 'lastName');
+                        $transaction1->document = Document::where('id', $transaction1->documentID)->first();
+                        $transaction1->issuedBy = $transaction1->resident->firstName. ' ' .$transaction1->resident->lastName;
+                        $newtime = strtotime($transaction1->created_at);
+                        $transaction1->createdDate = date('M d, Y', $newtime);
+                    } else {
+                        unset($transactions1[$x]);
+                    }
+                }
+            }
+            $transactions = $transactions1;
+        }else{
+            unset($transactions1);
+        }
+        
+        if($residents->isNotEmpty()){
+            foreach($transactions2 as $x=>$transaction2){
+                foreach ($residents as $resident){
+                    $user = User::where('residentID', $resident->id)->first();
+                    if ($transaction2->userID == $user->id) {
+                        $transaction2->resident = $resident; 
+                        $transaction2->document = Document::where('id', $transaction2->documentID)->first();
+                        $transaction2->issuedBy = $resident->firstName. ' ' .$resident->lastName;
+                        $newtime = strtotime($transaction2->created_at);
+                        $transaction2->createdDate = date('M d, Y', $newtime);
+                    } else {
+                        unset($transactions2[$x]);
+                    }
+                }
+            }
+            
+            if($documents->isNotEmpty()){
+                $transactions = $transactions->concat($transactions2);
+            }else{
+                $transactions = $transactions2;
+            }
+        }else{
+            unset($transactions2);
+        }
+
         return view('services.index')->with('transactions', $transactions);
     }
 

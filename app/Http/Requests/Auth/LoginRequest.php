@@ -55,6 +55,9 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        // $user = User::where('email', $this->input('email'))->first();
+        // $user->generateCode();
+
         RateLimiter::clear($this->throttleKey());
     }
 

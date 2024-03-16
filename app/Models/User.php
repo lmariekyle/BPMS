@@ -41,6 +41,8 @@ class User extends Authenticatable implements MustVerifyEmail, TwoFactorAuthenti
         'password',
         'assignedSitioID',
         'revisedBy',
+        // 'code',
+        // 'otp_expired_at',
     ];
 
     // public $incrementing = false;
@@ -75,5 +77,12 @@ class User extends Authenticatable implements MustVerifyEmail, TwoFactorAuthenti
     }
     // public function sitio(){
     //     return $this->belongsTo(Sitio::class);
+    // }
+
+    // public function generateCode(){
+    //     $this->timestamps = false;
+    //     $this->code = rand(1000,9999);
+    //     $this->otp_expired_at = now()->addMinute(10);
+    //     $this->save();
     // }
 }
