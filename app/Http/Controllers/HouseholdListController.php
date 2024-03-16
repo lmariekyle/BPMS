@@ -95,7 +95,7 @@ class HouseholdListController extends Controller
             
             $houseNumber =(int)$numbersList[0]['houseNumber']+1;
         }else{
-            $houseNumber = 1;
+            $houseNumber = 0;
         }
 
         
@@ -171,7 +171,7 @@ class HouseholdListController extends Controller
         return $response;
     }
 
-    public function getExistingHouseholdList(Request $request)
+    public function getAddressList(Request $request)
     {
         
         $tempHousehold=Households::select('houseNumber')
@@ -187,14 +187,23 @@ class HouseholdListController extends Controller
                                 ->where('houseNumber', $tempHousehold[$i]['houseNumber'])
                                 ->orderBy('created_at','desc')
                                 ->first();
+            
+            $address=[
+                'sitioID'=>$house['sitioID'],
+                'houseNumber' => $house['houseNumber'],
+                'street'=>$house['street'],
+                'buildingName'=>$house['buildingName'],
+                'residenceType'=>$house['residenceType']
+                
+            ];
 
             if(is_numeric($tempHousehold[$i]['houseNumber'])){
-                array_push($households,$house);
+                array_push($households,$address);
             }else{
                 if(count($tempHousehold)==$i+1){
-                    array_push($households,$house);
+                    array_push($households,$address);
                 }else if(substr($tempHousehold[$i+1]['houseNumber'],0,1)!=substr($tempHousehold[$i]['houseNumber'],0,1)){
-                    array_push($households,$house);
+                    array_push($households,$address);
                 }
             }
             

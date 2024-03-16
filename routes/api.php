@@ -63,5 +63,5 @@ Route::post('createpayment/{id}', [TransactionController::class, 'createpayment'
     Route::get('/mobileinitMembers', [HouseholdListController::class, 'mobileRecentMembers']);
     Route::get('/mobileGetHouseholdNumber', [HouseholdListController::class, 'mobileGetHouseNumber']);
     Route::get('/mobileGetHousehold', [HouseholdListController::class, 'getHouseholdsPerYear']);
-    Route::get('/mobileExistingHouseholdList', [HouseholdListController::class, 'getExistingHouseholdList']);
+    Route::get('/mobileAddressList', [HouseholdListController::class, 'getAddressList']);
 //});
