@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c6c0ab161f697750e3eba399a49ead15",
+    "content-hash": "9eba787f2bd1c8416733ad654d4a3d7f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1140,6 +1140,62 @@
                 "source": "https://github.com/haruncpi/laravel-id-generator/tree/v1.1.0"
             },
             "time": "2021-10-01T06:16:03+00:00"
+        },
+        {
+            "name": "hydrat-agency/laravel-2fa",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Hydrat-Agency/laravel-2fa.git",
+                "reference": "6af129cadcd4e3b6d2e5337af66b959034185157"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Hydrat-Agency/laravel-2fa/zipball/6af129cadcd4e3b6d2e5337af66b959034185157",
+                "reference": "6af129cadcd4e3b6d2e5337af66b959034185157",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|^7.4|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Hydrat\\Laravel2FA\\Laravel2FAServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hydrat\\Laravel2FA\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thomas",
+                    "email": "thomas@hydrat.agency"
+                }
+            ],
+            "description": "This package allow you to enable two-factor authentication in your Laravel applications. It stores tokens locally and notify users about their token via mail, SMS or any custom channel. Includes native conditionnal check to trigger or not 2FA, using known devices, IP addresses or IP locations.",
+            "keywords": [
+                "auth",
+                "authorization",
+                "laravel",
+                "laravel-package",
+                "login",
+                "suspicius login",
+                "tow-factor"
+            ],
+            "support": {
+                "issues": "https://github.com/Hydrat-Agency/laravel-2fa/issues",
+                "source": "https://github.com/Hydrat-Agency/laravel-2fa/tree/v1.1.2"
+            },
+            "time": "2022-06-22T08:08:09+00:00"
         },
         {
             "name": "laravel/framework",

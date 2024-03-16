@@ -13,10 +13,12 @@ use Spatie\Permission\Models\Permission;
 use App\Models\Resident;
 use App\Models\Sitio;
 use App\Notifications\NewResetPasswordNotification;
+use Hydrat\Laravel2FA\TwoFactorAuthenticatable;
+use Hydrat\Laravel2FA\Contracts\TwoFactorAuthenticatableContract;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, TwoFactorAuthenticatableContract
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, TwoFactorAuthenticatable;
 
     public function sendPasswordResetNotification($token){
         $this->notify(new NewResetPasswordNotification($token));

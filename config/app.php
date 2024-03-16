@@ -177,7 +177,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-
+        Hydrat\Laravel2FA\Laravel2FAServiceProvider::class,
     ],
 
     /*
