@@ -22,4 +22,14 @@ class Complain extends Model
         'requestPurpose',
     ];
 
+    protected $casts = [
+        'complaintFName' => 'encrypted',
+        'complaintMName' => 'encrypted',
+        'complaintLName' => 'encrypted',
+        'complaintContactNumber' => 'encrypted',
+        
+        'complaineeFName' => 'encrypted',
+        'complaineeMName' => 'encrypted',
+        'complaineeLName' => 'encrypted',
+    ];
 }
