@@ -21,27 +21,107 @@ class HouseholdSeeder extends Seeder
 
         Households::create([
             'sitioID' => '2',
-            'houseNumber' => '3'
+            'houseNumber' => '3',
+            'street'=>'Twee',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'yearOfVisit'=>2022,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2022-10-15',
+            'respondentName'=>'Rook',
+            'createdBy'=>2,
+            'revisedBy'=>2
         ]);
         
         Households::create([
             'sitioID' => '2',
-            'houseNumber' => '4'
+            'houseNumber' => '4',
+            'street'=>'Fooo',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'yearOfVisit'=>2022,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2022-10-15',
+            'respondentName'=>'Rook',
+            'createdBy'=>2,
+            'revisedBy'=>2
         ]);
 
         Households::create([
             'sitioID' => '2',
-            'houseNumber' => '5'
+            'houseNumber' => '5',
+            'street'=>'Fiy',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'yearOfVisit'=>2022,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2022-10-15',
+            'respondentName'=>'Rook',
+            'createdBy'=>2,
+            'revisedBy'=>2
         ]);
 
         Households::create([
             'sitioID' => '2',
-            'houseNumber' => '6A'
+            'houseNumber' => '6A',
+            'street'=>'Sixa',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'yearOfVisit'=>2022,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2022-10-15',
+            'respondentName'=>'Rook',
+            'createdBy'=>2,
+            'revisedBy'=>2
         ]);
 
         Households::create([
             'sitioID' => '2',
-            'houseNumber' => '6B'
+            'houseNumber' => '6B',
+            'street'=>'Sixb',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'yearOfVisit'=>2022,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2022-10-15',
+            'respondentName'=>'Rook',
+            'createdBy'=>2,
+            'revisedBy'=>2
         ]);
 
         Households::create([
