@@ -7,7 +7,7 @@
     </x-slot>
 
     <div class="w-[1400px] h-[1024px] font-robotocondensed text-[26px] ml-8 mt-16 border-2 border-black text-deep-green">
-        <form method="POST" action="{{route('services.gcash')}}" enctype="multipart/form-data">
+        <form method="POST" action="{{route('services.createpayment', $payment->id)}}" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-col justify-start place-items-center w-full h-[1024px]">
                 <img src="/images/Gcash.png" alt="" style="width: 450px; height: 240px;">
@@ -18,12 +18,13 @@
                 </div>
 
                 <div class="flex flex-col mt-[5rem] ml-[20rem]">
-                    <label class="-ml-1 mb-2">GCASH Number</label>
-                    <input class="px-2 focus:outline-none border-2 w-[300px]  text-deep-green -ml-2" style="border-color: #414833;" value="" name="accountNumber">
+                    <!-- <label class="-ml-1 mb-2">GCASH Number</label>
+                    <input class="px-2 focus:outline-none border-2 w-[300px]  text-deep-green -ml-2" style="border-color: #414833;" value="" name="accountNumber"> -->
+                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <label class="mt-4 -ml-1 mb-2">Reference Number</label>
                     <input class="px-2 focus:outline-none border-2 w-[300px]  text-deep-green -ml-2" style="border-color: #414833;" value="" name="successURL">
                     <div class="mt-8 -ml-1 mb-2 h-max w-[605px]">
-                        <input type="file" id="fileButton" name="screenshot" multiple>
+                        <input type="file" id="fileButton" name="screenshot" required>
                         <p class="mt-1 font-extralight italic text-[16px]">Upload Screenshot of Payment</p>
                     </div>
                     <button class="border-2 rounded-lg font-bold px-2 py-1 mt-4 w-max ml-10" style="border-color: #414833;">SUBMIT PAYMENT</button>

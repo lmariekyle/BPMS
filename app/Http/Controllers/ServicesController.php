@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AccountInfoChange;
+use Illuminate\Support\Facades\Crypt;
 use App\Models\Complain;
 use App\Models\Document;
 use App\Models\DocumentDetails;
@@ -111,6 +112,7 @@ class ServicesController extends Controller
         $transaction = Transaction::where('id', $id)->first();
         $transaction->detail = DocumentDetails::where('id', $transaction->detailID)->first();
         $transaction->document = Document::where('id', $transaction->documentID)->first();
+        $payment= Payment::where('id',$transaction->paymentID);
         $level = User::where('id', $transaction->issuedBy)->first();
         $levelUser = Resident::where('id', $level->residentID)->first();
         $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
@@ -122,12 +124,13 @@ class ServicesController extends Controller
             $filePaths = [];
         }        
         $transaction->payment = Payment::where('id', $transaction->paymentID)->first();
-        if ($transaction->payment['paymentMethod'] == 'CASH-ON-SITE' || $transaction->payment['paymentStatus'] == 'PAID') {
+        if ($transaction->payment['paymentMethod'] == 'CASH-ON-SITE' || $transaction->payment['paymentStatus'] == 'Paid') {
             $transaction->approval = 1;
         } else {
             $transaction->approval = 2;
         }
-        return view('services.manage', compact('transaction', 'filePaths','date'));
+
+        return view('services.manage', compact('transaction', 'filePaths','date','payment'));
     }
 
 
@@ -180,16 +183,6 @@ class ServicesController extends Controller
      
         $transaction = Transaction::where('id', $id)->first();
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first(); 
-        
-        $check_res = DB::table('residents')
-        ->where('firstName', '=', $requestee->requesteeFName)
-        ->where('middleName', '=', $requestee->requesteeMName)
-        ->where('lastName', '=', $requestee->requesteeLName)
-        ->first();
-    
-        $birthdateCarbon = Carbon::createFromFormat('Y-m-d', $check_res->dateOfBirth);
-
-        $age = $birthdateCarbon->age;
 
         $doc = Document::where('id', $transaction->documentID)->first();
         $date = Carbon::now();
@@ -222,7 +215,24 @@ class ServicesController extends Controller
         // Get the corresponding month name
         $monthWord = $monthNames[$monthNumber] ?? "Invalid month";
 
-        return view('services.approve', compact('id', 'requestee', 'doc', 'transaction','date','age','dateNum','year','monthWord'));
+        if($transaction->documentID == 1){
+        // $check_res = DB::table('residents')
+        // ->where('firstName', '=', $requestee->requesteeFName)
+        // ->where('middleName', '=', $requestee->requesteeMName)
+        // ->where('lastName', '=', $requestee->requesteeLName)
+        // ->first();
+        $requestee_user = User::where('id', $transaction->userID)->first();
+        $resident = Resident::where('id', $requestee_user->residentID)->first();
+
+        $birthdateCarbon = Carbon::createFromFormat('Y-m-d', $resident->dateOfBirth);
+
+        $age = $birthdateCarbon->age;
+
+            return view('services.approve', compact('id', 'requestee', 'doc', 'transaction','age','date','dateNum','year','monthWord'));
+        }else{
+            return view('services.approve', compact('id', 'requestee', 'doc', 'transaction','date','dateNum','year','monthWord'));
+        }
+
     }
 
 
@@ -267,6 +277,7 @@ class ServicesController extends Controller
     {
         //show how the page is
 
+        
         $transaction = Transaction::where('id', $id)->first();
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
 
@@ -276,6 +287,7 @@ class ServicesController extends Controller
         ->where('lastName', '=', $requestee->requesteeLName)
         ->first();
 
+        
         // Convert the birthdate string to a Carbon instance
         $birthdateCarbon = Carbon::createFromFormat('Y-m-d', $check_res->dateOfBirth);
 
@@ -458,76 +470,122 @@ class ServicesController extends Controller
 
         $payment = Payment::where('id', $transactionPaymentId)->first();
         if ($request->paymentMethod == 'GCASH') {
-            // return view('createpayment', $transactionPaymentId);
-            return $this->createpayment($payment->id);
+            return view('services.gcash', compact('payment'));
+            // return $this->createpayment($payment->id);
         } else {
             return view('services.success');
         }
     }
 
 
-    public function createInvoice($request)
+    // public function createInvoice($request)
+    // {
+    //     $xenditKey = base64_encode(env('XENDIT_SECRET_KEY'));
+    //     $headers = [
+    //         'Content-Type' => 'application/json',
+    //         'Authorization' => 'Basic ' . $xenditKey,
+    //     ];
+
+    //     $res = Http::withHeaders($headers)
+    //         ->withOptions([
+    //             'curl' => [CURLOPT_SSL_VERIFYPEER => false],
+    //         ])
+    //         ->post('https://api.xendit.co/v2/invoices', $request);
+
+    //     return json_decode($res->body(), true);
+    // }
+
+    //XENDIT PAYMENT FUNCTION
+
+    // public function createpayment($id)
+    // {
+    //     $payment = Payment::where('id', $id)->first();
+    //     $transaction = Transaction::where('paymentID', $payment->id)->first();
+    //     $externalID = 'INV' . date('Ymd') . '-' . rand(1000, 9999);
+
+    //     $payment->accountNumber = $externalID;
+    //     $payment->save();
+       
+    //     $successRedirectUrl = route('services.success', $payment->id);
+    //     $failureRedirectUrl = route('services.failure', $payment->id);
+
+    //     $params = [
+    //         'external_id' => $externalID,
+    //         'amount' => $transaction->serviceAmount,
+    //         'user_id' => $transaction->userID,
+    //         'success_redirect_url' => $successRedirectUrl,
+    //         'failure_redirect_url' => $failureRedirectUrl,
+    //         'payment_methods' => ['GCASH'],
+    //         'currency' => 'PHP',
+    //         'invoice_duration' => 30000,
+    //     ];
+
+    //     $invoice = $this->createInvoice($params);
+    //     $payment->update([
+    //         'successURL' => $invoice['invoice_url']
+    //     ]);
+        
+
+    //     $payment->paymentStatus = 'Pending';
+
+    //     return Redirect::to($payment->successURL); 
+    // }
+
+
+
+    public function createpayment(Request $request , $id)
     {
-        $xenditKey = base64_encode(env('XENDIT_SECRET_KEY'));
-        $headers = [
-            'Content-Type' => 'application/json',
-            'Authorization' => 'Basic ' . $xenditKey,
-        ];
 
-        $res = Http::withHeaders($headers)
-            ->withOptions([
-                'curl' => [CURLOPT_SSL_VERIFYPEER => false],
-            ])
-            ->post('https://api.xendit.co/v2/invoices', $request);
+        $request->validate([
+            'successURL' => 'required|regex:/^.{13}$/',
+            'screenshot' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
+        ],
+        [
+            'successURL.regex' => 'Reference Code must be 13 characters long',
+            'screenshot.required' => 'File Types must only be jpeg, png, jpg'
+        ]);
 
-        return json_decode($res->body(), true);
-    }
+        
+        //Image Upload 
+        if ($request->hasFile('screenshot')) {
+            $screenshot_name = time() . '.' . $request->screenshot->getClientOriginalExtension();
+            $path = $request->screenshot->storeAs('gcash', $screenshot_name, 'public');
+        } else {
+            $path = 'gcash/default.jpg';
+        }
 
-    public function createpayment($id)
-    {
         $payment = Payment::where('id', $id)->first();
         $transaction = Transaction::where('paymentID', $payment->id)->first();
-        $externalID = 'INV' . date('Ymd') . '-' . rand(1000, 9999);
-
-        $payment->accountNumber = $externalID;
-        $payment->save();
-       
-        $successRedirectUrl = route('services.success', $payment->id);
-        $failureRedirectUrl = route('services.failure', $payment->id);
-
-        $params = [
-            'external_id' => $externalID,
-            'amount' => $transaction->serviceAmount,
-            'user_id' => $transaction->userID,
-            'success_redirect_url' => $successRedirectUrl,
-            'failure_redirect_url' => $failureRedirectUrl,
-            'payment_methods' => ['GCASH'],
-            'currency' => 'PHP',
-            'invoice_duration' => 30000,
-        ];
-
-        $invoice = $this->createInvoice($params);
-        $payment->update([
-            'successURL' => $invoice['invoice_url']
-        ]);
-
-        $payment->paymentStatus = 'Pending';
-
-        return Redirect::to($payment->successURL); 
-    }
-
-    public function successpayment($id){
-
-        $payment = Payment::where('id', $id)->first();
+        $externalID = 'PAYMENT' . date('Ymd') . '-' . rand(1000, 9999);
 
         $payment->update([
+            'accountNumber' => $externalID,
+            'successURL' => $request->successURL,
+            'screenshot' => $path,
             'paymentStatus' => 'Paid'
         ]);
-
         $payment->save();
-
+  
+       
+        // return Redirect::to($payment->successURL); 
         return view('services.success');
     }
+
+    // public function successpayment($id){
+
+    //     $payment = Payment::where('id', $id)->first();
+
+    //     $payment->update([
+    //         'paymentStatus' => 'Paid'
+    //     ]);
+
+    //     $payment->save();
+
+    //     return view('services.success');
+    // }
+
+
+
 
     public function search(Request $request)
     {

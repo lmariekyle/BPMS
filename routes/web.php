@@ -14,6 +14,7 @@ use App\Http\Controllers\SitioCountController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\NotificationController;
 use App\Models\Statistics;
+use Hydrat\Laravel2FA\Controllers\TwoFactorAuthController;
 use Spatie\Permission\Models\Role;
 
 /*
@@ -33,6 +34,8 @@ Route::middleware('web')->group(function () {
     Route::post('create', [ResidentUserController::class, 'store']);
 });
 Route::post('/callback', [ServicesController::class, 'callback'])->name('callback');
+
+Route::get('index', [TwoFactorAuthController::class, 'index'])->name('auth.2fa.token');
 // Route::middleware(['role:User'])->group(function () {
 //     Route::get('request/{docType}', [ServicesController::class, 'request'])->name('services.request');
 //     Route::post('request/{docType}', [ServicesController::class, 'storerequest'])->name('services.storerequest');
@@ -88,6 +91,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('request/{docType}', [ServicesController::class, 'request'])->name('services.request');
     Route::post('request/{docType}', [ServicesController::class, 'storerequest'])->name('services.storerequest');
     Route::post('createpayment/{id}', [ServicesController::class, 'createpayment'])->name('services.createpayment');
+    // Route::post('payment', [ServicesController::class, 'createpayment'])->name('services.gcash');
     Route::get('successpayment/{id}', [ServicesController::class, 'successpayment'])->name('services.success');
     // Route::get('successpayment/{id}', function () {
     //   return view('services.success');
