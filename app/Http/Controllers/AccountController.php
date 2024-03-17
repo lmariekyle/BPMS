@@ -204,7 +204,6 @@ class AccountController extends Controller
                 $user->userStatus = $resident->userStatus;
             }
             $users = $usersName;
-            dd("enters name");
         }
         
         if($search != NULL){
