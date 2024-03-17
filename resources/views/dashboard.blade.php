@@ -54,7 +54,11 @@
                             <select id="gender" class="rounded-lg border-2 mt-1 w-full bg-transparent" name="gender" :value="old('gender')" required autofocus>
                                 <option value="NULL">Select Gender</option>
                                 @foreach ($gender as $gender)
-                                <option value="{{$gender->genderGroup}}" class="bg-dirty-white">{{ $gender->genderGroup }}</option>
+                                    @if($gender->genderGroup == 'M')
+                                    <option value="{{$gender->genderGroup}}" class="bg-dirty-white">Male</option>
+                                    @elseif($gender->genderGroup == 'F')
+                                    <option value="{{$gender->genderGroup}}" class="bg-dirty-white">Female</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
@@ -76,8 +80,11 @@
                                     <p>U - Under-five (1-4 Years Old)</p>
                                     <p>S - School-Aged Children (5-9 Years Old)</p>
                                     <p>A - Adolescents (10-19 Years Old)</p>
-                                    <p>WRA - 15-49 Years Old, not Pregnant and non Post Partum</p>
-                                    <p>AB - Adult (20-59 Years Old)</p>
+                                    <p>WRA - Not Pregnant and non-Post Partum (15-49 Years Old)</p>
+                                    <p>P - Pregnant</p>
+                                    <p>AP - Adolescent-Pregnant</p>
+                                    <p>PP - Post Partum</p>
+                                    <p>AB - Adult (20-59 Years Old, Male)</p>
                                     <p>SC - Senior Citizen (60 Years Old and Above)</p>
                                 </div>
                             </div>
@@ -139,15 +146,17 @@
                                         <p>U - Under-five (1-4 Years Old)</p>
                                         <p>S - School-Aged Children (5-9 Years Old)</p>
                                         <p>A - Adolescents (10-19 Years Old)</p>
-                                        <p>WRA - 15-49 Years Old, not Pregnant and non Post Partum</p>
-                                        <p>AB - Adult (20-59 Years Old)</p>
+                                        <p>WRA - Not Pregnant and non-Post Partum (15-49 Years Old)</p>
+                                        <p>P - Pregnant</p>
+                                        <p>AP - Adolescent-Pregnant</p>
+                                        <p>PP - Post Partum</p>
+                                        <p>AB - Adult (20-59 Years Old, Male)</p>
                                         <p>SC - Senior Citizen (60 Years Old and Above)</p>
                                     </div>
                                 <hr>
                                 </div>
                                 <p class="mt-2 w-80 text-justify">
-                                    Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
-                                    the Sitio, that means there are currently 0 Residents there.
+                                    Hover over the colors in the legend to highlight the different Sitios of the Barangay.
                                 </p>
                             </div>
                             @else
@@ -174,8 +183,7 @@
                                 <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
                                 <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end ml-8 w-80 text-justify">
                                     <p class="py-1">
-                                        Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
-                                        the Sitio, that means there are currently 0 Households there.
+                                        Hover over the colors in the legend to highlight the different Sitios of the Barangay.
                                     </p>
                                 </div>
                                 @else
@@ -198,11 +206,7 @@
                             </div>
                             <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
                                 <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
-                                    @if ($totalResidentCount>0)
                                     {{ $totalResidentCount }} RESIDENTS
-                                    @else
-                                    {{ $totalResidentCount }}
-                                    @endif
                                 </p>
                             </div>
                         </div>
@@ -213,11 +217,7 @@
                             </div>
                             <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
                                 <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
-                                    @if ($totalHouseholdCount>0)
                                     {{ $totalHouseholdCount }} HOUSEHOLDS
-                                    @else
-                                    {{ $totalResidentCount }}
-                                    @endif
                                 </p>
                             </div>
                         </div>

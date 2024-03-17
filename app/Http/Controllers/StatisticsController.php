@@ -416,6 +416,38 @@ class StatisticsController extends Controller
 
     public function exportpdf(Request $request)
     {
+        //Gets the statistic data that is the most recently added
+        //Gets the statistic data that is the most recently added
+        $currentYear = date('Y');
+        $currentDate = date('m-d');
+
+        //Establishes the static dates for determining the quarter to be used
+        //Q = quarter | B = start or beginning | E = end
+        $dateQoneB = '01-01';
+        $dateQoneE = '03-31';
+        $dateQtwoB = '04-01';
+        $dateQtwoE = '06-30';
+        $dateQthreeB = '07-01';
+        $dateQthreeE = '09-30';
+        //no need to make for quarter 4 because if such case happens, it implies that the current date provided
+        //is later than the three comparisons done
+
+        if($currentDate >= $dateQoneB && $currentDate <= $dateQoneE){
+        //if currentDatetime is between Jan 1 and March 31
+            $currentQuarter = 1;
+        } else if($currentDate >= $dateQtwoB && $currentDate <= $dateQtwoE){
+        //if currentDatetime is between April 1 and June 30
+            $currentQuarter = 2;
+        } else if($currentDate >= $dateQthreeB && $currentDate <= $dateQthreeE){
+        //if currentDatetime is between July 1 and September 30
+            $currentQuarter = 3;
+        } else {
+        //if currentDatetime is as early or later than October 1
+            $currentQuarter = 4;
+        }
+
+        $statID = Statistics::where('year', $currentYear)->where('quarter', $currentQuarter)->value('id');
+
         if ($request['sitio'] != "NULL") {
             $filterSitio = $request['sitio'];
         } else {
@@ -439,7 +471,7 @@ class StatisticsController extends Controller
         })
             ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
             ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
-            ->where('sitio_counts.sitioID', 'LIKE', "%$filterSitio%")->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.ageGroup', 'LIKE', "%$filterAgeGroup%")
+            ->where('sitio_counts.statID', $statID)->where('sitio_counts.sitioID', 'LIKE', "%$filterSitio%")->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.ageGroup', 'LIKE', "%$filterAgeGroup%")
             ->get();
 
         //get rid of duplicates since previous statement uses LIKE on filterSitio
@@ -449,7 +481,7 @@ class StatisticsController extends Controller
             })
                 ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
                 ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
-                ->where('sitio_counts.sitioID', $filterSitio)->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.ageGroup', 'LIKE', "%$filterAgeGroup%")
+                ->where('sitio_counts.statID', $statID)->where('sitio_counts.sitioID', $filterSitio)->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.ageGroup', 'LIKE', "%$filterAgeGroup%")
                 ->get();
         }
 
