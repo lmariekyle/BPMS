@@ -48,6 +48,7 @@ Route::post('/sitioAssignment', [SitioAssignmentController::class, 'mobileSitios
 Route::post('/forgotPassword', 'App\Http\Controllers\Auth\PasswordResetLinkController@mobileStore')->name('mobileForgotPassword');
 
 Route::post('/mobileTransactionRequest', [TransactionController::class, 'mobileTransactionRequest']);
+Route::post('/mobilePayment', [TransactionController::class, 'mobilePayment']);
 Route::post('/mobileFileUpload', [TransactionController::class, 'fileUpload']);
 Route::post('/mobileNotifications', [NotificationController::class, 'mobileNotifications']);
 Route::post('/mobileNotificationDetails', [NotificationController::class, 'mobileNotificationDetails']);

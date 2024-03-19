@@ -26,6 +26,7 @@ class TransactionController extends Controller
 
         $document = Document::where('id', $request->documentId)->first();
         $user = User::where('residentID', $request->userId)->first();
+        $user->makeVisible('firstName', 'middleName', 'lastName');
         $date = Carbon::now()->format('Y-m-d');
         $docType = $document->docType;
         $certRequirements = [];
@@ -191,7 +192,7 @@ class TransactionController extends Controller
             $documents = DB::select('select DISTINCT docType from documents');
             $userData = Resident::where('id', $request->userId)->first();
 
-            $response = ['user' => $userData, 'documents' => $documents, 'payment' => $receivedPayment, 'success' => true, 'transaction' => $transaction, 'docType' => $docType];
+            $response = ['user' => $userData, 'documents' => $documents, 'payment' => $receivedPayment, 'success' => true];
             return $response;
         }
 
@@ -200,11 +201,12 @@ class TransactionController extends Controller
 
         $documents = DB::select('select DISTINCT docType from documents');
         $userData = Resident::where('id', $request->userId)->first();
+        $userData->makeVisible('firstName', 'middleName', 'lastName');
 
         if($document->docType == "Account Information Change"){
-            $response = ['user' => $userData, 'documents' => $documents, 'success' => true, 'account' => $account, 'docType' => $docType];
+            $response = ['user' => $userData, 'documents' => $documents, 'success' => true];
         }else{
-            $response = ['user' => $userData, 'documents' => $documents, 'success' => true, 'transaction' => $transaction, 'docType' => $docType];
+            $response = ['user' => $userData, 'documents' => $documents, 'success' => true];
         }
         
         return $response;
@@ -268,15 +270,41 @@ class TransactionController extends Controller
         return $payment;
     }
 
-    public function successpayment($id){
+    public function mobilePayment(Request $request){
 
-        $payment = Payment::where('id', $id)->first();
+        $paymentScreenshot = [];
+
+        if ($request->hasFile('file')) {
+            foreach ($request->file('file') as $file) {
+                if ($file->isValid()) {
+                        $file_name = Str::slug($request->lastName) . '_' . 'payment' . uniqid() . '.' . $file->getClientOriginalExtension();
+                    $file->storeAs('requirements', $file_name);
+                    $path = $file_name;
+                    $paymentScreenshot[] = $path;
+                }
+            }
+            $reqJson = json_encode( $paymentScreenshot);
+        } else {
+            $reqJson = NULL;
+        }
+
+        $payment = Payment::where('id', $request->paymentID)->first();
 
         $payment->update([
-            'paymentStatus' => 'Paid'
+            'accountNumber' => $request->accountNumber,
+            'paymentStatus' => 'Paid',
+            'screenshot' => $reqJson,
         ]);
 
         $payment->save();
+
+        $documents = DB::select('select DISTINCT docType from documents');
+        $userData = Resident::where('id', $request->userID)->first();
+        $userData->makeVisible('firstName', 'middleName', 'lastName');
+
+        $response = ['user' => $userData, 'documents' => $documents, 'success' => true,];
+
+        return $response;
     }
 
     // public function mobileCallback(Request $request)

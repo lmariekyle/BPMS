@@ -13,14 +13,9 @@ class DocumentController extends Controller
     public function mobileRequestServices(Request $request){
         $request->validate([
             'residentID' => 'required',
-            'email' => 'required',
         ]);
 
         $userData = Resident::where('id', $request->residentID)->first();
-        $userData->makeVisible('firstName', 'middleName', 'lastName');
-        $userData->email = $request->email;
-        $userData->token = $request->token;
-        $userData->success = true;
 
         $documents = DB::select('select DISTINCT docType from documents');
 
@@ -31,14 +26,11 @@ class DocumentController extends Controller
     public function mobileGetDocuments(Request $request){
         $request->validate([
             'residentID' => 'required',
-            'email' => 'required',
             'docType' => 'required',
         ]);
 
         $userData = Resident::where('id', $request->residentID)->first();
-        $userData->makeVisible('firstName', 'middleName', 'lastName');
-        $userData->email = $request->email;
-        $userData->token = $request->token;
+        $userData->makeVisible('firstName', 'middleName', 'lastName', 'contactNumber');
 
         $documents = Document::where('docType', $request->docType)->get();
         if($request->docType == 'File Complain'){
