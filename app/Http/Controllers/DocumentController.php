@@ -16,6 +16,7 @@ class DocumentController extends Controller
         ]);
 
         $userData = Resident::where('id', $request->residentID)->first();
+        $userData->makeVisible('firstName', 'middleName', 'lastName', 'contactNumber');
 
         $documents = DB::select('select DISTINCT docType from documents');
 

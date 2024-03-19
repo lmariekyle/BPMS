@@ -238,7 +238,7 @@ class AccountController extends Controller
         ]);
 
         $userData = Resident::where('id', $request->residentID)->first();
-        $userData->makeVisible('firstName', 'middleName', 'lastName');
+        $userData->makeVisible('firstName', 'middleName', 'lastName', 'contactNumber');
         $userData->email = $request->email;
         $userData->success = true;
 
