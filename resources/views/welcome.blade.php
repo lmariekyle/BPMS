@@ -140,8 +140,7 @@
                         <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
                         <div class="hide bg-green py-2 px-2 rounded-xl self-end mt-[15rem] mr-8">
                             <p class="text-xs font-robotocondensed w-80 text-justify text-dirty-white">
-                                Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
-                                the Sitio, that means there are currently 0 Residents there.
+                                Hover over the colors in the legend to highlight the different Sitios of the Barangay.
                             </p>
                         </div>
                     </div>
@@ -155,8 +154,7 @@
                         <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
                         <div class="hide bg-green py-2 px-2 rounded-xl self-end mt-[15rem] mr-8">
                             <p class="text-xs font-robotocondensed w-80 text-justify text-dirty-white">
-                                Hover over the colors in the legend to highlight the different Sitios of the Barangay. If the Pie Chart is not highlighting
-                                the Sitio, that means there are currently 0 Households there.
+                                Hover over the colors in the legend to highlight the different Sitios of the Barangay.
                             </p>
                         </div>
                     </div>
