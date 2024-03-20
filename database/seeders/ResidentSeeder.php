@@ -24,8 +24,11 @@ class ResidentSeeder extends Seeder
             'dateOfBirth' => '2000-01-01',
             'contactNumber' => '1234567890',
             'email' => 'adminPersonalEmail@gmail.com',
-            'gender' => 'Female',
+            'gender' => 'F',
             'maritalStatus' => 'Single',
+            'dateOfDeath' => null,
+            'createdBy' => 2,
+            'revisedBy' => 2,
         ]);
 
         Resident::create([
@@ -39,6 +42,9 @@ class ResidentSeeder extends Seeder
             'email' => 'morales@gmail.com',
             'gender' => 'M',
             'maritalStatus' => 'Single',
+            'dateOfDeath' => null,
+            'createdBy' => 2,
+            'revisedBy' => 2,
         ]);
 
 
@@ -53,6 +59,9 @@ class ResidentSeeder extends Seeder
             'email' => 'stacy@gmail.com',
             'gender' => 'F',
             'maritalStatus' => 'Single',
+            'dateOfDeath' => null,
+            'createdBy' => 2,
+            'revisedBy' => 2,
         ]);
 
 
@@ -67,6 +76,9 @@ class ResidentSeeder extends Seeder
             'email' => 'francine@gmail.com',
             'gender' => 'F',
             'maritalStatus' => 'Single',
+            'dateOfDeath' => null,
+            'createdBy' => 2,
+            'revisedBy' => 2,
         ]);
 
         Resident::create([
@@ -80,6 +92,9 @@ class ResidentSeeder extends Seeder
             'email' => 'mariekylec@gmail.com',
             'gender' => 'M',
             'maritalStatus' => 'Single',
+            'dateOfDeath' => null,
+            'createdBy' => 2,
+            'revisedBy' => 2,
         ]);
 
         Resident::create([
@@ -93,6 +108,9 @@ class ResidentSeeder extends Seeder
             'email' => 'residentbpms@gmail.com',
             'gender' => 'M',
             'maritalStatus' => 'Single',
+            'dateOfDeath' => null,
+            'createdBy' => 2,
+            'revisedBy' => 2,
         ]);
 
         Resident::create([
@@ -106,6 +124,9 @@ class ResidentSeeder extends Seeder
             'email' => 'parker@bpms.com',
             'gender' => 'M',
             'maritalStatus' => 'Single',
+            'dateOfDeath' => null,
+            'createdBy' => 2,
+            'revisedBy' => 2,
         ]);
 
         Resident::create([

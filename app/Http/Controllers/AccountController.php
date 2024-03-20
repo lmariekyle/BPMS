@@ -204,7 +204,6 @@ class AccountController extends Controller
                 $user->userStatus = $resident->userStatus;
             }
             $users = $usersName;
-            dd("enters name");
         }
         
         if($search != NULL){
@@ -239,7 +238,7 @@ class AccountController extends Controller
         ]);
 
         $userData = Resident::where('id', $request->residentID)->first();
-        $userData->makeVisible('firstName', 'middleName', 'lastName');
+        $userData->makeVisible('firstName', 'middleName', 'lastName', 'contactNumber');
         $userData->email = $request->email;
         $userData->success = true;
 

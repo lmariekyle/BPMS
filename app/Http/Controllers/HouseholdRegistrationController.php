@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use DB;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\Input;
@@ -203,23 +204,6 @@ class HouseholdRegistrationController extends Controller
         }
         $household->save();
 
-        if($household['quarterNumber']==1){
-            $house=Households::where('sitioID',$household['sitioID'])
-                            ->where('houseNumber',$household['houseNumber'])
-                            ->where('quarterNumber', 4)
-                            ->orderBy('yearOfVisit','asc')
-                            ->first();
-            
-            $yearsPassed = (int)now()->format('Y')-(int)$house['yearOfVisit'];
-            if($yearsPassed<=6){
-                Households::where('yearOfVisit',$house['yearOfVisit'])->delete();
-            }
-            
-
-        }
-
-
-
         return response()->json([
             'success' => true
         ]);
@@ -239,12 +223,12 @@ class HouseholdRegistrationController extends Controller
                             ->where('houseNumber',$request->houseNumber)
                             ->where('quarterNumber',$request->qtr)
                             ->where('yearOfVisit',$request->yearOfVisit)
+                            ->orderby('created_at','DESC')
                             ->first();
         
        
         $lastRes=Resident::orderBy('residentID','desc')->first();
         $tempArr=explode('-',$lastRes['residentID']);
-        $currResID =(int)$tempArr[1];
 
         $head = false;
         $count = 1;
@@ -284,6 +268,10 @@ class HouseholdRegistrationController extends Controller
                     'revisedBy' => $resident['revisedBy'],
                 ]);
 
+                $newResident['residentID']= IdGenerator::generate(['table'=>'residents','field'=>'residentID','length'=>9,'prefix'=>'RES-']);
+
+
+                /*
                 if($currResID<9){
                     $newResident['residentID']='RES-000'.($currResID+1);
                 }else if($currResID<99){
@@ -292,9 +280,8 @@ class HouseholdRegistrationController extends Controller
                     $newResident['residentID']='RES-0'.($currResID+1);
                 }else{
                     $newResident['residentID']='RES-'.($currResID+1);
-                }
+                }*/
                 
-                $currResID++;
 
                 $newResident->save();
 
@@ -304,7 +291,7 @@ class HouseholdRegistrationController extends Controller
                 ->where('dateOfBirth', $resident['dateOfBirth'])
                 ->first();
                 
-                    
+                
                 if($count==1){
                     $head=true;
                 }else{
@@ -351,7 +338,7 @@ class HouseholdRegistrationController extends Controller
                     'pregnancyClassification'=>$resident['pregnancyClassification'],
                     'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
                     'registeredPWD'=>$resident['registeredPWD'],
-                    'dateOfDeath'=>$resident['dateOfDeath'],
+                    'dateOfDeath'=>($resident['dateOfDeath']=='NotDead')?null:$resident['dateOfDeath'],
                     //'supportingDocument'=>$resident['supportingDocument']
                     
 
@@ -360,26 +347,6 @@ class HouseholdRegistrationController extends Controller
                 ]);
                 $updatedResident->save();
                
-
-                if($request->qtr==1){ 
-                    $foundresident=Resident::where('residentID',$resident['residentID'])
-                    ->orderBy('created_at','asc')
-                    ->first();
-                    
-                    $date=new Carbon($foundresident['created_at']);
-
-                    $yearsPassed = (int)now()->format('Y')-(int)$date->year;
-                    if($yearsPassed<=6){
-
-                        Resident::where('residentID',$resident['residentID'])
-                                        ->whereYear('created_at', $date->year)
-                                        ->delete();
-                        
-                    }
-                    
-        
-                }
-
                     
                 if($count==1){
                     $head=true;
@@ -396,7 +363,7 @@ class HouseholdRegistrationController extends Controller
                 ->first();
                 
                 $connect=new ResidentList();
-                
+
                 $connect->fill([
                     'residentID'=>$memID['id'],
                     'houseID'=>$memHouse['id'],

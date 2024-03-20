@@ -13,6 +13,8 @@ use App\Models\Resident;
 use App\Models\Statistics;
 use DB;
 use Carbon\Carbon;
+use App\Http\Requests\Auth\LoginRequest;
+use Hydrat\Laravel2FA\TwoFactorAuth;
 
 class AuthenticationAPIController extends Controller
 {
@@ -97,4 +99,32 @@ class AuthenticationAPIController extends Controller
             return response()->json($response, 200);
         }
     }
+
+    public function mobileStore(LoginRequest $request)
+    {
+     
+        $request->authenticate();
+        $user = $request->user();
+
+        if (auth()->check() && (auth()->user()->userStatus == 'Archived')) {
+            $response = ['message' => 'Sorry, Account has been Archived.', 'success' => false];
+
+            return $response;
+        } else {  
+            return $this->authenticated($request, $user);
+        
+        }
+    }
+
+    // protected function authenticated(Request $request, $user)
+    // {
+    //     # Trigger 2FA if necessary.
+    //     if (TwoFactorAuth::getDriver()->mustTrigger($request, $user)) {
+    //         return TwoFactorAuth::getDriver()->trigger($request, $user);
+    //     }
+
+    //     # If not, do the usual job.
+    //     return redirect()->intended(RouteServiceProvider::HOME);
+    // }  
+
 }

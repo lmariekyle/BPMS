@@ -46,20 +46,9 @@ Route::post('/mobileGetDocuments', [DocumentController::class, 'mobileGetDocumen
 Route::post('/register', 'App\Http\Controllers\ResidentUserController@mobileStore');
 Route::post('/sitioAssignment', [SitioAssignmentController::class, 'mobileSitiosAssignment']);
 Route::post('/forgotPassword', 'App\Http\Controllers\Auth\PasswordResetLinkController@mobileStore')->name('mobileForgotPassword');
-/*
-Route::post('/registerHousehold',[HouseholdRegistrationController::class,'mobileHouseholdStore']);
-Route::post('/registerMembers',[HouseholdRegistrationController::class,'mobileResidentStore']);
-Route::post('/updateHousehold',[HouseholdRegistrationController::class,'mobileUpdateHouseholdStore']);
-Route::post('/updateMembers',[HouseholdRegistrationController::class,'mobileUpdateResident']);
-
-Route::get('/mobileSitios', [SitioAssignmentController::class, 'mobileSitios']);
-Route::get('/mobileHouseholdList', [HouseholdListController::class, 'mobileHouseholds']);
-Route::get('/mobileMembersList', [HouseholdListController::class, 'mobileMembers']);
-Route::get('/mobileGetHouseholdNumber', [HouseholdListController::class, 'mobileGetHouseNumber']);
-Route::get('/mobileGetHousehold', [HouseholdListController::class, 'getHouseholdsPerYear']);
-Route::get('/mobileExistingHouseholdList', [HouseholdListController::class, 'getExistingHouseholdList']);*/
 
 Route::post('/mobileTransactionRequest', [TransactionController::class, 'mobileTransactionRequest']);
+Route::post('/mobilePayment', [TransactionController::class, 'mobilePayment']);
 Route::post('/mobileFileUpload', [TransactionController::class, 'fileUpload']);
 Route::post('/mobileNotifications', [NotificationController::class, 'mobileNotifications']);
 Route::post('/mobileNotificationDetails', [NotificationController::class, 'mobileNotificationDetails']);
@@ -82,5 +71,5 @@ Route::post('createpayment/{id}', [TransactionController::class, 'createpayment'
     Route::get('/mobileinitMembers', [HouseholdListController::class, 'mobileRecentMembers']);
     Route::get('/mobileGetHouseholdNumber', [HouseholdListController::class, 'mobileGetHouseNumber']);
     Route::get('/mobileGetHousehold', [HouseholdListController::class, 'getHouseholdsPerYear']);
-    Route::get('/mobileExistingHouseholdList', [HouseholdListController::class, 'getExistingHouseholdList']);
+    Route::get('/mobileAddressList', [HouseholdListController::class, 'getAddressList']);
 //});
