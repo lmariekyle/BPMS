@@ -1025,6 +1025,9 @@ select {
 .ml-\[170px\] {
   margin-left: 170px;
 }
+.ml-\[190px\] {
+  margin-left: 190px;
+}
 .ml-\[2\.5rem\] {
   margin-left: 2.5rem;
 }
@@ -1042,9 +1045,6 @@ select {
 }
 .ml-\[24rem\] {
   margin-left: 24rem;
-}
-.ml-\[28rem\] {
-  margin-left: 28rem;
 }
 .ml-\[2rem\] {
   margin-left: 2rem;

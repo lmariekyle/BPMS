@@ -15,7 +15,7 @@ class HouseholdSeeder extends Seeder
     public function run()
     {
         Households::create([
-            'sitioID' => '1',
+            'sitioID' => '2',
             'houseNumber' => '1'
         ]);
 
