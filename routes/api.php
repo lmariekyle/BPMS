@@ -30,6 +30,7 @@ use App\Models\Transaction;
 Route::get('/mobileLogin', 'App\Http\Controllers\Auth\AuthenticationAPIController@mobileLogin')->name('mobileLogin');
 
 Route::post('/sanctum/token', 'App\Http\Controllers\Auth\AuthenticationAPIController@sanctumLogin');
+Route::post('/sanctum/otp', 'App\Http\Controllers\Auth\AuthenticationAPIController@mobileOTP');
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
