@@ -91,7 +91,26 @@
                             </div>
                         </div>
                         
-                        <div class="w-[30px] h-[30px] float-left mt-8 ml-[28rem]">
+                        <div class="float-left bg-transparent h-16" style="margin-left: 90px;">
+                            <x-label for="year" :value="__('Year')" />
+                            <select id="year" class="rounded-lg border-2 mt-1 w-full bg-transparent" name="year" :value="old('year')" required autofocus>
+                                @foreach ($yearList as $year)
+                                    <option value="{{$year->year}}" class="bg-dirty-white">{{$year->year}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="float-left bg-transparent h-16" style="margin-left: 30px;">
+                            <x-label for="quarter" :value="__('Quarter')" />
+                            <select id="quarter" class="rounded-lg border-2 mt-1 w-full bg-transparent" name="quarter" :value="old('quarter')" required autofocus>
+                                <option value="1" class="bg-dirty-white">1</option>
+                                <option value="2" class="bg-dirty-white">2</option>
+                                <option value="3" class="bg-dirty-white">3</option>
+                                <option value="4" class="bg-dirty-white">4</option>
+                            </select>
+                        </div>
+
+                        <div class="w-[30px] h-[30px] float-right ml-[190px] mt-8">
                             <button class="" type="submit"><i class="fa-solid fa-filter text-deep-green text-[28px] self-end"></i></button>
                         </div>
                     </form>
@@ -99,7 +118,9 @@
                         <input name="sitio" type="hidden" value="{{$request->sitio}}"></input>
                         <input name="gender" type="hidden" value="{{$request->gender}}"></input>
                         <input name="ageclass" type="hidden" value="{{$request->ageclass}}"></input>
-                        <div class="w-[30px] h-[30px] mt-8">
+                        <input name="year" type="hidden" value="{{$request->year}}"></input>
+                        <input name="quarter" type="hidden" value="{{$request->quarter}}"></input>
+                        <div class="w-[30px] h-[30px] mt-8 mr-2">
                             <button type="submit" class="">
                                 <i class="fa-solid fa-print text-deep-green text-[28px]"></i>
                             </button>
@@ -109,7 +130,7 @@
 
                 <div class="flex flex-col bg-dirty-white h-max w-[1200px] px-4 ml-10 mt-[5rem]">
                     <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
-                        <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE {{ date("Y") }} CENSUS DATA</p>
+                        <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE CENSUS DATA</p>
                     </div>
 
 
@@ -164,7 +185,8 @@
                             <div class="w-[525px] h-[300px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyPiechart" style=""></div>
                             @endif
                         </div>
-
+                    </div>
+                    <div class="flex flex-row self-center space-x-8 mt-[4rem] mb-[4rem]">
                         <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
                             <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
                                 <h1 class="font-poppin text-[18px] text-dirty-white text-center">
@@ -199,27 +221,26 @@
                                 @endif
                             </div>
                         </div>
-                    </div>
-                    <div class="flex flex-row self-center space-x-8 mt-[4rem] mb-[4rem]">
-                        <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[1rem] py-10">
-                            <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-[4rem]">
-                                <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS AS OF {{ date("Y") }}</p>
+                        <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] py-10">
+                            <div>
+                                <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
+                                    <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS AS OF {{ date("Y") }}</p>
+                                </div>
+                                <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
+                                    <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
+                                        {{ $totalResidentCount }} RESIDENTS
+                                    </p>
+                                </div>-
                             </div>
-                            <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                                <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
-                                    {{ $totalResidentCount }} RESIDENTS
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[1rem] ml-[5rem] py-10">
-                            <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-[4rem]">
-                                <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS AS OF {{ date("Y") }}</p>
-                            </div>
-                            <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                                <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
-                                    {{ $totalHouseholdCount }} HOUSEHOLDS
-                                </p>
+                            <div class="mt-[1rem]">
+                                <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
+                                    <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS AS OF {{ date("Y") }}</p>
+                                </div>
+                                <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
+                                    <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
+                                        {{ $totalHouseholdCount }} HOUSEHOLDS
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
