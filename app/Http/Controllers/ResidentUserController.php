@@ -94,7 +94,7 @@ class ResidentUserController extends Controller
 
         $residents = Resident::all();
         $residents->makeVisible('firstName', 'middleName', 'lastName');
-        
+
         $check_res = $residents->first(function ($resident) use ($request) {
             return (
                 $resident->firstName == $request->firstname &&

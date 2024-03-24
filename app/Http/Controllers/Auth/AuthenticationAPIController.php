@@ -93,38 +93,39 @@ class AuthenticationAPIController extends Controller
             $resident = Resident::where('id', $user->residentID)->first();
             $user->username = $resident->firstName . ' ' . $resident->lastName;
             $response = ['user' => $user, 'token' => $token, 'success' => true];
-            return response()->json($response, 200);
+            return $this->authenticated($request, $user);
+            // return response()->json($response, 200);
         }else{
             $response = ['message' => 'Incorrect email or password', 'success' => false];
             return response()->json($response, 200);
         }
     }
 
-    public function mobileStore(LoginRequest $request)
+    protected function authenticated(Request $request, $user)
     {
-     
-        $request->authenticate();
-        $user = $request->user();
-
-        if (auth()->check() && (auth()->user()->userStatus == 'Archived')) {
-            $response = ['message' => 'Sorry, Account has been Archived.', 'success' => false];
-
-            return $response;
-        } else {  
-            return $this->authenticated($request, $user);
-        
+        # Trigger 2FA if necessary.
+        if (TwoFactorAuth::getDriver()->mustTrigger($request, $user)) {
+            return TwoFactorAuth::getDriver()->trigger($request, $user);
         }
-    }
 
-    // protected function authenticated(Request $request, $user)
+        # If not, do the usual job.
+        return redirect();
+    }  
+
+    // public function mobileStore(LoginRequest $request)
     // {
-    //     # Trigger 2FA if necessary.
-    //     if (TwoFactorAuth::getDriver()->mustTrigger($request, $user)) {
-    //         return TwoFactorAuth::getDriver()->trigger($request, $user);
-    //     }
+     
+    //     $request->authenticate();
+    //     $user = $request->user();
 
-    //     # If not, do the usual job.
-    //     return redirect()->intended(RouteServiceProvider::HOME);
-    // }  
+    //     if (auth()->check() && (auth()->user()->userStatus == 'Archived')) {
+    //         $response = ['message' => 'Sorry, Account has been Archived.', 'success' => false];
+
+    //         return $response;
+    //     } else {  
+    //         return $this->authenticated($request, $user);
+        
+    //     }
+    // }
 
 }
