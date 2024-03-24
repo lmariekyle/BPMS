@@ -2,6 +2,13 @@
 
 namespace App\Providers;
 
+use App\Listeners\SendNewTransactionNotification;
+use App\Listeners\SendProcessingNotification;
+use App\Listeners\SendSignatureNotification;
+use App\Listeners\SendSignedNotification;
+use App\Listeners\SendReleasedNotification;
+use App\Listeners\SendDenyNotification;
+use App\Listeners\SendAccountUpdateRequestNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -17,6 +24,11 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+            // SendNewTransactionNotification::class,
+            // SendProcessingNotification::class,
+            // SendSignatureNotification::class,
+            // SendSignedNotification::class,
+            // SendReleasedNotification::class,
         ],
     ];
 

@@ -33,7 +33,7 @@ class AccountMail extends Mailable
     public function build()
     {
         return $this
-        ->from('dbarangaypoblacion@gmail.com')
+        ->from('dbarangaypob@gmail.com')
         ->to($this->user->email)
         ->subject('Your Account is Ready!')
         ->markdown('emails.accountmail');

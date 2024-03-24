@@ -7,6 +7,8 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Hydrat\Laravel2FA\TwoFactorAuth;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -28,14 +30,41 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+     
         $request->authenticate();
+        $user = $request->user();
 
-        $request->session()->regenerate();
+        if (auth()->check() && (auth()->user()->userStatus == 'Archived')) {
+            Auth::guard('web')->logout();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            return Redirect::back()->with('error', 'Sorry, Account has been Archived.');
+        } else {  
+            $request->session()->regenerate();
+            
+            return $this->authenticated($request, $user);
+        
+        }
     }
 
-    /**
+    protected function authenticated(Request $request, $user)
+    {
+        # Trigger 2FA if necessary.
+        if (TwoFactorAuth::getDriver()->mustTrigger($request, $user)) {
+            return TwoFactorAuth::getDriver()->trigger($request, $user);
+        }
+
+        # If not, do the usual job.
+        return redirect()->intended(RouteServiceProvider::HOME);
+    }  
+
+
+
+
+    /** 
      * Destroy an authenticated session.
      *
      * @param  \Illuminate\Http\Request  $request

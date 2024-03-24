@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Requests\Auth;
-
+use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Hydrat\Laravel2FA\TwoFactorAuth;
+
 
 class LoginRequest extends FormRequest
 {
@@ -56,6 +58,18 @@ class LoginRequest extends FormRequest
         RateLimiter::clear($this->throttleKey());
     }
 
+    protected function authenticated(Request $request, $user)
+    {
+        # Trigger 2FA if necessary.
+        if (TwoFactorAuth::getDriver()->mustTrigger($request, $user)) {
+            return TwoFactorAuth::getDriver()->trigger($request, $user);
+        }
+
+        # If not, do the usual job.
+        return redirect()->intended($this->redirectPath());
+    }  
+
+
     /**
      * Ensure the login request is not rate limited.
      *
@@ -90,4 +104,5 @@ class LoginRequest extends FormRequest
     {
         return Str::lower($this->input('email')).'|'.$this->ip();
     }
+
 }

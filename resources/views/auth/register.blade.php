@@ -1,131 +1,137 @@
-<x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+    <x-page-layout>
+        <div class="absolute left-[33px] top-[49px] flex justify-start">
+            <a href="/accounts">
+                <i class="fa-sharp fa-solid fa-arrow-left text-3xl mt-4" style="color:#fdffee;"></i>
             </a>
-        </x-slot>
+            <p class="font-robotocondensed font-bold ml-[20px] text-dirty-white text-5xl">Account Registration</p>
+            <div class="ml-12 mt-3">
+                @include('components.flash')
+            </div>
+        </div>
+
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-        
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-        <script src="{{ asset('js/app.js') }}" defer></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('register') }}" class="font-robotocondensed text-xl" enctype="multipart/form-data">
             @csrf
 
+            <div class="absolute mt-[8rem] ml-14 w-[13rem] h-[8rem]">
+                <i class="fa-solid fa-image text-[200px] text-dirty-white"></i>
+                <div>
+                    <input id="profileImage" class="-mt-[5px] w-[15rem] h-[42px] px-2 py-2 text-center text-[14px] text-dirty-white file:w-[7rem] file:h-[42px]file:overflow-hidden file:bg-deep-green file:text-[14px] file:text-dirty-white file:font-robotocondensed file:cursor-pointer" type="file" name="profileImage" />
+                </div>
+            </div>
+
             <!-- Name -->
-            <div>
-                <x-label for="firstname" :value="__('First Name')" />
-
-                <x-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" :value="old('firstname')" required autofocus />
-            </div>
-
-            <div>
-                <x-label for="middlename" :value="__('Middle Name')" />
-
-                <x-input id="middlename" class="block mt-1 w-full" type="text" name="middlename" :value="old('middlename')" required autofocus />
-            </div>
-
-            <div>
-                <x-label for="lastname" :value="__('Last Name')" />
-    
-                <x-input id="lastname" class="block mt-1 w-full" type="text" name="lastname" :value="old('lastname')" required autofocus />
-            </div>
-
-            <div>
-                <x-label for="date_of_birth" :value="__('Date of Birth')" />
-
-                <x-input id="date_of_birth" class="block mt-1 w-full" type="date" name="date_of_birth" :value="old('date_of_birth')" required autofocus />
-            </div>
-
-            <div>
-                <x-label for="contactnumber" :value="__('Contact Number')" />
-
-                <x-input id="contactnumber" class="block mt-1 w-full" type="text" name="contactnumber" :value="old('contactnumber')" required autofocus />
-            </div>
-
-            <div>
-                <x-label for="barangay" :value="__('Barangay')" />
-
-                <x-input id="barangay" class="block mt-1 w-full" type="text" name="barangay" :value="'Poblacion'" required autofocus />
-            </div>
-
-            <div>
-                <x-label for="sitio" :value="__('Sitio')" />
-                <select id="sitio" class="block mt-1 w-full" name="sitio" :value="old('sitio')" required autofocus>
-                    <option value="Labangon">Labangon</option>
-                    <option value="Lalin">Lalin</option>
-                </select>
-                <!-- <x-input id="sitio" class="block mt-1 w-full" type="select" name="sitio" :value="old('sitio')" required autofocus /> -->
-            </div>
             @role('Admin')
-            <div>
-                <x-label for="userlevel" :value="__('Account Type')" />
-                <select id="userlevel" class="block mt-1 w-full" name="userlevel" :value="old('userlevel')" required autofocus>
-                    @foreach($roles as $role)
-                    <option value="{{$role->name}}">{{$role->name}}</option>
-                    @endforeach
-                </select>
-                <!-- <x-input id="sitio" class="block mt-1 w-full" type="select" name="sitio" :value="old('sitio')" required autofocus /> -->
-            </div>
-            @endrole
+            <!-- <div class="absolute left-[866px] top-[181px]">
+                    <x-label for="idNumber" :value="__('ID Number')" class="font-roboto text-xl" style="color:white;"/>
 
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <!-- Password -->
-            
-            <div class="mt-4">
-                <!-- <x-label for="password" :value="__('Password')" /> -->
-            <div class="input-group">
-                <x-input id="password" class="form-control hidden"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" 
-                />
-                <!-- <div>
-                    <button class="generate-password" type="button">Generate</button>
+                    <x-input id="idNumber" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="idNumber" :value="old('idNumber')" required autofocus />
                 </div> -->
-                <!-- <div>
-                    <button class="show-password" type="button">Show</button>
-                </div> -->
-            </div>
+            @endrole('Admin')
+
+            <div class="absolute left-[333px] top-[181px]">
+                <div class="-mt-6 mb-2">
+                    <p class="font-poppins font-light text-dirty-white text-[12px]">Fields with * are required fields.</p>
+                </div>
+                <div>
+                    <x-label for="firstname" :value="__('* First Name')" class="font-roboto text-xl" style="color:white;" />
+
+                    <x-input id="firstname" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="firstname" :value="old('name')" required autofocus />
+                </div>
+
+                <div>
+                    <x-label for="lastname" :value="__('* Last Name')" class="font-roboto text-xl" style="color:white;" />
+
+                    <x-input id="lastname" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="lastname" :value="old('lastname')" required autofocus />
+                </div>
+
+                <div>
+                    <x-label for="middlename" :value="__('Middle Name')" class="font-roboto text-xl" style="color:white;" />
+
+                    <x-input id="middlename" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="middlename" :value="old('middlename')" autofocus />
+                </div>
+
+                <!-- Email Address -->
+                <div>
+                    <x-label for="email" :value="__('* Email')" class="font-roboto text-xl" style="color:white;" />
+
+                    <x-input id="email" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="email" name="email" :value="old('email')" required />
+                </div>
+
+                <div>
+                    <x-label for="contactnumber" :value="__('* Contact Number')" class="font-roboto text-xl" style="color:white;" />
+
+                    <x-input id="contactnumber" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="contactnumber" :value="old('contactnumber')" required autofocus />
+                </div>
+
+                <div>
+                    <x-label for="dateOfBirth" :value="__('* Date of Birth')" class="font-roboto text-xl" style="color:white;" />
+
+                    <x-input id="dateOfBirth" class="block mb-4 w-52 h-[42px] bg-dirty-white" type="date" name="dateOfBirth" :value="old('dateOfBirth')" required autofocus />
+                </div>
             </div>
 
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <!-- <x-label for="password_confirmation" :value="__('Confirm Password')" /> -->
-            <div class="input-group">
-                <x-input id="password_confirmation" class="form-control hidden"
-                                type="password"
-                                name="password_confirmation" required />
-                <!-- <div>
-                    <button class="show-password" type="button">Show</button>
-                </div> -->
-            </div>
-            </div>
-<!-- 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a> -->
+            <div class="absolute left-[866px] top-[181px]">
+                <div>
+                    <x-label for="barangay" :value="__('* Barangay')" class="font-roboto text-xl" style="color:white;" />
 
-                <x-button class="generate-password">                 
-                    {{ __('Create Account') }}
-                </x-button>
+                    <x-input id="barangay" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="barangay" :value="'Poblacion'" readonly="readonly" required autofocus />
+                </div>
+
+                <div>
+                    <x-label for="sitio" :value="__('* Sitio')" class="font-roboto text-xl" style="color:white;" />
+                    <select id="sitio" class="block mb-4 w-[500px] h-[42px] bg-dirty-white rounded border-1" name="sitio" :value="old('sitio')" required autofocus>
+                        @foreach($sitios as $sitio)
+                        <option value="{{$sitio->id}}">{{$sitio->sitioName}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                @role('Admin')
+                <div>
+                    <x-label for="userlevel" :value="__('* Account Type')" class="font-roboto text-xl" style="color:white;" />
+                    <select id="userlevel" class="block mb-4 w-[500px] h-[42px] bg-dirty-white rounded border-1" name="userlevel" :value="old('userlevel')" required autofocus>
+                        @foreach($roles as $role)
+                        <option value="{{$role->name}}">{{$role->name}}</option>
+                        @endforeach
+
+                    </select>
+                </div>
+                @endrole
+
+
+
+                <div class="mt-4">
+                    <div class="input-group">
+                        <x-input id="password" class="form-control hidden" type="password" name="password" required autocomplete="new-password" />
+                    </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="mt-4">
+                    <div class="input-group">
+                        <x-input id="password_confirmation" class="form-control hidden" type="password" name="password_confirmation" required />
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <x-button class="text-base mt-8 bg-deep-green text-dirty-white border-0 l-12">
+                        <div class="generate-password">
+                            {{ __('Create Account') }}
+                        </div>
+                    </x-button>
+                </div>
             </div>
+
         </form>
 
         <script>
-            $(document).ready(function(){
-                
-                function generatePassword(){
+            $(document).ready(function() {
+
+                function generatePassword() {
                     let charset = document.getElementById('lastname').value;
                     let password = "poblacion";
                     password += charset;
@@ -133,25 +139,13 @@
                 }
 
                 // sets password input fields
-                $('.generate-password').on('click',function(){
+                $('.generate-password').on('click', function() {
                     let password = generatePassword();
 
                     $('#password').val(password);
                     $('#password_confirmation').val(password);
                 });
 
-                // //show/hide password
-                // $('.show-password').on('click',function(){
-                //     let passwordInput = $(this).closest('.input-group').find('input');
-                //     let passwordFieldType = passwordInput.attr('type');
-                //     let newPasswordFieldType = passwordFieldType == 'password' ? 'text' : 'password';
-                //     passwordInput.attr('type', newPasswordFieldType);
-                //     $(this).text(newPasswordFieldType == 'password' ? 'show' : 'Hide');
-                // });
-
             });
-
-
-
         </script>
-    </x-auth-card>
+    </x-page-layout>

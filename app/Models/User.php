@@ -10,10 +10,19 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\Resident;
+use App\Models\Sitio;
+use App\Notifications\NewResetPasswordNotification;
+use Hydrat\Laravel2FA\TwoFactorAuthenticatable;
+use Hydrat\Laravel2FA\Contracts\TwoFactorAuthenticatableContract;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail, TwoFactorAuthenticatableContract
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, TwoFactorAuthenticatable;
+
+    public function sendPasswordResetNotification($token){
+        $this->notify(new NewResetPasswordNotification($token));
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -21,16 +30,22 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'firstname',
-        'middlename',
-        'lastname',
-        'date_of_birth',
-        'contactnumber',
+        'residentID',
+        'idNumber',
+        'profileImage',
+        'userlevel',
+        'contactNumber',
         'barangay',
-        'sitio',
+        'sitioID',
         'email',
         'password',
+        'assignedSitioID',
+        'revisedBy',
+        // 'code',
+        // 'otp_expired_at',
     ];
+
+    // public $incrementing = false;
 
     /**
      * The attributes that should be hidden for serialization.
@@ -39,7 +54,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-    'remember_token',
+        'remember_token',
     ];
 
     /**
@@ -50,4 +65,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function resident()
+    {
+        return $this->belongsTo(Resident::class, 'residentID', 'id');
+    }
+
+    public function transactionuser()
+    {
+        return $this->hasOne(Transaction::class, 'userID');
+    }
+    // public function sitio(){
+    //     return $this->belongsTo(Sitio::class);
+    // }
+
+    // public function generateCode(){
+    //     $this->timestamps = false;
+    //     $this->code = rand(1000,9999);
+    //     $this->otp_expired_at = now()->addMinute(10);
+    //     $this->save();
+    // }
 }
