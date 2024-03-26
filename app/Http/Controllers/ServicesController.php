@@ -281,8 +281,10 @@ class ServicesController extends Controller
         $transaction = Transaction::where('id', $id)->first();
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first();
 
-        $check_res = DB::table('residents')
-        ->where('firstName', '=', $requestee->requesteeFName)
+        $residents = Resident::all();
+        $residents->makeVisible('firstName', 'middleName', 'lastName');
+
+        $check_res = $residents->where('firstName', '=', $requestee->requesteeFName)
         ->where('middleName', '=', $requestee->requesteeMName)
         ->where('lastName', '=', $requestee->requesteeLName)
         ->first();
