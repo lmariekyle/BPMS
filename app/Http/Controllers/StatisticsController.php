@@ -530,7 +530,7 @@ class StatisticsController extends Controller
         //Two ways: 
         //1. If the statitics information is NOT found
         //2. The statistics information exists, BUT has no resident/households recorded (i.e. 0)
-        if ($statCheck == NULL || ($statCheck->totalResidentsBarangay == 0 || $statCheck->totalHouseholdsBarangay == 0)){
+        if ($statCheck == NULL || ($statCheck->totalResidentsBarangay <= 0 || $statCheck->totalHouseholdsBarangay <= 0)){
             $householdCount = "";
             $totalHouseholdCount = 0; 
             $residentCount = "";
@@ -562,7 +562,7 @@ class StatisticsController extends Controller
                 })
                     ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
                     ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
-                    ->where('sitio_counts.statID', $statID)
+                    ->where('sitio_counts.statID', $statCheck->id)
                     ->where('sitio_counts.sitioID', $filterSitio)
                     ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
                     ->where('sitio_counts.ageGroup', 'LIKE', "%$filterAgeGroup%")->where('sitio_counts.ageGroup', '!=', '--')
@@ -573,7 +573,7 @@ class StatisticsController extends Controller
                 })
                     ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
                     ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
-                    ->where('sitio_counts.statID', $statID)
+                    ->where('sitio_counts.statID', $statCheck->id)
                     ->where('sitio_counts.sitioID', 'LIKE', "%$filterSitio%")
                     ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
                     ->where('sitio_counts.ageGroup', 'LIKE', "%$filterAgeGroup%")->where('sitio_counts.ageGroup', '!=', '--')
@@ -593,7 +593,7 @@ class StatisticsController extends Controller
             $totalHouseholdCount = 0;
     
             //puts the household info ahead
-            $maxValueHousehold = DB::table('sitio_counts')->where('statID',$statID)
+            $maxValueHousehold = DB::table('sitio_counts')->where('statID',$statCheck->id)
                                                           ->where('genderGroup', '=', '--')
                                                           ->where('ageGroup', '=', '--')
                                                           ->max('sitioID');
@@ -602,7 +602,7 @@ class StatisticsController extends Controller
     
             while ($indexHousehold <= $maxValueHousehold) {
                 $sitioName = Sitio::where('id', $indexHousehold)->value('sitioName');
-                $sumHousehold = DB::table('sitio_counts')->where('statID', $statID)
+                $sumHousehold = DB::table('sitio_counts')->where('statID', $statCheck->id)
                                                          ->where('sitioID', $indexHousehold)
                                                          ->where('genderGroup', '=', '--')
                                                          ->where('ageGroup', '=', '--')
@@ -612,7 +612,7 @@ class StatisticsController extends Controller
                 $indexHousehold++;
             }
     
-            $totalHouseholdCount = DB::table('sitio_counts')->where('statID', $statID)
+            $totalHouseholdCount = DB::table('sitio_counts')->where('statID', $statCheck->id)
                                                             ->where('genderGroup', '=', '--')
                                                             ->where('ageGroup', '=', '--')
                                                             ->sum('residentCount');
@@ -621,7 +621,7 @@ class StatisticsController extends Controller
                 $householdCount = array();
     
                 $sitioName = Sitio::where('id', $filterSitio)->value('sitioName');
-                $sumHousehold = DB::table('sitio_counts')->where('statID', $statID)
+                $sumHousehold = DB::table('sitio_counts')->where('statID', $statCheck->id)
                                                          ->where('sitioID', $filterSitio)
                                                          ->value('residentCount');
                 $householdCount[] = array('sitio' => $sitioName, 'houseCount' => $sumHousehold);
