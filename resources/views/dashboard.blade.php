@@ -143,7 +143,7 @@
                                     @elseif ($request->sitio=="NULL")
                                     TOTAL RESIDENTS PER SITIO
                                     @else
-                                    RESIDENTS IN {{ $upperCaseSitio }}
+                                    RESIDENTS IN {{ $nameSitio }}
                                     @endif
                                 </h1>
                             </div>
@@ -195,20 +195,15 @@
                                     @elseif ($request->sitio=="NULL")
                                     TOTAL HOUSEHOLDS PER SITIO
                                     @else
-                                    HOUSEHOLDS IN {{ $upperCaseSitio }}
+                                    HOUSEHOLDS IN {{ $nameSitio }}
                                     @endif
                                 </h1>
                             </div>
                             <div class="">
-                                @if(isset($request->gender) || isset($request->ageclass) && $totalHouseholdCount>0)
+                                @if((isset($request->gender) || isset($request->ageclass)) && $totalHouseholdCount>0)
                                 @if($request->gender=="NULL" && $request->ageclass=="NULL")
                                 <div class="w-[525px] h-[300px] mt-2 mx-auto" id="householdPiechart"></div>
                                 <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
-                                <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end ml-8 w-80 text-justify">
-                                    <p class="py-1">
-                                        Hover over the colors in the legend to highlight the different Sitios of the Barangay.
-                                    </p>
-                                </div>
                                 @else
                                 <div class="w-[525px] h-[324px] mt-2 px-2 flex items-center justify-center">
                                     <p class="text-xl font-robotocondensed w-80 text-center text-deep-green">

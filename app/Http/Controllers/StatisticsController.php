@@ -24,24 +24,13 @@ class StatisticsController extends Controller
         $currentYear = date('Y');
         $currentDate = date('m-d');
 
-        //Establishes the static dates for determining the quarter to be used
-        //Q = quarter | B = start or beginning | E = end
-        $dateQoneB = '01-01';
-        $dateQoneE = '03-31';
-        $dateQtwoB = '04-01';
-        $dateQtwoE = '06-30';
-        $dateQthreeB = '07-01';
-        $dateQthreeE = '09-30';
-        //no need to make for quarter 4 because if such case happens, it implies that the current date provided
-        //is later than the three comparisons done
-
-        if($currentDate >= $dateQoneB && $currentDate <= $dateQoneE){
+        if($currentDate >= '01-01' && $currentDate <= '03-31'){
         //if currentDatetime is between Jan 1 and March 31
             $currentQuarter = 1;
-        } else if($currentDate >= $dateQtwoB && $currentDate <= $dateQtwoE){
+        } else if($currentDate >= '04-01' && $currentDate <= '06-30'){
         //if currentDatetime is between April 1 and June 30
             $currentQuarter = 2;
-        } else if($currentDate >= $dateQthreeB && $currentDate <= $dateQthreeE){
+        } else if($currentDate >= '07-01' && $currentDate <= '09-30'){
         //if currentDatetime is between July 1 and September 30
             $currentQuarter = 3;
         } else {
@@ -124,11 +113,11 @@ class StatisticsController extends Controller
         //Resident
         $dataResident = "";
 
+        //gets the highest value of sitioID (this is the limit of how many Sitios in Poblacion there are currently)
         $maxValueResident = DB::table('sitio_counts')->where('statID', $statistics->id)
                                                      ->where('genderGroup', '!=', '--')
                                                      ->where('ageGroup', '!=', '--')
                                                      ->max('sitioID');
-        //maxValue gets the value from the sitio_counts table that HAS at least 1 resident the highest sitioID recorded
 
         $indexResident = 2;
         //index starts at 2 because 1 is the sitioFiller option
@@ -206,12 +195,11 @@ class StatisticsController extends Controller
         $statistics->totalHouseholdsBarangay = $totalHouseholdCount;
         $statistics->save();
 
-        return view('welcome', compact('statistics', 'chartdataResident', 'chartdataHousehold', 'SitioCounts'));
+        return view('welcome', compact('statistics', 'chartdataResident', 'chartdataHousehold'));
     }
 
     public function landingpage()
     {
-        //Gets the statistic data that is the most recently added
         //Gets the statistic data that is the most recently added
         $currentYear = date('Y');
         $currentDate = date('m-d');
@@ -347,16 +335,16 @@ class StatisticsController extends Controller
         $nameSitio = "";
 
         if ($request['sitio'] != "NULL") {
-            $nameSitio = Sitio::where('id', $filterSitio)->value('sitioName');
+            $nameSitio = strtoupper(Sitio::where('id', $request['sitio'])->value('sitioName'));
         }
 
-        $upperCaseSitio = strtoupper($nameSitio);
-
+        //When the user tries to get data that does NOT exist (statID is Null)
         if (is_null($statID)){
             $totalHouseholdCount = 0; 
             $totalResidentCount = 0;
             $chartdataHousehold = ""; 
             $chartdataResident = "";
+        //Otherwise (statID is NOT Null)
         }else{
             //checks if there is a value in the form inputs
             if ($request['sitio'] != "NULL") {
@@ -379,54 +367,88 @@ class StatisticsController extends Controller
 
             //-------------------------------------
 
-            //get rid of duplicates since previous statement uses LIKE on filterSitio
-            if ($request['sitio'] != "NULL") {
-                $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
-                    $join->on('sitio_counts.sitioID', "=", 'sitios.id');
-                })
-                    ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
-                    ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
-                    ->where('sitio_counts.statID', $statID)
-                    ->where('sitio_counts.sitioID', $filterSitio)
-                    ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
-                    ->where('sitio_counts.ageGroup', 'LIKE', "%$filterAgeGroup%")->where('sitio_counts.ageGroup', '!=', '--')
-                    ->get();
-            //otherwise
-            }else{
-                $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
-                    $join->on('sitio_counts.sitioID', "=", 'sitios.id');
-                })
-                    ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
-                    ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
-                    ->where('sitio_counts.statID', $statID)
-                    ->where('sitio_counts.sitioID', 'LIKE', "%$filterSitio%")
-                    ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
-                    ->where('sitio_counts.ageGroup', 'LIKE', "%$filterAgeGroup%")->where('sitio_counts.ageGroup', '!=', '--')
-                    ->get();
-            }
-
-            //Inputs all the data into the array for the Resident Pie Chart
             $dataResident = "";
 
-            $indexResident = 2;
-            //index starts at 2 because 1 is the sitioFiller option
+            //When the user didn't select any Sitio in the options
+            if ($filterSitio == "") {
+                //When the user didn't select any Age Group in the options
+                if ($filterAgeGroup == ""){
+                    $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
+                        $join->on('sitio_counts.sitioID', "=", 'sitios.id');
+                    })
+                        ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                        ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                        ->where('sitio_counts.statID', $statID)
+                        ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
+                        ->where('sitio_counts.ageGroup', '!=', '--')
+                        ->get();
+                //Otherwise (Age Group)
+                }else{
+                    $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
+                        $join->on('sitio_counts.sitioID', "=", 'sitios.id');
+                    })
+                        ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                        ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                        ->where('sitio_counts.statID', $statID)
+                        ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
+                        ->where('sitio_counts.genderGroup', '=', $filterAgeGroup)->where('sitio_counts.ageGroup', '!=', '--')
+                        ->get(); 
+                }
 
-            $maxValueResident = DB::table('sitio_counts')->where('statID', $statID)
-                                                        ->where('genderGroup', '!=', '--')
-                                                        ->where('ageGroup', '!=', '--')
-                                                        ->where('residentCount','>',0)
-                                                        ->max('sitioID');
+                //maxValue gets the value from the sitio_counts table that HAS at least 1 resident the highest sitioID recorded
+                $maxValueResident = DB::table('sitio_counts')->where('statID', $statID)
+                                                     ->where('genderGroup', '!=', '--')
+                                                     ->where('ageGroup', '!=', '--')
+                                                     ->max('sitioID');
 
-            //adds information for the Pie Chart for Resident
-            while ($indexResident <= $maxValueResident) {
-                $sitioName = Sitio::where('id', $indexResident)->value('sitioName');
-                $sumRes = DB::table('sitio_counts')->where('sitioID', $indexResident)
-                                                ->where('statID',$statID)
-                                                ->where('genderGroup', '!=', '--')
-                                                ->where('ageGroup', '!=', '--')
-                                                ->sum('residentCount');
-                $dataResident .= "['$sitioName'," . $sumRes . "],";
-                $indexResident++;
+                //index starts at 2 because 1 is a sitioFiller option (i.e. No option)
+                $indexResident = 2;
+
+                //adds information for the Pie Chart for Resident
+                while ($indexResident <= $maxValueResident) {
+                    $sumRes = 0;
+                    $sitioName = Sitio::where('id', $indexResident)->value('sitioName');
+                    foreach($residentCount as $resCount){
+                        if ($resCount->sitioID == $indexResident){
+                            $sumRes = $sumRes + $resCount->residentCount;
+                        }
+                    }
+                    $dataResident .= "['$sitioName'," . $sumRes . "],";
+                    $indexResident++;
+                }
+            //Otherwise (Sitio)
+            }else{
+                //When the user didn't select any Age Group in the options
+                if ($filterAgeGroup == ""){
+                    $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
+                        $join->on('sitio_counts.sitioID', "=", 'sitios.id');
+                    })
+                        ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                        ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                        ->where('sitio_counts.statID', $statID)
+                        ->where('sitio_counts.sitioID', '=', $filterSitio)
+                        ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
+                        ->where('sitio_counts.ageGroup', '!=', '--')
+                        ->get();
+                //Otherwise (Age Group)
+                }else{
+                    $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
+                        $join->on('sitio_counts.sitioID', "=", 'sitios.id');
+                    })
+                        ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                        ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                        ->where('sitio_counts.statID', $statID)
+                        ->where('sitio_counts.sitioID', '=', $filterSitio)
+                        ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
+                        ->where('sitio_counts.ageGroup', '=', $filterAgeGroup)->where('sitio_counts.ageGroup', '!=', '--')
+                        ->get();
+                }
+                //Since the user selected a Sitio, it will display each row of the data, instead of combining them per Sitio
+                foreach ($residentCount as $resCount) {
+                    $sitioName = Sitio::where('id', $resCount->sitioID)->value('sitioName');
+                    $label = $sitioName . ' (' . $resCount->genderGroup . ' - ' . $resCount->ageGroup . ')';
+                    $dataResident .= "['$label'," . $resCount->residentCount . "],";
+                }
             }
 
             $chartdataResident = $dataResident;
@@ -442,52 +464,54 @@ class StatisticsController extends Controller
 
             //Household
             $dataHousehold = "";
-
             $totalHouseholdCount = 0;
 
-            //puts the household info ahead
-            $maxValueHousehold = DB::table('sitio_counts')->where('statID',$statID)
-                                                        ->where('genderGroup', '=', '--')
-                                                        ->where('ageGroup', '=', '--')
-                                                        ->max('sitioID');
+            //When the user didn't select both Gender and Age Group in the options
+            if ($filterGender == "" && $filterAgeGroup == "") {
+                //When the user didn't select any Sitio in the options
+                if ($filterSitio == "") {
+                    //puts the household info ahead
+                    $maxValueHousehold = DB::table('sitio_counts')->where('statID',$statID)
+                                                                  ->where('genderGroup', '=', '--')
+                                                                  ->where('ageGroup', '=', '--')
+                                                                  ->max('sitioID');
 
-            $indexHousehold = 2;
-
-            //checks if gender and age has any value, if they have any then resets the dataHousehold
-            if ($request['gender'] != "NULL" && $request['ageClass'] != "NULL") {
-                $dataHousehold = "";
-                $totalHouseholdCount = 0;
-            }else{
-                //checks if sitio has value, if there is then replaces the data in dataHousehold
-                if ($request['sitio'] != "NULL") {
-                $householdCount = DB::table('sitio_counts')->where('sitioID', $filterSitio)->value('residentCount');
-
-                $label = Sitio::where('id', $filterSitio)->value('sitioName');
-
-                $dataHousehold = "['" . $label . "'," . $householdCount . "]";
-
-                $totalHouseholdCount = $householdCount;
-                //no filters for these 3 (Sitio, Age Group, Gender Group) are selected
-                }else{
+                    $indexHousehold = 2;
                     while ($indexHousehold <= $maxValueHousehold) {
                         $sitioName = Sitio::where('id', $indexHousehold)->value('sitioName');
                         $sumHousehold = DB::table('sitio_counts')->where('sitioID', $indexHousehold)
-                                                                ->where('statID', $statID)
-                                                                ->where('genderGroup', '=', '--')
-                                                                ->where('ageGroup', '=', '--')
-                                                                ->value('residentCount');
+                                                                 ->where('statID', $statID)
+                                                                 ->where('genderGroup', '=', '--')
+                                                                 ->where('ageGroup', '=', '--')
+                                                                 ->value('residentCount');
                         $dataHousehold .= "['$sitioName'," . $sumHousehold . "],";
-            
+                
                         $indexHousehold++;
                     }
-            
+                
                     $totalHouseholdCount = Statistics::where('id', $statID)->value('totalHouseholdsBarangay');
+                //No filters for these 3 (Sitio, Age Group, Gender Group) are selected
+                }else{
+                    $householdCount = DB::table('sitio_counts')->where('sitioID', $filterSitio)
+                                                               ->where('statID', $statID)
+                                                               ->where('genderGroup', '=', '--')
+                                                               ->where('ageGroup', '=', '--')
+                                                               ->value('residentCount');
+                    if($householdCount == NULL){
+                        $householdCount = 0;
+                    }else{       
+                        $totalHouseholdCount = $householdCount;
+                        $label = Sitio::where('id', $filterSitio)->value('sitioName');
+                        $dataHousehold = "['" . $label . "'," . $householdCount . "]";
+                    }
+
+                    
                 }
-            }
+            }//No need to make an else statement if otherwise (Gender and Age Group) because it is already initialized above
 
             $chartdataHousehold = $dataHousehold;
         }
-        return view('dashboard', compact('documents', 'totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'yearList', 'request', 'upperCaseSitio'));
+        return view('dashboard', compact('documents', 'totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'yearList', 'request', 'nameSitio'));
     }
 
     public function exportpdf(Request $request)
@@ -496,15 +520,22 @@ class StatisticsController extends Controller
 
         $quarterFilter = $request['quarter'];
 
-        $statID = Statistics::where('year', $yearFilter)->where('quarter', $quarterFilter)->value('id');
+        $statCheck = Statistics::where('year', $yearFilter)->where('quarter', $quarterFilter)->first();
 
-        $check = Statistics::where('id',$statID)->first();
+        $nameSitio = "";
+        if ($request['sitio'] != "NULL") {
+            $nameSitio = Sitio::where('id', $request['sitio'])->value('sitioName');
+        }
 
-        if (is_null($statID) || ($check->totalResidentsBarangay == 0 || $check->totalHouseholdsBarangay == 0)){
+        //Two ways: 
+        //1. If the statitics information is NOT found
+        //2. The statistics information exists, BUT has no resident/households recorded (i.e. 0)
+        if ($statCheck == NULL || ($statCheck->totalResidentsBarangay == 0 || $statCheck->totalHouseholdsBarangay == 0)){
             $householdCount = "";
             $totalHouseholdCount = 0; 
             $residentCount = "";
             $totalResidentCount = 0;
+        //Otherwise (Both conditions are false)
         }else{
             if ($request['sitio'] != "NULL") {
                 $filterSitio = $request['sitio'];
@@ -554,10 +585,6 @@ class StatisticsController extends Controller
     
             foreach ($residentCount as $resCount) {
                 $totalResidentCount = $totalResidentCount + $resCount->residentCount;
-            }
-    
-            if ($request['sitio'] != "NULL") {
-                $request['sitio'] = Sitio::where('id', $filterSitio)->value('sitioName');
             }
     
             //Household
@@ -607,7 +634,7 @@ class StatisticsController extends Controller
             }
         }
 
-        $pdf = PDF::loadView('pdf.reports', compact('householdCount', 'totalHouseholdCount', 'residentCount', 'totalResidentCount', 'request'));
+        $pdf = PDF::loadView('pdf.reports', compact('householdCount', 'totalHouseholdCount', 'residentCount', 'totalResidentCount', 'request', 'nameSitio'));
         return $pdf->stream('reports.pdf');
     }
 }
