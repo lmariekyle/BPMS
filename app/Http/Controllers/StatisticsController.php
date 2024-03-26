@@ -555,18 +555,21 @@ class StatisticsController extends Controller
                 $filterAgeGroup = "";
             }
     
-            //get rid of duplicates since previous statement uses LIKE on filterSitio
-            if ($request['sitio'] != "NULL") {
+            //-------------------------------------
+            
+            //Resident
+            //When the user didn't select any Sitio in the options
+            if ($filterSitio == "") {
                 $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
                     $join->on('sitio_counts.sitioID', "=", 'sitios.id');
                 })
                     ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
                     ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
                     ->where('sitio_counts.statID', $statCheck->id)
-                    ->where('sitio_counts.sitioID', $filterSitio)
                     ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
                     ->where('sitio_counts.ageGroup', 'LIKE', "%$filterAgeGroup%")->where('sitio_counts.ageGroup', '!=', '--')
                     ->get();
+            //Otherwise (Sitio)
             }else{
                 $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
                     $join->on('sitio_counts.sitioID', "=", 'sitios.id');
@@ -574,7 +577,7 @@ class StatisticsController extends Controller
                     ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
                     ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
                     ->where('sitio_counts.statID', $statCheck->id)
-                    ->where('sitio_counts.sitioID', 'LIKE', "%$filterSitio%")
+                    ->where('sitio_counts.sitioID', $filterSitio)
                     ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
                     ->where('sitio_counts.ageGroup', 'LIKE', "%$filterAgeGroup%")->where('sitio_counts.ageGroup', '!=', '--')
                     ->get();
@@ -588,50 +591,50 @@ class StatisticsController extends Controller
             }
     
             //Household
-            $dataHousehold = "";
-    
+            $householdCount = array();
             $totalHouseholdCount = 0;
     
-            //puts the household info ahead
-            $maxValueHousehold = DB::table('sitio_counts')->where('statID',$statCheck->id)
-                                                          ->where('genderGroup', '=', '--')
-                                                          ->where('ageGroup', '=', '--')
-                                                          ->max('sitioID');
+            //Household data is added when BOTH Gender and Age Group filters are NOT selected
+            if ($filterGender == "" && $filterAgeGroup == "") {
+                //When the user didn't select any Sitio in the options
+                if ($filterSitio == "") {
+                    //puts the household info ahead
+                    $maxValueHousehold = DB::table('sitio_counts')->where('statID',$statCheck->id)
+                                                                  ->where('genderGroup', '=', '--')
+                                                                  ->where('ageGroup', '=', '--')
+                                                                  ->max('sitioID');
+
+                    $indexHousehold = 2;
+
+                    while ($indexHousehold <= $maxValueHousehold) {
+                    $sitioName = Sitio::where('id', $indexHousehold)->value('sitioName');
+                    $sumHousehold = DB::table('sitio_counts')->where('statID', $statCheck->id)
+                                                             ->where('sitioID', $indexHousehold)
+                                                             ->where('genderGroup', '=', '--')
+                                                             ->where('ageGroup', '=', '--')
+                                                             ->value('residentCount');
+                    $householdCount[] = array('sitio' => $sitioName, 'houseCount' => $sumHousehold);
+                    $indexHousehold++;
+                    }
+
+                    $totalHouseholdCount = DB::table('sitio_counts')->where('statID', $statCheck->id)
+                                        ->where('genderGroup', '=', '--')
+                                        ->where('ageGroup', '=', '--')
+                                        ->sum('residentCount');
+                //Otherwise (Sitio)
+                }else{
+                    $householdCount = array();
     
-            $indexHousehold = 2;
-    
-            while ($indexHousehold <= $maxValueHousehold) {
-                $sitioName = Sitio::where('id', $indexHousehold)->value('sitioName');
-                $sumHousehold = DB::table('sitio_counts')->where('statID', $statCheck->id)
-                                                         ->where('sitioID', $indexHousehold)
-                                                         ->where('genderGroup', '=', '--')
-                                                         ->where('ageGroup', '=', '--')
-                                                         ->value('residentCount');
-                $householdCount[] = array('sitio' => $sitioName, 'houseCount' => $sumHousehold);
-    
-                $indexHousehold++;
-            }
-    
-            $totalHouseholdCount = DB::table('sitio_counts')->where('statID', $statCheck->id)
-                                                            ->where('genderGroup', '=', '--')
-                                                            ->where('ageGroup', '=', '--')
-                                                            ->sum('residentCount');
-    
-            if ($request['sitio'] != "NULL") {
-                $householdCount = array();
-    
-                $sitioName = Sitio::where('id', $filterSitio)->value('sitioName');
-                $sumHousehold = DB::table('sitio_counts')->where('statID', $statCheck->id)
-                                                         ->where('sitioID', $filterSitio)
-                                                         ->value('residentCount');
-                $householdCount[] = array('sitio' => $sitioName, 'houseCount' => $sumHousehold);
-                $totalHouseholdCount = $sumHousehold;
-            }
-    
-            if ($request['gender'] != "NULL" && $request['ageClass'] != "NULL") {
-                $householdCount = array();
-                $totalHouseholdCount = 0;
-            }
+                    $sitioName = Sitio::where('id', $filterSitio)->value('sitioName');
+                    $sumHousehold = DB::table('sitio_counts')->where('statID', $statCheck->id)
+                                                             ->where('sitioID', $filterSitio)
+                                                             ->where('genderGroup', '=', '--')
+                                                             ->where('ageGroup', '=', '--')
+                                                             ->value('residentCount');
+                    $householdCount[] = array('sitio' => $sitioName, 'houseCount' => $sumHousehold);
+                    $totalHouseholdCount = $sumHousehold;
+                }
+            }//No need to make an else statement if otherwise (Gender and Age Group) because it is already initialized above
         }
 
         $pdf = PDF::loadView('pdf.reports', compact('householdCount', 'totalHouseholdCount', 'residentCount', 'totalResidentCount', 'request', 'nameSitio'));
