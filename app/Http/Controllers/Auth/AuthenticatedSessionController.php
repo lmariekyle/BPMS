@@ -45,7 +45,12 @@ class AuthenticatedSessionController extends Controller
         } else {  
             $request->session()->regenerate();
             
-            return $this->authenticated($request, $user);
+            if (auth()->check() && (auth()->user()->userLevel == 'User')){
+                return redirect()->intended(RouteServiceProvider::HOME);
+            }else{
+                return $this->authenticated($request, $user);
+            }
+            
         
         }
     }
