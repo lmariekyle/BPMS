@@ -10,7 +10,7 @@ use App\Models\Households;
 use App\Models\Resident;
 use App\Models\ResidentList;
 
-use Barryvdh\DomPDF\Facade\PDF;
+use PDF;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
