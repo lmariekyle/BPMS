@@ -369,63 +369,63 @@
         <!-- end of body content -->
 
         <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Function to initialize a slider
-        function initializeSlider(sliderID) {
-            let currentSlideID = 1;
-            let sliderElement = document.getElementById(sliderID);
-            let totalSlides = sliderElement ? sliderElement.childElementCount : 0;
-            console.log(`Slider ID: ${sliderID}`);
-        console.log(`Total Slides: ${totalSlides}`);
+        document.addEventListener("DOMContentLoaded", function () {
+            // Function to initialize a slider
+            function initializeSlider(sliderID) {
+                let currentSlideID = 1;
+                let sliderElement = document.getElementById(sliderID);
+                let totalSlides = sliderElement ? sliderElement.childElementCount : 0;
+                console.log(`Slider ID: ${sliderID}`);
+            console.log(`Total Slides: ${totalSlides}`);
 
-            if (sliderElement) {
-                // Get references to the buttons for this slider
-                let prevButton = document.getElementById(`prevButton${sliderID}`);
-                let nextButton = document.getElementById(`nextButton${sliderID}`);
+                if (sliderElement) {
+                    // Get references to the buttons for this slider
+                    let prevButton = document.getElementById(`prevButton${sliderID}`);
+                    let nextButton = document.getElementById(`nextButton${sliderID}`);
 
 
-                if (prevButton && nextButton) {
-                    prevButton.addEventListener('click', prev);
-                    nextButton.addEventListener('click', next);
-                }
-
-                function next() {
-                    console.log('Next button clicked');
-                    if (currentSlideID < totalSlides) {
-                        currentSlideID++;
-                        showSlide();
+                    if (prevButton && nextButton) {
+                        prevButton.addEventListener('click', prev);
+                        nextButton.addEventListener('click', next);
                     }
-                }
 
-                function prev() {
-                    console.log('prev button clicked');
-                    if (currentSlideID > 1) {
-                        currentSlideID--;
-                        showSlide();
+                    function next() {
+                        console.log('Next button clicked');
+                        if (currentSlideID < totalSlides) {
+                            currentSlideID++;
+                            showSlide();
+                        }
                     }
-                }
 
-                function showSlide() {
-                    slides = sliderElement.getElementsByTagName('li');
-                    for (let index = 0; index < totalSlides; index++) {
-                        const element = slides[index];
-                        if (currentSlideID === index + 1) {
-                            element.classList.remove('hidden');
-                        } else {
-                            element.classList.add('hidden');
+                    function prev() {
+                        console.log('prev button clicked');
+                        if (currentSlideID > 1) {
+                            currentSlideID--;
+                            showSlide();
+                        }
+                    }
+
+                    function showSlide() {
+                        slides = sliderElement.getElementsByTagName('li');
+                        for (let index = 0; index < totalSlides; index++) {
+                            const element = slides[index];
+                            if (currentSlideID === index + 1) {
+                                element.classList.remove('hidden');
+                            } else {
+                                element.classList.add('hidden');
+                            }
                         }
                     }
                 }
             }
-        }
 
-        // Initialize each slider
-        initializeSlider('slider1');
-        initializeSlider('slider2');
-        initializeSlider('slider3');
-        // Initialize more sliders as needed
-    });
-</script>
+            // Initialize each slider
+            initializeSlider('slider1');
+            initializeSlider('slider2');
+            initializeSlider('slider3');
+            // Initialize more sliders as needed
+        });
+        </script>
 
 
 

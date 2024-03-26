@@ -77,7 +77,7 @@
         <h3>
             Sitio:
                 @if($request->sitio != "NULL")
-                {{ $request->sitio }}
+                {{ $nameSitio }}
                 @else
                 ALL 
                 @endif
