@@ -199,7 +199,7 @@
                                 </h1>
                             </div>
                             <div class="">
-                                @if((isset($request->gender) || isset($request->ageclass)) && $totalHouseholdCount>0)
+                                @if(($request->sitio || $request->gender || $request->ageclass) || $totalHouseholdCount>0)
                                     @if($request->gender=="NULL" && $request->ageclass=="NULL")
                                     <div class="w-[525px] h-[300px] mt-2 mx-auto" id="householdPiechart"></div>
                                         @if($request->sitio=="NULL")
@@ -213,11 +213,11 @@
                                     @else
                                     <div class="w-[525px] h-[324px] mt-2 px-2 flex items-center justify-center">
                                         <p class="text-xl font-robotocondensed w-80 text-center text-deep-green">
-                                            Since Age/Gender filters are applied or there are no Households present in the Sitio, Household Information is unavailable.
+                                            Since Age/Gender filters are applied, Household Information is unavailable.
                                         </p>
                                     </div>
                                     @endif
-                                @else
+                                @elseif ($totalHouseholdCount<=0)
                                 <div class="w-[525px] h-[300px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyTwochart"></div>
                                 @endif
                             </div>
