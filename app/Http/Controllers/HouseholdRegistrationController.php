@@ -96,6 +96,8 @@ class HouseholdRegistrationController extends Controller
                     'philHealthNumber'=>$resident['philHealthNumber'],
                     'occupation'=>$resident['occupation'],
                     'monthlyIncome'=>$resident['monthlyIncome'],
+                    'familyRole'=>$resident['familyRole'],
+                    'educationalAttainment'=>$resident['educationalAttainment'],
                     'ageClassification'=>$resident['ageClassification'],
                     'pregnancyClassification'=>$resident['pregnancyClassification'],
                     'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
@@ -123,7 +125,6 @@ class HouseholdRegistrationController extends Controller
 
         
         $count = 1;
-        $head = false;
 
         foreach ($request->members as $resident) {
 
@@ -133,13 +134,6 @@ class HouseholdRegistrationController extends Controller
             ->where('dateOfBirth', $resident['dateOfBirth'])
             ->first();
             
-            if($count==1){
-                $head=true;
-            }else{
-                $head=false;
-            }
-            
-        
             $connect=new ResidentList();
             
             $connect->fill([
@@ -147,7 +141,6 @@ class HouseholdRegistrationController extends Controller
                 'houseID'=>$memHouse['id'],
 
                 'houseNumber'=>$memHouse['houseNumber'], //to accomodate for the multiple households
-                'householdHead'=>$head, //bool
                 'memberNumber'=>$count,
 
                 'createdBy' => $resident['createdBy'],
@@ -226,19 +219,20 @@ class HouseholdRegistrationController extends Controller
                             ->orderby('created_at','DESC')
                             ->first();
         
-       
-        $lastRes=Resident::orderBy('residentID','desc')->first();
-        $tempArr=explode('-',$lastRes['residentID']);
-
-        $head = false;
         $count = 1;
+        
+        $allResidents=Resident::all(); //configure this pa -> residentID
+        $allResidents->makeVisible('firstName','middleName','lastName');
 
         foreach ($request->members as $resident) {
-            $search=Resident::where('firstName', $resident['firstName'])
+
+            $search=$allResidents->where('firstName', $resident['firstName'])
                             ->where('middleName', $resident['middleName'])
                             ->where('lastName', $resident['lastName'])
                             ->where('dateOfBirth', $resident['dateOfBirth'])
                             ->first();
+
+            //does this resident exist
             if(is_null($search)){
 
                 $initDate = strtotime($resident['dateOfBirth']);
@@ -257,6 +251,8 @@ class HouseholdRegistrationController extends Controller
                     'philHealthNumber'=>$resident['philHealthNumber'],
                     'occupation'=>$resident['occupation'],
                     'monthlyIncome'=>$resident['monthlyIncome'],
+                    'familyRole'=>$resident['familyRole'],
+                    'educationalAttainment'=>$resident['educationalAttainment'],
                     'ageClassification'=>$resident['ageClassification'],
                     'pregnancyClassification'=>$resident['pregnancyClassification'],
                     'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
@@ -268,44 +264,17 @@ class HouseholdRegistrationController extends Controller
                     'revisedBy' => $resident['revisedBy'],
                 ]);
 
-                $newResident['residentID']= IdGenerator::generate(['table'=>'residents','field'=>'residentID','length'=>9,'prefix'=>'RES-']);
-
-
-                /*
-                if($currResID<9){
-                    $newResident['residentID']='RES-000'.($currResID+1);
-                }else if($currResID<99){
-                    $newResident['residentID']='RES-00'.($currResID+1);
-                }else if($currResID<999){
-                    $newResident['residentID']='RES-0'.($currResID+1);
-                }else{
-                    $newResident['residentID']='RES-'.($currResID+1);
-                }*/
-                
+                $newResident['residentID']= IdGenerator::generate(['table'=>'residents','field'=>'residentID','length'=>9,'prefix'=>'RES-']);              
 
                 $newResident->save();
-
-                $memID=Resident::where('firstName', $resident['firstName'])
-                ->where('middleName', $resident['middleName'])
-                ->where('lastName', $resident['lastName'])
-                ->where('dateOfBirth', $resident['dateOfBirth'])
-                ->first();
-                
-                
-                if($count==1){
-                    $head=true;
-                }else{
-                    $head=false;
-                }
-
+               
                 $connect=new ResidentList();
                 
                 $connect->fill([
-                    'residentID'=>$memID['id'],
+                    'residentID'=>$newResident->id,
                     'houseID'=>$memHouse['id'],
 
                     'houseNumber'=>$memHouse['houseNumber'], //to accomodate for the multiple households
-                    'householdHead'=>$head, //bool
                     'memberNumber'=>$count,
 
                     'createdBy' => $resident['createdBy'],
@@ -334,6 +303,8 @@ class HouseholdRegistrationController extends Controller
                     'philHealthNumber'=>$resident['philHealthNumber'],
                     'occupation'=>$resident['occupation'],
                     'monthlyIncome'=>$resident['monthlyIncome'],
+                    'familyRole'=>$resident['familyRole'],
+                    'educationalAttainment'=>$resident['educationalAttainment'],
                     'ageClassification'=>$resident['ageClassification'],
                     'pregnancyClassification'=>$resident['pregnancyClassification'],
                     'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
@@ -348,28 +319,14 @@ class HouseholdRegistrationController extends Controller
                 $updatedResident->save();
                
                     
-                if($count==1){
-                    $head=true;
-                }else{
-                    $head=false;
-                }
-                
-
-                $memID=Resident::where('firstName', $resident['firstName'])
-                ->where('middleName', $resident['middleName'])
-                ->where('lastName', $resident['lastName'])
-                ->where('dateOfBirth', $resident['dateOfBirth'])
-                ->orderby('created_at','desc')
-                ->first();
-                
+                                
                 $connect=new ResidentList();
 
                 $connect->fill([
-                    'residentID'=>$memID['id'],
+                    'residentID'=>$updatedResident->id,
                     'houseID'=>$memHouse['id'],
 
                     'houseNumber'=>$memHouse['houseNumber'], 
-                    'householdHead'=>$head,
                     'memberNumber'=>$count,
 
                     'createdBy' => $resident['createdBy'],
