@@ -273,7 +273,7 @@ class LandingPageController extends Controller
                         ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
                         ->where('sitio_counts.statID', $statID)
                         ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
-                        ->where('sitio_counts.genderGroup', '=', $filterAgeGroup)->where('sitio_counts.ageGroup', '!=', '--')
+                        ->where('sitio_counts.ageGroup', '=', $filterAgeGroup)->where('sitio_counts.ageGroup', '!=', '--')
                         ->get(); 
                 }
 
