@@ -22,7 +22,7 @@ use App\Notifications\ProcessingNotification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Barryvdh\DomPDF\Facade\PDF;
-use PDF;
+// use PDF;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Notifications\ReleasedNotification;

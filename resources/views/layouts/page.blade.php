@@ -75,19 +75,19 @@
         });
 
         document.addEventListener("DOMContentLoaded", function() {
-            var currentDate = new Date();
-            var maxYear = currentDate.getFullYear() - 18; // Maximum year for 18 years old and above
+        var currentDate = new Date();
+        var maxYear = currentDate.getFullYear() - 18; // Maximum year for 18 years old and above
 
-            var dateOfBirthInput = document.getElementById("dateOfBirth");
-            dateOfBirthInput.setAttribute("max", formatDate(maxYear, 12, 31)); // Set maximum date to the end of the calculated maximum year
+        var dateOfBirthInput = document.getElementById("dateOfBirth");
+        dateOfBirthInput.setAttribute("max", formatDate(maxYear, 12, 31)); // Set maximum date to the end of the calculated maximum year
 
-            // Format the date as YYYY-MM-DD
-            function formatDate(month, day, year) {
-                month = String(month).padStart(2, "0");
-                day = String(day).padStart(2, "0");
-                return month + "-" + day + "-" + year;
-            }
-        });
+        // Format the date as YYYY-MM-DD
+        function formatDate(year, month, day) {
+            month = String(month).padStart(2, "0");
+            day = String(day).padStart(2, "0");
+            return year + "-" + month + "-" + day;
+        }
+    });
     </script>
 
 

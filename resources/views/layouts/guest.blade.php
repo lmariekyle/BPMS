@@ -25,5 +25,15 @@
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
+
+        <script>
+
+        function closeError() {
+                var errorContainer = document.getElementById("errorContainer");
+                if (errorContainer) {
+                    errorContainer.style.display = "none";
+                }
+            }
+        </script>
     </body>
 </html>
