@@ -138,10 +138,10 @@
                                 </select>
                             </div>
                             <div class="mt-10">
-                                    <div id="current-info-container" class="px-2 py-2 focus:outline-none border-2 w-[650px] h-[50px] bg-white text-deep-green" style="border-color: #414833;" name="requesteeOldInformation">
-  
-                                    </div>
-                                <!-- <input class="px-2 focus:outline-none border-2 w-[650px] bg-white text-deep-green" style="border-color: #414833;" name="requesteeOldInformation"> -->
+                                    <!-- <div id="current-info-container" class="px-2 py-2 focus:outline-none border-2 w-[650px] h-[50px] bg-white text-deep-green" style="border-color: #414833;" name="requesteeOldInformation">
+                            
+                                    </div> -->
+                                    <input id="info-input" class="px-2 focus:outline-none border-2 w-[650px] bg-white text-deep-green" style="border-color: #414833;" name="requesteeOldInformation">
                                 <label id="current-info-label"></label>
                             </div>
                             <div class=" mt-10">

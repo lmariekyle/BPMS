@@ -55,6 +55,7 @@ class ResidentUserController extends Controller
         $resId = $user->residentID;
         // Fetch related information
         $relatedInfo = Resident::find($resId);
+        $relatedInfo->makeVisible('firstName', 'middleName', 'lastName','contactNumber');
         return response()->json(['user' => $user,'relatedInfo' => $relatedInfo]);
     }
     /**
@@ -238,8 +239,14 @@ class ResidentUserController extends Controller
     {
         $user = User::where('residentID',$id)->first();
         $request = AccountInfoChange::where('userID',$user->id)->first();
-        
-        return view('auth.updateinfo',compact('user','request'));
+
+        if ($request->file) {
+            $filePaths = json_decode($request->file, true);
+        } else {
+            $filePaths = [];
+        }   
+
+        return view('auth.updateinfo',compact('user','request','filePaths'));
     }
 
     /**

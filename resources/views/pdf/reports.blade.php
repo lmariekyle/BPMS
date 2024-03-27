@@ -169,7 +169,7 @@
             @endforeach
         </table>
         @else
-        <div>No Data Available</div>
+        <div>No Resident Data Found</div>
         @endif
     </div>
     
@@ -194,6 +194,8 @@
             @endif
             @endforeach
         </table>
+        @else
+        <div>No Household Data Found</div>
         @endif
     </div>
     

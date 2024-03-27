@@ -48,7 +48,7 @@
                             </div>
                             <div id="NotifModal" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[150px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
                                 <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
-                                    <span class="close font-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
+                                    <span class="close text-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
                                     <div class="">
                                         <p class="font-robotocondensed text-[28px] text-deep-green" >{{ $notification->document['docName'] }} Document</p>
                                         <p>{{ $notification->resident['firstName'] }} {{ $notification->resident['lastName'] }} requested {{ $notification->document['docName'] }} Document</p>
@@ -66,8 +66,8 @@
                                 <button class="hover:text-green ml-8 mr-4"><i class="fa-solid fa-trash"></i></button>
                             </div>
                             <div id="NotifModal" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[50px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
-                                <div class="bg-deep-green p-5 border-1 rounded">
-                                    <span class="close font-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
+                                <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
+                                    <span class="close text-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
                                     <div class="">
                                         <p class="font-robotocondensed text-[28px] text-deep-green" >{{ $notification->document['docName'] }} {{ $notification->data['transaction']['serviceStatus'] }}</p>
                                         <p>Your Document {{ $notification->document['docName'] }} with a document number: {{ $notification->data['transaction']['docNumber'] }} is being {{ $notification->data['transaction']['serviceStatus'] }} by {{ $notification->processedByUser['firstName'] }} {{ $notification->processedByUser['lastName'] }}.</p>
