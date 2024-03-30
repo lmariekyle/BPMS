@@ -9,7 +9,7 @@
     <div class="py-1 mt-[8rem] flex flex-col justify-center bg-dirty-white">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @role('Admin')
-            <div class="absolute px-5 py-5 flex flex-col justify-center h-[250px] bg-olive-green w-[1750px] -mt-[17rem] -ml-[60rem]">
+            <div class="absolute px-5 py-5 flex flex-col justify-center h-[250px] bg-olive-green w-[1750px] -mt-[10rem] -ml-[60rem]">
                 <div class="mb-12 mt-[33rem] ml-[5rem] w-64 h-64 rounded-full border-2 bg-dirty-white border-green self-center">
                     <img src="{{ asset('images/PoblacionDalLogo.png') }}" alt="">
                 </div>
@@ -199,7 +199,7 @@
                                 </h1>
                             </div>
                             <div class="">
-                                @if((isset($request->gender) || isset($request->ageclass)) && $totalHouseholdCount>0)
+                                @if(($request->sitio || $request->gender || $request->ageclass) || $totalHouseholdCount>0)
                                     @if($request->gender=="NULL" && $request->ageclass=="NULL")
                                     <div class="w-[525px] h-[300px] mt-2 mx-auto" id="householdPiechart"></div>
                                         @if($request->sitio=="NULL")
@@ -213,11 +213,11 @@
                                     @else
                                     <div class="w-[525px] h-[324px] mt-2 px-2 flex items-center justify-center">
                                         <p class="text-xl font-robotocondensed w-80 text-center text-deep-green">
-                                            Since Age/Gender filters are applied or there are no Households present in the Sitio, Household Information is unavailable.
+                                            Since Age/Gender filters are applied, Household Information is unavailable.
                                         </p>
                                     </div>
                                     @endif
-                                @else
+                                @elseif ($totalHouseholdCount<=0)
                                 <div class="w-[525px] h-[300px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyTwochart"></div>
                                 @endif
                             </div>
@@ -233,8 +233,8 @@
                                     </p>
                                 </div>-
                             </div>
-                            <div class="mt-[1rem]">
-                                <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
+                            <div class="mt-[4rem]">
+                                <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[2rem]">
                                     <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS AS OF {{ date("Y") }}</p>
                                 </div>
                                 <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">

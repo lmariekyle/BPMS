@@ -98,6 +98,7 @@ Route::group(['middleware' => 'auth'], function () {
     // })->name('services.success');
     Route::get('failurepayment/{id}', [ServicesController::class, 'failurepayment'])->name('services.failure');
     Route::get('/markRead/{id}', [NotificationController::class, 'markRead'])->name('viewNotifications');
+    Route::get('/delete/{id}', [NotificationController::class, 'destroy'])->name('deleteNotifications');
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {

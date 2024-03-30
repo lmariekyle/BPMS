@@ -373,25 +373,21 @@ class StatisticsController extends Controller
             if ($filterSitio == "") {
                 //When the user didn't select any Age Group in the options
                 if ($filterAgeGroup == ""){
-                    $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
-                        $join->on('sitio_counts.sitioID', "=", 'sitios.id');
-                    })
-                        ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
-                        ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                    $residentCount = DB::table('sitio_counts')
+                        ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                        ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
                         ->where('sitio_counts.statID', $statID)
                         ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
                         ->where('sitio_counts.ageGroup', '!=', '--')
                         ->get();
                 //Otherwise (Age Group)
                 }else{
-                    $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
-                        $join->on('sitio_counts.sitioID', "=", 'sitios.id');
-                    })
-                        ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
-                        ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                    $residentCount = DB::table('sitio_counts')
+                        ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                        ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
                         ->where('sitio_counts.statID', $statID)
                         ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
-                        ->where('sitio_counts.genderGroup', '=', $filterAgeGroup)->where('sitio_counts.ageGroup', '!=', '--')
+                        ->where('sitio_counts.ageGroup', '=', $filterAgeGroup)->where('sitio_counts.ageGroup', '!=', '--')
                         ->get(); 
                 }
 
@@ -420,11 +416,9 @@ class StatisticsController extends Controller
             }else{
                 //When the user didn't select any Age Group in the options
                 if ($filterAgeGroup == ""){
-                    $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
-                        $join->on('sitio_counts.sitioID', "=", 'sitios.id');
-                    })
-                        ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
-                        ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                    $residentCount = DB::table('sitio_counts')
+                        ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                        ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
                         ->where('sitio_counts.statID', $statID)
                         ->where('sitio_counts.sitioID', '=', $filterSitio)
                         ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
@@ -432,11 +426,9 @@ class StatisticsController extends Controller
                         ->get();
                 //Otherwise (Age Group)
                 }else{
-                    $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
-                        $join->on('sitio_counts.sitioID', "=", 'sitios.id');
-                    })
-                        ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
-                        ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                    $residentCount = DB::table('sitio_counts')
+                        ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                        ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
                         ->where('sitio_counts.statID', $statID)
                         ->where('sitio_counts.sitioID', '=', $filterSitio)
                         ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')

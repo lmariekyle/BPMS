@@ -15,6 +15,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "haruncpi/laravel-id-generator": "^1.1",
         "hydrat-agency/laravel-2fa": "^1.1",
+        "ichtrojan/laravel-otp": "^2.0",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.5",

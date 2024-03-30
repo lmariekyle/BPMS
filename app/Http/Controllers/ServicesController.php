@@ -12,6 +12,7 @@ use App\Models\Resident;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Notifications\DenyNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -62,15 +63,15 @@ class ServicesController extends Controller
             $user = User::where('id', $account->userID)->first();
             $account->resident = Resident::where('id', $user->residentID)->first();
             if($account->selectedInformation == "firstName"){
-                $account->selectedInformation = "First Name";
+                $selectedInformation = "First Name";
             }else if($account->selectedInformation == "middleName"){
-                $account->selectedInformation = "Middle Name";
+                $selectedInformation = "Middle Name";
             }else if($account->selectInformation == "lastName"){
-                $account->selectedInformation = "Last Name";
+                $selectedInformation = "Last Name";
             }else if($account->selectInformation == "email"){
-                $account->selectedInformation = "Email Address";
-            }else{
-                $account->selectedInformation = "Contact Number";
+                $selectedInformation = "Email Address";
+            }else if($account->selectInformation == "contactNumber"){
+                $selectedInformation = "Contact Number";
             }
         }
         return view('services.index', compact('transactions', 'accounts'));
@@ -240,7 +241,9 @@ class ServicesController extends Controller
     public function request(string $docType)
     {
         $userAuth = Auth::user();
+
         $user = Resident::where('id', $userAuth->residentID)->first();
+        $user->makeVisible('firstName', 'middleName', 'lastName');
         if ($docType == 'Barangay Certificate') {
             $doctypename = 'BARANGAY CERTIFICATE';
         } elseif ($docType == 'Barangay Clearance') {
@@ -430,7 +433,7 @@ class ServicesController extends Controller
             $transactionpayment = $transaction->transactionpayment()->create([
                 'paymentMethod' => $request->paymentMethod,
                 'accountNumber' => NULL,
-                'paymentStatus' => 'PAID',
+                'paymentStatus' => 'Paid',
                 'successURL' => NULL,
                 'failURL' =>  NULL,
             ]);
@@ -438,6 +441,7 @@ class ServicesController extends Controller
             $transaction->issuedBy = $user->id;
             
         } else if ($doctype->docType == "Account Information Change") {
+        //  dd($request);
             $account = AccountInfoChange::create([
                 'userID' => $user->id,
                 'selectedInformation' => $request->selectedInformation,
@@ -759,6 +763,9 @@ class ServicesController extends Controller
             ]);
             $payment->save();
 
+            $notifyUsers = User::where('id', $transaction->userID)->get();
+            Notification::sendNow($notifyUsers, new DenyNotification($transaction));
+
             $transactions = Transaction::all();
             foreach ($transactions as $transaction) {
                 $user = User::where('id', $transaction->userID)->first();
@@ -797,6 +804,8 @@ class ServicesController extends Controller
         ]);
         $payment->save();
 
+        $notifyUsers = User::where('id', $transaction->userID)->get();
+        Notification::sendNow($notifyUsers, new DenyNotification($transaction));
 
         $transactions = Transaction::all();
         foreach ($transactions as $transaction) {
