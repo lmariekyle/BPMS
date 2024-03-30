@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Contracts\Encryption\DecryptException;
-use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -11,10 +9,9 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Sitio;
 use App\Models\Resident;
 use App\Models\Statistics;
-use DB;
-use Carbon\Carbon;
-use App\Http\Requests\Auth\LoginRequest;
-use Hydrat\Laravel2FA\TwoFactorAuth;
+use Ichtrojan\Otp\Otp;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OTPMail;
 
 class AuthenticationAPIController extends Controller
 {
@@ -83,49 +80,47 @@ class AuthenticationAPIController extends Controller
         $request->validate([
             'email' => 'required',
             'password' => 'required',
+            'device_name' => 'required',
+            'otp' => 'required'
+        ]);
+
+        if($request->otp != 'Not Applicable'){
+            $details = (new Otp)->validate($request->email, $request->otp);
+            if($details->status == false){
+                $response = ['message' => 'One Time Pin Failed', 'success' => false];
+                return response()->json($response, 200);
+            }
+        }
+        $user = User::where('email', $request->email)->first();
+        $token = $user->createToken($request->device_name)->plainTextToken;
+        $resident = Resident::where('id', $user->residentID)->first();
+        $user->username = $resident->firstName . ' ' . $resident->lastName;
+        $response = ['user' => $user, 'token' => $token, 'success' => true];
+        return response()->json($response, 200);
+    }
+
+    public function mobileOTP(Request $request){
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
             'device_name' => 'required'
         ]);
 
         $user = User::where('email', $request->email)->first();
 
         if($user && Hash::check($request->password, $user->password)){
-            $token = $user->createToken($request->device_name)->plainTextToken;
-            $resident = Resident::where('id', $user->residentID)->first();
-            $user->username = $resident->firstName . ' ' . $resident->lastName;
-            $response = ['user' => $user, 'token' => $token, 'success' => true];
-            return $this->authenticated($request, $user);
-            // return response()->json($response, 200);
+            if($user->userLevel == "Barangay Health Worker"){
+                $details = (new Otp)->generate($request->email, 'numeric', 6);
+                Mail::to($request->email)->send(new OTPMail($user));
+                $response = ['otp' => true, 'success' => true];
+            }else{
+                $response = ['otp' => false, 'success' => true];
+            }
+            return response()->json($response, 200);
         }else{
             $response = ['message' => 'Incorrect email or password', 'success' => false];
             return response()->json($response, 200);
         }
     }
-
-    protected function authenticated(Request $request, $user)
-    {
-        # Trigger 2FA if necessary.
-        if (TwoFactorAuth::getDriver()->mustTrigger($request, $user)) {
-            return TwoFactorAuth::getDriver()->trigger($request, $user);
-        }
-
-        # If not, do the usual job.
-        return redirect();
-    }  
-
-    // public function mobileStore(LoginRequest $request)
-    // {
-     
-    //     $request->authenticate();
-    //     $user = $request->user();
-
-    //     if (auth()->check() && (auth()->user()->userStatus == 'Archived')) {
-    //         $response = ['message' => 'Sorry, Account has been Archived.', 'success' => false];
-
-    //         return $response;
-    //     } else {  
-    //         return $this->authenticated($request, $user);
-        
-    //     }
-    // }
 
 }

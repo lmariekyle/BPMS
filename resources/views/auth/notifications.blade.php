@@ -44,7 +44,9 @@
                                 <form method="GET" action="{{ route('viewNotifications', $notification->id) }}">
                                     <button id="btn{{ $notification->id }}" class="hover:text-green"><i class="fa-solid fa-eye"></i></button>
                                 </form>
-                                <button class="hover:text-green ml-8 mr-4"><i class="fa-solid fa-trash"></i></button>
+                                <form method="GET" action="{{ route('deleteNotifications', $notification->id) }}">
+                                    <button id="btn-delete{{ $notification->id }}" class="hover:text-green ml-8 mr-4"><i class="fa-solid fa-trash"></i></button>
+                                </form>
                             </div>
                             <div id="NotifModal" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[150px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
                                 <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
@@ -63,7 +65,9 @@
                                 <form method="GET" action="{{ route('viewNotifications', $notification->id) }}">
                                     <button id="btn{{ $notification->id }}" class="hover:text-green"><i class="fa-solid fa-eye"></i></button>
                                 </form>
-                                <button class="hover:text-green ml-8 mr-4"><i class="fa-solid fa-trash"></i></button>
+                                <form method="GET" action="{{ route('deleteNotifications', $notification->id) }}">
+                                    <button id="btn-delete{{ $notification->id }}" class="hover:text-green ml-8 mr-4"><i class="fa-solid fa-trash"></i></button>
+                                </form>
                             </div>
                             <div id="NotifModal" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[50px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
                                 <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
@@ -97,6 +101,15 @@
                             modal.style.display = "none";
                             window.location.reload();
                         }
+
+                        var btndel = document.getElementById("btn-delete{{ $notification->id }}");
+
+                        function handleClick(){
+                            window.location.reload();
+                        }
+
+                        btndel.addEventListener("click", handleClick);
+
                     </script>
                 @empty
                     <div class="py-8">

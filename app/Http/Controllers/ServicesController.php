@@ -12,6 +12,7 @@ use App\Models\Resident;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Notifications\DenyNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -762,6 +763,9 @@ class ServicesController extends Controller
             ]);
             $payment->save();
 
+            $notifyUsers = User::where('id', $transaction->userID)->get();
+            Notification::sendNow($notifyUsers, new DenyNotification($transaction));
+
             $transactions = Transaction::all();
             foreach ($transactions as $transaction) {
                 $user = User::where('id', $transaction->userID)->first();
@@ -800,6 +804,8 @@ class ServicesController extends Controller
         ]);
         $payment->save();
 
+        $notifyUsers = User::where('id', $transaction->userID)->get();
+        Notification::sendNow($notifyUsers, new DenyNotification($transaction));
 
         $transactions = Transaction::all();
         foreach ($transactions as $transaction) {
