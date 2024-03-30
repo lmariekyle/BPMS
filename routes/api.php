@@ -59,11 +59,13 @@ Route::post('/callback', [ServicesController::class, 'callback'])->name('mobileC
 Route::post('createpayment/{id}', [TransactionController::class, 'createpayment'])->name('createpayment');
 
 //Route::middleware(['role:Barangay Health Worker'])->group(function () {
+    //care of Cate (tabang lord)
         
     Route::post('/registerHousehold',[HouseholdRegistrationController::class,'mobileHouseholdStore']);
     Route::post('/registerMembers',[HouseholdRegistrationController::class,'mobileResidentStore']);
     Route::post('/updateHousehold',[HouseholdRegistrationController::class,'mobileUpdateHouseholdStore']);
     Route::post('/updateMembers',[HouseholdRegistrationController::class,'mobileUpdateResident']);
+    Route::post('/connectHouseRes',[HouseholdRegistrationController::class,'mobileConnectResToHouse']);
 
     Route::get('/mobileSitios', [SitioAssignmentController::class, 'mobileSitios']);
     Route::get('/mobileHouseholdList', [HouseholdListController::class, 'mobileHouseholds']);
