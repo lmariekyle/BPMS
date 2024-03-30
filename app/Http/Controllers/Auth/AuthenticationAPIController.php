@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Contracts\Encryption\DecryptException;
-use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -11,9 +9,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Sitio;
 use App\Models\Resident;
 use App\Models\Statistics;
-use DB;
-use Carbon\Carbon;
-use App\Http\Requests\Auth\LoginRequest;
 use Ichtrojan\Otp\Otp;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OTPMail;

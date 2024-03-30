@@ -212,59 +212,12 @@ class TransactionController extends Controller
         return $response;
     }
 
-    public function createInvoice($request)
-    {
-        $xenditKey = base64_encode(env('XENDIT_SECRET_KEY'));
-        $headers = [
-            'Content-Type' => 'application/json',
-            'Authorization' => 'Basic ' . $xenditKey,
-        ];
-    
-        $res = Http::withHeaders($headers)
-            ->withOptions([
-                'curl' => [CURLOPT_SSL_VERIFYPEER => false],
-            ])
-            ->post('https://api.xendit.co/v2/invoices', $request);
-    
-
-        $res = Http::withHeaders($headers)
-            ->withOptions([
-                'curl' => [CURLOPT_SSL_VERIFYPEER => false],
-            ])
-            ->post('https://api.xendit.co/v2/invoices', $request);
-
-        return json_decode($res->body(), true);
-    }
-
     public function createpayment($id)
     {
         $payment = Payment::where('id', $id)->first();
-        $transaction = Transaction::where('paymentID', $payment->id)->first();
-        $externalID = 'INV' . date('Ymd') . '-' . rand(1000, 9999);
-
-        $payment->accountNumber = $externalID;
-        $payment->save();
-       
-        $successRedirectUrl = route('services.success', $payment->id);
-        $failureRedirectUrl = route('services.failure', $payment->id);
-
-        $params = [
-            'external_id' => $externalID,
-            'amount' => $transaction->serviceAmount,
-            'user_id' => $transaction->userID,
-            'success_redirect_url' => $successRedirectUrl,
-            'failure_redirect_url' => $failureRedirectUrl,
-            'payment_methods' => ['GCASH'],
-            'currency' => 'PHP',
-            'invoice_duration' => 30000,
-        ];
-
-        $invoice = $this->createInvoice($params);
-        $payment->update([
-            'successURL' => $invoice['invoice_url']
-        ]);
-
+        $payment->accountNumber = "Pending";
         $payment->paymentStatus = 'Pending';
+        $payment->save();
         $payment->success = true;
 
         return $payment;
@@ -306,38 +259,4 @@ class TransactionController extends Controller
 
         return $response;
     }
-
-    // public function mobileCallback(Request $request)
-    // {
-    //     try {
-    //         $payment = Payment::where('accountNumber', $request->external_id)->first();
-    //         if ($request->header('x-callback-token') != env('XENDIT_CALLBACK_TOKEN')) {
-    //             return response()->json([
-    //                 'status' => 'error',
-    //                 'message' => 'Invalid Callback Token'
-    //             ], 400);
-    //         }
-
-    //         if ($payment) {
-    //             if ($request->status == 'PAID') {
-    //                 $payment->update([
-    //                     'paymentStatus' => 'Paid'
-    //                 ]);
-    //             } else {
-    //                 $payment->update([
-    //                     'paymentStatus' => 'Expired',
-    //                 ]);
-    //             }
-    //         }
-
-    //         return response()->json([
-    //             'status' => 'success',
-    //         ]);
-    //     } catch (\Exception $e) {
-    //         return response()->json([
-    //             'status' => 'error',
-    //             'message' => $e->getMessage()
-    //         ], 500);
-    //     }
-    // }
 }
