@@ -36,17 +36,7 @@
     <script>
 
 
-        $("document").ready(function() {
-            setTimeout(function() {
-                $("div.alert").remove();
-            }, 15000);
-        });
 
-        var span = document.getElementsByClassName("close")[0];
-        span.onclick = function() {
-            modal.style.display = "none";
-            window.location.reload();
-        }
 
 
     document.addEventListener('DOMContentLoaded', function () {

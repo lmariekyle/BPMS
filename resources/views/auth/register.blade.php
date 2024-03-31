@@ -8,6 +8,9 @@
             </div>
         
             <x-auth-validation-errors class="ml-4" :errors="$errors" />
+            <div class="ml-10">
+                    @include('components.flash')
+            </div>
         </div>
 
 

@@ -271,11 +271,12 @@ class ResidentUserController extends Controller
             $resident->save();
             $user->save();
             $account->save();
+            return Redirect::back()->with('success', 'Account Updated');
         }else if($request->status == "2"){
             $account->status ='DENIED';
             $account->save();
+            return Redirect::back();
         }
-        return back();
     }
 
     /**
