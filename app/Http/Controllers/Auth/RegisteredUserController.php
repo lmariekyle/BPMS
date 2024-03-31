@@ -71,8 +71,10 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed'],
             'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'dateOfBirth' => 'required|date|before:' . Carbon::now()->subYears(18),
+            'contactNumber' => ['required', 'numeric','digits:10'],
         ],
         [
+            'contactNumber.required' =>'Invalid Contact Number',
             'dateOfBirth.before' => 'User must be 18 Years Old and Above to Register!',
             'profileImage.required' => 'File Types must only be jpeg, png, jpg, gif, svg'
         ]);
@@ -99,7 +101,7 @@ class RegisteredUserController extends Controller
             'middleName' => $request->middlename,
             'lastName' => $request->lastname,
             'dateOfBirth' => $request->dateOfBirth,
-            'contactNumber' => $request->contactnumber,
+            'contactNumber' => '63' . $request->contactNumber,
             'email' => $request->email,
         ]);
 
@@ -138,10 +140,11 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'sitioID' => $request->sitio,
             'assignedSitioID' => '1',
-            'contactNumber' => $request->contactnumber,
+            'contactNumber' => '63' . $request->contactNumber,
             'password' => Hash::make($request->password)
         ]);
         $resident->user->assignRole($request->userlevel);
+
 
         event(new Registered($resident->user));
         Mail::to($request->email)->send(new AccountMail($resident->user));

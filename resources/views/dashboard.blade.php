@@ -7,9 +7,9 @@
     </x-slot>
 
     <div class="py-1 mt-[8rem] flex flex-col justify-center bg-dirty-white">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
             @role('Admin')
-            <div class="absolute px-5 py-5 flex flex-col justify-center h-[250px] bg-olive-green w-[1750px] -mt-[10rem] -ml-[60rem]">
+            <div class="px-5 py-5 flex flex-col justify-center h-[250px] bg-olive-green w-full -mt-[10rem]">
                 <div class="mb-12 mt-[33rem] ml-[5rem] w-64 h-64 rounded-full border-2 bg-dirty-white border-green self-center">
                     <img src="{{ asset('images/PoblacionDalLogo.png') }}" alt="">
                 </div>
@@ -32,9 +32,9 @@
                 </div>
             </div>
             @endrole
-
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @hasanyrole('Barangay Captain|Barangay Secretary')
-            <div class=" flex flex-col p-3 -mt-20 -ml-24 h-max w-[1342px]">
+            <div class="flex flex-col p-3 -mt-20 -ml-24 h-max w-[1342px]">
                 <p class="ml-3 mt-3 mb-2 font-robotocondensed text-[24px] text-black">FILTER STATISTICS</p>
                 <div class="flex flex-row px-10 py-6 items-center justify-between w-[1250px] ml-3 border-b-2 border-black rounded-sm h-max">
                     <form action="" method="GET">
@@ -80,7 +80,7 @@
                                     <p>U - Under-five (1-4 Years Old)</p>
                                     <p>S - School-Aged Children (5-9 Years Old)</p>
                                     <p>A - Adolescents (10-19 Years Old)</p>
-                                    <p>WRA - Not Pregnant and non-Post Partum (15-49 Years Old)</p>
+                                    <p>WRA - Not Pregnant and non-Post Partum (15-59 Years Old, Female)</p>
                                     <p>P - Pregnant</p>
                                     <p>AP - Adolescent-Pregnant</p>
                                     <p>PP - Post Partum</p>
@@ -152,6 +152,8 @@
                             <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end mt-[15rem] mr-8">
                                 <div class="mb-2 w-80 text-justify">
                                     <p class="py-2 text-xl">LEGEND</p>
+                                    <p>FORMAT: Sitio Name (Gender - Age Classification)*</p>
+                                    <br>
                                     <div>
                                         Gender:
                                         <br>
@@ -167,7 +169,7 @@
                                         <p>U - Under-five (1-4 Years Old)</p>
                                         <p>S - School-Aged Children (5-9 Years Old)</p>
                                         <p>A - Adolescents (10-19 Years Old)</p>
-                                        <p>WRA - Not Pregnant and non-Post Partum (15-49 Years Old)</p>
+                                        <p>WRA - Not Pregnant and non-Post Partum (15-59 Years Old, Female)</p>
                                         <p>P - Pregnant</p>
                                         <p>AP - Adolescent-Pregnant</p>
                                         <p>PP - Post Partum</p>
@@ -178,6 +180,7 @@
                                 </div>
                                 <p class="mt-2 w-80 text-justify">
                                     Hover over the colors in the legend to highlight the different Sitios of the Barangay.
+                                    If nothing is highlighted after hovering, it means there are 0 Residents on that particular category.
                                 </p>
                             </div>
                             @else
@@ -207,6 +210,7 @@
                                         <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end ml-8 w-80 text-justify">
                                             <p class="py-1">
                                                 Hover over the colors in the legend to highlight the different Sitios of the Barangay.
+                                                If nothing is highlighted after hovering, it means there are 0 Households on that particular Sitio.
                                             </p>
                                         </div>
                                         @endif
@@ -225,7 +229,7 @@
                         <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] py-10">
                             <div>
                                 <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
-                                    <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS AS OF {{ date("Y") }}</p>
+                                    <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS</p>
                                 </div>
                                 <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
                                     <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
@@ -239,7 +243,12 @@
                                 </div>
                                 <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
                                     <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
-                                        {{ $totalHouseholdCount }} HOUSEHOLDS
+                                        @if($request->gender=="NULL" && $request->ageclass=="NULL")
+                                        {{ $totalHouseholdCount }}
+                                        @else
+                                        --
+                                        @endif
+                                        HOUSEHOLDS
                                     </p>
                                 </div>
                             </div>

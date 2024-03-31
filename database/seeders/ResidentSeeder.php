@@ -132,12 +132,12 @@ class ResidentSeeder extends Seeder
         Resident::create([
             'id' => '8',
             'residentID' => 'RES-00008',
-            'firstName' => 'Horeb',
-            'middleName' => 'Mendez',
-            'lastName' => 'Barriga',
+            'firstName' => 'Horbs',
+            'middleName' => 'Bars',
+            'lastName' => 'Mendoza',
             'dateOfBirth' => '2001-11-18',
             'contactNumber' => '1234567890',
-            'email' => 'horeb@bpms.com',
+            'email' => '19100340@usc.edu.ph',
             'gender' => 'M',
             'maritalStatus' => 'Married',
         ]);
