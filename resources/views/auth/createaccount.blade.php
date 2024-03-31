@@ -10,7 +10,7 @@
             <i class="fa-sharp fa-solid fa-arrow-left text-3xl mt-4 text-dirty-white"></i>
         </a>
         <p class="font-robotocondensed font-bold ml-[20px] text-dirty-white text-5xl">Register</p>
-        <div class="ml-12 mt-3">
+        <div class="ml-12 mt-[2rem]">
              <x-auth-validation-errors class="mb-4" id="close" :errors="$errors" />
         </div>
     </div>
@@ -59,8 +59,8 @@
             <div>
                 <x-label for="contactnumber" :value="__('* Contact Number')" class="font-roboto" style="color:white;" />
                 <div class="flex flex-row">
-                <input type="text" class="block mb-4 w-[50px] h-[42px] bg-dirty-white rounded-md" id="contactnumber" name="contactnumber" value="63" readonly>
-                <x-input id="contactnumber" class="block mb-4 w-[450px] h-[42px] bg-dirty-white" type="text" name="contactnumber" :value="old('contactnumber')" required autofocus />
+                <input type="text" class="block mb-4 w-[50px] h-[42px] bg-dirty-white rounded-md" id="" name="" value="+63" readonly>
+                <x-input id="contactnumber" class="block mb-4 w-[450px] h-[42px] bg-dirty-white" type="text" name="contactNumber" :value="old('contactNumber')" required autofocus />
                 </div>
             </div>
 

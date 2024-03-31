@@ -73,7 +73,7 @@ class ResidentUserController extends Controller
             'password' => ['required', 'confirmed'],
             'profileImage' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'dateOfBirth' => 'required|date|before:' . Carbon::now()->subYears(18),
-            'contactNumber' => ['required', 'numeric', 'digits:12'],
+            'contactNumber' => ['required', 'numeric', 'digits:10'],
         ],
         [
             'contactNumber.required' =>'Invalid Contact Number',
@@ -118,7 +118,7 @@ class ResidentUserController extends Controller
                         'email' => $request->email,
                         'sitioID' => $request->sitio,
                         'assignedSitioID' => '1',
-                        'contactNumber' => '63' . $request->contactnumber,
+                        'contactNumber' => '63' . $request->contactNumber,
                         'password' => Hash::make($request->password)
                     ]);
                     $user->assignRole($request->userlevel); //assign account role as User

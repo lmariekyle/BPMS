@@ -32,12 +32,12 @@
                             <div class="">
                                 <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->firstName}}" name="requesteeFName">
                                 <br>
-                                <label>FIRST NAME</label>
+                                <label>* FIRST NAME</label>
                             </div>
                             <div class="ml-8">
                                 <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->lastName}}" name="requesteeLName">
                                 <br>
-                                <label>LAST NAME</label>
+                                <label>* LAST NAME</label>
                             </div>
                             <div class="ml-10">
                                 <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->middleName}}" name="requesteeMName">
@@ -49,16 +49,16 @@
                             <div class="">
                                 <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->email}}" name="requesteeEmail">
                                 <br>
-                                <label>EMAIL ADDRESS</label>
+                                <label>* EMAIL ADDRESS</label>
                             </div>
                             <div class="ml-20">
                                 <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->contactNumber}}" name="requesteeContactNumber">
                                 <br>
-                                <label>CONTACT NUMBER</label>
+                                <label>* CONTACT NUMBER</label>
                             </div>
                         </div>
                         <div class="mt-[3rem]">
-                            <label>PURPOSE OF REQUEST</label>
+                            <label>* PURPOSE OF REQUEST</label>
                             <textarea class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;" name="requestPurpose"> </textarea>
                         </div>
                         @elseif ($doctypename == 'FILE COMPLAIN')
@@ -68,12 +68,12 @@
                             <div class="">
                                 <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaintFName">
                                 <br>
-                                <label>FIRST NAME</label>
+                                <label>* FIRST NAME</label>
                             </div>
                             <div class="ml-8">
                                 <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaintLName">
                                 <br>
-                                <label>LAST NAME</label>
+                                <label>* LAST NAME</label>
                             </div>
                             <div class="ml-10">
                                 <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" name="complaintMName">
@@ -85,12 +85,12 @@
                             <div class="">
                                 <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" name="complaintEmail">
                                 <br>
-                                <label>EMAIL ADDRESS</label>
+                                <label>* EMAIL ADDRESS</label>
                             </div>
                             <div class="ml-20">
                                 <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" name="complaintContactNumber">
                                 <br>
-                                <label>CONTACT NUMBER</label>
+                                <label>* CONTACT NUMBER</label>
                             </div>
                         </div>
                         <p class="font-poppins text-[24px] text-deep-green mt-[2rem] underline underline-offset-8">COMPLAINEE DETAILS</p>
@@ -98,12 +98,12 @@
                             <div class="">
                                 <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeFName">
                                 <br>
-                                <label>FIRST NAME</label>
+                                <label>* FIRST NAME</label>
                             </div>
                             <div class="ml-8">
                                 <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeLName">
                                 <br>
-                                <label>LAST NAME</label>
+                                <label>* LAST NAME</label>
                             </div>
                             <div class="ml-10">
                                 <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeMName">
@@ -115,11 +115,11 @@
                             <div class="">
                                 <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeSitio">
                                 <br>
-                                <label>SITIO</label>
+                                <label>* SITIO</label>
                             </div>
                         </div>
                         <div class="mt-[2rem]">
-                            <label>STATE REASON OF COMPLAIN</label>
+                            <label>* STATE REASON OF COMPLAIN</label>
                             <textarea class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;" name="requestPurpose"> </textarea>
                         </div>
                         @elseif($doctypename == 'ACCOUNT INFORMATION CHANGE')
@@ -127,7 +127,7 @@
                         <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="17" name="selectedDocument">
                             <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="{{$user->id}}" name="requestee">
                             <div class="">
-                                <label>INFORMATION TO CHANGE</label>
+                                <label>* INFORMATION TO CHANGE</label>
                                 <select class="rounded-lg border-2 w-full h-[50px] text-[26px]" id="info-type" style="border-color: #414833;" name="selectedInformation">
                                     <option value="">SELECT INFORMATION</option>
                                     <option value="firstName">First Name</option>
@@ -147,10 +147,10 @@
                             <div class=" mt-10">
                                 <input class="px-2 focus:outline-none border-2 w-[650px] bg-white text-deep-green" style="border-color: #414833;" value="" name="requesteeNewInformation">
                                 <br>
-                                <label class="mt-8">NEW INFORMATION</label>
+                                <label class="mt-8">* NEW INFORMATION</label>
                             </div>
                             <div class="mt-[3rem]">
-                                <label>PURPOSE OF REQUEST</label>
+                                <label>* PURPOSE OF REQUEST</label>
                                 <textarea class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;" name="requestPurpose"> </textarea>
                             </div>
                         </div>

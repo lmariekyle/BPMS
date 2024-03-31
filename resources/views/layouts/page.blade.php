@@ -29,6 +29,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v3.x.x/dist/alpine.min.js" defer></script>
+
 </head>
 
 <body class=" bg-green font-sans antialiased">
@@ -41,13 +43,6 @@
     </div>
 
     <script>
-        var span = document.getElementsByClassName("close")[0];
-
-        // Close Modal (using the X button)
-        span.onclick = function() {
-            modal.style.display = "none";
-            window.location.reload();
-        }
 
         $(document).ready(function() {
 

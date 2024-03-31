@@ -1,22 +1,22 @@
     <x-page-layout>
-        <div class="absolute left-[33px] top-[49px] flex justify-start">
+        <div class="ml-12 mt-8 flex flex-row">
+            <div class="flex flex-row">
             <a href="/accounts">
                 <i class="fa-sharp fa-solid fa-arrow-left text-3xl mt-4" style="color:#fdffee;"></i>
             </a>
-            <p class="font-robotocondensed font-bold ml-[20px] text-dirty-white text-5xl">Account Registration</p>
-            <div class="ml-12 mt-3">
-                @include('components.flash')
+                <p class="font-robotocondensed font-bold ml-[20px] mt-2 text-dirty-white text-5xl">Account Registration</p>
             </div>
+        
+            <x-auth-validation-errors class="ml-4" :errors="$errors" />
         </div>
 
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
 
         <form method="POST" action="{{ route('register') }}" class="font-robotocondensed text-xl" enctype="multipart/form-data">
             @csrf
 
-            <div class="absolute mt-[8rem] ml-14 w-[13rem] h-[8rem]">
+            <div class="absolute mt-[4rem] ml-14 w-[13rem] h-[8rem]">
                 <i class="fa-solid fa-image text-[200px] text-dirty-white"></i>
                 <div>
                     <input id="profileImage" class="-mt-[5px] w-[15rem] h-[42px] px-2 py-2 text-center text-[14px] text-dirty-white file:w-[7rem] file:h-[42px]file:overflow-hidden file:bg-deep-green file:text-[14px] file:text-dirty-white file:font-robotocondensed file:cursor-pointer" type="file" name="profileImage" />
@@ -64,8 +64,8 @@
                 <div>
                     <x-label for="contactnumber" :value="__('* Contact Number')" class="font-roboto" style="color:white;" />
                     <div class="flex flex-row">
-                    <input type="text" class="block mb-4 w-[50px] h-[42px] bg-dirty-white rounded-md" id="contactnumber" name="contactnumber" value="63" readonly>
-                    <x-input id="contactnumber" class="block mb-4 w-[450px] h-[42px] bg-dirty-white" type="text" name="contactnumber" :value="old('contactnumber')" required autofocus />
+                    <input type="text" class="block mb-4 w-[50px] h-[42px] bg-dirty-white rounded-md" id="" name="" value="+63" readonly>
+                    <x-input id="contactnumber" class="block mb-4 w-[450px] h-[42px] bg-dirty-white" type="text" name="contactNumber" :value="old('contactNumber')" required autofocus />
                 </div>
                
             </div>
@@ -163,6 +163,16 @@
                     month = String(month).padStart(2, "0");
                     day = String(day).padStart(2, "0");
                     return year + "-" + month + "-" + day;
+                }
+            });
+
+            document.addEventListener("DOMContentLoaded", function() {
+                var span = document.getElementsByClassName("close");
+                if (span) {
+                    span.onclick = function() {
+                        span.style.display = "none";
+                        window.location.reload();
+                    }
                 }
             });
         </script>
