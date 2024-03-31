@@ -62,10 +62,13 @@
                 </div>
 
                 <div>
-                    <x-label for="contactnumber" :value="__('* Contact Number')" class="font-roboto text-xl" style="color:white;" />
-
-                    <x-input id="contactnumber" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="contactnumber" :value="old('contactnumber')" required autofocus />
+                    <x-label for="contactnumber" :value="__('* Contact Number')" class="font-roboto" style="color:white;" />
+                    <div class="flex flex-row">
+                    <input type="text" class="block mb-4 w-[50px] h-[42px] bg-dirty-white rounded-md" id="contactnumber" name="contactnumber" value="63" readonly>
+                    <x-input id="contactnumber" class="block mb-4 w-[450px] h-[42px] bg-dirty-white" type="text" name="contactnumber" :value="old('contactnumber')" required autofocus />
                 </div>
+               
+            </div>
 
                 <div>
                     <x-label for="dateOfBirth" :value="__('* Date of Birth')" class="font-roboto text-xl" style="color:white;" />

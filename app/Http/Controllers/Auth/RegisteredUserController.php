@@ -101,7 +101,7 @@ class RegisteredUserController extends Controller
             'middleName' => $request->middlename,
             'lastName' => $request->lastname,
             'dateOfBirth' => $request->dateOfBirth,
-            'contactNumber' => $request->contactnumber,
+            'contactNumber' => '63' . $request->contactnumber,
             'email' => $request->email,
         ]);
 
@@ -140,7 +140,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'sitioID' => $request->sitio,
             'assignedSitioID' => '1',
-            'contactNumber' => $request->contactnumber,
+            'contactNumber' => '63' . $request->contactnumber,
             'password' => Hash::make($request->password)
         ]);
         $resident->user->assignRole($request->userlevel);

@@ -118,7 +118,7 @@ class ResidentUserController extends Controller
                         'email' => $request->email,
                         'sitioID' => $request->sitio,
                         'assignedSitioID' => '1',
-                        'contactNumber' => $request->contactnumber,
+                        'contactNumber' => '63' . $request->contactnumber,
                         'password' => Hash::make($request->password)
                     ]);
                     $user->assignRole($request->userlevel); //assign account role as User
