@@ -36,52 +36,18 @@
     <script>
 
 
-        // $("document").ready(function() {
-        //     setTimeout(function() {
-        //         $("div.alert").remove();
-        //     }, 10000);
-        // });
+        $("document").ready(function() {
+            setTimeout(function() {
+                $("div.alert").remove();
+            }, 15000);
+        });
 
-    // document.addEventListener('DOMContentLoaded', function () {
-    //     const infoTypeSelect = document.getElementById('info-type');
-    //     const infoContainer = document.getElementById('current-info-container');
-    //     const infoLabel = document.getElementById('current-info-label');
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function() {
+            modal.style.display = "none";
+            window.location.reload();
+        }
 
-    //         infoTypeSelect.addEventListener('change', function () {
-    //         const selectedType = this.value;
-
-    //         // Fetch user information dynamically
-    //         fetch(`/residents/get-current-user-info?type=${selectedType}`)
-    //             .then(response => response.json())
-    //             .then(data => {
-    //                 console.log(data);
-    //                 // Check if the 'user' property exists in the response
-    //                 if (data && data.user && data.relatedInfo) {
-    //                     const currentUser = data.user;
-    //                     const relatedInfo = data.relatedInfo;
-    //                     const currentInfo = relatedInfo[selectedType];
-
-    //                     console.log('Current User:', currentUser);
-    //                     console.log('Related Info:', relatedInfo);
-                        
-    //                     // Update the current-info-container with fetched data
-    //                     if (currentInfo !== null && currentInfo !== undefined) {
-    //                         infoContainer.innerHTML = `${currentInfo}`;
-    //                         infoLabel.innerHTML = `OLD INFORMATION`;
-    //                     } else {
-    //                         infoContainer.innerHTML = `No data available for ${selectedType}`;
-    //                     }
-    //                 } else {
-    //                     infoContainer.innerHTML = `Error: Unable to fetch user information`;
-    //                 }
-    //             })
-    //             .catch(error => {
-    //                 console.error('Fetch error:', error);
-    //                 infoContainer.innerHTML = `Unable to fetch user information`;
-    //                 infoLabel.innerHTML = `Error`;
-    //             });
-    //     });
-    // });
 
     document.addEventListener('DOMContentLoaded', function () {
     const infoTypeSelect = document.getElementById('info-type');

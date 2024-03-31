@@ -71,8 +71,10 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed'],
             'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'dateOfBirth' => 'required|date|before:' . Carbon::now()->subYears(18),
+            'contactNumber' => ['required', 'numeric', 'digits:12'],
         ],
         [
+            'contactNumber.required' =>'Invalid Contact Number',
             'dateOfBirth.before' => 'User must be 18 Years Old and Above to Register!',
             'profileImage.required' => 'File Types must only be jpeg, png, jpg, gif, svg'
         ]);

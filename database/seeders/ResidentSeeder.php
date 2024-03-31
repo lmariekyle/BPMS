@@ -137,7 +137,7 @@ class ResidentSeeder extends Seeder
             'lastName' => 'Barriga',
             'dateOfBirth' => '2001-11-18',
             'contactNumber' => '1234567890',
-            'email' => 'horeb@bpms.com',
+            'email' => '19100340@usc.edu.ph',
             'gender' => 'M',
             'maritalStatus' => 'Married',
         ]);
