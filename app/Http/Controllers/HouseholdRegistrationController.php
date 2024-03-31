@@ -102,14 +102,13 @@ class HouseholdRegistrationController extends Controller
 
             
             if ($request->hasFile('file')) {
-                foreach ($request->file('file') as $file) {
-                    if ($file->isValid()) {
-                        $file_name = Str::slug($resident['lastName']) . '_SupportingDoc_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                        
-                        $file->storeAs('supportingDocuments', $file_name);
-                        $path = $file_name;
-                        $certRequirements = $path;
-                    }
+                $file=$request->file('file');
+                if ($file->isValid()) {
+                    $file_name = Str::slug($resident['lastName']) . '_SupportingDoc_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                    
+                    $file->storeAs('supportingDocuments', $file_name);
+                    $path = $file_name;
+                    $certRequirements = $path;
                 }
                 $reqJson = json_encode($certRequirements);
             } else {
@@ -153,14 +152,13 @@ class HouseholdRegistrationController extends Controller
             
             
             if ($request->hasFile('file')) {
-                foreach ($request->file('file') as $file) {
-                    if ($file->isValid()) {
-                        $file_name = Str::slug($resident['lastName']) . '_SupportingDoc_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                        
-                        $file->storeAs('supportingDocuments', $file_name);
-                        $path = $file_name;
-                        $certRequirements = $path;
-                    }
+                $file=$request->file('file');
+                if ($file->isValid()) {
+                    $file_name = Str::slug($resident['lastName']) . '_SupportingDoc_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                    
+                    $file->storeAs('supportingDocuments', $file_name);
+                    $path = $file_name;
+                    $certRequirements = $path;
                 }
                 $reqJson = json_encode($certRequirements);
             } else {
@@ -238,8 +236,10 @@ class HouseholdRegistrationController extends Controller
             $count++;
         }
 
-       
-}
+        return response()->json([
+            'success' => true
+        ]);
+    }
 
 
 
