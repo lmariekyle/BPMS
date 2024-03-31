@@ -15,22 +15,22 @@ class StatisticsSeeder extends Seeder
     public function run()
     {
         Statistics::create([
-            'year' => '2021',
+            'year' => '2023',
             'quarter' => '1',
             'totalHouseholdsSitio' => '0',
             'totalResidentsSitio' => '0',
-            'totalHouseholdsBarangay' => '0',
-            'totalResidentsBarangay' => '0',
+            'totalHouseholdsBarangay' => '1588',
+            'totalResidentsBarangay' => '6587',
             'revisedBy' => '1',
         ]);
 
         Statistics::create([
-            'year' => '2022',
+            'year' => '2023',
             'quarter' => '2',
             'totalHouseholdsSitio' => '0',
             'totalResidentsSitio' => '0',
-            'totalHouseholdsBarangay' => '0',
-            'totalResidentsBarangay' => '0',
+            'totalHouseholdsBarangay' => '1605',
+            'totalResidentsBarangay' => '6669',
             'revisedBy' => '1',
         ]);
 
@@ -39,8 +39,8 @@ class StatisticsSeeder extends Seeder
             'quarter' => '3',
             'totalHouseholdsSitio' => '0',
             'totalResidentsSitio' => '0',
-            'totalHouseholdsBarangay' => '0',
-            'totalResidentsBarangay' => '0',
+            'totalHouseholdsBarangay' => '1620',
+            'totalResidentsBarangay' => '6749',
             'revisedBy' => '1',
         ]);
 
@@ -49,8 +49,8 @@ class StatisticsSeeder extends Seeder
             'quarter' => '4',
             'totalHouseholdsSitio' => '0',
             'totalResidentsSitio' => '0',
-            'totalHouseholdsBarangay' => '75',
-            'totalResidentsBarangay' => '271',
+            'totalHouseholdsBarangay' => '1641',
+            'totalResidentsBarangay' => '6839',
             'revisedBy' => '1',
         ]);
     }
