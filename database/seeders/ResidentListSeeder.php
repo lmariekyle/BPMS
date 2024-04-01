@@ -18,7 +18,6 @@ class ResidentListSeeder extends Seeder
             'residentID'=>'1',
             'houseID'=>'1',
             'houseNumber'=>0,
-            'householdHead'=>1,
             'memberNumber'=>1,
             'createdBy'=>0,
             'revisedBy'=>0,

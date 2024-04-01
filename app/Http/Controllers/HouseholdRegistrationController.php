@@ -17,8 +17,236 @@ use Symfony\Component\Console\Input\Input;
 
 class HouseholdRegistrationController extends Controller
 {
+
+    
+    
     /**
      * Store a newly created household in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function mobileUpdateHouseholdStore(Request $request)
+    {
+        $household = new Households();
+
+        $data = $request->only($household->getFillable());
+        $household->fill($data);
+        
+        $initDate = strtotime($request->dateOfVisit);
+        $date = date('Y-m-d', $initDate);
+
+        $household['dateOfVisit']=$date;
+        if(substr($household['houseNumber'],-1)=='B'){ 
+            $find=Households::where('sitioID',$household['sitioID'])
+            ->where('houseNumber',substr($household['houseNumber'],0,-1))
+            ->orderBy('yearOfVisit','desc')
+            ->get();
+
+            foreach ($find as $house) {
+                $resList=ResidentList::where('houseID',$house['id'])
+                        ->first();
+
+                $house['houseNumber']=substr($household['houseNumber'],0,-1).'A';
+                $resList['houseNumber']=substr($household['houseNumber'],0,-1).'A';
+
+                $house->update();
+                $resList->update();
+            }
+        
+            
+        }
+        $household->save();
+
+        return response()->json([
+            'householdID' => $household->id,
+            'houseNum' => $household->houseNumber,
+            'success' => true
+        ]);
+    }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function mobileUpdateResident(Request $request)
+    {
+        $residentID = 0;
+        $resident=$request->all();
+        $deathdate = null;
+        
+        
+        $initDate = strtotime($resident['dateOfBirth']);
+        $birthdate = date('Y-m-d', $initDate);
+        
+        if($resident['dateOfDeath']!="NotDead"){
+            $dateOfDeath = strtotime($resident['dateOfDeath']);
+            $deathdate = date('Y-m-d', $dateOfDeath);
+
+        }
+
+        $certRequirements = '';
+
+        $allResidents=Resident::all(); //configure this pa -> residentID
+        $allResidents->makeVisible('firstName','middleName','lastName');
+
+        $search=$allResidents->where('residentID', $resident['residentID'])
+                        ->first();
+
+        //does this resident exist
+        
+        if(is_null($search)){
+
+            
+            if ($request->hasFile('file')) {
+                $file=$request->file('file');
+                if ($file->isValid()) {
+                    $file_name = Str::slug($resident['lastName']) . '_SupportingDoc_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                    
+                    $file->storeAs('supportingDocuments', $file_name);
+                    $path = $file_name;
+                    $certRequirements = $path;
+                }
+                $reqJson = json_encode($certRequirements);
+            } else {
+                $reqJson = NULL;
+            }
+            
+            $newResident = new Resident();
+            $newResident->fill([
+                'firstName'=>$resident['firstName'],
+                'middleName'=>$resident['middleName'],
+                'lastName'=>$resident['lastName'],
+                'dateOfBirth'=>$birthdate,
+                'contactNumber'=>$resident['contactNumber'],
+                'email'=>$resident['email'],
+                'maritalStatus'=>$resident['maritalStatus'],
+                'gender'=>$resident['gender'],
+                'philHealthNumber'=>$resident['philHealthNumber'],
+                'occupation'=>$resident['occupation'],
+                'monthlyIncome'=>$resident['monthlyIncome'],
+                'familyRole'=>$resident['familyRole'],
+                'educationalAttainment'=>$resident['educationalAttainment'],
+                'ageClassification'=>$resident['ageClassification'],
+                'pregnancyClassification'=>$resident['pregnancyClassification'],
+                'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
+                'registeredPWD'=>$resident['registeredPWD'],
+                'supportingDocument'=>$reqJson,
+                
+
+                'createdBy' => $resident['createdBy'],
+                'revisedBy' => $resident['revisedBy'],
+            ]);
+
+
+            $newResident['residentID']= IdGenerator::generate(['table'=>'residents','field'=>'residentID','length'=>9,'prefix'=>'RES-']);              
+
+            $newResident->save();
+            $residentID=$newResident->id;
+            
+            
+        }else{
+            
+            
+            if ($request->hasFile('file')) {
+                $file=$request->file('file');
+                if ($file->isValid()) {
+                    $file_name = Str::slug($resident['lastName']) . '_SupportingDoc_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                    
+                    $file->storeAs('supportingDocuments', $file_name);
+                    $path = $file_name;
+                    $certRequirements = $path;
+                }
+                $reqJson = json_encode($certRequirements);
+            } else {
+                $reqJson = NULL;
+            }
+            
+
+            $updatedResident = new Resident();
+            $updatedResident->fill([
+                'residentID'=>$resident['residentID'],
+                'firstName'=>$resident['firstName'],
+                'middleName'=>$resident['middleName'],
+                'lastName'=>$resident['lastName'],
+                'dateOfBirth'=>$birthdate,
+                'contactNumber'=>$resident['contactNumber'],
+                'email'=>$resident['email'],
+                'maritalStatus'=>$resident['maritalStatus'],
+                'gender'=>$resident['gender'],
+                'philHealthNumber'=>$resident['philHealthNumber'],
+                'occupation'=>$resident['occupation'],
+                'monthlyIncome'=>$resident['monthlyIncome'],
+                'familyRole'=>$resident['familyRole'],
+                'educationalAttainment'=>$resident['educationalAttainment'],
+                'ageClassification'=>$resident['ageClassification'],
+                'pregnancyClassification'=>$resident['pregnancyClassification'],
+                'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
+                'registeredPWD'=>$resident['registeredPWD'],
+                'dateOfDeath'=>$deathdate,
+                //'supportingDocument'=>$resident['supportingDocument']
+                
+
+                'createdBy' => $resident['createdBy'],
+                'revisedBy' => $resident['revisedBy'],
+            ]);
+            $updatedResident->save();
+            $residentID=$updatedResident->id;
+                            
+                
+        }
+        
+
+        
+        return response()->json([
+            'resident' => $residentID,
+            'success' => true
+        ]);
+    }
+
+    /**
+     * This function is to connect the residents to their household
+     * $request has the fields of {householdID,houseNumber,userID,residents}
+     * 
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function mobileConnectResToHouse(Request $request)
+    {
+        $count=1;
+
+        foreach ($request->residents as $memID) {
+            $connect=new ResidentList();
+                
+            $connect->fill([
+                'residentID'=>$memID,
+                'houseID'=>$request->householdID,
+    
+                'houseNumber'=>$request->houseNumber,
+                'memberNumber'=>$count,
+    
+                'createdBy' => $request->userID,
+                'revisedBy' => $request->userID,
+            ]);
+            $connect->save();
+            
+            $count++;
+        }
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
+
+
+
+    /**
+     * Store a newly created household in storage.
+     * Deprecated
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -44,6 +272,7 @@ class HouseholdRegistrationController extends Controller
 
     /**
      * Store a newly created resident in storage.
+     * Deprecated
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -96,6 +325,8 @@ class HouseholdRegistrationController extends Controller
                     'philHealthNumber'=>$resident['philHealthNumber'],
                     'occupation'=>$resident['occupation'],
                     'monthlyIncome'=>$resident['monthlyIncome'],
+                    'familyRole'=>$resident['familyRole'],
+                    'educationalAttainment'=>$resident['educationalAttainment'],
                     'ageClassification'=>$resident['ageClassification'],
                     'pregnancyClassification'=>$resident['pregnancyClassification'],
                     'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
@@ -123,7 +354,6 @@ class HouseholdRegistrationController extends Controller
 
         
         $count = 1;
-        $head = false;
 
         foreach ($request->members as $resident) {
 
@@ -133,13 +363,6 @@ class HouseholdRegistrationController extends Controller
             ->where('dateOfBirth', $resident['dateOfBirth'])
             ->first();
             
-            if($count==1){
-                $head=true;
-            }else{
-                $head=false;
-            }
-            
-        
             $connect=new ResidentList();
             
             $connect->fill([
@@ -147,7 +370,6 @@ class HouseholdRegistrationController extends Controller
                 'houseID'=>$memHouse['id'],
 
                 'houseNumber'=>$memHouse['houseNumber'], //to accomodate for the multiple households
-                'householdHead'=>$head, //bool
                 'memberNumber'=>$count,
 
                 'createdBy' => $resident['createdBy'],
@@ -164,59 +386,15 @@ class HouseholdRegistrationController extends Controller
         ]);
     }
 
-    
-    
+
     /**
-     * Store a newly created household in storage.
+     * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function mobileUpdateHouseholdStore(Request $request)
-    {
-        $household = new Households();
-
-        $data = $request->only($household->getFillable());
-        $household->fill($data);
-        
-        $initDate = strtotime($request->dateOfVisit);
-        $date = date('Y-m-d', $initDate);
-
-        $household['dateOfVisit']=$date;
-        if(substr($household['houseNumber'],-1)=='B'){ 
-            $find=Households::where('sitioID',$household['sitioID'])
-            ->where('houseNumber',substr($household['houseNumber'],0,-1))
-            ->orderBy('yearOfVisit','desc')
-            ->get();
-
-            foreach ($find as $house) {
-                $resList=ResidentList::where('houseID',$house['id'])
-                        ->first();
-
-                $house['houseNumber']=substr($household['houseNumber'],0,-1).'A';
-                $resList['houseNumber']=substr($household['houseNumber'],0,-1).'A';
-
-                $house->update();
-                $resList->update();
-            }
-        
-            
-        }
-        $household->save();
-
-        return response()->json([
-            'success' => true
-        ]);
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function mobileUpdateResident(Request $request)
+    public function oldUpdateResident(Request $request, $id)
     {
         
         $memHouse=Households::where('sitioID',$request->sitioID)
@@ -225,25 +403,44 @@ class HouseholdRegistrationController extends Controller
                             ->where('yearOfVisit',$request->yearOfVisit)
                             ->orderby('created_at','DESC')
                             ->first();
-        
-       
-        $lastRes=Resident::orderBy('residentID','desc')->first();
-        $tempArr=explode('-',$lastRes['residentID']);
 
-        $head = false;
+        $formData = $request->all();
         $count = 1;
 
-        foreach ($request->members as $resident) {
-            $search=Resident::where('firstName', $resident['firstName'])
+        $members = $formData['members'];
+        return $request->all();
+        $allResidents=Resident::all(); //configure this pa -> residentID
+        $allResidents->makeVisible('firstName','middleName','lastName');
+
+        foreach ($members as $resident) {
+
+            $search=$allResidents->where('firstName', $resident['firstName'])
                             ->where('middleName', $resident['middleName'])
                             ->where('lastName', $resident['lastName'])
                             ->where('dateOfBirth', $resident['dateOfBirth'])
                             ->first();
+
+            //does this resident exist
             if(is_null($search)){
 
                 $initDate = strtotime($resident['dateOfBirth']);
                 $date = date('Y-m-d', $initDate);
-
+                
+                if ($resident->hasFile('file')) {
+                    foreach ($resident->file('file') as $file) {
+                        if ($file->isValid()) {
+                            $file_name = Str::slug($resident->lastName) . '_SupportingDoc_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                            
+                            $file->storeAs('supportingDocuments', $file_name);
+                            $path = $file_name;
+                            $certRequirements[] = $path;
+                        }
+                    }
+                    $reqJson = json_encode($certRequirements);
+                } else {
+                    $reqJson = NULL;
+                }
+                
                 $newResident = new Resident();
                 $newResident->fill([
                     'firstName'=>$resident['firstName'],
@@ -257,55 +454,31 @@ class HouseholdRegistrationController extends Controller
                     'philHealthNumber'=>$resident['philHealthNumber'],
                     'occupation'=>$resident['occupation'],
                     'monthlyIncome'=>$resident['monthlyIncome'],
+                    'familyRole'=>$resident['familyRole'],
+                    'educationalAttainment'=>$resident['educationalAttainment'],
                     'ageClassification'=>$resident['ageClassification'],
                     'pregnancyClassification'=>$resident['pregnancyClassification'],
                     'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
                     'registeredPWD'=>$resident['registeredPWD'],
-                    //'supportingDocument'=>$resident['supportingDocument']
+                    'supportingDocument'=>$reqJson,
                     
 
                     'createdBy' => $resident['createdBy'],
                     'revisedBy' => $resident['revisedBy'],
                 ]);
 
-                $newResident['residentID']= IdGenerator::generate(['table'=>'residents','field'=>'residentID','length'=>9,'prefix'=>'RES-']);
 
-
-                /*
-                if($currResID<9){
-                    $newResident['residentID']='RES-000'.($currResID+1);
-                }else if($currResID<99){
-                    $newResident['residentID']='RES-00'.($currResID+1);
-                }else if($currResID<999){
-                    $newResident['residentID']='RES-0'.($currResID+1);
-                }else{
-                    $newResident['residentID']='RES-'.($currResID+1);
-                }*/
-                
+                $newResident['residentID']= IdGenerator::generate(['table'=>'residents','field'=>'residentID','length'=>9,'prefix'=>'RES-']);              
 
                 $newResident->save();
-
-                $memID=Resident::where('firstName', $resident['firstName'])
-                ->where('middleName', $resident['middleName'])
-                ->where('lastName', $resident['lastName'])
-                ->where('dateOfBirth', $resident['dateOfBirth'])
-                ->first();
-                
-                
-                if($count==1){
-                    $head=true;
-                }else{
-                    $head=false;
-                }
-
+               
                 $connect=new ResidentList();
                 
                 $connect->fill([
-                    'residentID'=>$memID['id'],
+                    'residentID'=>$newResident->id,
                     'houseID'=>$memHouse['id'],
 
                     'houseNumber'=>$memHouse['houseNumber'], //to accomodate for the multiple households
-                    'householdHead'=>$head, //bool
                     'memberNumber'=>$count,
 
                     'createdBy' => $resident['createdBy'],
@@ -334,6 +507,8 @@ class HouseholdRegistrationController extends Controller
                     'philHealthNumber'=>$resident['philHealthNumber'],
                     'occupation'=>$resident['occupation'],
                     'monthlyIncome'=>$resident['monthlyIncome'],
+                    'familyRole'=>$resident['familyRole'],
+                    'educationalAttainment'=>$resident['educationalAttainment'],
                     'ageClassification'=>$resident['ageClassification'],
                     'pregnancyClassification'=>$resident['pregnancyClassification'],
                     'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
@@ -348,28 +523,14 @@ class HouseholdRegistrationController extends Controller
                 $updatedResident->save();
                
                     
-                if($count==1){
-                    $head=true;
-                }else{
-                    $head=false;
-                }
-                
-
-                $memID=Resident::where('firstName', $resident['firstName'])
-                ->where('middleName', $resident['middleName'])
-                ->where('lastName', $resident['lastName'])
-                ->where('dateOfBirth', $resident['dateOfBirth'])
-                ->orderby('created_at','desc')
-                ->first();
-                
+                                
                 $connect=new ResidentList();
 
                 $connect->fill([
-                    'residentID'=>$memID['id'],
+                    'residentID'=>$updatedResident->id,
                     'houseID'=>$memHouse['id'],
 
                     'houseNumber'=>$memHouse['houseNumber'], 
-                    'householdHead'=>$head,
                     'memberNumber'=>$count,
 
                     'createdBy' => $resident['createdBy'],
@@ -388,29 +549,6 @@ class HouseholdRegistrationController extends Controller
         return response()->json([
             'success' => true
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

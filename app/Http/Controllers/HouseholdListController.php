@@ -12,8 +12,10 @@ use function PHPUnit\Framework\isEmpty;
 
 class HouseholdListController extends Controller
 {
+    
     public function mobileHouseholds(Request $request)
     {
+        /* This function asks for the sitioID and with it, gets all of the households under that sitioID */
         
         $tempHousehold=Households::select('houseNumber')
                                 ->where('sitioID', $request->sitioID)
@@ -31,6 +33,7 @@ class HouseholdListController extends Controller
                                 ->first();
             $name=Resident::where('id',$user['residentID'])
                                 ->first();
+            $name->makeVisible('firstName','lastName');
             $house['revisedByName']=$name['firstName']. ' '.$name['lastName'];
             
             array_push($households,$house);
@@ -126,6 +129,8 @@ class HouseholdListController extends Controller
             $mem=Resident::where('id',$res['residentID'])
                         ->orderby('created_at','desc')
                         ->first();
+            
+            $mem->makeVisible('firstName','middleName','lastName','contactNumber');
         
             array_push($members,$mem);
         }
@@ -157,6 +162,7 @@ class HouseholdListController extends Controller
             $mem=Resident::where('id',$res['residentID'])
                         ->orderby('created_at','desc')
                         ->first();
+            $mem->makeVisible('firstName','middleName','lastName','contactNumber');
         
             array_push($members,$mem);
         }
