@@ -53,5 +53,15 @@ class StatisticsSeeder extends Seeder
             'totalResidentsBarangay' => '6839',
             'revisedBy' => '1',
         ]);
+
+        Statistics::create([
+            'year' => '2024',
+            'quarter' => '1',
+            'totalHouseholdsSitio' => '0',
+            'totalResidentsSitio' => '0',
+            'totalHouseholdsBarangay' => '1662',
+            'totalResidentsBarangay' => '6929',
+            'revisedBy' => '1',
+        ]);
     }
 }
