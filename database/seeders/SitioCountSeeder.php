@@ -1274,7 +1274,7 @@ class SitioCountSeeder extends Seeder
         );
 
         //==================================================================================================================
-        /*
+        
         //Year:2024 Quarter:1
         //Cabangyao
         DB::table('sitio_counts')->insert(
@@ -1587,7 +1587,7 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 14, 'statID' => 5, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 99],
             ]
         );
-        */
+        
         //==================================================================================================================
     
     }
