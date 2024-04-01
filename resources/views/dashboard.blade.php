@@ -37,7 +37,7 @@
             
             <div class="flex flex-col p-3 -mt-20 -ml-24 h-max w-[1342px]">
                 <p class="ml-3 mt-3 mb-2 font-robotocondensed text-[24px] text-black">FILTER STATISTICS</p>
-                <div class="flex flex-row px-10 py-6 items-center justify-between w-[1250px] ml-3 border-b-2 border-black rounded-sm h-max">
+                <div class="flex flex-row px-10 py-10 items-center justify-between w-[1250px] ml-3 border-b-2 border-black rounded-sm h-max">
                     <form action="" method="GET">
 
                         <div class="float-left bg-transparent h-16 w-40">
