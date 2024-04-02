@@ -55,8 +55,8 @@
                             </div>
                         </div>
                         <div class="ml-[325px] mt-[53px] float-left text-2xl font-roboto">
-                            <div class="float-left max-w-[554px] max-h-[324px] w-[554px] h-[324px] border border-green mr-12">
-                            <div>
+                            <div class="float-left max-w-[554px] max-h-[324px] w-[554px] h-max border border-green mr-12">
+                            <div class="mb-4">
                                     <p class="text-deep-green px-1 mt-6">Account Status:</p>
                                     <div class="bg-green text-dirty-white pl-4">{{$user->userStatus}}</div>
                                 </div>

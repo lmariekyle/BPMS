@@ -233,7 +233,7 @@
                                     <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS</p>
                                 </div>
                                 <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                                    <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
+                                    <p class="font-poppin text-center font-black text-[30px] text-dirty-white">
                                         {{ $totalResidentCount }} RESIDENTS
                                     </p>
                                 </div>-
@@ -243,7 +243,7 @@
                                     <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS AS OF {{ date("Y") }}</p>
                                 </div>
                                 <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                                    <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
+                                    <p class="font-poppin text-center font-black text-[30px] text-dirty-white">
                                         @if($request->gender=="NULL" && $request->ageclass=="NULL")
                                         {{ $totalHouseholdCount }}
                                         @else
@@ -261,7 +261,7 @@
 
 
             @hasanyrole('User|Barangay Health Worker')
-            <div class="w-max h-max grid grid-rows-2 grid-flow-col gap-16 -ml-32 -mt-20 px-5 py-5 justify-between font-bold">
+            <div class="w-max h-max grid grid-rows-2 grid-flow-col gap-16 -ml-24 -mt-20 px-5 py-5 justify-between font-bold">
                 <div class="bg-dirty-white w-[472px] h-[421px] border-2 border-deep-green">
                     <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border px-1 py-1 text-center">BARANGAY CERTIFICATE</p>
                     <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">PURPOSES BARANGAY CERTIFICATION:</p>

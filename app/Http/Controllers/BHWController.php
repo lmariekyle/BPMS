@@ -19,7 +19,7 @@ class BHWController extends Controller
      */
     public function index()
     {
-        $bhws = User::where('userlevel','Barangay Health Worker')->paginate();
+        $bhws = User::where('userlevel','Barangay Health Worker')->paginate(10);
 
         foreach ($bhws as $key) {
             $resident=Resident::where('id',$key->residentID)->first();

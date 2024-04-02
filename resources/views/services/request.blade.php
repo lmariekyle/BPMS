@@ -7,8 +7,10 @@
 
     <form method="POST" action="{{route('services.storerequest' , $doctypename)}}" enctype="multipart/form-data">
         @csrf
+        <div class="ml-8">
+        @include('components.flash')
+    </div>
         <div class="w-[1400px] h-max font-robotocondensed text-[26px] ml-8 mt-14 py-2 border-2 border-black text-deep-green">
-
             <div class="text-6xl px-6 py-1 -mt-2 bg-green text-dirty-white">
 
                 <p class="font-bold">
@@ -30,65 +32,65 @@
                         <p class="font-poppins text-[24px] text-deep-green mt-[2rem] underline underline-offset-8">REQUESTEE INFORMATION</p>
                         <div class="mt-[1rem] flex flex-row text-[23px]">
                             <div class="">
-                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->firstName}}" name="requesteeFName">
+                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->firstName}}" name="requesteeFName" required>
                                 <br>
                                 <label>* FIRST NAME</label>
                             </div>
                             <div class="ml-8">
-                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->lastName}}" name="requesteeLName">
+                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->lastName}}" name="requesteeLName" required>
                                 <br>
                                 <label>* LAST NAME</label>
                             </div>
                             <div class="ml-10">
-                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->middleName}}" name="requesteeMName">
+                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->middleName}}" name="requesteeMName" required>
                                 <br>
                                 <label>MIDDLE NAME</label>
                             </div>
                         </div>
                         <div class="mt-6 flex flex-row text-[23px]">
                             <div class="">
-                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->email}}" name="requesteeEmail">
+                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->email}}" name="requesteeEmail" required>
                                 <br>
                                 <label>* EMAIL ADDRESS</label>
                             </div>
                             <div class="ml-20">
-                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->contactNumber}}" name="requesteeContactNumber">
+                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->contactNumber}}" name="requesteeContactNumber" required>
                                 <br>
                                 <label>* CONTACT NUMBER</label>
                             </div>
                         </div>
                         <div class="mt-[3rem]">
                             <label>* PURPOSE OF REQUEST</label>
-                            <textarea class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;" name="requestPurpose"> </textarea>
+                            <textarea class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;" name="requestPurpose" required>{{ old('requestPurpose') }}</textarea>
                         </div>
                         @elseif ($doctypename == 'FILE COMPLAIN')
                         <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="16" name="selectedDocument">
                         <p class="font-poppins text-[24px] text-deep-green mt-[2rem] underline underline-offset-8">COMPLAINT DETAILS</p>
                         <div class="mt-[1rem] flex flex-row text-[23px]">
                             <div class="">
-                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaintFName">
+                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaintFName" required>
                                 <br>
                                 <label>* FIRST NAME</label>
                             </div>
                             <div class="ml-8">
-                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaintLName">
+                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaintLName" required>
                                 <br>
                                 <label>* LAST NAME</label>
                             </div>
                             <div class="ml-10">
-                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" name="complaintMName">
+                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" name="complaintMName" >
                                 <br>
                                 <label>MIDDLE NAME</label>
                             </div>
                         </div>
                         <div class="mt-6 flex flex-row text-[23px]">
                             <div class="">
-                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" name="complaintEmail">
+                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" name="complaintEmail" required>
                                 <br>
                                 <label>* EMAIL ADDRESS</label>
                             </div>
                             <div class="ml-20">
-                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" name="complaintContactNumber">
+                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" name="complaintContactNumber" required>
                                 <br>
                                 <label>* CONTACT NUMBER</label>
                             </div>
@@ -96,12 +98,12 @@
                         <p class="font-poppins text-[24px] text-deep-green mt-[2rem] underline underline-offset-8">COMPLAINEE DETAILS</p>
                         <div class="mt-[1rem] flex flex-row text-[23px]">
                             <div class="">
-                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeFName">
+                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeFName" required>
                                 <br>
                                 <label>* FIRST NAME</label>
                             </div>
                             <div class="ml-8">
-                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeLName">
+                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeLName" required>
                                 <br>
                                 <label>* LAST NAME</label>
                             </div>
@@ -113,14 +115,14 @@
                         </div>
                         <div class="mt-6 flex flex-row text-[23px]">
                             <div class="">
-                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeSitio">
+                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeSitio" required>
                                 <br>
                                 <label>* SITIO</label>
                             </div>
                         </div>
                         <div class="mt-[2rem]">
                             <label>* STATE REASON OF COMPLAIN</label>
-                            <textarea class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;" name="requestPurpose"> </textarea>
+                            <textarea class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;" name="requestPurpose" required>{{ old('requestPurpose') }}</textarea>
                         </div>
                         @elseif($doctypename == 'ACCOUNT INFORMATION CHANGE')
                         <div class="flex flex-col">
@@ -128,7 +130,7 @@
                             <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="{{$user->id}}" name="requestee">
                             <div class="">
                                 <label>* INFORMATION TO CHANGE</label>
-                                <select class="rounded-lg border-2 w-full h-[50px] text-[26px]" id="info-type" style="border-color: #414833;" name="selectedInformation">
+                                <select class="rounded-lg border-2 w-full h-[50px] text-[26px]" id="info-type" style="border-color: #414833;" name="selectedInformation" required>
                                     <option value="">SELECT INFORMATION</option>
                                     <option value="firstName">First Name</option>
                                     <option value="middleName">Middle Name</option>
@@ -151,7 +153,7 @@
                             </div>
                             <div class="mt-[3rem]">
                                 <label>* PURPOSE OF REQUEST</label>
-                                <textarea class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;" name="requestPurpose"> </textarea>
+                                <textarea class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;" name="requestPurpose" required>{{ old('requestPurpose') }}</textarea>
                             </div>
                         </div>
                         @endif
@@ -205,11 +207,19 @@
             </div>
             <div class="flex flex-col text-left ml-[3rem] -mt-[2rem]">
             @if($doctypename != 'FILE COMPLAIN' && $doctypename != 'ACCOUNT INFORMATION CHANGE')
-            <div class="w-[300px]">
-                <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">CERTIFICATE FEE:</p>
-                <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">PHP 100</p>
-                <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="100" name="docfee">
-            </div>
+                @if($doctypename == 'BARANGAY CLEARANCE')
+                <div class="w-[300px] -mt-12">
+                    <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">CERTIFICATE FEE:</p>
+                    <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">PHP 100</p>
+                    <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="100" name="docfee">
+                </div>
+                @elseif($doctypename == 'BARANGAY CERTIFICATE')
+                <div class="w-[300px]">
+                    <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">CERTIFICATE FEE:</p>
+                    <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">PHP 100</p>
+                    <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="100" name="docfee">
+                </div>
+                @endif
             <br>
             <div class="-mt-[2rem] w-max">
                 <p class="mb-2 mt-4 font-robotocondensed text-[24px] text-deep-green font-semibold">Available Payment Method:</p>

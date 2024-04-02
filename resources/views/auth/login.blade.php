@@ -17,7 +17,7 @@
                     <x-auth-session-status class="mb-4" :status="session('status')" />
                     <x-auth-validation-errors class="mb-2 ml-12 text-white" :errors="$errors"/>  
                     <div class="ml-10">
-                    @include('components.flash')
+                        @include('components.flash')
                     </div>
                 </div>
                 <div class="ml-12">

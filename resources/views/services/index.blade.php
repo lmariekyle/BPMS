@@ -76,7 +76,9 @@
                     @endforelse
                 </tbody>
             </table>
-
+            <div class="flex flex-row justify-evenly mt-4 self-center">
+                {{$accounts->links()}}
+            </div>  
         </div>
         @endrole
         @hasanyrole('Barangay Captain|Barangay Secretary')
@@ -137,7 +139,9 @@
                     @endforeach
                 </tbody>
             </table>
-
+            <div class="flex flex-row justify-evenly mt-4 self-center">
+                {{$transactions->links()}}
+            </div>    
         </div>
         @endhasanyrole
     </div>

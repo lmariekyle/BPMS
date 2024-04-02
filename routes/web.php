@@ -90,7 +90,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('update/{id}', [ResidentUserController::class, 'update'])->name('updateinfo');;
     Route::get('request/{docType}', [ServicesController::class, 'request'])->name('services.request');
     Route::post('request/{docType}', [ServicesController::class, 'storerequest'])->name('services.storerequest');
-    Route::post('createpayment/{id}', [ServicesController::class, 'createpayment'])->name('services.createpayment');
+    Route::get('createpayment/{id}', [ServicesController::class, 'createpayment'])->name('services.createpayment');
+    Route::post('storepayment/{id}', [ServicesController::class, 'storepayment'])->name('services.storepayment');
     // Route::post('payment', [ServicesController::class, 'createpayment'])->name('services.gcash');
     Route::get('successpayment/{id}', [ServicesController::class, 'successpayment'])->name('services.success');
     // Route::get('successpayment/{id}', function () {

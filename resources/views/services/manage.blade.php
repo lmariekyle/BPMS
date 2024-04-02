@@ -60,6 +60,10 @@
                         <p>Payment Reference Code:</p>
                         <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->payment['successURL'] }}</p>
                     </div>
+                    <div class="font-robotocondensed font-bold text-[32px] text-deep-green mt-6" style="font-size: 18px;">
+                        <p>Amount Due:</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">PHP {{ $transaction->serviceAmount }}</p>
+                    </div>
                     @else
                     <p>Payment Type:</p>
                         <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">CASH ON SITE</p>

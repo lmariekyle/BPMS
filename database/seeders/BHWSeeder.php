@@ -104,7 +104,7 @@ class BHWSeeder extends Seeder
             'contactnumber' => '09876543212',
             'userlevel' => 'User',
             'userstatus' => 'Active',
-            'profileImage' => 'images/peter.webp',
+            'profileImage' => 'images/peter.jpg',
             'email' => '19100340@usc.edu.ph',
             'email_verified_at' => now(),
             'password' => Hash::make('parkerbpms'),

@@ -46,8 +46,8 @@ class ServicesController extends Controller
 
     public function index()
     {
-        $transactions = Transaction::all();
-        $accounts = AccountInfoChange::all();
+        $transactions = Transaction::paginate(10);
+        $accounts = AccountInfoChange::paginate(10);
         foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -160,7 +160,7 @@ class ServicesController extends Controller
         $notifyUsers = User::where('id', $transaction->userID)->first();
         Notification::sendNow($notifyUsers, new ProcessingNotification($transaction));
 
-        $transactions = Transaction::all();
+        $transactions = Transaction::paginate(10);
         foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -240,10 +240,12 @@ class ServicesController extends Controller
 
     public function request(string $docType)
     {
+    
         $userAuth = Auth::user();
 
         $user = Resident::where('id', $userAuth->residentID)->first();
         $user->makeVisible('firstName', 'middleName', 'lastName');
+        $doctypename = $docType;
         if ($docType == 'Barangay Certificate') {
             $doctypename = 'BARANGAY CERTIFICATE';
         } elseif ($docType == 'Barangay Clearance') {
@@ -254,6 +256,7 @@ class ServicesController extends Controller
             $doctypename = 'ACCOUNT INFORMATION CHANGE';
         }
         $documents = Document::where('docType', $docType)->get();
+   
         return view('services.request', compact('documents', 'doctypename', 'user'));
     }
 
@@ -478,6 +481,7 @@ class ServicesController extends Controller
         $payment = Payment::where('id', $transactionPaymentId)->first();
         if ($request->paymentMethod == 'GCASH') {
             return view('services.gcash', compact('payment'));
+            // return view('services.gcash', $payment->id);
             // return $this->createpayment($payment->id);
         } else {
             return view('services.success');
@@ -542,41 +546,156 @@ class ServicesController extends Controller
 
     public function createpayment(Request $request , $id)
     {
-
-        $request->validate([
-            'successURL' => 'required|regex:/^.{13}$/',
-            'screenshot' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
-        ],
-        [
-            'successURL.regex' => 'Reference Code must be 13 characters long',
-            'screenshot.required' => 'File Types must only be jpeg, png, jpg'
-        ]);
-
         
-        //Image Upload 
-        if ($request->hasFile('screenshot')) {
-            $screenshot_name = time() . '.' . $request->screenshot->getClientOriginalExtension();
-            $path = $request->screenshot->storeAs('gcash', $screenshot_name, 'public');
-        } else {
-            $path = 'gcash/default.jpg';
-        }
-
         $payment = Payment::where('id', $id)->first();
         $transaction = Transaction::where('paymentID', $payment->id)->first();
         $externalID = 'PAYMENT' . date('Ymd') . '-' . rand(1000, 9999);
-
-        $payment->update([
-            'accountNumber' => $externalID,
-            'successURL' => $request->successURL,
-            'screenshot' => $path,
-            'paymentStatus' => 'Paid'
-        ]);
-        $payment->save();
   
-       
         // return Redirect::to($payment->successURL); 
-        return view('services.success');
+        return view('services.gcash', compact('payment'));
     }
+
+    // public function storepayment(Request $request , $id)
+    // {
+
+    //     $payment = Payment::where('id', $id)->first();
+    //     $transaction = Transaction::where('paymentID', $payment->id)->first();
+    //     $externalID = 'PAYMENT' . date('Ymd') . '-' . rand(1000, 9999);
+    
+    //     $request->validate([
+    //         'successURL' => 'required|numeric|digits:13',
+    //         'screenshot' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
+    //     ], [
+    //         'successURL.required' => 'Reference Code cannot be empty',
+    //         'successURL.numeric' => 'Reference Code must contain only numbers',
+    //         'successURL.digits' => 'Reference Code must be exactly 13 digits long',
+    //         'screenshot.mimes' => 'File type must be jpeg, png, or jpg',
+    //     ]);
+
+    //     // Check if there are validation errors
+    //     if ($request->fails()) {
+    //         // If there are validation errors, return back with errors
+    //         $transaction->update([
+    //             'serviceStatus' => 'Attempt Failed',
+    //         ]);
+    //         $transaction->save();
+
+    //         $payment->update([
+    //             'accountNumber' => NULL,
+    //             'successURL' => NULL ,
+    //             'screenshot' => NULL ,
+    //             'paymentStatus' => 'Attempt Failed',
+    //         ]);
+    //         $payment->save();
+    //         return back()->withErrors($request->errors())->withInput();
+    //     }else{
+            
+    //     }
+    //     // If there are no validation errors, proceed with the payment processing
+    //     //Image Upload 
+    //     if ($request->hasFile('screenshot')) {
+    //         $screenshot_name = time() . '.' . $request->screenshot->getClientOriginalExtension();
+    //         $path = $request->screenshot->storeAs('gcash', $screenshot_name, 'public');
+    //     } else {
+    //         $path = 'gcash/default.jpg';
+    //     }
+
+
+    //     $payment->update([
+    //         'accountNumber' => $externalID,
+    //         'successURL' => $request->successURL,
+    //         'screenshot' => $path,
+    //         'paymentStatus' => 'Paid'
+    //     ]);
+    //     $payment->save();
+
+    //     // Redirect to the success page
+    //     return view('services.success');
+    // }
+
+    public function storepayment(Request $request , $id)
+{
+    $payment = Payment::findOrFail($id);
+    $transaction = Transaction::where('paymentID', $payment->id)->first();
+    $externalID = 'PAYMENT' . date('Ymd') . '-' . rand(1000, 9999);
+
+    $request->validate([
+        'successURL' => 'required|numeric|digits:13',
+        'screenshot' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
+    ], [
+        'successURL.required' => 'Reference Code cannot be empty',
+        'successURL.numeric' => 'Reference Code must contain only numbers',
+        'successURL.digits' => 'Reference Code must be exactly 13 digits long',
+        'screenshot.mimes' => 'File type must be jpeg, png, or jpg',
+    ]);
+
+    // If validation fails, the code execution will not reach here
+    // Proceed with the payment processing
+    //Image Upload 
+    if ($request->hasFile('screenshot')) {
+        $screenshot_name = time() . '.' . $request->screenshot->getClientOriginalExtension();
+        $path = $request->screenshot->storeAs('gcash', $screenshot_name, 'public');
+    } else {
+        $path = 'gcash/default.jpg';
+    }
+
+    $payment->update([
+        'accountNumber' => $externalID,
+        'successURL' => $request->successURL,
+        'screenshot' => $path,
+        'paymentStatus' => 'Paid'
+    ]);
+
+    // Redirect to the success page
+    return view('services.success');
+}
+
+    // public function createpayment(Request $request , $id)
+    // {
+    
+    //     $request->validate([
+    //         'successURL' => 'required|numeric|digits:13',
+    //         'screenshot' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
+    //     ], [
+    //         'successURL.required' => 'Reference Code cannot be empty',
+    //         'successURL.numeric' => 'Reference Code must contain only numbers',
+    //         'successURL.digits' => 'Reference Code must be exactly 13 digits long',
+    //         'screenshot.mimes' => 'File type must be jpeg, png, or jpg',
+    //     ]);
+
+    //     // Check if there are validation errors
+    //     if ($request->fails()) {
+    //         // If there are validation errors, return back with errors
+    //         return back()->withErrors($request->errors())->withInput();
+    //     }
+
+    //     // If there are no validation errors, proceed with the payment processing
+    //     //Image Upload 
+    //     if ($request->hasFile('screenshot')) {
+    //         $screenshot_name = time() . '.' . $request->screenshot->getClientOriginalExtension();
+    //         $path = $request->screenshot->storeAs('gcash', $screenshot_name, 'public');
+    //     } else {
+    //         $path = 'gcash/default.jpg';
+    //     }
+
+    //     $payment = Payment::where('id', $id)->first();
+    //     $transaction = Transaction::where('paymentID', $payment->id)->first();
+    //     $externalID = 'PAYMENT' . date('Ymd') . '-' . rand(1000, 9999);
+
+    //     $payment->update([
+    //         'accountNumber' => $externalID,
+    //         'successURL' => $request->successURL,
+    //         'screenshot' => $path,
+    //         'paymentStatus' => 'Paid'
+    //     ]);
+    //     $payment->save();
+
+    //     // Redirect to the success page
+    //     return back();
+    // }
+
+
+
 
     // public function successpayment($id){
 
@@ -704,7 +823,7 @@ class ServicesController extends Controller
         Notification::sendNow($notifyUsers, new ProcessingNotification($transaction));
         Notification::sendNow($notifyCap, new SignatureNotification($transaction));
 
-        $transactions = Transaction::all();
+        $transactions = Transaction::paginate(10);
         foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -736,7 +855,7 @@ class ServicesController extends Controller
             ]);
             $transaction->save();
 
-            $transactions = Transaction::all();
+            $transactions = Transaction::paginate(10);
             foreach ($transactions as $transaction) {
                 $user = User::where('id', $transaction->userID)->first();
                 $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -766,7 +885,7 @@ class ServicesController extends Controller
             $notifyUsers = User::where('id', $transaction->userID)->get();
             Notification::sendNow($notifyUsers, new DenyNotification($transaction));
 
-            $transactions = Transaction::all();
+            $transactions = Transaction::paginate(10);
             foreach ($transactions as $transaction) {
                 $user = User::where('id', $transaction->userID)->first();
                 $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -807,7 +926,7 @@ class ServicesController extends Controller
         $notifyUsers = User::where('id', $transaction->userID)->get();
         Notification::sendNow($notifyUsers, new DenyNotification($transaction));
 
-        $transactions = Transaction::all();
+        $transactions = Transaction::paginate(10);
         foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -837,7 +956,7 @@ class ServicesController extends Controller
         $notifyUsers = User::where('id', $transaction->userID)->get();
         Notification::sendNow($notifyUsers, new SignedNotification($transaction));
 
-        $transactions = Transaction::all();
+        $transactions = Transaction::paginate(10);
         foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -864,7 +983,7 @@ class ServicesController extends Controller
         $notifyUsers = User::where('id', $transaction->userID)->get();
         Notification::sendNow($notifyUsers, new ReleasedNotification($transaction));
 
-        $transactions = Transaction::all();
+        $transactions = Transaction::paginate(10);
         foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
