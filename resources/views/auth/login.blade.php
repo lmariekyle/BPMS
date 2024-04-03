@@ -14,8 +14,6 @@
                 @csrf
                 <p class="font-dancingscript text-8xl text-dirty-white text-center pt-52">Welcome</p>
                 <div class="flex flex-col">
-                    <x-auth-session-status class="mb-4" :status="session('status')" />
-                    <x-auth-validation-errors class="mb-2 ml-12 text-white" :errors="$errors"/>  
                     <div class="ml-10">
                         @include('components.flash')
                     </div>
