@@ -106,6 +106,7 @@ class ResidentUserController extends Controller
             );
         });
 
+
         if ($check_res == null) {
             return view('auth.sorry-resident-notice');
         } else {
@@ -178,7 +179,7 @@ class ResidentUserController extends Controller
             );
         });
 
-        return $check_res;
+        return $residents;
         if ($check_res == null) {
             return response()->json([
                 'success' => false
