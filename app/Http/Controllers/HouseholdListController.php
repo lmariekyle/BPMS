@@ -30,7 +30,6 @@ class HouseholdListController extends Controller
                                 ->where('houseNumber', $houseNum['houseNumber'])
                                 ->orderBy('created_at','desc')
                                 ->first();
-            return $house;
             $user=User::where('id', $house['revisedBy'])
                                 ->first();
             $name=Resident::where('id',$user['residentID'])
