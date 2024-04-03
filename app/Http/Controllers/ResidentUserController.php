@@ -169,7 +169,7 @@ class ResidentUserController extends Controller
         $date = date('Y-m-d', $initDate);
 
         $residents = Resident::all();
-        $residents->makeVisible('firstName', 'middleName', 'lastName');
+        $residents->makeVisible('firstName', 'lastName');
         
         $check_res = $residents->first(function ($resident) use ($request) {
             return (
