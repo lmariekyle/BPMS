@@ -167,11 +167,16 @@ class ResidentUserController extends Controller
         $initDate = strtotime($request->dateOfBirth);
         $date = date('Y-m-d', $initDate);
 
-        $check_res = DB::table('residents')
-            ->where('firstName', '=', $request->firstName)
-            ->where('lastName', '=', $request->lastName)
-            ->where('dateOfBirth', '=', $date)
-            ->get();
+        $residents = Resident::all();
+        $residents->makeVisible('firstName', 'middleName', 'lastName');
+
+        $check_res = $residents->first(function ($resident) use ($request) {
+            return (
+                $resident->firstName == $request->firstname &&
+                $resident->lastName == $request->lastname &&
+                $resident->dateOfBirth == $request->dateOfBirth
+            );
+        });
 
         if ($check_res->isEmpty()) {
             return response()->json([
