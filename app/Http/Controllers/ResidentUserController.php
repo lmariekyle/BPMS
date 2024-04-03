@@ -169,7 +169,7 @@ class ResidentUserController extends Controller
 
         $residents = Resident::all();
         $residents->makeVisible('firstName', 'middleName', 'lastName');
-
+        
         $check_res = $residents->first(function ($resident) use ($request) {
             return (
                 $resident->firstName == $request->firstname &&
@@ -178,34 +178,35 @@ class ResidentUserController extends Controller
             );
         });
 
-        if ($check_res->isEmpty()) {
+        // $check_res = DB::table('residents')
+        //     ->where('firstName', '=', $request->firstName)
+        //     ->where('middleName', '=', $request->middleName)
+        //     ->where('lastName', '=', $request->lastName)
+        //     ->where('dateOfBirth', '=', $date)
+        //     ->get();
+
+        if ($check_res == null) {
             return response()->json([
                 'success' => false
             ]);
         } else {
-            foreach ($check_res as $verify) {
-                if (
-                    $verify->firstName == $request->firstName && $verify->middleName == $request->middleName
-                    && $verify->lastName == $request->lastName && $verify->dateOfBirth == $request->dateOfBirth
-                ) {
-                    $sitio = Sitio::where('sitioName', $request->sitio)->first();
-                    $user = User::create([
-                        'residentID' => $verify->id,
-                        'idNumber' => $userId,
-                        'userlevel' => 'User',
-                        'email' => $request->email,
-                        'sitioID' => $sitio->id,
-                        'assignedSitioID' => '1',
-                        'contactNumber' => $request->contactNumber,
-                        'password' => Hash::make($request->password)
-                    ]);
-                    $user->assignRole('User'); //assign account role as User
-                    event(new Registered($user)); //send email verification
-                    return response()->json([
-                        'success' => true
-                    ]);
-                }
-            }
+                
+            $sitio = Sitio::where('sitioName', $request->sitio)->first();
+            $user = User::create([
+                'residentID' => $check_res->id,
+                'idNumber' => $userId,
+                'userlevel' => 'User',
+                'email' => $request->email,
+                'sitioID' => $sitio->id,
+                'assignedSitioID' => '1',
+                'contactNumber' => $request->contactNumber,
+                'password' => Hash::make($request->password)
+            ]);
+            $user->assignRole('User'); //assign account role as User
+            event(new Registered($user)); //send email verification
+            return response()->json([
+                'success' => true
+            ]);
         }
     }
 
