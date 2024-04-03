@@ -169,17 +169,25 @@ class ResidentUserController extends Controller
         $date = date('Y-m-d', $initDate);
 
         $residents = Resident::all();
+<<<<<<< HEAD
         $residents->makeVisible('firstName', 'lastName');
+=======
+        $residents->makeVisible('firstName');
+        $residents->makeVisible('lastName');
+>>>>>>> a8f8681ad69fdd12217306cbf473a1f37ff42d2b
         
         $check_res = $residents->first(function ($resident) use ($request) {
             return (
-                $resident->firstName == $request->firstname &&
-                $resident->lastName == $request->lastname &&
+                $resident->firstName == $request->firstName &&
+                $resident->lastName == $request->lastName &&
                 $resident->dateOfBirth == $request->dateOfBirth
             );
         });
 
+<<<<<<< HEAD
         return $residents;
+=======
+>>>>>>> a8f8681ad69fdd12217306cbf473a1f37ff42d2b
         if ($check_res == null) {
             return response()->json([
                 'success' => false
