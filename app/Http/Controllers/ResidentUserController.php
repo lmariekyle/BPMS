@@ -178,6 +178,7 @@ class ResidentUserController extends Controller
             );
         });
 
+        return $check_res;
         if ($check_res == null) {
             return response()->json([
                 'success' => false
