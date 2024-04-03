@@ -23,13 +23,14 @@ class HouseholdListController extends Controller
                                 ->get();
 
         $households=[];
-        return $tempHousehold;
+        
 
         foreach ($tempHousehold as $houseNum) {
             $house=Households::where('sitioID', $request->sitioID)
                                 ->where('houseNumber', $houseNum['houseNumber'])
                                 ->orderBy('created_at','desc')
                                 ->first();
+            return $house;
             $user=User::where('id', $house['revisedBy'])
                                 ->first();
             $name=Resident::where('id',$user['residentID'])
