@@ -178,13 +178,6 @@ class ResidentUserController extends Controller
             );
         });
 
-        // $check_res = DB::table('residents')
-        //     ->where('firstName', '=', $request->firstName)
-        //     ->where('middleName', '=', $request->middleName)
-        //     ->where('lastName', '=', $request->lastName)
-        //     ->where('dateOfBirth', '=', $date)
-        //     ->get();
-
         if ($check_res == null) {
             return response()->json([
                 'success' => false
