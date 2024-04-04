@@ -166,7 +166,7 @@
                             <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS AS OF {{ date("Y") }}</p>
                         </div>
                         <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                            <p class="font-poppin text-center font-black text-[60px] text-dirty-white">{{ $statistics->totalResidentsBarangay }} RESIDENTS</p>
+                            <p class="font-poppin text-center font-black text-[30px] text-dirty-white">{{ $statistics->totalResidentsBarangay }} RESIDENTS</p>
                         </div>
                         <h1 class="mt-4 font-bold font-poppin text-[28px] text-deep-green text-center">IN BARANGAY</h1>
                         <h1 class="mt-1 font-bold font-poppin text-[28px] text-deep-green text-center">POBLACION, DALAGUETE, CEBU</h1>
@@ -177,7 +177,7 @@
                             <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS AS OF {{ date("Y") }}</p>
                         </div>
                         <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                            <p class="font-roboto text-center font-black text-6xl text-dirty-white">{{ $statistics->totalHouseholdsBarangay}} HOUSEHOLDS</p>
+                            <p class="font-roboto text-center font-black text-[30px] text-dirty-white">{{ $statistics->totalHouseholdsBarangay}} HOUSEHOLDS</p>
                         </div>
                         <h1 class="mt-4 font-bold font-poppin text-[28px] text-deep-green text-center">IN BARANGAY</h1>
                         <h1 class="mt-1 font-bold font-poppin text-[28px] text-deep-green text-center">POBLACION, DALAGUETE, CEBU</h1>

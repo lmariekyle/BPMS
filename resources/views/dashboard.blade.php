@@ -147,7 +147,7 @@
                                 </h1>
                             </div>
                             @if (($request->sitio || $request->gender || $request->ageclass) && $totalResidentCount>0)
-                            <div class="w-[525px] h-[300px] mt-2 mx-auto" id="residentPiechart" style=""></div>
+                            <div class="w-[1050px] h-[600px] mt-2 mx-auto" id="residentPiechart" style=""></div>
                             <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
                             <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end mt-[15rem] mr-8">
                                 <div class="mb-2 w-80 text-justify">
@@ -184,11 +184,11 @@
                                 </p>
                             </div>
                             @else
-                            <div class="w-[525px] h-[300px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyPiechart" style=""></div>
+                            <div class="w-[1050px] h-[600px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyPiechart" style=""></div>
                             @endif
                         </div>
                     </div>
-                    <div class="flex flex-row self-center space-x-8 mt-[4rem] mb-[4rem]">
+                    <div class="flex flex-row self-center space-x-8 mb-[4rem]">
                         <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
                             <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
                                 <h1 class="font-poppin text-[18px] text-dirty-white text-center">
@@ -202,10 +202,10 @@
                                 </h1>
                             </div>
                             <div class="">
-                                @if(($request->sitio || $request->gender || $request->ageclass) || $totalHouseholdCount>0)
+                                @if($request->sitio || $request->gender || $request->ageclass)
                                     @if($request->gender=="NULL" && $request->ageclass=="NULL")
                                     <div class="w-[525px] h-[300px] mt-2 mx-auto" id="householdPiechart"></div>
-                                        @if($request->sitio=="NULL")
+                                        @if($request->sitio=="NULL" && $totalHouseholdCount>0)
                                         <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
                                         <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end ml-8 w-80 text-justify">
                                             <p class="py-1">
@@ -221,32 +221,36 @@
                                         </p>
                                     </div>
                                     @endif
-                                @elseif ($totalHouseholdCount<=0)
+                                @else
                                 <div class="w-[525px] h-[300px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyTwochart"></div>
                                 @endif
                             </div>
                         </div>
-                        <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] py-10">
-                            <div>
+                        <div class="flex flex-col self-start bg-dirty-white">
+                            <div class="shadow-lg border-2 border-green mt-[2rem] py-10">
                                 <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
                                     <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS</p>
                                 </div>
                                 <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                                    <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
+                                    <p class="font-poppin text-center font-black text-[30px] text-dirty-white">
                                         {{ $totalResidentCount }} RESIDENTS
                                     </p>
-                                </div>-
+                                </div>
                             </div>
-                            <div class="mt-[1rem]">
+                            <div class="mt-[2rem] shadow-lg border-2 border-green py-10">
                                 <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
                                     <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS</p>
                                 </div>
                                 <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                                    <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
-                                        @if($request->gender=="NULL" && $request->ageclass=="NULL")
-                                        {{ $totalHouseholdCount }}
+                                    <p class="font-poppin text-center font-black text-[30px] text-dirty-white">
+                                        @if($request->sitio || $request->gender || $request->ageclass)
+                                            @if($request->gender=="NULL" && $request->ageclass=="NULL")
+                                            {{ $totalHouseholdCount }}
+                                            @else
+                                            --
+                                            @endif
                                         @else
-                                        --
+                                            0
                                         @endif
                                         HOUSEHOLDS
                                     </p>

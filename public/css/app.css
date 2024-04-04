@@ -1377,6 +1377,9 @@ select {
 .h-\[58px\] {
   height: 58px;
 }
+.h-\[600px\] {
+  height: 600px;
+}
 .h-\[630px\] {
   height: 630px;
 }
@@ -1492,6 +1495,9 @@ select {
 }
 .w-\[100px\] {
   width: 100px;
+}
+.w-\[1050px\] {
+  width: 1050px;
 }
 .w-\[1060px\] {
   width: 1060px;
@@ -2423,9 +2429,6 @@ select {
 }
 .text-\[58px\] {
   font-size: 58px;
-}
-.text-\[60px\] {
-  font-size: 60px;
 }
 .text-\[74px\] {
   font-size: 74px;
