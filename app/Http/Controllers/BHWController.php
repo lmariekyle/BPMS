@@ -117,6 +117,10 @@ class BHWController extends Controller
     public function search(Request $request)
     { 
         $search=$request['search'];
+        if(empty($search)){
+            return $this->index();
+        }
+
         $bhwsFirstName = Resident::all();
         $bhwsFirstName->makeVisible('firstName');
 
