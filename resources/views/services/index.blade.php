@@ -96,7 +96,7 @@
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-6">REQUEST ID</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-20">SERVICE/CERTIFICATE TYPE</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-40">DATE REQUESTED</p>
-                <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">FORWARDED BY</p>
+                <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">REQUESTED BY</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">STATUS</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-44">ACTION</p>
             </div>
@@ -116,7 +116,7 @@
                             {{ $transaction->createdDate }}
                         </td>
                         <td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold ">
-                            {{ $transaction->issuedBy}}
+                            {{ $transaction->requesteeName}}
                         </td>
                         <td class="px-6 py-4 w-[450px] font-robotocondensed text-deep-green text-[16px] font-bold">
                             {{ $transaction->serviceStatus }}

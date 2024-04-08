@@ -165,14 +165,28 @@ class ResidentUserController extends Controller
         $initDate = strtotime($request->dateOfBirth);
         $date = date('Y-m-d', $initDate);
 
+        if ($request->hasFile('file')) {
+            foreach ($request->file('file') as $file) {
+                if ($file->isValid()) {
+                    $image_name = time() .  '.' . uniqid() . '.' . $file->getClientOriginalExtension();
+                    $file->storeAs('public', $image_name);
+                    $file->move(public_path('users'), $image_name);
+                    $pathImage = "users/" . $image_name;
+                }
+            }
+            $path = $pathImage;
+        } else {
+            $path = "users/default.jpg";
+        }
+
         $residents = Resident::all();
         $residents->makeVisible('firstName');
         $residents->makeVisible('lastName');
         
         $check_res = $residents->first(function ($resident) use ($request) {
             return (
-                $resident->firstName == $request->firstName &&
-                $resident->lastName == $request->lastName &&
+                strcasecmp($resident->firstName, $request->firstName) == 0 &&
+                strcasecmp($resident->lastName, $request->lastName) == 0 &&
                 $resident->dateOfBirth == $request->dateOfBirth
             );
         });
@@ -187,12 +201,13 @@ class ResidentUserController extends Controller
             $user = User::create([
                 'residentID' => $check_res->id,
                 'idNumber' => $userId,
+                'profileImage' => $path,
                 'userlevel' => 'User',
                 'email' => $request->email,
                 'sitioID' => $sitio->id,
                 'assignedSitioID' => '1',
                 'contactNumber' => $request->contactNumber,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password), 
             ]);
             $user->assignRole('User'); //assign account role as User
             event(new Registered($user)); //send email verification
