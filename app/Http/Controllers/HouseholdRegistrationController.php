@@ -187,7 +187,7 @@ class HouseholdRegistrationController extends Controller
                 'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
                 'registeredPWD'=>$resident['registeredPWD'],
                 'dateOfDeath'=>$deathdate,
-                //'supportingDocument'=>$resident['supportingDocument']
+                'supportingDocument'=>$reqJson,
                 
 
                 'createdBy' => $resident['createdBy'],
