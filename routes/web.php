@@ -72,11 +72,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', [ServicesController::class, 'residentDashboard']);
     Route::get('/direction/{id}', [ServicesController::class, 'direction'])->name('direction');
     Route::get('/manage/{id}', [ServicesController::class, 'manage'])->name('manage');
-    Route::get('/accepted/{id}', [ServicesController::class, 'accepted'])->name('accepted');
+    Route::post('/accepted/{id}', [ServicesController::class, 'accepted'])->name('accepted');
     Route::get('generate', [ServicesController::class, 'generate']);
     Route::get('/approve/{id}', [ServicesController::class, 'approve'])->name('approve');
     Route::get('/pdf/viewdoc/{id}', [ServicesController::class, 'pdfGeneration'])->name('pdf.export');
-    Route::get('/deny/{id}', [ServicesController::class, 'deny'])->name('deny');
+    Route::post('/deny/{id}', [ServicesController::class, 'deny'])->name('deny');
     Route::get('/approval/{id}', [ServicesController::class, 'approval'])->name('approval');
     Route::get('/forwarded/{id}', [ServicesController::class, 'forwarded'])->name('forwarded');
     Route::get('/signed/{id}', [ServicesController::class, 'signed'])->name('signed');

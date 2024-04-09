@@ -85,15 +85,47 @@
         @role('Barangay Secretary')
         @if ($transaction->serviceStatus == 'Pending')
         <div class="justify-center flex flex-row mt-8">
-            <form method="GET" action="{{ route('accepted', $transaction->id) }}">
                 @if($transaction->approval != 1)
-                    <button type="submit" class="text-center w-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;" disabled>Approve Request </button>
+                    <button id="remarks" type="submit" class="text-center w-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;" disabled>Approve Request </button>
                 @else
-                    <button type="submit" class="text-center w-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;">Approve Request </button>
+                    <button id="remarks" type="submit" class="text-center w-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;">Approve Request </button>
                 @endif
-            </form>
-            <form method="GET" action="{{ route('deny', $transaction->id) }}">
-                <button type="submit" class="text-center w-max ml-8 font-robotocondensed font-bold text-[22px] text-dirty-white px-4 py-2" style="width: 300px; font-size: 22px; background-color: #D86F4D;">Deny Request</button>
+                <form method="POST" action="{{ route('accepted', $transaction->id) }}">
+                <div id="RemarksModal" class="modal hidden fixed z-10 pt-28 top-0 mt-[120px] w-[800px] h-max drop-shadow-lg -ml-[20rem] border-deep-green">
+                        <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
+                                @csrf
+                                <span class="close font-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
+                                <div class="input-area">
+                                    <label for="remarks" class="font-robotocondensed text-[28px] text-deep-green">Remarks:</label>
+                                    <input type="text" name="remarks" class="block mt-4 w-full h-[100px] bg-dirty-white" maxlength="225">
+                                </div>
+                                <x-button class="text-base mt-8 bg-deep-green text-dirty-white border-0 w-60 l-12">
+                                    <div class="m-auto">
+                                        Approve Request
+                                    </div>
+                                </x-button>  
+                            </form>
+                        </div>
+                    </div>
+                </form>
+                <button id="remarksDeny" type="submit" class="text-center w-max ml-8 font-robotocondensed font-bold text-[22px] text-dirty-white px-4 py-2" style="width: 300px; font-size: 22px; background-color: #D86F4D;">Deny Request</button>
+            <form method="POST" action="{{ route('deny', $transaction->id) }}">
+            <div id="DenyRemarksModal" class="modal hidden fixed z-10 pt-28 top-0 mt-[120px] w-[800px] h-max drop-shadow-lg -ml-[40rem] border-deep-green">
+                        <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
+                                @csrf
+                                <span class="closedeny font-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
+                                <div class="input-area">
+                                    <label for="remarks" class="font-robotocondensed text-[28px] text-deep-green">Remarks:</label>
+                                    <input type="text" name="remarks" class="block mt-4 w-full h-[100px] bg-dirty-white" maxlength="225">
+                                </div>
+                                <x-button class="text-base mt-8 bg-deep-green text-dirty-white border-0 w-60 l-12">
+                                    <div class="m-auto">
+                                        Deny Request
+                                    </div>
+                                </x-button>  
+                            </form>
+                        </div>
+                    </div>
             </form>
         </div>
         @elseif ($transaction->serviceStatus == 'Signed')
@@ -104,7 +136,48 @@
         </div>
         @endif
         @endrole
-
     </div>
+    
+
+<script>
+    var modal = document.getElementById("RemarksModal");
+    var denymodal = document.getElementById("DenyRemarksModal");
+    var btn = document.getElementById("remarks");
+    var btnDeny = document.getElementById("remarksDeny");
+
+    var span = document.getElementsByClassName("close")[0];
+    var spandeny = document.getElementsByClassName("closedeny")[0];
+    // Open Modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    btnDeny.onclick = function() {
+        denymodal.style.display = "block";
+    }
+
+
+    // Close Modal (using the X button)
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    spandeny.onclick = function() {
+        denymodal.style.display = "none";
+    }
+
+    // Close Modal (clicking anywhere else outside the Modal)
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    window.onclick = function(event) {
+        if (event.target == denymodal) {
+            denymodal.style.display = "none";
+        }
+    }
+</script>
 </x-app-layout>
 @endhasanyrole

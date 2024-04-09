@@ -9,6 +9,7 @@ use App\Models\Document;
 use App\Models\DocumentDetails;
 use App\Models\Payment;
 use App\Models\Resident;
+use App\Models\Sitio;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
@@ -147,11 +148,13 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function accepted($id)
+    public function accepted(Request $request, $id)
     {
+        
         $user = Auth::user();
         $transaction = Transaction::where('id', $id)->first();
         $transaction->fill([
+            'remarks' => $request->remarks,
             'serviceStatus' => 'Processing',
             'issuedBy' => $user->id,
         ]);
@@ -189,8 +192,7 @@ class ServicesController extends Controller
         $doc = Document::where('id', $transaction->documentID)->first();
         $date = Carbon::now();
         $date_string=$date->toArray();
-
-
+;
         
         // Assuming you have the month number (e.g., $date['month'] = 4 for April)
         // $dateObject = Carbon::createFromFormat('Y-m-d', $date_string);
@@ -218,11 +220,6 @@ class ServicesController extends Controller
         $monthWord = $monthNames[$monthNumber] ?? "Invalid month";
 
         if($transaction->documentID == 1){
-        // $check_res = DB::table('residents')
-        // ->where('firstName', '=', $requestee->requesteeFName)
-        // ->where('middleName', '=', $requestee->requesteeMName)
-        // ->where('lastName', '=', $requestee->requesteeLName)
-        // ->first();
         $requestee_user = User::where('id', $transaction->userID)->first();
         $resident = Resident::where('id', $requestee_user->residentID)->first();
 
@@ -242,7 +239,7 @@ class ServicesController extends Controller
     {
     
         $userAuth = Auth::user();
-
+        $sitio = Sitio::where('id', $userAuth->sitioID)->first();
         $user = Resident::where('id', $userAuth->residentID)->first();
         $user->makeVisible('firstName', 'middleName', 'lastName');
         $doctypename = $docType;
@@ -257,7 +254,7 @@ class ServicesController extends Controller
         }
         $documents = Document::where('docType', $docType)->get();
    
-        return view('services.request', compact('documents', 'doctypename', 'user'));
+        return view('services.request', compact('documents', 'doctypename', 'user','sitio'));
     }
 
 
@@ -336,7 +333,7 @@ class ServicesController extends Controller
         // Get the corresponding month name
         $monthWord = $monthNames[$monthNumber] ?? "Invalid month";
 
-        $pdf = PDF::loadView('documents.barangaycertificate', compact('id', 'requestee', 'doc','date','age','monthWord','dateNum','year'));
+        $pdf = PDF::loadView('documents.barangaycertificate', compact('id', 'requestee', 'doc','date','age','monthWord','dateNum','year','transaction'));
         $filename = "{$requestee->requesteeLName}_{$doc->docType}.pdf";
         return $pdf->download($filename);                 
     }
@@ -912,12 +909,13 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function deny($id)
+    public function deny(Request $request,$id)
     {
         $user = Auth::user();
         $resident = Resident::find($user->residentID);
         $transaction = Transaction::where('id', $id)->first();
         $transaction->fill([
+            'remarks' => $request->remarks,
             'serviceStatus' => "Not Eligible",
             'issuedBy' => $user->id,
         ]);

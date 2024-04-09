@@ -65,37 +65,39 @@
                         </div>
                         @elseif ($doctypename == 'FILE COMPLAIN')
                         <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="16" name="selectedDocument">
-                        <p class="font-poppins text-[24px] text-deep-green mt-[2rem] underline underline-offset-8">COMPLAINT DETAILS</p>
+                        <p class="font-poppins text-[24px] text-deep-green mt-[2rem] underline underline-offset-8">COMPLAINANT DETAILS</p>
+                        <p class="font-poppins text-[14px] text-deep-green italic">(ANG NAG REKLAMO)</p>
                         <div class="mt-[1rem] flex flex-row text-[23px]">
                             <div class="">
-                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaintFName" required>
+                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaintFName" value="{{$user->firstName}}" required>
                                 <br>
                                 <label>* FIRST NAME</label>
                             </div>
                             <div class="ml-8">
-                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaintLName" required>
+                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaintLName" value="{{$user->lastName}}" required>
                                 <br>
                                 <label>* LAST NAME</label>
                             </div>
                             <div class="ml-10">
-                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" name="complaintMName" >
+                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" name="complaintMName" value="{{$user->middleName}}">
                                 <br>
                                 <label>MIDDLE NAME</label>
                             </div>
                         </div>
                         <div class="mt-6 flex flex-row text-[23px]">
                             <div class="">
-                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" name="complaintEmail" required>
+                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" name="complaintEmail" value="{{$user->email}}" required>
                                 <br>
                                 <label>* EMAIL ADDRESS</label>
                             </div>
                             <div class="ml-20">
-                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" name="complaintContactNumber" required>
+                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" name="complaintContactNumber" value="{{$user->contactNumber}}" required>
                                 <br>
                                 <label>* CONTACT NUMBER</label>
                             </div>
                         </div>
                         <p class="font-poppins text-[24px] text-deep-green mt-[2rem] underline underline-offset-8">COMPLAINEE DETAILS</p>
+                        <p class="font-poppins text-[14px] text-deep-green italic">(ANG GI REKLAMO)</p>
                         <div class="mt-[1rem] flex flex-row text-[23px]">
                             <div class="">
                                 <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeFName" required>
@@ -108,13 +110,18 @@
                                 <label>* LAST NAME</label>
                             </div>
                             <div class="ml-10">
-                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeMName">
+                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeMName" >
                                 <br>
                                 <label>MIDDLE NAME</label>
                             </div>
                         </div>
                         <div class="mt-6 flex flex-row text-[23px]">
                             <div class="">
+                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeContactNumber" required>
+                                <br>
+                                <label>* CONTACT NUMBER</label>
+                            </div>
+                            <div class="ml-8">
                                 <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeSitio" required>
                                 <br>
                                 <label>* SITIO</label>
@@ -179,11 +186,10 @@
                             @elseif($doctypename == 'FILE COMPLAIN')
                             <p class="text-[24px] font-semibold">REQUIREMENT FOR FILING OF COMPLAIN</p>
                             <ul class="list-disc ml-16 mt-4">
-                                <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">COMPLAINEE MUST BE A RESIDENT OF BARANGAY POBLACION FOR COMPLAIN TO BE PROCESSED</p>
-                                <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">HEARINGS ARE ONE DONE AT BARANGAY POBLACION, DALAGUETE BARANGAY HALL.</p>
+                                <li class="font-poppins text-[16px] text-start ml-10 font-semibold w-[410px]">COMPLAINEE MUST BE A RESIDENT OF BARANGAY POBLACION FOR COMPLAIN TO BE PROCESSED</p>
+                                <li class="font-poppins text-[16px] text-start ml-10 font-semibold w-[410px]">HEARINGS ARE ONE DONE AT BARANGAY POBLACION, DALAGUETE BARANGAY HALL.</p>
                            
-                                <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">COMPLAINEE MUST BE A RESIDENT OF BARANGAY POBLACION FOR COMPLAIN TO BE PROCESSED</p>
-                                <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">HEARINGS ARE ONE DONE AT BARANGAY POBLACION, DALAGUETE BARANGAY HALL.</p>
+                                <li class="font-poppins text-[16px] text-start ml-10 font-semibold w-[410px]">DEPENDE SA RASON NGA GI-FILE SA IMONG KASO SA LUPON, MAHIMO NGA PANGAYUON SA OPISINA SA BARANGAY ANG IMONG MGA DOKUMENTO ALANG SA PROSESO. KON APRUBAHAN NA ANG IMONG HANGYO, MANGAYO KAMI OG IMONG KOORDINASYON ARON MA-SUBMIT ANG MGA KINAHANGLANON NGA DOKUMENTO SA OPISINA SA BARANGAY. MAKADAWAT KA OG PAHIBALO SA IMONG PROFILE HUMAN MATAPUS ANG TANAN. SALAMAT SA IMONG PAGTINABANGAY!</p>
                         </ul>   
                         @elseif($doctypename == 'ACCOUNT INFORMATION CHANGE')
                             <p class="text-[22px] font-semibold">REQUIREMENT FOR ACCOUNT INFORMATION CHANGE</p>
@@ -192,17 +198,25 @@
                                 <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px] mt-2">Amended Birth Certificate</li>
                                 <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px] mt-4">Certificate of Finality</li>
                             </ul>
-                                @endif
+                            <div class="py-1">
+                                <p class="text-right mr-[7rem] font-extralight italic text-[16px]">Note: Requirements may vary depending of type of document</p>
+                            </div>
+                        @endif
                     </div>
-                    <div class="py-1">
-                        <p class="text-right mr-[7rem] font-extralight italic text-[16px]">Note: Requirements may vary depending of type of document</p>
-                    </div>
+                    @if ($doctypename == 'BARANGAY CERTIFICATE' || $doctypename == 'BARANGAY CLEARANCE' || $doctypename == 'ACCOUNT INFORMATION CHANGE' )
                     <div class="ml-[0.25rem] mt-[3rem] font-text[23px]">
                         <div class="h-[300px] w-[605px]">
-                            <input type="file" id="fileButton" name="file[]" multiple>
+                            <input type="file" id="fileButton" name="file[]" multiple required>
                             <p class="mt-1 font-extralight italic text-[16px]">Note: Upload any necessary documents stated in the requirements</p>
                         </div>
                     </div>
+                    @else
+                    <div class="ml-[0.25rem] mt-[3rem] font-text[23px]">
+                        <div class="h-[300px] w-[505px]">
+                            <p class="mt-1 font-extralight text-[16px]"></p>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
             <div class="flex flex-col text-left ml-[3rem] -mt-[2rem]">
@@ -240,4 +254,5 @@
         </div>
         
     </form>
+
 </x-app-layout>

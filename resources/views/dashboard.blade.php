@@ -35,7 +35,7 @@
             
             @hasanyrole('Barangay Captain|Barangay Secretary')
             
-            <div class="flex flex-col p-3 -mt-20 -ml-24 h-max w-[1342px]">
+            <div class="flex flex-col p-3 -mt-20 ml-24 h-max w-[1342px]">
                 <p class="ml-3 mt-3 mb-2 font-robotocondensed text-[24px] text-black">FILTER STATISTICS</p>
                 <div class="flex flex-row px-10 py-10 items-center justify-between w-[1250px] ml-3 border-b-2 border-black rounded-sm h-max">
                     <form action="" method="GET">
@@ -265,7 +265,7 @@
 
 
             @hasanyrole('User|Barangay Health Worker')
-            <div class="w-max h-max grid grid-rows-2 grid-flow-col gap-16 -ml-24 -mt-20 px-5 py-5 justify-between font-bold">
+            <div class="w-max h-max grid grid-rows-2 grid-flow-col gap-16 ml-24 -mt-20 px-5 py-5 justify-between font-bold">
                 <div class="bg-dirty-white w-[472px] h-[421px] border-2 border-deep-green">
                     <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border px-1 py-1 text-center">BARANGAY CERTIFICATE</p>
                     <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">PURPOSES BARANGAY CERTIFICATION:</p>
