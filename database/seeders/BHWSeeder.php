@@ -58,7 +58,7 @@ class BHWSeeder extends Seeder
             'userlevel' => 'Barangay Health Worker',
             'userstatus' => 'Active',
             'profileImage' => 'images/morales.jpg',
-            'email' => 'morales@bpms.com',
+            'email' => '19101720@usc.edu.ph',
             'email_verified_at' => now(),
             'password' => Hash::make('moralesbpms'),
         ])->assignRole('Barangay Health Worker');
