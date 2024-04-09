@@ -24,6 +24,7 @@ class Transaction extends Model
         'docNumber',
         'serviceStatus',
         'issuedDocument',
+        'remarks',
         'issuedBy',
         'issuedOn',
     ];

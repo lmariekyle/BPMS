@@ -5,8 +5,10 @@
         </h2>
     </x-slot>
     @include('layouts.navigation')
-    <div class="bg-olive-green w-[1400px] h-[813px] ml-8 mt-16 px-5 py-5 rounded-[48px] flex flex-row">
-
+    <div class="w-max h-max border-2 ml-[4rem] mt-6">
+        @include('components.flash')
+    </div>
+    <div class="bg-olive-green w-[1400px] h-[813px] ml-8 mt-[2rem] px-5 py-5 rounded-[48px] flex flex-row">
         <p class="text-dirty-white font-robotocondensed ml-3 font-bold text-[48px] text-start">ACCOUNTS</p>
         <!--Search-->
         <div>

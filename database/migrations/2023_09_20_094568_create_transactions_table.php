@@ -24,7 +24,7 @@ class CreateTransactionsTable extends Migration
             $table->string('docNumber');
             $table->string('serviceStatus');
             $table->string('issuedDocument'); /*filePath*/
-
+            $table->string('remarks')->nullable();
             $table->string('issuedBy'); /*sect id*/
             $table->date('issuedOn');
 

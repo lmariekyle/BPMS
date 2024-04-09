@@ -69,6 +69,9 @@ class ResidentUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'firstname' => ['required','regex:/^[a-zA-Z]+$/u','max:12'],
+            'middlename' => ['regex:/^[a-zA-Z]+$/u','max:18'],
+            'lastname' => ['required','regex:/^[a-zA-Z]+$/u','max:18'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed'],
             'profileImage' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
@@ -76,6 +79,9 @@ class ResidentUserController extends Controller
             'contactNumber' => ['required', 'numeric', 'digits:10'],
         ],
         [
+            'firstname.regex' => 'Use only alphabetical characters in your first name',
+            'middlename.regex' => 'Use only alphabetical characters in your middle name',
+            'lastname.regex' => 'Use only alphabetical characters in your last name',
             'contactNumber.required' =>'Invalid Contact Number',
             'dateOfBirth.before' => 'User must be 18 Years Old and Above to Register!',
             'profileImage.required' => 'File Types must only be jpeg, png, jpg'
@@ -124,7 +130,7 @@ class ResidentUserController extends Controller
                     ]);
                     $user->assignRole($request->userlevel); //assign account role as User
                     event(new Registered($user)); //send email verification
-                    return Redirect::back()->with('success', 'Email for registration has been sent!');
+                    return Redirect::back()->with('success', 'Email verification has been sent');
                 
            
         }

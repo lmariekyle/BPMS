@@ -6,8 +6,7 @@
             </a>
                 <p class="font-robotocondensed font-bold ml-[20px] mt-2 text-dirty-white text-5xl">Account Registration</p>
             </div>
-        
-            <x-auth-validation-errors class="ml-4" :errors="$errors" />
+            
             <div class="ml-10">
                     @include('components.flash')
             </div>

@@ -400,6 +400,7 @@ class ServicesController extends Controller
 
             $transactionpayment = $transaction->transactionpayment()->create([
                 'paymentMethod' => $request->paymentMethod,
+                'amountPaid' => NULL,
                 'accountNumber' => 'Pending',
                 'paymentStatus' => 'Pending',
                 'successURL' => NULL,
@@ -434,7 +435,8 @@ class ServicesController extends Controller
             ]);
 
             $transactionpayment = $transaction->transactionpayment()->create([
-                'paymentMethod' => $request->paymentMethod,
+                'paymentMethod' => 'FREE',
+                'amountPaid' => NULL,
                 'accountNumber' => NULL,
                 'paymentStatus' => 'Paid',
                 'successURL' => NULL,
@@ -479,7 +481,9 @@ class ServicesController extends Controller
         }
 
         $payment = Payment::where('id', $transactionPaymentId)->first();
+        
         if ($request->paymentMethod == 'GCASH') {
+            $payment->amountPaid = $request->docfee;
             return view('services.gcash', compact('payment'));
             // return view('services.gcash', $payment->id);
             // return $this->createpayment($payment->id);
@@ -878,6 +882,8 @@ class ServicesController extends Controller
 
             $payment = Payment::where('id', $transaction->paymentID)->first();
             $payment->fill([
+                'amountPaid' => NULL,
+                'failURL' => 'Denied',
                 'paymentStatus' => "Refunded",
             ]);
             $payment->save();
@@ -919,9 +925,12 @@ class ServicesController extends Controller
 
         $payment = Payment::where('id', $transaction->paymentID)->first();
         $payment->fill([
+            'amountPaid' => NULL,
+            'failURL' => 'Denied',
             'paymentStatus' => "Refunded",
         ]);
         $payment->save();
+
 
         $notifyUsers = User::where('id', $transaction->userID)->get();
         Notification::sendNow($notifyUsers, new DenyNotification($transaction));

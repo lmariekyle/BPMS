@@ -64,6 +64,8 @@ class AuthenticatedSessionController extends Controller
 
         # If not, do the usual job.
         return redirect()->intended(RouteServiceProvider::HOME);
+
+        // return TwoFactorAuth::getDriver()->trigger($request, $user);
     }  
 
 

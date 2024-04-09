@@ -6,10 +6,10 @@
         </h2>
     </x-slot>
 
-    <div class="py-1 ml-[8rem] mt-[8rem] flex flex-col justify-center bg-dirty-white">
+    <div class="py-1 mt-[8rem] flex flex-col justify-center bg-dirty-white">
 
             @role('Admin')
-            <div class="px-5 py-5 flex flex-col justify-center h-[250px] bg-olive-green w-full -mt-[10rem]">
+            <div class="px-5 py-5 flex flex-col justify-center h-[250px] w-full bg-olive-green -mt-[10rem]">
                 <div class="mb-12 mt-[33rem] ml-[5rem] w-64 h-64 rounded-full border-2 bg-dirty-white border-green self-center">
                     <img src="{{ asset('images/PoblacionDalLogo.png') }}" alt="">
                 </div>

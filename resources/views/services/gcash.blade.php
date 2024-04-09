@@ -20,7 +20,7 @@
                     </div>
                     <div class="flex flex-row w-max px-4 mt-2 -ml-[5rem]">
                     <p class="font-poppins text-[18px] text-center font-medium w-max text-gray-800">Amount Due: </p>
-                    <p class="font-poppins text-[18px] text-center text-black font-medium w-max ml-2">₱100</p>
+                    <p class="font-poppins text-[18px] text-center text-black font-medium w-max ml-2">{{$payment->amountPaid}}</p>
                     </div>
                 </div>
 
