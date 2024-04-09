@@ -211,7 +211,23 @@ class HouseholdSeeder extends Seeder
 
         Households::create([
             'sitioID' => '6',
-            'houseNumber' => '25'
+            'houseNumber' => '1',
+            'street'=>'April',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'yearOfVisit'=>2022,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2022-10-15',
+            'respondentName'=>'Lourdes',
+            'createdBy'=>2,
+            'revisedBy'=>2
         ]);
     }
 }
