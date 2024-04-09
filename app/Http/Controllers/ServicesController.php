@@ -53,9 +53,8 @@ class ServicesController extends Controller
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
-            $level = User::where('id', $transaction->issuedBy)->first();
-            $levelUser = Resident::where('id', $level->residentID)->first();
-            $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
+            $docDetails = DocumentDetails::where('id', $transaction->detailID)->first();
+            $transaction->requesteeName = $docDetails->requesteeFName. ' ' .$docDetails->requesteeLName;
             $newtime = strtotime($transaction->created_at);
             $transaction->createdDate = date('M d, Y', $newtime);
         }
@@ -163,18 +162,7 @@ class ServicesController extends Controller
         $notifyUsers = User::where('id', $transaction->userID)->first();
         Notification::sendNow($notifyUsers, new ProcessingNotification($transaction));
 
-        $transactions = Transaction::paginate(10);
-        foreach ($transactions as $transaction) {
-            $user = User::where('id', $transaction->userID)->first();
-            $transaction->resident = Resident::where('id', $user->residentID)->first();
-            $transaction->document = Document::where('id', $transaction->documentID)->first();
-            $level = User::where('id', $transaction->issuedBy)->first();
-            $levelUser = Resident::where('id', $level->residentID)->first();
-            $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
-            $newtime = strtotime($transaction->created_at);
-            $transaction->createdDate = date('M d, Y', $newtime);
-        }
-        return view('services.index', compact('transactions'));
+        return $this->approve($id);
     }
 
     /**
@@ -829,9 +817,8 @@ class ServicesController extends Controller
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
-            $level = User::where('id', $transaction->issuedBy)->first();
-            $levelUser = Resident::where('id', $level->residentID)->first();
-            $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
+            $docDetails = DocumentDetails::where('id', $transaction->detailID)->first();
+            $transaction->requesteeName = $docDetails->requesteeFName. ' ' .$docDetails->requesteeLName;
             $newtime = strtotime($transaction->created_at);
             $transaction->createdDate = date('M d, Y', $newtime);
         }
@@ -861,9 +848,8 @@ class ServicesController extends Controller
                 $user = User::where('id', $transaction->userID)->first();
                 $transaction->resident = Resident::where('id', $user->residentID)->first();
                 $transaction->document = Document::where('id', $transaction->documentID)->first();
-                $level = User::where('id', $transaction->issuedBy)->first();
-                $levelUser = Resident::where('id', $level->residentID)->first();
-                $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
+                $docDetails = DocumentDetails::where('id', $transaction->detailID)->first();
+                $transaction->requesteeName = $docDetails->requesteeFName. ' ' .$docDetails->requesteeLName;
                 $newtime = strtotime($transaction->created_at);
                 $transaction->createdDate = date('M d, Y', $newtime);
             }
@@ -893,9 +879,8 @@ class ServicesController extends Controller
                 $user = User::where('id', $transaction->userID)->first();
                 $transaction->resident = Resident::where('id', $user->residentID)->first();
                 $transaction->document = Document::where('id', $transaction->documentID)->first();
-                $level = User::where('id', $transaction->issuedBy)->first();
-                $levelUser = Resident::where('id', $level->residentID)->first();
-                $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
+                $docDetails = DocumentDetails::where('id', $transaction->detailID)->first();
+                $transaction->requesteeName = $docDetails->requesteeFName. ' ' .$docDetails->requesteeLName;
                 $newtime = strtotime($transaction->created_at);
                 $transaction->createdDate = date('M d, Y', $newtime);
             }
@@ -938,9 +923,8 @@ class ServicesController extends Controller
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
-            $level = User::where('id', $transaction->issuedBy)->first();
-            $levelUser = Resident::where('id', $level->residentID)->first();
-            $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
+            $docDetails = DocumentDetails::where('id', $transaction->detailID)->first();
+            $transaction->requesteeName = $docDetails->requesteeFName. ' ' .$docDetails->requesteeLName;
             $newtime = strtotime($transaction->created_at);
             $transaction->createdDate = date('M d, Y', $newtime);
         }
@@ -968,9 +952,8 @@ class ServicesController extends Controller
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
-            $level = User::where('id', $transaction->issuedBy)->first();
-            $levelUser = Resident::where('id', $level->residentID)->first();
-            $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
+            $docDetails = DocumentDetails::where('id', $transaction->detailID)->first();
+            $transaction->requesteeName = $docDetails->requesteeFName. ' ' .$docDetails->requesteeLName;
             $newtime = strtotime($transaction->created_at);
             $transaction->createdDate = date('M d, Y', $newtime);
         }
@@ -995,14 +978,11 @@ class ServicesController extends Controller
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
-            $level = User::where('id', $transaction->issuedBy)->first();
-            $levelUser = Resident::where('id', $level->residentID)->first();
-            $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
+            $docDetails = DocumentDetails::where('id', $transaction->detailID)->first();
+            $transaction->requesteeName = $docDetails->requesteeFName. ' ' .$docDetails->requesteeLName;
             $newtime = strtotime($transaction->created_at);
             $transaction->createdDate = date('M d, Y', $newtime);
         }
         return view('services.index', compact('transactions'));
     }
-
-    
 }

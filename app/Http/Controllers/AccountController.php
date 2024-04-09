@@ -175,7 +175,7 @@ class AccountController extends Controller
             }
         }
 
-        $usersLastName = Resident::all();
+        $usersLastName = Resident::all(); 
         $usersLastName->makeVisible('lastName');
 
         foreach($usersLastName as $x=>$userLastName){
@@ -184,7 +184,7 @@ class AccountController extends Controller
             }
         }
 
-        $usersFullName = Resident::all();
+        $usersFullName = Resident::all(); 
         $usersFullName->makeVisible('firstName', 'lastName');
 
         foreach($usersFullName as $x=>$userFullName){

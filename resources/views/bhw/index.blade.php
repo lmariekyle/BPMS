@@ -57,7 +57,7 @@
 
             <table class="mt-10">
                 <tbody>
-                @foreach ($bhws as $bhw)
+                @forelse ($bhws as $bhw)
                      <tr class="border shadow-md">
                         <td class="px-6 py-4 w-[200px] font-robotocondensed text-deep-green text-[16px] font-bold">
                         {{ $bhw->idNumber }}
@@ -74,8 +74,13 @@
                         <td class="px-6 py-4 w-[205px]">
                             <a href="{{ route('bhw.show', $bhw->id) }}" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
                         </td>
+
+                        @empty
+                        <td class="px-6 py-4 font-robotocondensed text-deep-green text-[16px] font-bold">
+                            We can't find a user with that name
+                        </td>
                     </tr>
-                @endforeach
+                @endforelse
                                       
                 </tbody>
             </table>

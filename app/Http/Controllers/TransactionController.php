@@ -227,11 +227,15 @@ class TransactionController extends Controller
 
         $paymentScreenshot = [];
 
+        $transaction = Transaction::where('paymentID', $request->paymentID)->first();
+        $detail = DocumentDetails::where('id', $transaction->detailID)->first();
+        $detail->makeVisible('requesteeLName');
+
         if ($request->hasFile('file')) {
             foreach ($request->file('file') as $file) {
                 if ($file->isValid()) {
-                        $file_name = Str::slug($request->lastName) . '_' . 'payment' . uniqid() . '.' . $file->getClientOriginalExtension();
-                    $file->storeAs('requirements', $file_name);
+                        $file_name = Str::slug($detail->requesteeLName) . '_' . 'payment' . uniqid() . '.' . $file->getClientOriginalExtension();
+                    $file->storeAs('paymentRecords', $file_name);
                     $path = $file_name;
                     $paymentScreenshot[] = $path;
                 }

@@ -66,7 +66,9 @@ class NotificationController extends Controller
 
     public function destroy($id){
         $notification = DatabaseNotification::where('id', $id)->first();
-        $notification->delete();
+        if($notification != null){
+            $notification->delete();
+        }
 
         $notifications = auth()->user()->notifications;
         foreach($notifications as $notification){
