@@ -259,9 +259,9 @@ class ResidentUserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::where('residentID',$id)->first();
-        $request = AccountInfoChange::where('userID',$user->id)->first();
-
+        
+        $request = AccountInfoChange::where('id',$id)->first();
+        $user = User::where('id',$request->userID)->first();
         if ($request->file) {
             $filePaths = json_decode($request->file, true);
         } else {
@@ -280,9 +280,9 @@ class ResidentUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $account = AccountInfoChange::where('userID',$id)->first();
+        $account = AccountInfoChange::where('id',$id)->first();
+        $user = User::where('id',$account->userID)->first();
         $requested = $request->selectedInformation;
-        $user = User::where('id',$id)->first();
         $resident = Resident::where('id', $user->residentID)->first();
         if($request->status == "1"){        
             $resident->{$requested} = $request->requesteeNewInformation;

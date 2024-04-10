@@ -162,7 +162,18 @@ class ServicesController extends Controller
         $notifyUsers = User::where('id', $transaction->userID)->first();
         Notification::sendNow($notifyUsers, new ProcessingNotification($transaction));
 
-        return $this->approve($id);
+        $transactions = Transaction::all();
+        foreach ($transactions as $transaction) {
+            $user = User::where('id', $transaction->userID)->first();
+            $transaction->resident = Resident::where('id', $user->residentID)->first();
+            $transaction->document = Document::where('id', $transaction->documentID)->first();
+            $level = User::where('id', $transaction->issuedBy)->first();
+            $levelUser = Resident::where('id', $level->residentID)->first();
+            $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
+            $newtime = strtotime($transaction->created_at);
+            $transaction->createdDate = date('M d, Y', $newtime);
+        }
+        return view('services.index', compact('transactions'));
     }
 
     /**

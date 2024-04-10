@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Hydrat\Laravel2FA\TwoFactorAuth;
+use Illuminate\Support\Facades\Config;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -80,11 +81,9 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request)
     {
         Auth::guard('web')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
+        Config::set('session.lifetime', 0);
         return redirect('/');
     }
 }

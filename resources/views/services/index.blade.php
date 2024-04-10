@@ -63,7 +63,7 @@
                         </td>
                         <td class="py-4 w-[190px]" style="width: 230px">
                             @if($account->status == "PENDING")
-                                <a href="{{ route('auth.updateinfo', $account->resident['id']) }}" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
+                                <a href="{{ route('auth.updateinfo', $account->id) }}" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
                             @else
                                 
                             @endif

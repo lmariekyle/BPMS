@@ -17,7 +17,7 @@
                             @include('components.flash')
                         </div>
                     </div>
-                    <form method="POST" action="{{ route('updateinfo', $user->id) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('updateinfo', $request->id) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="flex flex-col ml-5 mt-4">
                             <div class="mt-[2rem]">
@@ -37,6 +37,7 @@
                                 </p>
                                 <input class="hidden" value="{{$request->selectedInformation}}" name="selectedInformation">
                             </div>
+                
                             <div class="mt-2 flex flex-col">
                                 <label class="font-poppin text-[24px] text-dirty-white font-semibold">OLD INFORMATION:</label>
                                 <input class="rounded-lg border-2 border-black w-[550px] h-[50px] text-[26px] px-2 py-1 text-black bg-dirty-white" style="border-color: #414833;" value="{{$request->requesteeOldInformation}}" name="requesteeOldInformation">

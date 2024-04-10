@@ -84,9 +84,6 @@
                                       
                 </tbody>
             </table>
-            <div class="flex flex-row justify-evenly mt-4 self-center">
-                {{$bhws->links()}}
-            </div>  
 
 
 
