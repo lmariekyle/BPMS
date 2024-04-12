@@ -18,38 +18,7 @@ class BHWSeeder extends Seeder
      */
     public function run()
     {
-        Households::create([
-            'sitioID' => '2',
-            'houseNumber' => '2',
-            'street'=>'TOOOOOOO',
-            'buildingName'=>'NULL',
-            'unitNumber'=>'NULL',
-            'floorNumber'=>'NULL',
-            'residenceType'=>'Residential Home',
-            'nHTS'=>'NHTS',
-            'householdToiletFacilities'=>'None',
-            'IP'=>'IP',
-            'accessToWaterSupply'=>'L2',
-            'remarksOfWaterSupply'=>'no remarks',
-            'yearOfVisit'=>2022,
-            'quarterNumber'=>4,
-            'dateOfVisit'=>'2022-10-15',
-            'respondentName'=>'Rook',
-            'createdBy'=>2,
-            'revisedBy'=>2
-        ]);
-
         //MILES//
-        ResidentList::create([
-            'residentID' => '2',
-            'houseID' => '25',
-            'houseNumber'=>2,
-            'householdHead'=>1,
-            'memberNumber'=>1,
-            'createdBy'=>1,
-            'revisedBy'=>1,
-        ]);
-
         User::create([
             'residentID' => '2',
             'sitioID' => '2',
@@ -66,19 +35,10 @@ class BHWSeeder extends Seeder
 
 
         //GWEN//
-        ResidentList::create([
-            'residentID' => '3',
-            'houseID' => '25',
-            'houseNumber'=>2,
-            'householdHead'=>0,
-            'memberNumber'=>2,
-            'createdBy'=>1,
-            'revisedBy'=>1,
-        ]);
         User::create([
             'residentID' => '3',
-            'sitioID' => '3',
-            'assignedSitioID' => '3',
+            'sitioID' => '4',
+            'assignedSitioID' => '4',
             'idNumber' => 'S-0001',
             'contactnumber' => '09876543212',
             'userlevel' => 'Barangay Secretary',
@@ -90,19 +50,10 @@ class BHWSeeder extends Seeder
         ])->assignRole('Barangay Secretary');
 
         //PETER//
-        ResidentList::create([
-            'residentID' => '7',
-            'houseID' => '25',
-            'houseNumber'=>2,
-            'householdHead'=>0,
-            'memberNumber'=>3,
-            'createdBy'=>1,
-            'revisedBy'=>1,
-        ]);
         User::create([
             'residentID' => '7',
-            'sitioID' => '3',
-            'assignedSitioID' => '3',
+            'sitioID' => '5',
+            'assignedSitioID' => '5',
             'idNumber' => '23101',
             'contactnumber' => '09876543212',
             'userlevel' => 'User',
@@ -114,19 +65,10 @@ class BHWSeeder extends Seeder
         ])->assignRole('User');
 
         //Lourdes//
-        ResidentList::create([
-            'residentID'=>'4',
-            'houseID'=>'3',
-            'houseNumber'=>4,
-            'householdHead'=>1,
-            'memberNumber'=>1,
-            'createdBy'=>1,
-            'revisedBy'=>1,
-        ]);
         User::create([
             'residentID' => '4',
-            'sitioID' => '4',
-            'assignedSitioID' => '4',
+            'sitioID' => '6',
+            'assignedSitioID' => '6',
             'idNumber' => 'C-0001',
             'contactnumber' => '09876543212',
             'userlevel' => 'Barangay Captain',
