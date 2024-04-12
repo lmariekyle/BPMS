@@ -237,7 +237,6 @@
                     <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
                         <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE CENSUS DATA</p>
                     </div>
-                    {{$chartAllHh}}
                     <div class="flex flex-row self-center space-x-8 mt-[4rem] mb-[4rem]">
                         <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
                             <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
