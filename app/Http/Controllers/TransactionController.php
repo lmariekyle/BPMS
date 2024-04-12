@@ -59,6 +59,12 @@ class TransactionController extends Controller
                 'failURL' =>  NULL,
             ]);
 
+            if($request->complaintMName == null ){
+                $request->complaintMName == 'N/A';
+            }else if($request->complaineeMName == null){
+                $request->complaineeMName == 'N/A';
+            }
+
             $complain = Complain::create([
                 'complaintFName' => $request->complaintFName,
                 'complaintMName' => $request->complaintMName,
@@ -87,12 +93,8 @@ class TransactionController extends Controller
                 'userID' => $user->id,
                 'paymentID' => $payment->id,
                 'detailID' => $detail->id,
-                'serviceAmount' =>  $request->serviceAmount,
                 'docNumber' => $docId,
                 'serviceStatus' => "Pending",
-                'issuedDocument' => "Pending",
-                'issuedBy' => $user->id,
-                'issuedOn' => $date,
             ]);
 
             $notifyUsers = User::where('userLevel', 'Barangay Secretary')->get();
@@ -137,6 +139,10 @@ class TransactionController extends Controller
                 ]);
             }
 
+            if($request->middleName == null ){
+                $request->middleName == 'N/A';
+            }
+
             $detail = DocumentDetails::create([
                 'requesteeFName' => $request->firstName,
                 'requesteeMName' => $request->middleName,
@@ -155,12 +161,8 @@ class TransactionController extends Controller
                     'userID' => $user->id,
                     'paymentID' => $payment->id,
                     'detailID' => $detail->id,
-                    'serviceAmount' =>  $request->serviceAmount,
                     'docNumber' => $docId,
                     'serviceStatus' => "Pending",
-                    'issuedDocument' => "Pending",
-                    'issuedBy' => $user->id,
-                    'issuedOn' => $date,
                 ]);
             }else if($document->docType == "Barangay Clearance"){
                 $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CL']);
@@ -170,12 +172,8 @@ class TransactionController extends Controller
                     'userID' => $user->id,
                     'paymentID' => $payment->id,
                     'detailID' => $detail->id,
-                    'serviceAmount' =>  $request->serviceAmount,
                     'docNumber' => $docId,
                     'serviceStatus' => "Pending",
-                    'issuedDocument' => "Pending",
-                    'issuedBy' => $user->id,
-                    'issuedOn' => $date,
                 ]);
             }
                 
@@ -185,6 +183,7 @@ class TransactionController extends Controller
         }
         if($request->paymentMethod == '2'){
             $receivedPayment = $this->createpayment($payment->id);
+            $receivedPayment->fee = $document->fee;
 
             $user->token = $request->token;
             $user->success = true;
@@ -261,6 +260,31 @@ class TransactionController extends Controller
 
         $response = ['user' => $userData, 'documents' => $documents, 'success' => true,];
 
+        return $response;
+    }
+
+    public function mobileRequestList(Request $request){
+        $user = User::where('residentID', $request->id)->first();
+        $transactions = Transaction::where('userID', $user->id)->get();
+        foreach($transactions as $transaction){
+            $document = Document::where('id', $transaction->documentID)->first();
+            $payment = Payment::where('id', $transaction->paymentID)->first();
+            $transaction->documentName = $document->docName;
+            $transaction->paymentStatus = $payment->paymentStatus;
+        }
+        
+
+        $response = ['transactions' => $transactions, 'success' => true,];
+
+        return $response;
+    }
+
+    public function mobileRequestDetails(Request $request){
+        $transaction = Transaction::where('id', $request->id)->first();
+        $transactiondetails = DocumentDetails::where('id', $transaction->detailID)->first();
+        $payment = Payment::where('id', $transaction->paymentID)->first();
+        $document = Document::where('id', $transaction->documentID)->first();
+        $response = ['transaction' => $transaction, 'details' => $transactiondetails, 'payment' => $payment, 'document' => $document, 'success' => true,];
         return $response;
     }
 }
