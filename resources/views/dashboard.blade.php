@@ -5,6 +5,136 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
+    <style>
+        .hide {
+            display: none;
+        }
+
+        .info:hover+.hide {
+            position: absolute;
+            display: block;
+            z-index: 9;
+        }
+    </style>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.load('current', {'packages': ['bar']});
+
+        google.charts.setOnLoadCallback(drawChartResident);
+        google.charts.setOnLoadCallback(drawChartHousehold);
+        google.charts.setOnLoadCallback(drawAllResident);
+        google.charts.setOnLoadCallback(drawAllHousehold);
+        google.charts.setOnLoadCallback(drawChartCurrentMonthInc);
+
+        function drawChartResident() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Sitio', 'Residents'],
+                <?php echo $chartdataResident ?>
+            ]);
+
+            var options = {
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'none',
+                chartArea: {
+                    height: "70%",
+                    width: "70%"
+                },
+                colors: ['green']
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('residentBarchart'));
+
+            chart.draw(data, options);
+        }
+
+        function drawChartHousehold() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Sitio', 'Households'],
+                <?php echo $chartdataHousehold ?>
+            ]);
+
+            var options = {
+                width: '100%',
+                height: '100%',
+                color: 'green',
+                backgroundColor: 'none',
+                chartArea: {
+                    height: "70%",
+                    width: "70%"
+                },
+                colors: ['green']
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('householdBarchart'));
+
+            chart.draw(data, options);
+        }
+
+        function drawChartCurrentMonthInc() {
+            var data = google.visualization.arrayToDataTable([
+                ['Sitio', 'Average Monthly Income'],
+                <?php echo $chartIncomeCurrent ?>   
+            ]);
+
+            var options = {
+                width: '100%',
+                height: '100%',
+                color: 'green',
+                backgroundColor: 'none',
+                chartArea: {
+                    height: "70%",
+                    width: "70%"
+                },
+                colors: ['green']
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('currentMonthInchart'));
+
+            chart.draw(data, options);
+        }
+
+        function drawAllResident() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year-Quarter', 'Cabangyao', 'Catadman', 'Guiwanon', 'Hawlandia', 'Hilltops', 'Ilaya', 'Krasher', 'Labangon', 'Lalin', 'Lapaz', 'Sto. Rosario', 'Suba', 'Tamsapa'],
+                <?php echo $chartAllRes ?>
+            ]);
+
+            var options = {
+                chart: {
+                    title: 'Resident Population Per Quarter Recorded',
+                    subtitle: 'Per Sitio'
+                }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('AllReschart'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+
+        function drawAllHousehold() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year-Quarter', 'Cabangyao', 'Catadman', 'Guiwanon', 'Hawlandia', 'Hilltops', 'Ilaya', 'Krasher', 'Labangon', 'Lalin', 'Lapaz', 'Sto. Rosario', 'Suba', 'Tamsapa'],
+                <?php echo $chartAllHh ?>
+            ]);
+
+            var options = {
+                chart: {
+                    title: 'Households Per Quarter Recorded',
+                    subtitle: 'Per Sitio'
+                }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('AllHhchart'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
 
     <div class="py-1 mt-[8rem] flex flex-col justify-center bg-dirty-white">
 
@@ -132,8 +262,9 @@
                     <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
                         <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE CENSUS DATA</p>
                     </div>
-
-
+                    {{$chartdataResident}}
+                    <br>
+                    {{$chartIncomeCurrent}}
                     <div class="flex flex-row self-center space-x-8 mt-[4rem] mb-[4rem]">
                         <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
                             <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
@@ -148,7 +279,7 @@
                                 </h1>
                             </div>
                             @if (($request->sitio || $request->gender || $request->ageclass) && $totalResidentCount>0)
-                            <div class="w-[1050px] h-[600px] mt-2 mx-auto" id="residentPiechart" style=""></div>
+                            <div class="w-[1050px] h-[600px] mt-2 mx-auto" id="residentBarchart" style=""></div>
                             <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
                             <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end mt-[15rem] mr-8">
                                 <div class="mb-2 w-80 text-justify">
@@ -179,13 +310,11 @@
                                     </div>
                                 <hr>
                                 </div>
-                                <p class="mt-2 w-80 text-justify">
-                                    Hover over the colors in the legend to highlight the different Sitios of the Barangay.
-                                    If nothing is highlighted after hovering, it means there are 0 Residents on that particular category.
-                                </p>
                             </div>
                             @else
-                            <div class="w-[1050px] h-[600px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyPiechart" style=""></div>
+                            <div class="w-[1050px] h-[600px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center">
+
+                            </div>
                             @endif
                         </div>
                     </div>
@@ -203,17 +332,12 @@
                                 </h1>
                             </div>
                             <div class="">
-                                @if($request->sitio || $request->gender || $request->ageclass)
+                                @if(($request->sitio || $request->gender || $request->ageclass))
                                     @if($request->gender=="NULL" && $request->ageclass=="NULL")
-                                    <div class="w-[525px] h-[300px] mt-2 mx-auto" id="householdPiechart"></div>
-                                        @if($request->sitio=="NULL" && $totalHouseholdCount>0)
-                                        <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
-                                        <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end ml-8 w-80 text-justify">
-                                            <p class="py-1">
-                                                Hover over the colors in the legend to highlight the different Sitios of the Barangay.
-                                                If nothing is highlighted after hovering, it means there are 0 Households on that particular Sitio.
-                                            </p>
-                                        </div>
+                                        @if($totalHouseholdCount>0)
+                                        <div class="w-[525px] h-[300px] mt-2 mx-auto" id="householdBarchart"></div>
+                                        @else
+                                        <div class="w-[525px] h-[324px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center"></div>
                                         @endif
                                     @else
                                     <div class="w-[525px] h-[324px] mt-2 px-2 flex items-center justify-center">
@@ -223,7 +347,7 @@
                                     </div>
                                     @endif
                                 @else
-                                <div class="w-[525px] h-[300px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyTwochart"></div>
+                                <div class="w-[525px] h-[324px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center"></div>
                                 @endif
                             </div>
                         </div>
@@ -260,6 +384,9 @@
                         </div>
                     </div>
                 </div>
+                <div id="AllReschart" class="mx-auto" style="width: 90%; height: 650px;"></div>
+                <div id="AllHhchart" class="mx-auto" style="width: 90%; height: 650px;"></div>
+                <div id="currentMonthInchart" class="mx-auto" style="width: 90%; height: 650px;"></div>
             </div>
             @endhasanyrole
 
@@ -342,121 +469,6 @@
 
             @endhasanyrole
     </div>
-    <style>
-        .hide {
-            display: none;
-        }
-
-        .info:hover+.hide {
-            position: absolute;
-            display: block;
-            z-index: 9;
-        }
-    </style>
-
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.charts.load('current', {
-            'packages': ['corechart']
-        });
-        google.charts.setOnLoadCallback(drawChartResident);
-        google.charts.setOnLoadCallback(drawChartHousehold);
-        google.charts.setOnLoadCallback(drawChartEmpty);
-        google.charts.setOnLoadCallback(drawChartEmptyTwo);
-
-        function drawChartResident() {
-
-            var data = google.visualization.arrayToDataTable([
-                ['Sitio', 'Residents'],
-                <?php echo $chartdataResident ?>
-            ]);
-
-            var options = {
-                sliceVisibilityThreshold: 0,
-                width: '100%',
-                height: '100%',
-                pieSliceText: 'value',
-                backgroundColor: 'none',
-                chartArea: {
-                    height: "95%",
-                    width: "95%"
-                }
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('residentPiechart'));
-
-            chart.draw(data, options);
-        }
-
-        function drawChartHousehold() {
-
-            var data = google.visualization.arrayToDataTable([
-                ['Sitio', 'Households'],
-                <?php echo $chartdataHousehold ?>
-            ]);
-
-            var options = {
-                sliceVisibilityThreshold: 0,
-                width: '100%',
-                height: '100%',
-                pieSliceText: 'value',
-                backgroundColor: 'none',
-                chartArea: {
-                    height: "95%",
-                    width: "95%"
-                }
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('householdPiechart'));
-
-            chart.draw(data, options);
-        }
-
-        function drawChartEmpty() {
-
-            var data = google.visualization.arrayToDataTable([
-                ['EMPTY', 'EMPTY'],
-
-            ]);
-
-            var options = {
-                width: '100%',
-                height: '100%',
-                pieSliceText: 'value',
-                backgroundColor: 'none',
-                chartArea: {
-                    height: "95%",
-                    width: "95%"
-                }
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('emptyPiechart'));
-
-            chart.draw(data, options);
-        }
-
-        function drawChartEmptyTwo() {
-
-            var data = google.visualization.arrayToDataTable([
-                ['EMPTY', 'EMPTY'],
-
-            ]);
-
-            var options = {
-                width: '100%',
-                height: '100%',
-                pieSliceText: 'value',
-                backgroundColor: 'none',
-                chartArea: {
-                    height: "95%",
-                    width: "95%"
-                }
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('emptyTwochart'));
-
-            chart.draw(data, options);
-        }
-    </script>
+    
 
 </x-app-layout>

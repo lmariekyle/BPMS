@@ -19,7 +19,9 @@ use Illuminate\Support\Facades\DB;
 class StatisticsController extends Controller
 {
     public function index()
-    {   
+    {
+    //Population of Residents and Households of a certain quarter selected
+
         //Gets the statistic data that is the most recently added
         $currentYear = date('Y');
         $currentDate = date('m-d');
@@ -312,6 +314,7 @@ class StatisticsController extends Controller
 
     public function reports(Request $request)
     {
+        //Get statistical information on that specific time period (Year, Quarter)
         $yearFilter = $request['year'];
 
         $quarterFilter = $request['quarter'];
@@ -503,7 +506,137 @@ class StatisticsController extends Controller
 
             $chartdataHousehold = $dataHousehold;
         }
-        return view('dashboard', compact('documents', 'totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'yearList', 'request', 'nameSitio'));
+        //--------------------------------------------------------------------------------------------------------------------
+        
+        //Get all of the records of the population per year per quarter
+
+        //Resident
+        //maxValue gets the value from the sitio_counts table that HAS at least 1 resident the highest sitioID recorded
+        $maxValueSitio = Sitio::max('id');
+        $statAll = Statistics::get(['id','year','quarter']);
+
+        $AllResData = "";
+        foreach($statAll as $SA){
+            switch($SA->quarter){
+                case 1:
+                    $QDesc = "Jan-Mar";
+                    break;
+                case 2:
+                    $QDesc = "April-June";
+                    break;
+                case 3:
+                    $QDesc = "July-Sept";
+                    break;
+                case 4:
+                    $QDesc = "Oct-Dec";
+                    break;
+                default:
+                    $QDesc = "N/A";
+                    break;
+            }
+            $YQ = $SA->year . ' ' . $QDesc;
+            $dataRes = "";
+            $residentCount = DB::table('sitio_counts')
+                        ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                        ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                        ->where('sitio_counts.statID', $SA->id)
+                        ->where('sitio_counts.genderGroup', '!=', '--')
+                        ->where('sitio_counts.ageGroup', '!=', '--')
+                        ->get();
+
+            //index starts at 2 because 1 is a sitioFiller option (i.e. No option)
+            $indexResident = 2;
+
+            //adds information for the Pie Chart for Resident
+            while ($indexResident <= $maxValueSitio) {
+                $sumRes = 0;
+                foreach($residentCount as $resCount){
+                    if ($resCount->sitioID == $indexResident){
+                        $sumRes = $sumRes + $resCount->residentCount;
+                    }
+                }
+                if($indexResident != $maxValueSitio){
+                    $dataRes .= $sumRes . ",";
+                }else{
+                    $dataRes .= $sumRes;
+                }
+                $indexResident++;
+            }
+            $AllResData .= "['" . $YQ . "'," . $dataRes . "],";
+        }
+
+        $chartAllRes = $AllResData;
+
+        //---------------------------------------------------------------------------
+
+        //Household
+        $AllHhData = "";
+        foreach($statAll as $SA){
+            switch($SA->quarter){
+                case 1:
+                    $QDesc = "Jan-Mar";
+                    break;
+                case 2:
+                    $QDesc = "April-June";
+                    break;
+                case 3:
+                    $QDesc = "July-Sept";
+                    break;
+                case 4:
+                    $QDesc = "Oct-Dec";
+                    break;
+                default:
+                    $QDesc = "N/A";
+                    break;
+            }
+            $YQ = $SA->year . ' ' . $QDesc;
+            $dataHh = "";
+            //index starts at 2 because 1 is a sitioFiller option (i.e. No option)
+            $indexHousehold = 2;
+
+            while ($indexHousehold <= $maxValueSitio) {
+                $sumHousehold = DB::table('sitio_counts')->where('sitioID', $indexHousehold)
+                                                         ->where('statID', $SA->id)
+                                                         ->where('genderGroup', '=', '--')
+                                                         ->where('ageGroup', '=', '--')
+                                                         ->value('residentCount');
+                if($indexHousehold != $maxValueSitio){
+                    $dataHh .= $sumHousehold . ",";
+                }else{
+                    $dataHh .= $sumHousehold;
+                }
+                $indexHousehold++;
+            }
+            $AllHhData .= "['" . $YQ . "'," . $dataHh . "],";
+        }
+
+        $chartAllHh = $AllHhData;
+
+        //-----------------------------------------------------------------------------------------------------------
+
+        //Let's try to get average income of current Residents per Sitio
+        $dataIncomeCurrent = "";
+        for($x=2; $x<=$maxValueSitio; $x++){
+            $sitioAvIncome = DB::table('resident_lists')
+                ->select(DB::raw('AVG(residents.monthlyIncome) as average_income'))
+                ->join('households', 'resident_lists.houseID', '=', 'households.id')
+                ->join('residents', 'resident_lists.residentID', '=', 'residents.id')
+                ->where('residents.dateOfDeath', '=', NULL)
+                ->where('households.sitioID', '=', $x)
+                ->first();
+
+            if (!isset($sitioAvIncome->average_income)) {
+                $sitioAvIncome->average_income = 0;
+            }
+
+            $sitioName = Sitio::where('id', '=', $x)->value('sitioName');
+
+            $dataIncomeCurrent .= "['" . $sitioName . "'," . $sitioAvIncome->average_income . "],";
+        }
+
+        $chartIncomeCurrent = $dataIncomeCurrent;
+
+        return view('dashboard', compact('documents', 'totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'yearList', 'request', 'nameSitio', 'chartAllRes', 'chartAllHh', 'chartIncomeCurrent'));
     }
 
     public function exportpdf(Request $request)
