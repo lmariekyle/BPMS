@@ -59,8 +59,7 @@
             <div>
                 <x-label for="contactnumber" :value="__('* Contact Number')" class="font-roboto" style="color:white;" />
                 <div class="flex flex-row">
-                <input type="text" class="block mb-4 w-[50px] h-[42px] bg-dirty-white rounded-md" id="" name="" value="+63" readonly>
-                <x-input id="contactnumber" class="block mb-4 w-[450px] h-[42px] bg-dirty-white" type="text" name="contactNumber" :value="old('contactNumber')" required autofocus />
+                <x-input id="contactnumber" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="contactNumber" :value="old('contactNumber')" required autofocus />
                 </div>
             </div>
 

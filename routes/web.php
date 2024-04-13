@@ -13,6 +13,7 @@ use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\SitioCountController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\TransactionController;
 use App\Models\Statistics;
 use Hydrat\Laravel2FA\Controllers\TwoFactorAuthController;
 use Spatie\Permission\Models\Role;
@@ -100,6 +101,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('failurepayment/{id}', [ServicesController::class, 'failurepayment'])->name('services.failure');
     Route::get('/markRead/{id}', [NotificationController::class, 'markRead'])->name('viewNotifications');
     Route::get('/delete/{id}', [NotificationController::class, 'destroy'])->name('deleteNotifications');
+    Route::get('/requestlist/{id}', [TransactionController::class, 'requestList'])->name('resident.requests');
+    Route::get('/showRequest/{id}', [TransactionController::class, 'showRequest'])->name('resident.showrequest');
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {

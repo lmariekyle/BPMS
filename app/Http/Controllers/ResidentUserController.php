@@ -21,10 +21,12 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountMail;
+use App\Rules\StartsWith09;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\Crypt;
+
 
 class ResidentUserController extends Controller
 {
@@ -58,6 +60,13 @@ class ResidentUserController extends Controller
         $relatedInfo->makeVisible('firstName', 'middleName', 'lastName','contactNumber');
         return response()->json(['user' => $user,'relatedInfo' => $relatedInfo]);
     }
+
+    public function generateID(){
+
+       return $userId = IdGenerator::generate(['table' => 'users', 'field' => 'id', 'length' => 6, 'prefix' => date('y')]);
+
+    }
+
     /**
      * Handle an incoming registration request.
      *
@@ -76,7 +85,7 @@ class ResidentUserController extends Controller
             'password' => ['required', 'confirmed'],
             'profileImage' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'dateOfBirth' => 'required|date|before:' . Carbon::now()->subYears(18),
-            'contactNumber' => ['required', 'numeric', 'digits:10'],
+            'contactNumber' => ['required', 'numeric', 'digits:11',new \App\Rules\StartsWith09],
         ],
         [
             'firstname.regex' => 'Use only alphabetical characters in your first name',
@@ -89,8 +98,7 @@ class ResidentUserController extends Controller
 
         //Auto Generate ID 
         // $residentId = IdGenerator::generate(['table' => 'residents', 'field' => 'id', 'length' => 9, 'prefix' => 'RES-']);
-        $userId = IdGenerator::generate(['table' => 'users', 'field' => 'id', 'length' => 6, 'prefix' => date('y')]);
-
+        $userId = $this->generateID();
         //Image Upload 
         if ($request->hasFile('profileImage')) {
             $image_name = time() . '.' . $request->profileImage->getClientOriginalExtension();
@@ -125,7 +133,7 @@ class ResidentUserController extends Controller
                         'email' => $request->email,
                         'sitioID' => $request->sitio,
                         'assignedSitioID' => '1',
-                        'contactNumber' => '63' . $request->contactNumber,
+                        'contactNumber' => $request->contactNumber,
                         'password' => Hash::make($request->password)
                     ]);
                     $user->assignRole($request->userlevel); //assign account role as User
@@ -170,7 +178,7 @@ class ResidentUserController extends Controller
             'password' => ['required', 'same:passwordConfirm', Rules\Password::defaults()],
         ]);
 
-        $userId = IdGenerator::generate(['table' => 'users', 'field' => 'id', 'length' => 6, 'prefix' => date('y')]);
+        $userId = $this->generateID();
         $initDate = strtotime($request->dateOfBirth);
         $date = date('Y-m-d', $initDate);
 

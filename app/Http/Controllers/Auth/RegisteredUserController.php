@@ -74,7 +74,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed'],
             'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'dateOfBirth' => 'required|date|before:' . Carbon::now()->subYears(18),
-            'contactNumber' => ['required', 'numeric','digits:10'],
+            'contactNumber' => ['required', 'numeric', 'digits:11',new \App\Rules\StartsWith09]
         ],
         [
             'firstname.regex' => 'Use only alphabetical characters in your first name',
@@ -107,7 +107,7 @@ class RegisteredUserController extends Controller
             'middleName' => $request->middlename,
             'lastName' => $request->lastname,
             'dateOfBirth' => $request->dateOfBirth,
-            'contactNumber' => '63' . $request->contactNumber,
+            'contactNumber' => $request->contactNumber,
             'email' => $request->email,
         ]);
 
