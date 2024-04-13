@@ -209,7 +209,7 @@ class ResidentSeeder extends Seeder
             'email' => 'earltabangon@gmail.com',
             'maritalStatus' => 'Single',
             'gender' => 'M',
-            'occupation' => 'Student',
+            'occupation' => 'Unemployed',
             'monthlyIncome' => '0',
             'ageClassification' => 'SC',
         ]);

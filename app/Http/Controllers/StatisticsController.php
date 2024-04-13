@@ -612,7 +612,31 @@ class StatisticsController extends Controller
 
         $chartAllHh = $AllHhData;
 
-        return view('dashboard', compact('documents', 'totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'yearList', 'request', 'nameSitio', 'chartAllRes', 'chartAllHh'));
+        //-----------------------------------------------------------------------------------------------------------
+
+        //Let's try to get average income of current Residents per Sitio
+        $dataIncomeCurrent = "";
+        for($x=2; $x<=$maxValueSitio; $x++){
+            $sitioAvIncome = DB::table('resident_lists')
+                ->select(DB::raw('AVG(residents.monthlyIncome) as average_income'))
+                ->join('households', 'resident_lists.houseID', '=', 'households.id')
+                ->join('residents', 'resident_lists.residentID', '=', 'residents.id')
+                ->where('residents.dateOfDeath', '=', NULL)
+                ->where('households.sitioID', '=', $x)
+                ->first();
+
+            if (!isset($sitioAvIncome->average_income)) {
+                $sitioAvIncome->average_income = 0;
+            }
+
+            $sitioName = Sitio::where('id', '=', $x)->value('sitioName');
+
+            $dataIncomeCurrent .= "['" . $sitioName . "'," . $sitioAvIncome->average_income . "],";
+        }
+
+        $chartIncomeCurrent = $dataIncomeCurrent;
+
+        return view('dashboard', compact('documents', 'totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'yearList', 'request', 'nameSitio', 'chartAllRes', 'chartAllHh', 'chartIncomeCurrent'));
     }
 
     public function exportpdf(Request $request)
