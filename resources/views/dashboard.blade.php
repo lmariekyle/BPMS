@@ -28,6 +28,7 @@
         google.charts.setOnLoadCallback(drawAllResident);
         google.charts.setOnLoadCallback(drawAllHousehold);
         google.charts.setOnLoadCallback(drawChartCurrentMonthInc);
+        google.charts.setOnLoadCallback(drawPregResident);
 
         function drawChartResident() {
 
@@ -95,6 +96,29 @@
             };
 
             var chart = new google.visualization.ColumnChart(document.getElementById('currentMonthInchart'));
+
+            chart.draw(data, options);
+        }
+
+        function drawPregResident() {
+            var data = google.visualization.arrayToDataTable([
+                ['Status', 'Female'],
+                <?php echo $chartPreg ?>   
+            ]);
+
+            var options = {
+                width: '100%',
+                height: '100%',
+                color: 'green',
+                backgroundColor: 'none',
+                chartArea: {
+                    height: "70%",
+                    width: "70%"
+                },
+                colors: ['green']
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('Pregchart'));
 
             chart.draw(data, options);
         }
@@ -261,9 +285,6 @@
                     <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
                         <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE CENSUS DATA</p>
                     </div>
-                    {{$chartdataResident}}
-                    <br>
-                    {{$chartIncomeCurrent}}
                     <div class="flex flex-row self-center space-x-8 mt-[4rem] mb-[4rem]">
                         <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
                             <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
@@ -382,10 +403,16 @@
                             </div>
                         </div>
                     </div>
+                    <div id="AllReschart" class="mx-auto" style="width: 90%; height: 650px;"></div>
+                    <div id="AllHhchart" class="mx-auto" style="width: 90%; height: 650px;"></div>
+                    <div class="flex flex-row">
+                        <div id="currentMonthInchart" class="" style="width: 70%; height: 600px;"></div>
+                        <div>
+                            <div id="Pregchart" style="width: 30%; height: 250px;"></div>
+                            <div id="" style="width: 30%; height: 250px;"></div>
+                        </div>
+                    </div>
                 </div>
-                <div id="AllReschart" class="mx-auto" style="width: 90%; height: 650px;"></div>
-                <div id="AllHhchart" class="mx-auto" style="width: 90%; height: 650px;"></div>
-                <div id="currentMonthInchart" class="mx-auto" style="width: 90%; height: 650px;"></div>
             </div>
             @endhasanyrole
 

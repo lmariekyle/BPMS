@@ -1242,6 +1242,9 @@ select {
 .mt-\[8rem\] {
   margin-top: 8rem;
 }
+.ml-\[5\%\] {
+  margin-left: 5%;
+}
 .block {
   display: block;
 }

@@ -614,7 +614,7 @@ class StatisticsController extends Controller
 
         //-----------------------------------------------------------------------------------------------------------
 
-        //Let's try to get average income of current Residents per Sitio
+        //Get average income of current Residents per Sitio
         $dataIncomeCurrent = "";
         for($x=2; $x<=$maxValueSitio; $x++){
             $sitioAvIncome = DB::table('resident_lists')
@@ -636,7 +636,27 @@ class StatisticsController extends Controller
 
         $chartIncomeCurrent = $dataIncomeCurrent;
 
-        return view('dashboard', compact('documents', 'totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'yearList', 'request', 'nameSitio', 'chartAllRes', 'chartAllHh', 'chartIncomeCurrent'));
+        //-------------------------------------------------------------------------------------------------------
+
+        //Get the # of pregancy
+        //Of the selected year & quarter
+        $dataPreg = "";
+
+        $pregResCount = SitioCount::where('statID','=', $statID)
+            ->whereIn('ageGroup', ['P', 'AP', 'PP'])
+            ->sum('residentCount');
+        
+        $dataPreg .= "['Pregnant',". $pregResCount ."],";
+
+        $nonPregResCount = SitioCount::where('statID', '=', $statID)
+            ->where('ageGroup', '=', 'WRA')
+            ->sum('residentCount');
+
+        $dataPreg .= "['Not Pregnant',". $nonPregResCount ."]";
+        
+        $chartPreg = $dataPreg;
+
+        return view('dashboard', compact('documents', 'totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'yearList', 'request', 'nameSitio', 'chartAllRes', 'chartAllHh', 'chartIncomeCurrent', 'chartPreg'));
     }
 
     public function exportpdf(Request $request)
