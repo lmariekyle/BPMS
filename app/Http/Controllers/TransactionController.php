@@ -248,6 +248,7 @@ class TransactionController extends Controller
 
         $payment->update([
             'accountNumber' => $request->accountNumber,
+            'successURL' => $request->accountNumber,
             'paymentStatus' => 'Paid',
             'screenshot' => $reqJson,
         ]);
