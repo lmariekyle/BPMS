@@ -12,6 +12,8 @@ use App\Models\Statistics;
 use Ichtrojan\Otp\Otp;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OTPMail;
+use Illuminate\Support\Facades\Storage;
+use Svg\Gradient\Stop;
 
 class AuthenticationAPIController extends Controller
 {
@@ -20,6 +22,8 @@ class AuthenticationAPIController extends Controller
         $user = User::where('id', $request->id)->first();
         $resident = Resident::where('id', $user->residentID)->first();
         $user->username = $resident->firstName . ' ' . $resident->lastName;
+        $image =$this->mobileProfilePic($request);
+        
         if($user->userLevel == "Barangay Health Worker"){
             $sitio = Sitio::where('id', $user->assignedSitioID)->first();
             $user->assignedSitio  = $sitio->sitioName;
@@ -78,11 +82,19 @@ class AuthenticationAPIController extends Controller
             }else{               
                 $statistic = $statistics;
             }
-            $response = ['user' => $user, 'statistics' => $statistic,'success' => true];
+            $response = ['user' => $user, 'statistics' => $statistic, 'image' => $image, 'success' => true];
         }else{
-            $response = ['user' => $user, 'success' => true];
+            $response = ['user' => $user, 'image' => $image, 'success' => true];
         }
         return response()->json($response, 200);
+    }
+
+    
+    public function mobileProfilePic(Request $request){
+        $user = User::where('id', $request->id)->first();
+        $image = Storage::url($user->profileImage);
+        $imageUrl = "http://10.0.2.2:8000" . $image;
+        return $imageUrl;
     }
 
     public function sanctumLogin(Request $request){
