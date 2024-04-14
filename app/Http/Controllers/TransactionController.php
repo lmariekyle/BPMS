@@ -53,10 +53,10 @@ class TransactionController extends Controller
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-FC']);
             $payment = Payment::create([
                 'paymentMethod' => $request->paymentMethod,
-                'accountNumber' => NULL,
-                'paymentStatus' => 'PAID',
-                'successURL' => NULL,
-                'failURL' =>  NULL,
+                'accountNumber' => 'Not Applicable',
+                'paymentStatus' => 'Paid',
+                'successURL' => 'Not Applicable',
+                'failURL' =>  'Not Applicable',
             ]);
 
             if($request->complaintMName == null ){
@@ -123,19 +123,19 @@ class TransactionController extends Controller
         }else{
             if ($request->paymentMethod == '1'){
                 $payment = Payment::create([
-                    'paymentMethod' => 'CASH-ON-SITE',
-                    'accountNumber' => 'None',
+                    'paymentMethod' => 'Cash-on-PickUp',
+                    'accountNumber' => 'Not Applicable',
                     'paymentStatus' => 'Pending',
                     'successURL' => 'Not Applicable',
                     'failURL' => 'Not Applicable',
                 ]);
             }else{
                 $payment = Payment::create([
-                    'paymentMethod' => 'GCASH',
+                    'paymentMethod' => 'GCash',
                     'accountNumber' => 'Pending',
                     'paymentStatus' => 'Pending',
-                    'successURL' => 'Unavailable',
-                    'failURL' => 'Unavailable',
+                    'successURL' => 'Pending',
+                    'failURL' => 'Pending',
                 ]);
             }
 
@@ -284,7 +284,9 @@ class TransactionController extends Controller
         $transactiondetails = DocumentDetails::where('id', $transaction->detailID)->first();
         $payment = Payment::where('id', $transaction->paymentID)->first();
         $document = Document::where('id', $transaction->documentID)->first();
-        $response = ['transaction' => $transaction, 'details' => $transactiondetails, 'payment' => $payment, 'document' => $document, 'success' => true,];
+        $user = User::where('id', $transaction->userID)->first();
+        $resident = Resident::where('id', $user->residentID)->first();
+        $response = ['transaction' => $transaction, 'details' => $transactiondetails, 'payment' => $payment, 'document' => $document, 'user' => $resident, 'success' => true,];
         return $response;
     }
 }
