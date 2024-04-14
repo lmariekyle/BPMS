@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Notifications\DatabaseNotification;
 use DB;
 
+use function PHPUnit\Framework\isEmpty;
+
 class NotificationController extends Controller
 {
     public function index(){
@@ -33,8 +35,20 @@ class NotificationController extends Controller
             $notification->user = User::where('id', $notification->data['transaction']['userID'])->first();
             $notification->resident = Resident::where('id',$notification->user['residentID'])->first();
             $notification->document = Document::where('id',$notification->data['transaction']['documentID'])->first();
-            $notification->processedBy = User::where('id',$notification->data['transaction']['issuedBy'])->first();
-            $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+            if($notification->data['transaction']['issuedBy'] != null){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['issuedBy'])->first();
+                $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+            } else if($notification->data['transaction']['approvedBy'] != null){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['approvedBy'])->first();
+                $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+            } else if($notification->data['transaction']['endorsedBy'] != null){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
+                $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+            } else {
+                $notification->processedBy = User::where('id',$notification->data['transaction']['reviewedBy'])->first();
+                $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+            }
+            
             $newtime = strtotime($notification->data['transaction']['created_at']);
             $notification->notificationCreated = date('M d, Y', $newtime);
         }
@@ -47,8 +61,19 @@ class NotificationController extends Controller
         $notification->user = User::where('id', $notification->data['transaction']['userID'])->first();
         $notification->resident = Resident::where('id',$notification->user['residentID'])->first();
         $notification->document = Document::where('id',$notification->data['transaction']['documentID'])->first();
-        $notification->processedBy = User::where('id',$notification->data['transaction']['issuedBy'])->first();
-        $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+        if($notification->data['transaction']['issuedBy'] != null){
+            $notification->processedBy = User::where('id',$notification->data['transaction']['issuedBy'])->first();
+            $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+        } else if($notification->data['transaction']['approvedBy'] != null){
+            $notification->processedBy = User::where('id',$notification->data['transaction']['approvedBy'])->first();
+            $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+        } else if($notification->data['transaction']['endorsedBy'] != null){
+            $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
+            $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+        } else {
+            $notification->processedBy = User::where('id',$notification->data['transaction']['reviewedBy'])->first();
+            $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+        }
         $notification->processedByUser->makeVisible('firstName', 'middleName', 'lastName');
         $newtime = strtotime($notification->data['transaction']['created_at']);
         $notification->notificationCreated = date('M d, Y', $newtime);
@@ -93,8 +118,19 @@ class NotificationController extends Controller
             $notification->user = User::where('id', $notification->data['transaction']['userID'])->first();
             $notification->resident = Resident::where('id',$notification->user['residentID'])->first();
             $notification->document = Document::where('id',$notification->data['transaction']['documentID'])->first();
-            $notification->processedBy = User::where('id',$notification->data['transaction']['issuedBy'])->first();
-            $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+            if($notification->data['transaction']['issuedBy'] != null){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['issuedBy'])->first();
+                $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+            } else if($notification->data['transaction']['approvedBy'] != null){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['approvedBy'])->first();
+                $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+            } else if($notification->data['transaction']['endorsedBy'] != null){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
+                $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+            } else {
+                $notification->processedBy = User::where('id',$notification->data['transaction']['reviewedBy'])->first();
+                $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
+            }
             $notification->processedByUser->makeVisible('firstName', 'middleName', 'lastName');
             $newtime = strtotime($notification->data['transaction']['created_at']);
             $notification->notificationCreated = date('M d, Y', $newtime);

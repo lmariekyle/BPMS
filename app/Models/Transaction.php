@@ -24,12 +24,13 @@ class Transaction extends Model
         'serviceStatus',
         'reviewedBy',
         'reviewedOn',
-        'EndorsedBy',
-        'EndorsedOn',
-        'ApprovedBy',
-        'ApprovedOn',
+        'endorsedBy',
+        'endorsedOn',
+        'approvedBy',
+        'approvedOn',
         'issuedBy',
         'issuedOn',
+        'releasedOn',
         'remarks',
     ];
 

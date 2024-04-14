@@ -31,6 +31,7 @@ class CreateTransactionsTable extends Migration
             $table->date('approvedOn')->nullable();            
             $table->string('issuedBy')->nullable();
             $table->date('issuedOn')->nullable();
+            $table->date('releasedOn')->nullable();
             $table->string('remarks')->nullable();
 
             $table->timestamps();

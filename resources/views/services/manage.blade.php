@@ -66,7 +66,7 @@
                     </div>
                     @else
                     <p>Payment Type:</p>
-                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">CASH ON SITE</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->payment['paymentMethod'] }}</p>
                     @endif
                     </div>
                     <div class="font-robotocondensed font-bold text-[32px] text-deep-green mt-6" style="font-size: 18px;">
@@ -75,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            @if($transaction->payment['paymentMethod'] == 'GCASH')
+            @if($transaction->payment['paymentMethod'] == 'GCash')
             <div class="ml-20 mt-20">
                 <p class="font-robotocondensed font-bold text-[18px] text-deep-green">Payment Receipt:</p>
                 <img src="{{ Storage::url($transaction->payment['screenshot']) }}" alt="Image {{ $key }}" class="mt-4 border-2 border-deep-green shadow-sm w-[280px] h-[400px]">

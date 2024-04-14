@@ -115,7 +115,7 @@ class ServicesController extends Controller
         $transaction->detail = DocumentDetails::where('id', $transaction->detailID)->first();
         $transaction->document = Document::where('id', $transaction->documentID)->first();
         $payment= Payment::where('id',$transaction->paymentID);
-        $level = User::where('id', $transaction->issuedBy)->first();
+        $level = User::where('id', $transaction->userID)->first();
         $levelUser = Resident::where('id', $level->residentID)->first();
         $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
         $date = Carbon::now();
@@ -151,11 +151,13 @@ class ServicesController extends Controller
     {
         
         $user = Auth::user();
+        $userInfo = Resident::where('id', $user->residentID)->first();
         $transaction = Transaction::where('id', $id)->first();
         $transaction->fill([
             'remarks' => $request->remarks,
             'serviceStatus' => 'Processing',
-            'issuedBy' => $user->id,
+            'reviewedBy' => $user->id,
+            'reviewedOn' => today(),
         ]);
         $transaction->save();
 
@@ -167,7 +169,7 @@ class ServicesController extends Controller
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
-            $level = User::where('id', $transaction->issuedBy)->first();
+            $level = User::where('id', $transaction->userID)->first();
             $levelUser = Resident::where('id', $level->residentID)->first();
             $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
             $newtime = strtotime($transaction->created_at);
@@ -432,11 +434,11 @@ class ServicesController extends Controller
 
             $transactionpayment = $transaction->transactionpayment()->create([
                 'paymentMethod' => 'FREE',
-                'amountPaid' => NULL,
-                'accountNumber' => NULL,
+                'amountPaid' => 'Not Applicable',
+                'accountNumber' => 'Not Applicable',
                 'paymentStatus' => 'Paid',
-                'successURL' => NULL,
-                'failURL' =>  NULL,
+                'successURL' => 'Not Applicable',
+                'failURL' =>  'Not Applicable',
             ]);
 
             $transaction->issuedBy = $user->id;
@@ -468,7 +470,6 @@ class ServicesController extends Controller
             $transaction->serviceStatus = 'Pending';
             $transaction->docNumber = $docId;
             $transaction->issuedDocument = $request->selectedDocument;
-            $transaction->issuedOn = today();
             $transaction->save();
 
             $notifyUsers = User::where('userLevel', 'Barangay Secretary')->get();
@@ -810,10 +811,11 @@ class ServicesController extends Controller
     {
         $transaction = Transaction::where('id', $id)->first();
         $user = Auth::user();
-        $resident = Resident::where('id', $user->residentID)->first();
+        $userInfo = Resident::where('id', $user->residentID)->first();
         $transaction->fill([
             'serviceStatus' => 'Endorsed',
-            'issuedBy' => $user->id,
+            'endorsedBy' => $user->id,
+            'endorsedOn' => today(),
         ]);
         $transaction->save();
 
@@ -847,10 +849,11 @@ class ServicesController extends Controller
         if ($request->status == 1) {
             $transaction = Transaction::where('id', $id)->first();
             $user = Auth::user();
-            $resident = Resident::where('id', $user->residentID)->first();
+            $userInfo = Resident::where('id', $user->residentID)->first();
             $transaction->fill([
                 'serviceStatus' => 'For Signature',
-                'issuedBy' => $user->id,
+                'approvedBy' => $user->id,
+                'approvedOn' => today(),
             ]);
             $transaction->save();
 
@@ -870,7 +873,8 @@ class ServicesController extends Controller
             $resident = Resident::where('id', $user->residentID)->first();
             $transaction->fill([
                 'serviceStatus' => 'Denied',
-                'issuedBy' => $user->id,
+                'approvedBy' => 'Not Applicable',
+                'issuedBy' => 'Not Applicable',
             ]);
             $transaction->save();
 
@@ -913,7 +917,8 @@ class ServicesController extends Controller
         $transaction->fill([
             'remarks' => $request->remarks,
             'serviceStatus' => "Not Eligible",
-            'issuedBy' => $user->id,
+            'approvedBy' => 'Not Applicable',
+            'issuedBy' => 'Not Applicable',
         ]);
         $transaction->save();
 
@@ -947,10 +952,11 @@ class ServicesController extends Controller
     public function signed($id)
     {
         $transaction = Transaction::where('id', $id)->first();
-        $user = Auth::user()->residentID;
+        $user = Auth::user();
         $resident = Resident::where('id', $user)->first();
         $transaction->fill([
             'serviceStatus' => 'Signed',
+            'issuedBy' => $user->id,
             'issuedOn' => today(),
         ]);
         $transaction->save();
@@ -977,6 +983,7 @@ class ServicesController extends Controller
         $user = Auth::user()->residentID;
         $resident = Resident::where('id', $user)->first();
         $transaction->fill([
+            'releasedOn' => today(),
             'serviceStatus' => 'Released',
         ]);
         $transaction->save();
