@@ -18,27 +18,6 @@ class BHWSeeder extends Seeder
      */
     public function run()
     {
-        Households::create([
-            'sitioID' => '2',
-            'houseNumber' => '2',
-            'street'=>'TOOOOOOO',
-            'buildingName'=>'NULL',
-            'unitNumber'=>'NULL',
-            'floorNumber'=>'NULL',
-            'residenceType'=>'Residential Home',
-            'nHTS'=>'NHTS',
-            'householdToiletFacilities'=>'None',
-            'IP'=>'IP',
-            'accessToWaterSupply'=>'L2',
-            'remarksOfWaterSupply'=>'no remarks',
-            'yearOfVisit'=>2022,
-            'quarterNumber'=>4,
-            'dateOfVisit'=>'2022-10-15',
-            'respondentName'=>'Rook',
-            'createdBy'=>2,
-            'revisedBy'=>2
-        ]);
-
         //MILES//
         ResidentList::create([
             'residentID' => '2',
@@ -75,14 +54,14 @@ class BHWSeeder extends Seeder
         ]);
         User::create([
             'residentID' => '3',
-            'sitioID' => '3',
-            'assignedSitioID' => '3',
+            'sitioID' => '4',
+            'assignedSitioID' => '4',
             'idNumber' => 'S-0001',
             'contactnumber' => '09876543212',
             'userlevel' => 'Barangay Secretary',
             'userstatus' => 'Active',
             'profileImage' => 'images/stacy.jpg',
-            'email' => 'stacy@bpms.com',
+            'email' => 'rachelyoo09@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('stacybpms'),
         ])->assignRole('Barangay Secretary');
@@ -98,14 +77,14 @@ class BHWSeeder extends Seeder
         ]);
         User::create([
             'residentID' => '7',
-            'sitioID' => '3',
-            'assignedSitioID' => '3',
+            'sitioID' => '5',
+            'assignedSitioID' => '5',
             'idNumber' => '23101',
             'contactnumber' => '09876543212',
             'userlevel' => 'User',
             'userstatus' => 'Active',
-            'profileImage' => 'images/peter.webp',
-            'email' => 'parker@bpms.com',
+            'profileImage' => 'images/peter.jpg',
+            'email' => '19100340@usc.edu.ph',
             'email_verified_at' => now(),
             'password' => Hash::make('parkerbpms'),
         ])->assignRole('User');
@@ -121,14 +100,14 @@ class BHWSeeder extends Seeder
         ]);
         User::create([
             'residentID' => '4',
-            'sitioID' => '4',
-            'assignedSitioID' => '4',
+            'sitioID' => '6',
+            'assignedSitioID' => '6',
             'idNumber' => 'C-0001',
             'contactnumber' => '09876543212',
             'userlevel' => 'Barangay Captain',
             'userstatus' => 'Active',
             'profileImage' => 'images/bc.jpg',
-            'email' => 'lourdeskyle09@gmail.com',
+            'email' => 'lourdesmkc@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('lourdesbpms'),
         ])->assignRole('Barangay Captain');

@@ -22,6 +22,27 @@ use Illuminate\Support\Str;
 
 class TransactionController extends Controller
 {
+
+    public function requestList($id){
+
+        $userTransactions=Transaction::where('userID',$id)->paginate(10);
+        // $document = Document::where('id', $userTransactions->documentID)->first();
+    
+        return view('residents.requests',compact('userTransactions'));
+    }
+
+    public function showRequest($id){
+
+        $transaction=Transaction::where('id',$id)->first();
+        $requester = DocumentDetails::where('id',$transaction->detailID)->first();
+        $requester->makeVisible('requesteeFName', 'requesteeLName','requesteeContactNumber');
+        // $document = Document::where('id', $userTransactions->documentID)->first();
+    
+        return view('residents.show',compact('transaction','requester'));
+    }
+
+
+
     public function mobileTransactionRequest(Request $request){
 
         $document = Document::where('id', $request->documentId)->first();

@@ -12,6 +12,8 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\ServicesController;
+use Hydrat\Laravel2FA\Controllers\TwoFactorAuthController;
+use Hydrat\Laravel2FA\TwoFactorAuth;
 use Illuminate\Support\Facades\Route;
 
 

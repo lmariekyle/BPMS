@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Hydrat\Laravel2FA\TwoFactorAuth;
+use Illuminate\Support\Facades\Config;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -45,7 +46,12 @@ class AuthenticatedSessionController extends Controller
         } else {  
             $request->session()->regenerate();
             
-            return $this->authenticated($request, $user);
+            if (auth()->check() && (auth()->user()->userLevel == 'User')){
+                return redirect()->intended(RouteServiceProvider::HOME);
+            }else{
+                return $this->authenticated($request, $user);
+            }
+            
         
         }
     }
@@ -59,6 +65,8 @@ class AuthenticatedSessionController extends Controller
 
         # If not, do the usual job.
         return redirect()->intended(RouteServiceProvider::HOME);
+
+        // return TwoFactorAuth::getDriver()->trigger($request, $user);
     }  
 
 
@@ -73,11 +81,9 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request)
     {
         Auth::guard('web')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
+        Config::set('session.lifetime', 0);
         return redirect('/');
     }
 }

@@ -92,7 +92,7 @@
 
                             <div class="float-left max-w-[260px] max-h-[364px] w-[280px] h-[324px] text-center py-20">
                                 <div class="mt-8 bg-deep-green text-dirty-white border-0 w-60 l-12">
-                                    <a href="{{ route('accounts.edit', $user->id) }}">Update Account</a>
+                                    <a href="{{ route('accounts.edit', $user->id) }}" style="text-decoration:none;" class="text-dirty-white">Update Account</a>
                                 </div>
 
                                 @if($user->userStatus == 'Active')
@@ -108,7 +108,7 @@
                         </div>
                     </div>
 
-                    <div id="AdminModal" class="modal hidden fixed z-10 pt-28 top-0 ml-[150px] mt-[150px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
+                    <div id="AdminModal" class="modal hidden fixed z-10 pt-28 top-0 mt-[120px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
                         <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
                             <form action="{{ route('accounts.destroy', Auth::user()->id) }}" method="POST">
                                 @csrf

@@ -166,7 +166,7 @@
                             <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS AS OF {{ date("Y") }}</p>
                         </div>
                         <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                            <p class="font-poppin text-center font-black text-[60px] text-dirty-white">{{ $statistics->totalResidentsBarangay }} RESIDENTS</p>
+                            <p class="font-poppin text-center font-black text-[30px] text-dirty-white">{{ $statistics->totalResidentsBarangay }} RESIDENTS</p>
                         </div>
                         <h1 class="mt-4 font-bold font-poppin text-[28px] text-deep-green text-center">IN BARANGAY</h1>
                         <h1 class="mt-1 font-bold font-poppin text-[28px] text-deep-green text-center">POBLACION, DALAGUETE, CEBU</h1>
@@ -177,7 +177,7 @@
                             <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS AS OF {{ date("Y") }}</p>
                         </div>
                         <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                            <p class="font-roboto text-center font-black text-6xl text-dirty-white">{{ $statistics->totalHouseholdsBarangay}} HOUSEHOLDS</p>
+                            <p class="font-roboto text-center font-black text-[30px] text-dirty-white">{{ $statistics->totalHouseholdsBarangay}} HOUSEHOLDS</p>
                         </div>
                         <h1 class="mt-4 font-bold font-poppin text-[28px] text-deep-green text-center">IN BARANGAY</h1>
                         <h1 class="mt-1 font-bold font-poppin text-[28px] text-deep-green text-center">POBLACION, DALAGUETE, CEBU</h1>
@@ -224,7 +224,7 @@
                                         </ul>
                                     </div>
                                     <!-- slider buttons -->
-                                    <div class="ml-[24rem] mt-[128.3rem] absolute px-5 flex h-[12px] w-[490px] top-0 left-0 self-center">
+                                    <div class="ml-[6rem] mt-[128.3rem] absolute px-5 flex h-[12px] w-[490px] top-0 left-0 self-center">
                                         <div class="my-auto  w-full flex justify-between">
                                             <button id="prevButtonslider1" class="p-3 text-deep-green rounded-full bg-white opacity-75">
                                             <i class="fa-solid fa-chevron-left"></i>
@@ -294,7 +294,7 @@
                                         </ul>
                                     </div>
                                     <!-- slider buttons -->
-                                    <div class="mr-[1rem] absolute px-5 flex h-[12px] w-[490px] self-center">
+                                    <div class="absolute px-5 flex h-[12px] w-[490px] self-center">
                                         <div class="my-auto w-full flex justify-between">
                                             <button id="prevButtonslider2" class="p-3 text-deep-green rounded-full bg-white opacity-75">
                                             <i class="fa-solid fa-chevron-left"></i>
@@ -369,63 +369,63 @@
         <!-- end of body content -->
 
         <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Function to initialize a slider
-        function initializeSlider(sliderID) {
-            let currentSlideID = 1;
-            let sliderElement = document.getElementById(sliderID);
-            let totalSlides = sliderElement ? sliderElement.childElementCount : 0;
-            console.log(`Slider ID: ${sliderID}`);
-        console.log(`Total Slides: ${totalSlides}`);
+        document.addEventListener("DOMContentLoaded", function () {
+            // Function to initialize a slider
+            function initializeSlider(sliderID) {
+                let currentSlideID = 1;
+                let sliderElement = document.getElementById(sliderID);
+                let totalSlides = sliderElement ? sliderElement.childElementCount : 0;
+                console.log(`Slider ID: ${sliderID}`);
+            console.log(`Total Slides: ${totalSlides}`);
 
-            if (sliderElement) {
-                // Get references to the buttons for this slider
-                let prevButton = document.getElementById(`prevButton${sliderID}`);
-                let nextButton = document.getElementById(`nextButton${sliderID}`);
+                if (sliderElement) {
+                    // Get references to the buttons for this slider
+                    let prevButton = document.getElementById(`prevButton${sliderID}`);
+                    let nextButton = document.getElementById(`nextButton${sliderID}`);
 
 
-                if (prevButton && nextButton) {
-                    prevButton.addEventListener('click', prev);
-                    nextButton.addEventListener('click', next);
-                }
-
-                function next() {
-                    console.log('Next button clicked');
-                    if (currentSlideID < totalSlides) {
-                        currentSlideID++;
-                        showSlide();
+                    if (prevButton && nextButton) {
+                        prevButton.addEventListener('click', prev);
+                        nextButton.addEventListener('click', next);
                     }
-                }
 
-                function prev() {
-                    console.log('prev button clicked');
-                    if (currentSlideID > 1) {
-                        currentSlideID--;
-                        showSlide();
+                    function next() {
+                        console.log('Next button clicked');
+                        if (currentSlideID < totalSlides) {
+                            currentSlideID++;
+                            showSlide();
+                        }
                     }
-                }
 
-                function showSlide() {
-                    slides = sliderElement.getElementsByTagName('li');
-                    for (let index = 0; index < totalSlides; index++) {
-                        const element = slides[index];
-                        if (currentSlideID === index + 1) {
-                            element.classList.remove('hidden');
-                        } else {
-                            element.classList.add('hidden');
+                    function prev() {
+                        console.log('prev button clicked');
+                        if (currentSlideID > 1) {
+                            currentSlideID--;
+                            showSlide();
+                        }
+                    }
+
+                    function showSlide() {
+                        slides = sliderElement.getElementsByTagName('li');
+                        for (let index = 0; index < totalSlides; index++) {
+                            const element = slides[index];
+                            if (currentSlideID === index + 1) {
+                                element.classList.remove('hidden');
+                            } else {
+                                element.classList.add('hidden');
+                            }
                         }
                     }
                 }
             }
-        }
 
-        // Initialize each slider
-        initializeSlider('slider1');
-        initializeSlider('slider2');
-        initializeSlider('slider3');
-        // Initialize more sliders as needed
-    });
-</script>
+            // Initialize each slider
+            initializeSlider('slider1');
+            initializeSlider('slider2');
+            initializeSlider('slider3');
+            // Initialize more sliders as needed
+        });
+        </script>
 
 
 

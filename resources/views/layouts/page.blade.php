@@ -29,6 +29,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v3.x.x/dist/alpine.min.js" defer></script>
+
 </head>
 
 <body class=" bg-green font-sans antialiased">
@@ -41,13 +43,6 @@
     </div>
 
     <script>
-        var span = document.getElementsByClassName("close")[0];
-
-        // Close Modal (using the X button)
-        span.onclick = function() {
-            modal.style.display = "none";
-            window.location.reload();
-        }
 
         $(document).ready(function() {
 
@@ -75,19 +70,19 @@
         });
 
         document.addEventListener("DOMContentLoaded", function() {
-            var currentDate = new Date();
-            var maxYear = currentDate.getFullYear() - 18; // Maximum year for 18 years old and above
+        var currentDate = new Date();
+        var maxYear = currentDate.getFullYear() - 18; // Maximum year for 18 years old and above
 
-            var dateOfBirthInput = document.getElementById("dateOfBirth");
-            dateOfBirthInput.setAttribute("max", formatDate(maxYear, 12, 31)); // Set maximum date to the end of the calculated maximum year
+        var dateOfBirthInput = document.getElementById("dateOfBirth");
+        dateOfBirthInput.setAttribute("max", formatDate(maxYear, 12, 31)); // Set maximum date to the end of the calculated maximum year
 
-            // Format the date as YYYY-MM-DD
-            function formatDate(month, day, year) {
-                month = String(month).padStart(2, "0");
-                day = String(day).padStart(2, "0");
-                return month + "-" + day + "-" + year;
-            }
-        });
+        // Format the date as YYYY-MM-DD
+        function formatDate(year, month, day) {
+            month = String(month).padStart(2, "0");
+            day = String(day).padStart(2, "0");
+            return year + "-" + month + "-" + day;
+        }
+    });
     </script>
 
 

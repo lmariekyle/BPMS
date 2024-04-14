@@ -23,6 +23,7 @@ class HouseholdListController extends Controller
                                 ->get();
 
         $households=[];
+        
 
         foreach ($tempHousehold as $houseNum) {
             $house=Households::where('sitioID', $request->sitioID)

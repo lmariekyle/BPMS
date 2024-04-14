@@ -21,10 +21,12 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountMail;
+use App\Rules\StartsWith09;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\Crypt;
+
 
 class ResidentUserController extends Controller
 {
@@ -55,8 +57,16 @@ class ResidentUserController extends Controller
         $resId = $user->residentID;
         // Fetch related information
         $relatedInfo = Resident::find($resId);
+        $relatedInfo->makeVisible('firstName', 'middleName', 'lastName','contactNumber');
         return response()->json(['user' => $user,'relatedInfo' => $relatedInfo]);
     }
+
+    public function generateID(){
+
+       return $userId = IdGenerator::generate(['table' => 'users', 'field' => 'id', 'length' => 6, 'prefix' => date('y')]);
+
+    }
+
     /**
      * Handle an incoming registration request.
      *
@@ -68,20 +78,27 @@ class ResidentUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'firstname' => ['required','regex:/^[a-zA-Z]+$/u','max:12'],
+            'middlename' => ['regex:/^[a-zA-Z]+$/u','max:18'],
+            'lastname' => ['required','regex:/^[a-zA-Z]+$/u','max:18'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed'],
             'profileImage' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'dateOfBirth' => 'required|date|before:' . Carbon::now()->subYears(18),
+            'contactNumber' => ['required', 'numeric', 'digits:11',new \App\Rules\StartsWith09],
         ],
         [
+            'firstname.regex' => 'Use only alphabetical characters in your first name',
+            'middlename.regex' => 'Use only alphabetical characters in your middle name',
+            'lastname.regex' => 'Use only alphabetical characters in your last name',
+            'contactNumber.required' =>'Invalid Contact Number',
             'dateOfBirth.before' => 'User must be 18 Years Old and Above to Register!',
             'profileImage.required' => 'File Types must only be jpeg, png, jpg'
         ]);
 
         //Auto Generate ID 
         // $residentId = IdGenerator::generate(['table' => 'residents', 'field' => 'id', 'length' => 9, 'prefix' => 'RES-']);
-        $userId = IdGenerator::generate(['table' => 'users', 'field' => 'id', 'length' => 6, 'prefix' => date('y')]);
-
+        $userId = $this->generateID();
         //Image Upload 
         if ($request->hasFile('profileImage')) {
             $image_name = time() . '.' . $request->profileImage->getClientOriginalExtension();
@@ -94,15 +111,15 @@ class ResidentUserController extends Controller
 
         $residents = Resident::all();
         $residents->makeVisible('firstName', 'middleName', 'lastName');
-        
+
         $check_res = $residents->first(function ($resident) use ($request) {
             return (
                 $resident->firstName == $request->firstname &&
-                $resident->middleName == $request->middlename &&
                 $resident->lastName == $request->lastname &&
                 $resident->dateOfBirth == $request->dateOfBirth
             );
         });
+
 
         if ($check_res == null) {
             return view('auth.sorry-resident-notice');
@@ -116,12 +133,12 @@ class ResidentUserController extends Controller
                         'email' => $request->email,
                         'sitioID' => $request->sitio,
                         'assignedSitioID' => '1',
-                        'contactNumber' => $request->contactnumber,
+                        'contactNumber' => $request->contactNumber,
                         'password' => Hash::make($request->password)
                     ]);
                     $user->assignRole($request->userlevel); //assign account role as User
                     event(new Registered($user)); //send email verification
-                    return Redirect::back()->with('success', 'Email for registration has been sent!');
+                    return Redirect::back()->with('success', 'Email verification has been sent');
                 
            
         }
@@ -161,7 +178,7 @@ class ResidentUserController extends Controller
             'password' => ['required', 'same:passwordConfirm', Rules\Password::defaults()],
         ]);
 
-        $userId = IdGenerator::generate(['table' => 'users', 'field' => 'id', 'length' => 6, 'prefix' => date('y')]);
+        $userId = $this->generateID();
         $initDate = strtotime($request->dateOfBirth);
         $date = date('Y-m-d', $initDate);
 
@@ -250,10 +267,16 @@ class ResidentUserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::where('residentID',$id)->first();
-        $request = AccountInfoChange::where('userID',$user->id)->first();
         
-        return view('auth.updateinfo',compact('user','request'));
+        $request = AccountInfoChange::where('id',$id)->first();
+        $user = User::where('id',$request->userID)->first();
+        if ($request->file) {
+            $filePaths = json_decode($request->file, true);
+        } else {
+            $filePaths = [];
+        }   
+
+        return view('auth.updateinfo',compact('user','request','filePaths'));
     }
 
     /**
@@ -265,9 +288,9 @@ class ResidentUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $account = AccountInfoChange::where('userID',$id)->first();
+        $account = AccountInfoChange::where('id',$id)->first();
+        $user = User::where('id',$account->userID)->first();
         $requested = $request->selectedInformation;
-        $user = User::where('id',$id)->first();
         $resident = Resident::where('id', $user->residentID)->first();
         if($request->status == "1"){        
             $resident->{$requested} = $request->requesteeNewInformation;
@@ -278,11 +301,12 @@ class ResidentUserController extends Controller
             $resident->save();
             $user->save();
             $account->save();
+            return Redirect::back()->with('success', 'Account Updated');
         }else if($request->status == "2"){
             $account->status ='DENIED';
             $account->save();
+            return Redirect::back();
         }
-        return back();
     }
 
     /**

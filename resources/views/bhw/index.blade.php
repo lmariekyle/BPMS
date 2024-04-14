@@ -63,7 +63,7 @@
                         {{ $bhw->idNumber }}
                         </td>
                         <td class="px-6 py-4  w-[350px] font-robotocondensed text-deep-green text-[16px] font-bold">
-                        {{ $bhw->lastName }}, {{ $bhw->firstName }} {{ $bhw->middleName[0] }}
+                    {{ $bhw->lastName }}, {{ $bhw->firstName }} {{ $bhw->middleName[0] }}
                         </td>
                         <td class="px-6 py-4  w-[350px] font-robotocondensed text-deep-green text-[16px] font-bold">
                             {{ $bhw->assignedSitioName }}
@@ -84,6 +84,9 @@
                                       
                 </tbody>
             </table>
+
+
+
         </div>
 
 </x-app-layout>

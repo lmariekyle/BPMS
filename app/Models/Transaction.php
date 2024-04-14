@@ -28,8 +28,10 @@ class Transaction extends Model
         'EndorsedOn',
         'ApprovedBy',
         'ApprovedOn',
+        
         'issuedBy',
         'issuedOn',
+        'remarks',
     ];
 
     /**
@@ -39,20 +41,21 @@ class Transaction extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'id');
     }
 
     public function transactiondetail()
     {
-        return $this->belongsTo(DocumentDetails::class);
+        return $this->belongsTo(DocumentDetails::class,'id');
     }
 
     public function transactionpayment()
     {
-        return $this->belongsTo(Payment::class);
+        return $this->belongsTo(Payment::class, 'id');
     }
-    public function transactionuser()
+
+    public function document()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Document::class, 'id');
     }
 }

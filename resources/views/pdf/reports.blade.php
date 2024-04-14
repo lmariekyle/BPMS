@@ -32,13 +32,52 @@
     <title>Reports PDF</title>
 </head>
 <body>
-    @if($request->sitio || $request->gender || $request->ageclass)
+    @if($request->sitio || $request->gender || $request->ageclass || $request->year || $request->quarter)
     <div>
-        <h1>Status Report (as of {{ date("Y") }})</h1>
+        <h1>Status Report as of {{ $request->year }} 
+            (
+            @php
+                $quarters = ["January - March","April - June","July - September","October - December"];
+
+                $currentYear = date('Y');
+                $currentDate = date('m-d');
+
+                if($request->year == $currentYear){
+                    if($currentDate >= '01-01' && $currentDate <= '03-31'){
+                        array_splice($quarters, 0, 1, ['January - PRESENT']);
+                    } else if($currentDate >= '04-01' && $currentDate <= '06-30'){
+                        array_splice($quarters, 1, 1, ['April - PRESENT']);
+                    } else if($currentDate >= '07-01' && $currentDate <= '09-30'){
+                        array_splice($quarters, 2, 1, ['July - PRESENT']);
+                    } else {
+                        array_splice($quarters, 3, 1, ['October - PRESENT']);
+                    }
+                }
+            @endphp
+
+            @switch($request->quarter)
+                @case(1)
+                   {{ $quarters[0] }} 
+                @break
+                @case(2)
+                    {{ $quarters[1] }}
+                @break
+                @case(3)
+                    {{ $quarters[2] }}    
+                @break
+                @case(4)
+                    {{ $quarters[3] }}
+                @break
+                @default
+                    --
+            @endswitch
+            )
+                </h1>
+            
         <h3>
             Sitio:
                 @if($request->sitio != "NULL")
-                {{ $request->sitio }}
+                {{ $nameSitio }}
                 @else
                 ALL 
                 @endif
@@ -102,36 +141,35 @@
                 <p>PP - Post Partum</p>
                 <p>AB - Adult (20-59 Years Old, Male)</p>
                 <p>SC - Senior Citizen (60 Years Old and Above)</p>
+            <br>
         <hr>
             <br><br><br>
         @if($totalResidentCount !== 0)
         <h2>RESIDENTS</h2>
         <table>
             <tr>
+                <th>#</th>
                 <th>Sitio Name</th>
                 <th>Gender</th>
                 <th>Age Group</th>
                 <th># of Residents</th>
             </tr>
+            @php($count = 0)
             @foreach ($residentCount as $resCount)
-            <tr>
-                <td>{{ $resCount->sitioName }}</td>
-                <td>
-                    @if($resCount->genderGroup == 'M')
-                        Male
-                    @elseif($resCount->genderGroup == 'F')
-                        Female
-                    @else
-                        N/A
-                    @endif
-                </td>
-                <td>{{ $resCount->ageGroup }}</td>
-                <td>{{ $resCount->residentCount }}</td>
-            </tr>
+                @if($resCount->genderGroup != '--' && $resCount->ageGroup != '--')
+                @php($count++)
+                <tr>
+                    <td>{{ $count }}</td>
+                    <td>{{ $resCount->sitioName }}</td>
+                    <td>{{ $resCount->genderGroup }}</td>
+                    <td>{{ $resCount->ageGroup }}</td>
+                    <td>{{ $resCount->residentCount }}</td>
+                </tr>
+                @endif
             @endforeach
         </table>
         @else
-        <div>No Data Available</div>
+        <div>No Resident Data Found</div>
         @endif
     </div>
     
@@ -142,18 +180,22 @@
         <h2>HOUSEHOLDS</h2>
         <table>
             <tr>
+                <th>#</th>
                 <th>Sitio Name</th>
                 <th># of Households</th>
             </tr>
             @foreach ($householdCount as $hCount)
             @if(isset($hCount['sitio']) || isset($hCount['houseCount']))
             <tr>
+                <td>{{ $loop->iteration }}</td>
                 <td>{{ $hCount['sitio'] }}</td>
                 <td>{{ $hCount['houseCount'] }}</td>
             </tr>
             @endif
             @endforeach
         </table>
+        @else
+        <div>No Household Data Found</div>
         @endif
     </div>
     

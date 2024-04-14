@@ -18,7 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('documentID')->references('id')->on('documents')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('userID')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('paymentID')->references('id')->on('payments')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('detailID')->references('id')->on('documentDetails')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('detailID')->references('id')->on('documentdetails')->onDelete('cascade')->onUpdate('cascade');
 
             $table->string('docNumber');
             $table->string('serviceStatus');
@@ -28,7 +28,7 @@ class CreateTransactionsTable extends Migration
             $table->string('endorsedBy')->nullable();
             $table->date('endorsedOn')->nullable();
             $table->string('approvedBy')->nullable();
-            $table->date('approvedOn')->nullable();
+            $table->date('approvedOn')->nullable();            $table->string('remarks')->nullable();
             $table->string('issuedBy')->nullable();
             $table->date('issuedOn')->nullable();
 

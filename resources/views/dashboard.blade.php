@@ -5,24 +5,153 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
+    <style>
+        .hide {
+            display: none;
+        }
+
+        .info:hover+.hide {
+            position: absolute;
+            display: block;
+            z-index: 9;
+        }
+    </style>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.load('current', {'packages': ['bar']});
+
+        google.charts.setOnLoadCallback(drawChartResident);
+        google.charts.setOnLoadCallback(drawChartHousehold);
+        google.charts.setOnLoadCallback(drawAllResident);
+        google.charts.setOnLoadCallback(drawAllHousehold);
+        google.charts.setOnLoadCallback(drawChartCurrentMonthInc);
+
+        function drawChartResident() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Sitio', 'Residents'],
+                <?php echo $chartdataResident ?>
+            ]);
+
+            var options = {
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'none',
+                chartArea: {
+                    height: "70%",
+                    width: "70%"
+                },
+                colors: ['green']
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('residentBarchart'));
+
+            chart.draw(data, options);
+        }
+
+        function drawChartHousehold() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Sitio', 'Households'],
+                <?php echo $chartdataHousehold ?>
+            ]);
+
+            var options = {
+                width: '100%',
+                height: '100%',
+                color: 'green',
+                backgroundColor: 'none',
+                chartArea: {
+                    height: "70%",
+                    width: "70%"
+                },
+                colors: ['green']
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('householdBarchart'));
+
+            chart.draw(data, options);
+        }
+
+        function drawChartCurrentMonthInc() {
+            var data = google.visualization.arrayToDataTable([
+                ['Sitio', 'Average Monthly Income'],
+                <?php echo $chartIncomeCurrent ?>   
+            ]);
+
+            var options = {
+                width: '100%',
+                height: '100%',
+                color: 'green',
+                backgroundColor: 'none',
+                chartArea: {
+                    height: "70%",
+                    width: "70%"
+                },
+                colors: ['green']
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('currentMonthInchart'));
+
+            chart.draw(data, options);
+        }
+
+        function drawAllResident() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year-Quarter', 'Cabangyao', 'Catadman', 'Guiwanon', 'Hawlandia', 'Hilltops', 'Ilaya', 'Krasher', 'Labangon', 'Lalin', 'Lapaz', 'Sto. Rosario', 'Suba', 'Tamsapa'],
+                <?php echo $chartAllRes ?>
+            ]);
+
+            var options = {
+                chart: {
+                    title: 'Resident Population Per Quarter Recorded',
+                    subtitle: 'Per Sitio'
+                }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('AllReschart'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+
+        function drawAllHousehold() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year-Quarter', 'Cabangyao', 'Catadman', 'Guiwanon', 'Hawlandia', 'Hilltops', 'Ilaya', 'Krasher', 'Labangon', 'Lalin', 'Lapaz', 'Sto. Rosario', 'Suba', 'Tamsapa'],
+                <?php echo $chartAllHh ?>
+            ]);
+
+            var options = {
+                chart: {
+                    title: 'Households Per Quarter Recorded',
+                    subtitle: 'Per Sitio'
+                }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('AllHhchart'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
 
     <div class="py-1 mt-[8rem] flex flex-col justify-center bg-dirty-white">
-        <div class="">
-            @role('Admin')
-            <div class="px-5 py-5 flex flex-col justify-center h-[250px] bg-olive-green w-full -mt-[13rem]">
 
-            <div class="mb-12 mt-[33rem] w-64 h-64 rounded-full border-2 bg-dirty-white border-green self-center">
+            @role('Admin')
+            <div class="px-5 py-5 flex flex-col justify-center h-[250px] w-full bg-olive-green -mt-[10rem]">
+                <div class="mb-12 mt-[33rem] ml-[5rem] w-64 h-64 rounded-full border-2 bg-dirty-white border-green self-center">
                     <img src="{{ asset('images/PoblacionDalLogo.png') }}" alt="">
                 </div>
-                <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 mt-[20px] self-center border-2 border-deep-green">
+                <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 mt-[20px] self-center ml-[5rem] border-2 border-deep-green">
                     <a href="{{ route('accounts.index') }}" class="font-robotocondensed text-[40px] text-dirty-white text-center">MANAGE ACCOUNTS</a>
                 </div>
-                <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 self-center -mt-3 border-2 border-deep-green">
+                <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 self-center ml-[5rem] -mt-3 border-2 border-deep-green">
                     <a href="{{ route('services.index') }}" class="font-robotocondensed text-[40px] text-dirty-white text-center">MANAGE REQUESTS</a>
                 </div>
 
                 <!-- Authentication -->
-                <div class="bg-green h-[40px] w-[140px] text-center mt-[1rem] px-2 py-1 font-semibold self-center border-2 border-deep-green rounded-md">
+                <div class="bg-green h-[40px] w-[140px] text-center ml-[5rem] mt-[1rem] px-2 py-1 font-semibold self-center border-2 border-deep-green rounded-md">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <a href="route('logout')" onclick="event.preventDefault();
@@ -33,11 +162,12 @@
                 </div>
             </div>
             @endrole
-
+            
             @hasanyrole('Barangay Captain|Barangay Secretary')
+            
             <div class="flex flex-col p-3 -mt-20 ml-24 h-max w-[1342px]">
-                <p class="ml-[0.45rem] mt-3 mb-2 font-robotocondensed text-[18px] text-dirty-white bg-green px-2 py-2 w-max border-1 rounded-lg border-black shadow-md">FILTER STATISTICS</p>
-                <div class="flex flex-row px-10 py-8 items-center justify-between w-[1250px] -mt-8 ml-3 rounded-lg shadow-md h-max">
+                <p class="ml-3 mt-3 mb-2 font-robotocondensed text-[24px] text-black">FILTER STATISTICS</p>
+                <div class="flex flex-row px-10 py-10 items-center justify-between w-[1250px] ml-3 border-b-2 border-black rounded-sm h-max">
                     <form action="" method="GET">
 
                         <div class="float-left bg-transparent h-16 w-40">
@@ -81,7 +211,7 @@
                                     <p>U - Under-five (1-4 Years Old)</p>
                                     <p>S - School-Aged Children (5-9 Years Old)</p>
                                     <p>A - Adolescents (10-19 Years Old)</p>
-                                    <p>WRA - Not Pregnant and non-Post Partum (15-49 Years Old)</p>
+                                    <p>WRA - Not Pregnant and non-Post Partum (15-59 Years Old, Female)</p>
                                     <p>P - Pregnant</p>
                                     <p>AP - Adolescent-Pregnant</p>
                                     <p>PP - Post Partum</p>
@@ -91,7 +221,26 @@
                             </div>
                         </div>
                         
-                        <div class="w-[30px] h-[30px] float-left mt-8 ml-[28rem]">
+                        <div class="float-left bg-transparent h-16" style="margin-left: 90px;">
+                            <x-label for="year" :value="__('Year')" />
+                            <select id="year" class="rounded-lg border-2 mt-1 w-full bg-transparent" name="year" :value="old('year')" required autofocus>
+                                @foreach ($yearList as $year)
+                                    <option value="{{$year->year}}" class="bg-dirty-white">{{$year->year}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="float-left bg-transparent h-16" style="margin-left: 30px;">
+                            <x-label for="quarter" :value="__('Quarter')" />
+                            <select id="quarter" class="rounded-lg border-2 mt-1 w-full bg-transparent" name="quarter" :value="old('quarter')" required autofocus>
+                                <option value="1" class="bg-dirty-white">1</option>
+                                <option value="2" class="bg-dirty-white">2</option>
+                                <option value="3" class="bg-dirty-white">3</option>
+                                <option value="4" class="bg-dirty-white">4</option>
+                            </select>
+                        </div>
+
+                        <div class="w-[30px] h-[30px] float-right ml-[190px] mt-8">
                             <button class="" type="submit"><i class="fa-solid fa-filter text-deep-green text-[28px] self-end"></i></button>
                         </div>
                     </form>
@@ -99,7 +248,9 @@
                         <input name="sitio" type="hidden" value="{{$request->sitio}}"></input>
                         <input name="gender" type="hidden" value="{{$request->gender}}"></input>
                         <input name="ageclass" type="hidden" value="{{$request->ageclass}}"></input>
-                        <div class="w-[30px] h-[30px] mt-8">
+                        <input name="year" type="hidden" value="{{$request->year}}"></input>
+                        <input name="quarter" type="hidden" value="{{$request->quarter}}"></input>
+                        <div class="w-[30px] h-[30px] mt-8 mr-2">
                             <button type="submit" class="">
                                 <i class="fa-solid fa-print text-deep-green text-[28px]"></i>
                             </button>
@@ -109,10 +260,11 @@
 
                 <div class="flex flex-col bg-dirty-white h-max w-[1200px] px-4 ml-10 mt-[5rem]">
                     <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
-                        <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE {{ date("Y") }} CENSUS DATA</p>
+                        <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE CENSUS DATA</p>
                     </div>
-
-
+                    {{$chartdataResident}}
+                    <br>
+                    {{$chartIncomeCurrent}}
                     <div class="flex flex-row self-center space-x-8 mt-[4rem] mb-[4rem]">
                         <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
                             <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
@@ -122,16 +274,18 @@
                                     @elseif ($request->sitio=="NULL")
                                     TOTAL RESIDENTS PER SITIO
                                     @else
-                                    RESIDENTS IN {{ $upperCaseSitio }}
+                                    RESIDENTS IN {{ $nameSitio }}
                                     @endif
                                 </h1>
                             </div>
                             @if (($request->sitio || $request->gender || $request->ageclass) && $totalResidentCount>0)
-                            <div class="w-[525px] h-[300px] mt-2 mx-auto" id="residentPiechart" style=""></div>
+                            <div class="w-[1050px] h-[600px] mt-2 mx-auto" id="residentBarchart" style=""></div>
                             <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
                             <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end mt-[15rem] mr-8">
                                 <div class="mb-2 w-80 text-justify">
                                     <p class="py-2 text-xl">LEGEND</p>
+                                    <p>FORMAT: Sitio Name (Gender - Age Classification)*</p>
+                                    <br>
                                     <div>
                                         Gender:
                                         <br>
@@ -147,7 +301,7 @@
                                         <p>U - Under-five (1-4 Years Old)</p>
                                         <p>S - School-Aged Children (5-9 Years Old)</p>
                                         <p>A - Adolescents (10-19 Years Old)</p>
-                                        <p>WRA - Not Pregnant and non-Post Partum (15-49 Years Old)</p>
+                                        <p>WRA - Not Pregnant and non-Post Partum (15-59 Years Old, Female)</p>
                                         <p>P - Pregnant</p>
                                         <p>AP - Adolescent-Pregnant</p>
                                         <p>PP - Post Partum</p>
@@ -156,15 +310,15 @@
                                     </div>
                                 <hr>
                                 </div>
-                                <p class="mt-2 w-80 text-justify">
-                                    Hover over the colors in the legend to highlight the different Sitios of the Barangay.
-                                </p>
                             </div>
                             @else
-                            <div class="w-[525px] h-[300px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyPiechart" style=""></div>
+                            <div class="w-[1050px] h-[600px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center">
+
+                            </div>
                             @endif
                         </div>
-
+                    </div>
+                    <div class="flex flex-row self-center space-x-8 mb-[4rem]">
                         <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
                             <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
                                 <h1 class="font-poppin text-[18px] text-dirty-white text-center">
@@ -173,63 +327,72 @@
                                     @elseif ($request->sitio=="NULL")
                                     TOTAL HOUSEHOLDS PER SITIO
                                     @else
-                                    HOUSEHOLDS IN {{ $upperCaseSitio }}
+                                    HOUSEHOLDS IN {{ $nameSitio }}
                                     @endif
                                 </h1>
                             </div>
                             <div class="">
-                                @if(isset($request->gender) || isset($request->ageclass) && $totalHouseholdCount>0)
-                                @if($request->gender=="NULL" && $request->ageclass=="NULL")
-                                <div class="w-[525px] h-[300px] mt-2 mx-auto" id="householdPiechart"></div>
-                                <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
-                                <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end ml-8 w-80 text-justify">
-                                    <p class="py-1">
-                                        Hover over the colors in the legend to highlight the different Sitios of the Barangay.
-                                    </p>
-                                </div>
+                                @if(($request->sitio || $request->gender || $request->ageclass))
+                                    @if($request->gender=="NULL" && $request->ageclass=="NULL")
+                                        @if($totalHouseholdCount>0)
+                                        <div class="w-[525px] h-[300px] mt-2 mx-auto" id="householdBarchart"></div>
+                                        @else
+                                        <div class="w-[525px] h-[324px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center"></div>
+                                        @endif
+                                    @else
+                                    <div class="w-[525px] h-[324px] mt-2 px-2 flex items-center justify-center">
+                                        <p class="text-xl font-robotocondensed w-80 text-center text-deep-green">
+                                            Since Age/Gender filters are applied, Household Information is unavailable.
+                                        </p>
+                                    </div>
+                                    @endif
                                 @else
-                                <div class="w-[525px] h-[324px] mt-2 px-2 flex items-center justify-center">
-                                    <p class="text-xl font-robotocondensed w-80 text-center text-deep-green">
-                                        Since Age/Gender filters are applied or there are no Households present in the Sitio, Household Information is unavailable.
-                                    </p>
-                                </div>
-                                @endif
-                                @else
-                                <div class="w-[525px] h-[300px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center" id="emptyTwochart"></div>
+                                <div class="w-[525px] h-[324px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center"></div>
                                 @endif
                             </div>
                         </div>
-                    </div>
-                    <div class="flex flex-row self-center space-x-8 mt-[4rem] mb-[4rem]">
-                        <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[1rem] py-10">
-                            <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-[4rem]">
-                                <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS AS OF {{ date("Y") }}</p>
+                        <div class="flex flex-col self-start bg-dirty-white">
+                            <div class="shadow-lg border-2 border-green mt-[2rem] py-10">
+                                <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
+                                    <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS</p>
+                                </div>
+                                <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
+                                    <p class="font-poppin text-center font-black text-[30px] text-dirty-white">
+                                        {{ $totalResidentCount }} RESIDENTS
+                                    </p>
+                                </div>
                             </div>
-                            <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                                <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
-                                    {{ $totalResidentCount }} RESIDENTS
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[1rem] ml-[5rem] py-10">
-                            <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-[4rem]">
-                                <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS AS OF {{ date("Y") }}</p>
-                            </div>
-                            <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                                <p class="font-poppin text-center font-black text-[60px] text-dirty-white">
-                                    {{ $totalHouseholdCount }} HOUSEHOLDS
-                                </p>
+                            <div class="mt-[2rem] shadow-lg border-2 border-green py-10">
+                                <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
+                                    <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS</p>
+                                </div>
+                                <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
+                                    <p class="font-poppin text-center font-black text-[30px] text-dirty-white">
+                                        @if($request->sitio || $request->gender || $request->ageclass)
+                                            @if($request->gender=="NULL" && $request->ageclass=="NULL")
+                                            {{ $totalHouseholdCount }}
+                                            @else
+                                            --
+                                            @endif
+                                        @else
+                                            0
+                                        @endif
+                                        HOUSEHOLDS
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div id="AllReschart" class="mx-auto" style="width: 90%; height: 650px;"></div>
+                <div id="AllHhchart" class="mx-auto" style="width: 90%; height: 650px;"></div>
+                <div id="currentMonthInchart" class="mx-auto" style="width: 90%; height: 650px;"></div>
             </div>
             @endhasanyrole
 
 
             @hasanyrole('User|Barangay Health Worker')
-            <div class="w-max h-max grid grid-rows-2 grid-flow-col gap-16 ml-[4rem] -mt-20 px-5 py-5 justify-between font-bold">
+            <div class="w-max h-max grid grid-rows-2 grid-flow-col gap-16 ml-24 -mt-20 px-5 py-5 justify-between font-bold">
                 <div class="bg-dirty-white w-[472px] h-[421px] border-2 border-deep-green">
                     <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border px-1 py-1 text-center">BARANGAY CERTIFICATE</p>
                     <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">PURPOSES BARANGAY CERTIFICATION:</p>
@@ -305,124 +468,7 @@
             </div>
 
             @endhasanyrole
-
-        </div>
     </div>
-    <style>
-        .hide {
-            display: none;
-        }
-
-        .info:hover+.hide {
-            position: absolute;
-            display: block;
-            z-index: 9;
-        }
-    </style>
-
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.charts.load('current', {
-            'packages': ['corechart']
-        });
-        google.charts.setOnLoadCallback(drawChartResident);
-        google.charts.setOnLoadCallback(drawChartHousehold);
-        google.charts.setOnLoadCallback(drawChartEmpty);
-        google.charts.setOnLoadCallback(drawChartEmptyTwo);
-
-        function drawChartResident() {
-
-            var data = google.visualization.arrayToDataTable([
-                ['Sitio', 'Residents'],
-                <?php echo $chartdataResident ?>
-            ]);
-
-            var options = {
-                sliceVisibilityThreshold: 0,
-                width: '100%',
-                height: '100%',
-                pieSliceText: 'value',
-                backgroundColor: 'none',
-                chartArea: {
-                    height: "95%",
-                    width: "95%"
-                }
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('residentPiechart'));
-
-            chart.draw(data, options);
-        }
-
-        function drawChartHousehold() {
-
-            var data = google.visualization.arrayToDataTable([
-                ['Sitio', 'Households'],
-                <?php echo $chartdataHousehold ?>
-            ]);
-
-            var options = {
-                sliceVisibilityThreshold: 0,
-                width: '100%',
-                height: '100%',
-                pieSliceText: 'value',
-                backgroundColor: 'none',
-                chartArea: {
-                    height: "95%",
-                    width: "95%"
-                }
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('householdPiechart'));
-
-            chart.draw(data, options);
-        }
-
-        function drawChartEmpty() {
-
-            var data = google.visualization.arrayToDataTable([
-                ['EMPTY', 'EMPTY'],
-
-            ]);
-
-            var options = {
-                width: '100%',
-                height: '100%',
-                pieSliceText: 'value',
-                backgroundColor: 'none',
-                chartArea: {
-                    height: "95%",
-                    width: "95%"
-                }
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('emptyPiechart'));
-
-            chart.draw(data, options);
-        }
-
-        function drawChartEmptyTwo() {
-
-            var data = google.visualization.arrayToDataTable([
-                ['EMPTY', 'EMPTY'],
-
-            ]);
-
-            var options = {
-                width: '100%',
-                height: '100%',
-                pieSliceText: 'value',
-                backgroundColor: 'none',
-                chartArea: {
-                    height: "95%",
-                    width: "95%"
-                }
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('emptyTwochart'));
-
-            chart.draw(data, options);
-        }
-    </script>
+    
 
 </x-app-layout>

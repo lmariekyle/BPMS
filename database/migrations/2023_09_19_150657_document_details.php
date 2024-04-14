@@ -13,7 +13,7 @@ class DocumentDetails extends Migration
      */
     public function up()
     {
-        Schema::create('documentDetails', function (Blueprint $table) {
+        Schema::create('documentdetails', function (Blueprint $table) {
             $table->id();
 
             $table->string('requesteeFName');

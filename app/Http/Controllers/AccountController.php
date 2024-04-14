@@ -147,17 +147,19 @@ class AccountController extends Controller
             $user->isArchived = 1;
             $user->archivedBy = $id;
             $user->archiveDate = Carbon::now();
+            $user->save();
+            return redirect('/accounts')->with('success', 'User has been archived');
         } elseif ($user->userStatus == 'Archived' && $request->reason == 'Active') {
             $user->reasonForArchive = "Account is Active";
             $user->userStatus = "Active";
             $user->isArchived = 0;
             $user->archiveDate = NULL;
+            $user->save();
+            return redirect('/accounts')->with('success', 'User has been unarchived');
         }
         // $user->password=Hash::make('not active anymore'); /* temporary solution to 'deactivate' account*/
 
-        $user->save();
-
-        return redirect('/accounts')->with('success', 'Account Archived');
+        // return view('accounts.index')->with('success', 'Account Archived');
     }
 
     public function search(Request $request)

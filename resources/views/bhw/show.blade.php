@@ -13,11 +13,11 @@
                         <a href="{{ route('bhw') }}" class="float-left mt-4">
                             <i class="fa-sharp fa-solid fa-arrow-left text-3xl text-deep-green"></i>
                         </a>
-                        <p class="font-roboto font-bold text-dirty-white text-5xl">VIEW ACCOUNT</p>
+                        <p class="font-roboto font-bold text-deep-green text-5xl">VIEW ACCOUNT</p>
                     </div>
-                    <div class="max-h-[837px] h-[837px] max-w-[1178px] w-[1178px] mt-8 ml-14 p-14 border rounded bg-dirty-white font-roboto">
+                    <div class="max-h-[837px] h-[837px] max-w-[1178px] w-[1178px] mt-8 ml-14 p-14 border-2 border-black rounded bg-dirty-white font-roboto shadow-md">
                         <div class="relative">
-                            <div class="mr-14 float-left max-h-[324px] max-w-[273px] place-content-center bg-green h-[324px] w-[273px]">
+                            <div class="mr-14 float-left max-h-[324px] max-w-[273px] place-content-center h-[324px] w-[273px]">
                                 <div>
                                     <img src="/{{$user->profileImage}}" class="max-h-[700px] h-[324px] w-[273px]" alt="Profile Image">
                                 </div>
@@ -54,9 +54,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="ml-12 mt-14 float-left text-2xl font-roboto">
-                            <div class="float-left max-w-[554px] max-h-[324px] w-[554px] h-[324px] border border-green mr-12">
-                            <div>
+                        <div class="ml-[325px] mt-[53px] float-left text-2xl font-roboto">
+                            <div class="float-left max-w-[554px] max-h-[324px] w-[554px] h-max border border-green mr-12">
+                            <div class="mb-4">
                                     <p class="text-deep-green px-1 mt-6">Account Status:</p>
                                     <div class="bg-green text-dirty-white pl-4">{{$user->userStatus}}</div>
                                 </div>
