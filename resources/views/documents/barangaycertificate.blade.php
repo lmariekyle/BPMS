@@ -32,7 +32,7 @@
 <div class="document">
   <page size="A4">
     <div style="margin-top:12px;">
-      <img src="images/RepublicofthePhilippines.png" width="1040" border="0" alt="" style="display: block; width: 100%; max-width: 640px; margin-left:42px;">
+      <img src="images/BarangayPobHeader.png" width="1040" border="0" alt="" style="display: block; width: 100%; max-width: 640px; margin-left:42px;">
     </div>
     <hr style="border: 1px solid black; margin-top: 2px;">
     <div style="margin-top:32px; align-self:center;">
@@ -44,8 +44,13 @@
          @include('documents.goodmoral')
       @elseif($doc->docName == 'Indigency')
         @include('documents.indigency')
+      @elseif($doc->docName == 'Disco')
+        @include('documents.disco')
       @endif
-   
+    @elseif($doc->docType == 'Barangay Clearance')
+      @if($doc->docName == 'Business Permit')
+         @include('documents.businesspermit')
+      @endif
     @endif
     <div style="display: flex;flex-direction: column;margin-top: 54px; margin-right:2rem">
   <hr style="align-self: end;border: 2px solid black;border-top-width: 2px;width: 250px;margin-right: 80px;margin-top: 10px;">

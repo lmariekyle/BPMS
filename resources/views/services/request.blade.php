@@ -23,7 +23,7 @@
                         @if ($doctypename == 'BARANGAY CERTIFICATE' || $doctypename == 'BARANGAY CLEARANCE' )
                         <div class="">
                             <label>TYPE OF CERTIFICATE</label>
-                            <select class="rounded-lg border-2 w-full h-[50px] text-[26px]" style="border-color: #414833;" name="selectedDocument">
+                            <select class="rounded-lg border-2 w-full h-[50px] text-[26px]" style="border-color: #414833;" name="selectedDocument" id="selectedDocument">
                                 @foreach($documents as $document)
                                 <option value="{{$document->id}}">{{$document->docName}}</option>
                                 @endforeach
@@ -42,7 +42,7 @@
                                 <label>* LAST NAME</label>
                             </div>
                             <div class="ml-10">
-                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->middleName}}" name="requesteeMName" required>
+                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->middleName}}" name="requesteeMName">
                                 <br>
                                 <label>MIDDLE NAME</label>
                             </div>
@@ -62,6 +62,10 @@
                         <div class="mt-[3rem]">
                             <label>* PURPOSE OF REQUEST</label>
                             <textarea class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;" name="requestPurpose" required>{{ old('requestPurpose') }}</textarea>
+                                <div id="requirementsContainer" class="text-[16px] italic">
+                                    <!-- Placeholder for requirements to be added dynamically -->
+                                </div>
+                            <p></p>
                         </div>
                         @elseif ($doctypename == 'FILE COMPLAIN')
                         <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="16" name="selectedDocument">
@@ -110,7 +114,7 @@
                                 <label>* LAST NAME</label>
                             </div>
                             <div class="ml-10">
-                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeMName" >
+                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" name="complaineeMName">
                                 <br>
                                 <label>MIDDLE NAME</label>
                             </div>
@@ -228,7 +232,7 @@
                     <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="100" name="docfee">
                 </div>
                 @elseif($doctypename == 'BARANGAY CERTIFICATE')
-                <div class="w-[300px]">
+                <div class="w-[300px] mt-[3.5rem]">
                     <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">CERTIFICATE FEE:</p>
                     <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">PHP 100</p>
                     <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="100" name="docfee">

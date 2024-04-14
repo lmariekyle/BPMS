@@ -1248,6 +1248,36 @@ select {
 .mt-\[8rem\] {
   margin-top: 8rem;
 }
+.mt-\[2\.5rem\] {
+  margin-top: 2.5rem;
+}
+.mt-\[42px\] {
+  margin-top: 42px;
+}
+.mt-\[45px\] {
+  margin-top: 45px;
+}
+.mt-\[43px\] {
+  margin-top: 43px;
+}
+.mt-\[63px\] {
+  margin-top: 63px;
+}
+.mt-\[65px\] {
+  margin-top: 65px;
+}
+.mt-\[73px\] {
+  margin-top: 73px;
+}
+.mt-\[68px\] {
+  margin-top: 68px;
+}
+.mt-\[67px\] {
+  margin-top: 67px;
+}
+.mt-\[3\.5rem\] {
+  margin-top: 3.5rem;
+}
 .block {
   display: block;
 }
@@ -1940,6 +1970,9 @@ select {
 }
 .border-8 {
   border-width: 8px;
+}
+.border-\[1\.5px\] {
+  border-width: 1.5px;
 }
 .border-b {
   border-bottom-width: 1px;

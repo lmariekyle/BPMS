@@ -44,7 +44,7 @@ class Transaction extends Model
         return $this->belongsTo(DocumentDetails::class,'id');
     }
 
-    public function payment()
+    public function transactionpayment()
     {
         return $this->belongsTo(Payment::class, 'id');
     }

@@ -81,6 +81,40 @@
     });
 });
 
+    document.addEventListener('DOMContentLoaded', function () {
+        function showRequirements() {
+            // Get the selected option
+            var selectedOption = document.getElementById('selectedDocument').value;
+            console.log('Selected Option:', selectedOption);
+            var requirements;
+
+            // Set requirements based on selected option
+            switch(selectedOption) {
+            case '2':
+                requirements = "Please specify the Sitio where the Disco will be held in the Purpose of Request Field. Ex: Sitio Labangon";
+                break;
+            case '11':
+                requirements = "Please specify the name of the Business in the Purpose of Request Field";
+                break;
+            default:
+                requirements = "Default requirements";
+        }
+
+
+            // Show the corresponding requirements container
+            document.getElementById('requirementsContainer').innerHTML = requirements;
+        }
+
+        // Call the function initially to show requirements for the default selected option
+        showRequirements();
+
+        // Attach event listener to the dropdown to update requirements when option is changed
+        document.getElementById('selectedDocument').addEventListener('change', function() {
+            showRequirements();
+        });
+
+    });
+
     </script>
 
 
