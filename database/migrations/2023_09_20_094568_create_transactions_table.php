@@ -28,9 +28,10 @@ class CreateTransactionsTable extends Migration
             $table->string('endorsedBy')->nullable();
             $table->date('endorsedOn')->nullable();
             $table->string('approvedBy')->nullable();
-            $table->date('approvedOn')->nullable();            $table->string('remarks')->nullable();
+            $table->date('approvedOn')->nullable();            
             $table->string('issuedBy')->nullable();
             $table->date('issuedOn')->nullable();
+            $table->string('remarks')->nullable();
 
             $table->timestamps();
         });

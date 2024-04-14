@@ -28,7 +28,6 @@ class Transaction extends Model
         'EndorsedOn',
         'ApprovedBy',
         'ApprovedOn',
-        
         'issuedBy',
         'issuedOn',
         'remarks',
