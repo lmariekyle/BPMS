@@ -508,16 +508,20 @@ class StatisticsController extends Controller
         }
         //--------------------------------------------------------------------------------------------------------------------
         
-        //Get all of the records of the population per year per quarter
+        //Get the records of the population per quarter from selected to 3 (or less) previous ones; at most 4 is displayed
 
         //Resident
         //maxValue gets the value from the sitio_counts table that HAS at least 1 resident the highest sitioID recorded
         $maxValueSitio = Sitio::max('id');
-        $statAll = Statistics::get(['id','year','quarter']);
+
+        $minID = $statID - 3;
 
         $AllResData = "";
-        foreach($statAll as $SA){
-            switch($SA->quarter){
+        for($x=$statID; $x>0 && $x>=$minID; $x--){
+            $SAID = Statistics::where('id', '=', $x)->value('id');
+            $SAYear = Statistics::where('id', '=', $x)->value('year');
+            $SAQuarter = Statistics::where('id', '=', $x)->value('quarter');
+            switch($SAQuarter){
                 case 1:
                     $QDesc = "Jan-Mar";
                     break;
@@ -534,12 +538,12 @@ class StatisticsController extends Controller
                     $QDesc = "N/A";
                     break;
             }
-            $YQ = $SA->year . ' ' . $QDesc;
+            $YQ = $SAYear . ' ' . $QDesc;
             $dataRes = "";
             $residentCount = DB::table('sitio_counts')
                         ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
                         ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
-                        ->where('sitio_counts.statID', $SA->id)
+                        ->where('sitio_counts.statID', $SAID)
                         ->where('sitio_counts.genderGroup', '!=', '--')
                         ->where('sitio_counts.ageGroup', '!=', '--')
                         ->get();
@@ -571,8 +575,11 @@ class StatisticsController extends Controller
 
         //Household
         $AllHhData = "";
-        foreach($statAll as $SA){
-            switch($SA->quarter){
+        for($x=$statID; $x>0 && $x>=$minID; $x--){
+            $SAID = Statistics::where('id', '=', $x)->value('id');
+            $SAYear = Statistics::where('id', '=', $x)->value('year');
+            $SAQuarter = Statistics::where('id', '=', $x)->value('quarter');
+            switch($SAQuarter){
                 case 1:
                     $QDesc = "Jan-Mar";
                     break;
@@ -589,14 +596,14 @@ class StatisticsController extends Controller
                     $QDesc = "N/A";
                     break;
             }
-            $YQ = $SA->year . ' ' . $QDesc;
+            $YQ = $SAYear . ' ' . $QDesc;
             $dataHh = "";
             //index starts at 2 because 1 is a sitioFiller option (i.e. No option)
             $indexHousehold = 2;
 
             while ($indexHousehold <= $maxValueSitio) {
                 $sumHousehold = DB::table('sitio_counts')->where('sitioID', $indexHousehold)
-                                                         ->where('statID', $SA->id)
+                                                         ->where('statID', $SAID)
                                                          ->where('genderGroup', '=', '--')
                                                          ->where('ageGroup', '=', '--')
                                                          ->value('residentCount');
@@ -643,18 +650,23 @@ class StatisticsController extends Controller
         $dataPreg = "";
 
         $pregResCount = SitioCount::where('statID','=', $statID)
-            ->whereIn('ageGroup', ['P', 'AP', 'PP'])
+            ->whereIn('ageGroup', ['P', 'AP'])
             ->sum('residentCount');
         
         $dataPreg .= "['Pregnant',". $pregResCount ."],";
 
         $nonPregResCount = SitioCount::where('statID', '=', $statID)
-            ->where('ageGroup', '=', 'WRA')
+        ->whereIn('ageGroup', ['WRA', 'PP'])
             ->sum('residentCount');
 
         $dataPreg .= "['Not Pregnant',". $nonPregResCount ."]";
         
         $chartPreg = $dataPreg;
+
+        //-------------------------------------------------------------------------------------------------------
+
+        //Get the different types of Households
+        
 
         return view('dashboard', compact('documents', 'totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'yearList', 'request', 'nameSitio', 'chartAllRes', 'chartAllHh', 'chartIncomeCurrent', 'chartPreg'));
     }

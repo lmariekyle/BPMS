@@ -15,6 +15,10 @@
             display: block;
             z-index: 9;
         }
+
+        #detailsChecked {
+            display: block;
+        }
     </style>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -106,19 +110,22 @@
                 <?php echo $chartPreg ?>   
             ]);
 
+            var redShades = ['#FC0303', '#BF3030'];
+            
             var options = {
+                title: 'Pregnancy Percentage',
+                pieHole: 0.6,
                 width: '100%',
                 height: '100%',
-                color: 'green',
                 backgroundColor: 'none',
                 chartArea: {
                     height: "70%",
                     width: "70%"
                 },
-                colors: ['green']
+                colors: redShades,
             };
 
-            var chart = new google.visualization.ColumnChart(document.getElementById('Pregchart'));
+            var chart = new google.visualization.PieChart(document.getElementById('Pregchart'));
 
             chart.draw(data, options);
         }
@@ -132,7 +139,8 @@
             var options = {
                 chart: {
                     title: 'Resident Population Per Quarter Recorded',
-                    subtitle: 'Per Sitio'
+                    subtitle: 'Per Sitio',
+                    backgroundColor: 'none',
                 }
             };
 
@@ -150,13 +158,29 @@
             var options = {
                 chart: {
                     title: 'Households Per Quarter Recorded',
-                    subtitle: 'Per Sitio'
+                    subtitle: 'Per Sitio',
+                    backgroundColor: 'none',
                 }
             };
 
             var chart = new google.charts.Bar(document.getElementById('AllHhchart'));
 
             chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
+    <script type="text/javascript">
+        function viewMoreDetails(){
+            const checkBox = document.getElementById('detailsCheckBox');
+            const details = document.getElementById('AllReschart');
+            const lessDetails = document.getElementById('residentBarchart');
+
+            if(checkBox.checked){
+                details.style.display = "block";
+                lessDetails.style.display = "none";
+            }else{
+                details.style.display = "none";
+                lessDetails.style.display = "block";
+            }
         }
     </script>
 
@@ -285,6 +309,41 @@
                     <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
                         <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE CENSUS DATA</p>
                     </div>
+                    <div class="flex flex-row mt-[2rem] self-start bg-dirty-white justify-center">
+                        <div class="shadow-lg border-2 border-green mt-[2rem] py-10 ml-[12%]">
+                            <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
+                                <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS</p>
+                            </div>
+                            <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
+                                <p class="font-poppin text-center font-black text-[30px] text-dirty-white">
+                                    {{ $totalResidentCount }} RESIDENTS
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-[2rem] shadow-lg border-2 border-green py-10 ml-[4%]">
+                            <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
+                                <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS</p>
+                            </div>
+                            <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
+                                <p class="font-poppin text-center font-black text-[30px] text-dirty-white">
+                                    @if($request->sitio || $request->gender || $request->ageclass)
+                                        @if($request->gender=="NULL" && $request->ageclass=="NULL")
+                                        {{ $totalHouseholdCount }}
+                                        @else
+                                        --
+                                        @endif
+                                    @else
+                                        0
+                                    @endif
+                                    HOUSEHOLDS
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row mt-[2rem]">
+                        <input type="checkbox" id="detailsCheckBox" class="mt-[3.8px]" onchange="viewMoreDetails()">
+                        <label for="detailsCheckBox" class="ml-[8px]">Show more details for comparison</label>
+                    </div>
                     <div class="flex flex-row self-center space-x-8 mt-[4rem] mb-[4rem]">
                         <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
                             <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
@@ -300,6 +359,7 @@
                             </div>
                             @if (($request->sitio || $request->gender || $request->ageclass) && $totalResidentCount>0)
                             <div class="w-[1050px] h-[600px] mt-2 mx-auto" id="residentBarchart" style=""></div>
+                            <div class="w-[1050px] h-[600px] mt-2 mx-auto" id="AllReschart" style="display: none;"></div>
                             <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
                             <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end mt-[15rem] mr-8">
                                 <div class="mb-2 w-80 text-justify">
@@ -332,9 +392,7 @@
                                 </div>
                             </div>
                             @else
-                            <div class="w-[1050px] h-[600px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center">
-
-                            </div>
+                            <div class="w-[1050px] h-[600px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center"></div>
                             @endif
                         </div>
                     </div>
@@ -355,63 +413,33 @@
                                 @if(($request->sitio || $request->gender || $request->ageclass))
                                     @if($request->gender=="NULL" && $request->ageclass=="NULL")
                                         @if($totalHouseholdCount>0)
-                                        <div class="w-[525px] h-[300px] mt-2 mx-auto" id="householdBarchart"></div>
+                                        <div class="w-[1050px] h-[600px] mt-2 mx-auto" id="householdBarchart"></div>
                                         @else
-                                        <div class="w-[525px] h-[324px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center"></div>
+                                        <div class="w-[1050px] h-[600px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center"></div>
                                         @endif
                                     @else
-                                    <div class="w-[525px] h-[324px] mt-2 px-2 flex items-center justify-center">
+                                    <div class="w-[1050px] h-[600px] mt-2 px-2 flex items-center justify-center">
                                         <p class="text-xl font-robotocondensed w-80 text-center text-deep-green">
                                             Since Age/Gender filters are applied, Household Information is unavailable.
                                         </p>
                                     </div>
                                     @endif
                                 @else
-                                <div class="w-[525px] h-[324px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center"></div>
+                                <div class="w-[1050px] h-[600px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center"></div>
                                 @endif
                             </div>
                         </div>
-                        <div class="flex flex-col self-start bg-dirty-white">
-                            <div class="shadow-lg border-2 border-green mt-[2rem] py-10">
-                                <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
-                                    <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS</p>
-                                </div>
-                                <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                                    <p class="font-poppin text-center font-black text-[30px] text-dirty-white">
-                                        {{ $totalResidentCount }} RESIDENTS
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="mt-[2rem] shadow-lg border-2 border-green py-10">
-                                <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
-                                    <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS</p>
-                                </div>
-                                <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                                    <p class="font-poppin text-center font-black text-[30px] text-dirty-white">
-                                        @if($request->sitio || $request->gender || $request->ageclass)
-                                            @if($request->gender=="NULL" && $request->ageclass=="NULL")
-                                            {{ $totalHouseholdCount }}
-                                            @else
-                                            --
-                                            @endif
-                                        @else
-                                            0
-                                        @endif
-                                        HOUSEHOLDS
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                    <div id="AllReschart" class="mx-auto" style="width: 90%; height: 650px;"></div>
-                    <div id="AllHhchart" class="mx-auto" style="width: 90%; height: 650px;"></div>
+                    @if(($request->sitio || $request->gender || $request->ageclass))
+                    <div id="AllHhchart" class="mt-[2rem] mx-auto" style="width: 90%; height: 650px;"></div>
                     <div class="flex flex-row">
-                        <div id="currentMonthInchart" class="" style="width: 70%; height: 600px;"></div>
+                        <div id="currentMonthInchart" class="mt-[2rem] bg-dirty-white shadow-lg border-2 border-green" style="width: 70%; height: 600px;"></div>
                         <div>
-                            <div id="Pregchart" style="width: 30%; height: 250px;"></div>
+                            <div id="Pregchart" class="" style="width: 30%; height: 250px;"></div>
                             <div id="" style="width: 30%; height: 250px;"></div>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
             @endhasanyrole
