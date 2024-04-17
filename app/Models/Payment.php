@@ -13,9 +13,11 @@ class Payment extends Model
         'paymentMethod',
         'accountNumber',
         'paymentStatus',
-        'successURL',
+        'referenceNumber',
+        'receivedBy',
+        'paymentDate',
         'screenshot',
-        'failURL',
+        'remarks',
     ];
 
     public function transactionpayment()

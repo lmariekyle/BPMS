@@ -23,15 +23,9 @@
                             <div class="mt-[2rem]">
                                 <label class="font-poppin text-[24px] text-dirty-white font-semibold">INFORMATION TO CHANGE:</label>
                                 <p class="rounded-lg border-2 border-black w-[550px] h-[50px] text-[26px] px-2 py-1 text-black bg-dirty-white">
-                                @if($request->selectedInformation == 'lastName')
-                                Last Name
-                                @elseif($request->selectedInformation == 'firstName')
-                                    First Name
-                                @elseif($request->selectedInformation == 'middleName')
-                                    Middle Name
-                                @elseif($request->selectedInformation == 'email')
+                                @if($request->selectedInformation == 'email' || $request->selectedInformation == 'Email Address')
                                     Email
-                                @elseif($request->selectedInformation == 'contactNumber')
+                                @elseif($request->selectedInformation == 'contactNumber' || $request->selectedInformation == 'Contact Number')
                                     Contact Number
                                 @endif
                                 </p>

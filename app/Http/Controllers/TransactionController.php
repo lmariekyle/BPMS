@@ -49,7 +49,6 @@ class TransactionController extends Controller
         $user = User::where('residentID', $request->userId)->first();
         $user->makeVisible('firstName', 'middleName', 'lastName');
         $date = Carbon::now()->format('Y-m-d');
-        $docType = $document->docType;
         $certRequirements = [];
 
         if ($request->hasFile('file')) {
@@ -76,8 +75,8 @@ class TransactionController extends Controller
                 'paymentMethod' => $request->paymentMethod,
                 'accountNumber' => 'Not Applicable',
                 'paymentStatus' => 'Paid',
-                'successURL' => 'Not Applicable',
-                'failURL' =>  'Not Applicable',
+                'referenceNumber' => 'Not Applicable',
+                'remarks' =>  'Not Applicable',
             ]);
 
             if($request->complaintMName == null ){
@@ -86,6 +85,26 @@ class TransactionController extends Controller
                 $request->complaineeMName == 'N/A';
             }
 
+            $detail = DocumentDetails::create([
+                'requesteeFName' => $request->complaintFName,
+                'requesteeMName' => $request->complaintMName,
+                'requesteeLName' => $request->complaintLName,
+                'requesteeEmail'  => $request->complaintEmail,
+                'requesteeContactNumber' => $request->complaintContactNumber,
+                'requestPurpose' => $request->requestPurpose,
+                'file' => $reqJson,
+            ]);
+
+            $transaction = Transaction::create([
+                'documentID' => $request->documentId,
+                'userID' => $user->id,
+                'paymentID' => $payment->id,
+                'detailID' => $detail->id,
+                'docNumber' => $docId,
+                'serviceStatus' => "Pending",
+            ]);
+
+            
             $complain = Complain::create([
                 'complaintFName' => $request->complaintFName,
                 'complaintMName' => $request->complaintMName,
@@ -97,25 +116,6 @@ class TransactionController extends Controller
                 'complaineeLName' => $request->complaineeLName,
                 'complaineeSitio' => $request->complaineeSitio,
                 'requestPurpose' => $request->requestPurpose,
-            ]);
-
-            $detail = DocumentDetails::create([
-                'requesteeFName' => $complain->complaintFName,
-                'requesteeMName' => $complain->complaintMName,
-                'requesteeLName' => $complain->complaintLName,
-                'requesteeEmail'  => $complain->complaintEmail,
-                'requesteeContactNumber' => $complain->complaintContactNumber,
-                'requestPurpose' => $complain->requestPurpose,
-                'file' => $reqJson,
-            ]);
-
-            $transaction = Transaction::create([
-                'documentID' => $request->documentId,
-                'userID' => $user->id,
-                'paymentID' => $payment->id,
-                'detailID' => $detail->id,
-                'docNumber' => $docId,
-                'serviceStatus' => "Pending",
             ]);
 
             $notifyUsers = User::where('userLevel', 'Barangay Secretary')->get();
@@ -147,16 +147,16 @@ class TransactionController extends Controller
                     'paymentMethod' => 'Cash-on-PickUp',
                     'accountNumber' => 'Not Applicable',
                     'paymentStatus' => 'Pending',
-                    'successURL' => 'Not Applicable',
-                    'failURL' => 'Not Applicable',
+                    'referenceNumber' => 'Not Applicable',
+                    'remarks' => 'Not Applicable',
                 ]);
             }else{
                 $payment = Payment::create([
                     'paymentMethod' => 'GCash',
                     'accountNumber' => 'Pending',
                     'paymentStatus' => 'Pending',
-                    'successURL' => 'Pending',
-                    'failURL' => 'Pending',
+                    'referenceNumber' => 'Pending',
+                    'remarks' => 'Pending',
                 ]);
             }
 
@@ -269,7 +269,7 @@ class TransactionController extends Controller
 
         $payment->update([
             'accountNumber' => $request->accountNumber,
-            'successURL' => $request->accountNumber,
+            'referenceNumber' => $request->accountNumber,
             'paymentStatus' => 'Paid',
             'screenshot' => $reqJson,
         ]);

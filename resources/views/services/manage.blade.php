@@ -85,11 +85,7 @@
         @role('Barangay Secretary')
         @if ($transaction->serviceStatus == 'Pending')
         <div class="justify-center flex flex-row mt-8">
-                @if($transaction->approval != 1)
-                    <button id="remarks" type="submit" class="text-center w-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;" disabled>Approve Request </button>
-                @else
-                    <button id="remarks" type="submit" class="text-center w-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;">Approve Request </button>
-                @endif
+                <button id="remarks" type="submit" class="text-center w-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;">Approve Request </button>
                 <form method="POST" action="{{ route('accepted', $transaction->id) }}">
                 <div id="RemarksModal" class="modal hidden fixed z-10 pt-28 top-0 mt-[120px] w-[800px] h-max drop-shadow-lg -ml-[20rem] border-deep-green">
                         <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">

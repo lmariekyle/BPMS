@@ -27,8 +27,6 @@ class CreateUsersTable extends Migration
             $table->string('contactNumber');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            // $table->string('code')->nullable();
-            // $table->dateTime('otp_expired_at')->nullable();
             $table->string('password');
 
             $table->string('userLevel')->default('User')->nullable();

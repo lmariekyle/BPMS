@@ -23,14 +23,11 @@ class CreateTransactionsTable extends Migration
             $table->string('docNumber');
             $table->string('serviceStatus');
 
-            $table->string('reviewedBy')->nullable();
-            $table->date('reviewedOn')->nullable();
             $table->string('endorsedBy')->nullable();
             $table->date('endorsedOn')->nullable();
             $table->string('approvedBy')->nullable();
             $table->date('approvedOn')->nullable();            
-            $table->string('issuedBy')->nullable();
-            $table->date('issuedOn')->nullable();
+            $table->string('releasedBy')->nullable();
             $table->date('releasedOn')->nullable();
             $table->string('remarks')->nullable();
 
