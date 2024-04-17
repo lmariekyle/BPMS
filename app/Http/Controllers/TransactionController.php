@@ -268,7 +268,6 @@ class TransactionController extends Controller
         $payment = Payment::where('id', $request->paymentID)->first();
 
         $payment->update([
-            'accountNumber' => $request->accountNumber,
             'referenceNumber' => $request->accountNumber,
             'paymentStatus' => 'Paid',
             'screenshot' => $reqJson,

@@ -532,7 +532,6 @@ class ServicesController extends Controller
         
         $payment = Payment::where('id', $id)->first();
         $transaction = Transaction::where('paymentID', $payment->id)->first();
-        $externalID = 'PAYMENT' . date('Ymd') . '-' . rand(1000, 9999);
   
         // return Redirect::to($payment->successURL); 
         return view('services.gcash', compact('payment'));
@@ -600,7 +599,6 @@ class ServicesController extends Controller
 {
     $payment = Payment::findOrFail($id);
     $transaction = Transaction::where('paymentID', $payment->id)->first();
-    $externalID = 'PAYMENT' . date('Ymd') . '-' . rand(1000, 9999);
 
     $request->validate([
         'successURL' => 'required|numeric|digits:13',
@@ -623,7 +621,6 @@ class ServicesController extends Controller
     }
 
     $payment->update([
-        'accountNumber' => $externalID,
         'referenceNumber' => $request->successURL,
         'screenshot' => $path,
         'paymentStatus' => 'Paid'
