@@ -54,6 +54,11 @@
 
             var chart = new google.visualization.ColumnChart(document.getElementById('residentBarchart'));
 
+            var checkBox = document.getElementById('resCheck');
+                checkBox.addEventListener('change', function () {
+                    chart.draw(data, options);
+            });
+
             chart.draw(data, options);
         }
 
@@ -73,10 +78,15 @@
                     height: "70%",
                     width: "70%"
                 },
-                colors: ['green']
+                colors: ['green'],
             };
 
             var chart = new google.visualization.ColumnChart(document.getElementById('householdBarchart'));
+
+            var checkBox = document.getElementById('hhCheck');
+                checkBox.addEventListener('change', function () {
+                    chart.draw(data, options);
+            });
 
             chart.draw(data, options);
         }
@@ -146,6 +156,11 @@
 
             var chart = new google.charts.Bar(document.getElementById('AllReschart'));
 
+            var checkBox = document.getElementById('detailsResCheckBox');
+                checkBox.addEventListener('change', function () {
+                    chart.draw(data, options);
+            });
+
             chart.draw(data, google.charts.Bar.convertOptions(options));
         }
 
@@ -164,6 +179,11 @@
             };
 
             var chart = new google.charts.Bar(document.getElementById('AllHhchart'));
+
+            var checkBox = document.getElementById('detailsHhCheckBox');
+                checkBox.addEventListener('change', function () {
+                    chart.draw(data, options);
+            });
 
             chart.draw(data, google.charts.Bar.convertOptions(options));
         }
@@ -341,6 +361,7 @@
                     </form>
                 </div>
 
+                @if($request->sitio || $request->gender || $request->ageclass || $request->year || $request->quarter)
                 <div class="flex flex-col bg-dirty-white h-max w-[1200px] px-4 ml-10 mt-[5rem]">
                     <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
                         <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE CENSUS DATA</p>
@@ -385,7 +406,7 @@
                     <div id="resDisplay" class="self-center space-x-8 mb-[4rem]" style="display: none;">
                         <div class="flex flex-row mt-[2rem] ml-[3rem]">
                             <input type="checkbox" id="detailsResCheckBox" class="mt-[3.8px]" onchange="viewMoreResDetails()">
-                            <label for="detailsCheckBox" class="ml-[8px]">Show more details for comparison</label>
+                            <label for="detailsResCheckBox" class="ml-[8px]">Show more details for comparison</label>
                         </div>
                         <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
                             <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
@@ -400,10 +421,8 @@
                                 </h1>
                             </div>
                             @if (($request->sitio || $request->gender || $request->ageclass) && $totalResidentCount>0)
-                            <div class="w-[1050px] h-[600px] mt-2 mx-auto">
-                            <div class="" id="residentBarchart" style=""></div>
-                            <div class="" id="AllReschart" style="display: none;"></div>
-                            </div>
+                            <div class="w-[1050px] h-[600px]" id="residentBarchart" style=""></div>
+                            <div class="w-[1050px] h-[600px]" id="AllReschart" style="display: none;"></div>
                             <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
                             <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end mt-[15rem] mr-8">
                                 <div class="mb-2 w-80 text-justify">
@@ -443,7 +462,7 @@
                     <div id="hhDisplay" class="self-center space-x-8 mb-[4rem]" style="display: none;">
                         <div class="flex flex-row mt-[2rem] ml-[3rem]">
                             <input type="checkbox" id="detailsHhCheckBox" class="mt-[3.8px]" onchange="viewMoreHhDetails()">
-                            <label for="detailsCheckBox" class="ml-[8px]">Show more details for comparison</label>
+                            <label for="detailsHhCheckBox" class="ml-[8px]">Show more details for comparison</label>
                         </div>
                         <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
                             <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
@@ -460,12 +479,14 @@
                             <div class="">
                                 @if(($request->sitio || $request->gender || $request->ageclass))
                                     @if($request->gender=="NULL" && $request->ageclass=="NULL")
+                                    <div class="mt-2 mx-auto">
                                         @if($totalHouseholdCount>0)
-                                        <div id="householdBarchart" class="w-[1050px] h-[600px] mt-2 mx-auto" style=""></div>
-                                        <div id="AllHhchart" class="mt-[2rem] mx-auto" style="display: none;"></div>
+                                        <div class="w-[1050px] h-[600px]" id="householdBarchart" style=""></div>
+                                        <div class="w-[1050px] h-[600px]" id="AllHhchart" style="display: none;"></div>
                                         @else
-                                        <div class="w-[1050px] h-[600px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center"></div>
+                                        <div class="w-[1050px] h-[600px]"></div>
                                         @endif
+                                    </div>
                                     @else
                                     <div class="w-[1050px] h-[600px] mt-2 px-2 flex items-center justify-center">
                                         <p class="text-xl font-robotocondensed w-80 text-center text-deep-green">
@@ -489,6 +510,7 @@
                     </div>
                     @endif
                 </div>
+                @endif
             </div>
             @endhasanyrole
 
