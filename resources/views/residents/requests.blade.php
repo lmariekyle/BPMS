@@ -22,21 +22,24 @@
     <div class="bg-olive-green w-[1400px] h-[813px] ml-8 mt-16 px-5 py-5 rounded-[48px] flex flex-row">
 
         @role('User')
-        <p class="text-dirty-white font-robotocondensed ml-3 font-bold text-[48px] text-start">SEARCH REQUESTS</p>
+        <p class="text-dirty-white font-robotocondensed ml-3 font-bold text-[48px] text-start">YOUR REQUESTS</p>
         <!--Search-->
-        <div>
-            <form type="get" action="{{ route('requestSearch') }}">
-                <div class="mt-4 ml-12 flex w-[370px] h-[30px] flex-wrap items-stretch">
-                    <input type="type" name="search" class="m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-lg border border-solid border-neutral-300 bg-white bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary" placeholder="Search" aria-label="Search" aria-describedby="button-addon1" />
-
-                    <!--Search Button-->
-                    <button class="relative z-[2] flex items-center rounded-r bg-primary px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg" type="submit" id="button-addon1" data-te-ripple-init data-te-ripple-color="light">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                            <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                </div>
-            </form>
+        <div class="flex flex-row  w-max h-max mt-6 ml-8 space-x-5">
+            <div>
+                <a href="" data-status="Pending" class="status-link px-2 py-1 w-max h-max bg-green border-1 border-deep-green shadow-md hover:bg-dirty-white text-dirty-white font-robotocondensed font-semibold hover:text-deep-green">UNPAID</a>
+            </div>
+            <div>
+                <a href="" data-status="Paid" class="status-link px-2 py-1 w-max h-max bg-green border-1 border-deep-green shadow-md hover:bg-dirty-white text-dirty-white font-robotocondensed font-semibold hover:text-deep-green">PAID</a>
+            </div>
+            <div>
+                <a href="" data-status="Processing" class="status-link px-2 py-1 w-max h-max bg-green border-1 border-deep-green shadow-md hover:bg-dirty-white text-dirty-white font-robotocondensed font-semibold hover:text-deep-green">ACTIVE</a>
+            </div>
+            <div>
+                <a href="" data-status="Released" class="status-link px-2 py-1 w-max h-max bg-green border-1 border-deep-green shadow-md hover:bg-dirty-white text-dirty-white font-robotocondensed font-semibold hover:text-deep-green">RELEASED</a>
+            </div>
+            <div>
+                <a href="" data-status="Denied" class="status-link px-2 py-1 w-max h-max bg-green border-1 border-deep-green shadow-md hover:bg-dirty-white text-dirty-white font-robotocondensed font-semibold hover:text-deep-green">DENIED</a>
+            </div>
         </div>
 
 
@@ -53,7 +56,7 @@
             </div>
 
             <!--DISPLAY ONLY PLS CHANGE WHEN CODING WITH THE ACTUAL DATABASE-->
-            <table class="mt-10">
+            <table id="documents-table" class="mt-10">
                 <tbody>
                    @foreach($userTransactions as $userTransaction)
                     <tr class="border shadow-md">
@@ -67,7 +70,7 @@
                         {{$userTransaction->document->docName}}
                         </td>
                         <td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold ">
-                        {{$userTransaction->payment->paymentStatus}}
+                        {{$userTransaction->transactionpayment->paymentStatus}}
                         </td>
                         <td class="px-6 py-4 w-[450px] font-robotocondensed text-deep-green text-[16px] font-bold">
                         {{$userTransaction->serviceStatus}}

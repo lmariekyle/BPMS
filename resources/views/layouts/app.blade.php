@@ -19,6 +19,7 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v3.x.x/dist/alpine.min.js" defer></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 
@@ -87,22 +88,42 @@
             var selectedOption = document.getElementById('selectedDocument').value;
             console.log('Selected Option:', selectedOption);
             var requirements;
+            var note;
 
             // Set requirements based on selected option
             switch(selectedOption) {
+            case '1':
+                requirements = "* Purpose of Request:";
+                note = "Ex: Scholarship Application"
+            break;
             case '2':
-                requirements = "Please specify the Sitio where the Disco will be held in the Purpose of Request Field. Ex: Sitio Labangon";
+                requirements = "* Please specify the sitio where the disco will be held: ";
+                note = "Ex: Sitio Labangon"
+                break;
+            case '4':
+                requirements = "* Purpose of Request: ";
+                note = "Ex: Senior Citizen Association Membership Update/Application"
                 break;
             case '11':
+                requirements = "* Please specify the name of the Business in the Purpose of Request Field";
+                note = "Ex: Nicko's Kitchen"
+                break;
+            case '5':
+                requirements = "*Please choose between Financial Assistance or Low Income";
+                note = "Reason for Request of Indigency"
+                break;
+            case '6':
                 requirements = "Please specify the name of the Business in the Purpose of Request Field";
                 break;
             default:
-                requirements = "Default requirements";
+                requirements = "";
+                note = "";
         }
 
 
             // Show the corresponding requirements container
             document.getElementById('requirementsContainer').innerHTML = requirements;
+            document.getElementById('notesContainer').innerHTML = note;
         }
 
         // Call the function initially to show requirements for the default selected option
@@ -114,6 +135,76 @@
         });
 
     });
+
+    $(document).ready(function () {
+        $('.status-link').click(function (e) {
+            e.preventDefault();
+            var status = $(this).data('status');
+            $.ajax({
+                url: '/get-documents',
+                method: 'GET',
+                data: { status: status },
+                success: function (response) {
+                    $('#documents-table tbody').empty();
+                    $.each(response, function(index, document) {
+                        var paymentStatus = document.transactionpayment ? document.transactionpayment.paymentStatus : 'N/A';
+                        var docType = document.document ? document.document.docType : 'N/A';
+                        var docName = document.document ? document.document.docName : 'N/A';
+
+                        var monthNames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"];
+                        var createdAt = new Date(document.created_at);
+
+                        // Extract individual components of the date
+                        var month = createdAt.getMonth(); // Months are zero-based, so add 1
+                        var day = createdAt.getDate();
+                        var year = createdAt.getFullYear();
+
+                        // Format the date as Month-Day-Year
+                        var formattedDate = monthNames[month] + ' ' + day + ', ' + year;
+
+                        var newRow = $('<tr class="border shadow-md"></tr>');
+                        newRow.append('<td class="px-6 py-4 w-[295px] font-robotocondensed text-deep-green text-[16px] font-bold">' + formattedDate + '</td>');
+                        newRow.append('<td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold">' + docType + '</td>');
+                        newRow.append('<td class="px-6 py-4 w-[490px] font-robotocondensed text-deep-green text-[16px] font-bold">' + docName + '</td>');
+                        newRow.append('<td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold">' + paymentStatus + '</td>');
+                        newRow.append('<td class="px-6 py-4 w-[450px] font-robotocondensed text-deep-green text-[16px] font-bold">' + document.serviceStatus + '</td>');
+                        newRow.append('<td class="px-6 py-4 w-[190px]"><a href="/showRequest/' + document.id + '" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a></td>');
+                        $('#documents-table tbody').append(newRow);
+                });
+            },
+                error: function (xhr, status, error) {
+                    console.error(error); // Log any errors
+                }
+            });
+        });
+    });
+
+        document.getElementById('captainstatus').addEventListener('click', function() {
+            var selectedValue = this.value;
+            var submitButton = document.getElementById('submitButton');
+            console.log(selectedValue);
+            if (selectedValue == 0) {
+                submitButton.disabled = true;
+            } else {
+                submitButton.disabled = false;
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const printLink = document.getElementById('printLink');
+            const approvePickup = document.getElementById('approvePickup');
+
+            if (printLink) {
+                printLink.addEventListener('click', function(event) {
+                    console.log('Print link clicked');
+                    // After a short delay to ensure the download has started, remove the 'hidden' attribute
+                    setTimeout(() => {
+                        approvePickup.removeAttribute('hidden');
+                    }, 500); // Adjust the delay as needed
+                });
+            }
+        });
 
     </script>
 

@@ -60,12 +60,12 @@
                             </div>
                         </div>
                         <div class="mt-[3rem]">
-                            <label>* PURPOSE OF REQUEST</label>
+                            <!-- <label>* PURPOSE OF REQUEST</label> -->
+                            <div id="requirementsContainer" class="text-[22px]">
+                             <!-- Placeholder for requirements to be added dynamically -->
+                            </div>
                             <textarea class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;" name="requestPurpose" required>{{ old('requestPurpose') }}</textarea>
-                                <div id="requirementsContainer" class="text-[16px] italic">
-                                    <!-- Placeholder for requirements to be added dynamically -->
-                                </div>
-                            <p></p>
+                            <div id="notesContainer" class="text-[18px] italic"></div>
                         </div>
                         @elseif ($doctypename == 'FILE COMPLAIN')
                         <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="16" name="selectedDocument">

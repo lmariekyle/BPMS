@@ -26,6 +26,7 @@ class TransactionController extends Controller
     public function requestList($id){
 
         $userTransactions=Transaction::where('userID',$id)->paginate(10);
+        
         // $document = Document::where('id', $userTransactions->documentID)->first();
     
         return view('residents.requests',compact('userTransactions'));
@@ -39,6 +40,40 @@ class TransactionController extends Controller
         // $document = Document::where('id', $userTransactions->documentID)->first();
     
         return view('residents.show',compact('transaction','requester'));
+    }
+
+    public function getDocuments(Request $request)
+    {
+        $status = $request->input('status');
+
+        if($status == 'Pending'){
+            $documents = Transaction::with(['document', 'transactionpayment'])
+            ->whereHas('transactionpayment', function ($query) {
+                $query->where('paymentStatus', '=', 'Pending');
+            })
+            ->get();
+        }elseif ($status == 'Paid'){
+            $documents = Transaction::with(['document', 'transactionpayment'])
+            ->whereHas('transactionpayment', function ($query) {
+                $query->where('paymentStatus', '=', 'Paid');
+            })
+            ->get();
+        }elseif ($status == 'Processing'){
+            $documents = Transaction::with(['document', 'transactionpayment'])
+            ->whereIn('serviceStatus', ['Pending', 'Processing', 'Endorsed', 'For Signature', 'Signed'])
+            ->get();
+        }elseif ($status == 'Released'){
+            $documents = Transaction::with(['document', 'transactionpayment'])
+            ->where('serviceStatus', '=', 'Released')
+            ->get();
+        }elseif ($status == 'Denied'){
+            $documents = Transaction::with(['document', 'transactionpayment'])
+            ->whereIn('serviceStatus', ['Not Eligible', 'Denied'])
+            ->get();
+        }
+
+        
+        return response()->json($documents);
     }
 
 

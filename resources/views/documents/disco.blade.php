@@ -1,5 +1,5 @@
 <h2 style="font-family: 'Roboto', sans-serif; font-size: 18px; font-weight: 800; text-align: center; letter-spacing: 0.1em;">Barangay Certification</h2>
-      </div>
+</div>
       <div style="margin-top:48px;">
         <h2 style="font-family: 'Roboto', sans-serif; font-size: 14px;text-align: start; margin-left: 44px;">TO WHOM IT MAY CONCERN,</h2>
       </div>
@@ -11,4 +11,4 @@
     </div>
     <div style="margin-top:32px; width:750px;">
       <p style="font-family: 'Lora', serif;font-size: 14px;text-align: start;margin-left: 44px;margin-right: 44px; text-indent: 22px;">Issued on <span style="text-decoration: underline;">{{$date->day}} </span>of &nbsp;<span style="text-decoration: underline;">{{$monthWord}}</span> , <span style="text-decoration: underline;">{{$date->year}}</span> at Poblacion, Dalaguete, Cebu.</p>
-</div>
+    </div>

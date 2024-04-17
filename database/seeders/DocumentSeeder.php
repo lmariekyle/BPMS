@@ -51,7 +51,7 @@ class DocumentSeeder extends Seeder
             'docName' => 'Senior Citizen',
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
-            'fee' => '100.0',
+            'fee' => '0',
             'requirements' => 'Residence Certificate',
 
             'createdBy' => 'A-001',
@@ -152,7 +152,7 @@ class DocumentSeeder extends Seeder
             'docName' => 'Filing of Lupon Cases',
             'docType' => 'File Complain',
             'docTemplate' => 'ComplaintTemplate',
-            'fee' => '100.0',
+            'fee' => '0',
             'requirements' => 'Personal Appearance of the Complainant',
 
             'createdBy' => 'A-001',
@@ -163,7 +163,7 @@ class DocumentSeeder extends Seeder
             'docName' => 'Account Information Change',
             'docType' => 'Account Information Change',
             'docTemplate' => 'NONE',
-            'fee' => '000.0',
+            'fee' => '0',
             'requirements' => 'Amended Birth Certificate, Certificate of Finality',
 
             'createdBy' => 'A-001',
