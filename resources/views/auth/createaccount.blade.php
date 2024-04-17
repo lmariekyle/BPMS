@@ -10,7 +10,7 @@
             <i class="fa-sharp fa-solid fa-arrow-left text-3xl mt-4 text-dirty-white"></i>
         </a>
         <p class="font-robotocondensed font-bold ml-[20px] text-dirty-white text-5xl">Register</p>
-        <div class="ml-12 mt-3">
+        <div class="ml-12 mt-[2rem]">
              <x-auth-validation-errors class="mb-4" id="close" :errors="$errors" />
         </div>
     </div>
@@ -59,10 +59,8 @@
             <div>
                 <x-label for="contactnumber" :value="__('* Contact Number')" class="font-roboto" style="color:white;" />
                 <div class="flex flex-row">
-                <input type="text" class="block mb-4 w-[50px] h-[42px] bg-dirty-white rounded-md" id="contactnumber" name="contactnumber" value="+63" readonly>
-                <x-input id="contactnumber" class="block mb-4 w-[450px] h-[42px] bg-dirty-white" type="text" name="contactnumber" :value="old('contactnumber')" required autofocus />
+                <x-input id="contactnumber" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="contactNumber" :value="old('contactNumber')" required autofocus />
                 </div>
-               
             </div>
 
             <div>
@@ -188,6 +186,22 @@
             button.disabled = false; // Button is enabled
         }
     }
+
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        var currentDate = new Date();
+        var maxYear = currentDate.getFullYear() - 18; // Maximum year for 18 years old and above
+
+        var dateOfBirthInput = document.getElementById("dateOfBirth");
+        dateOfBirthInput.setAttribute("max", formatDate(maxYear, 12, 31)); // Set maximum date to the end of the calculated maximum year
+
+        // Format the date as YYYY-MM-DD
+        function formatDate(year, month, day) {
+            month = String(month).padStart(2, "0");
+            day = String(day).padStart(2, "0");
+            return year + "-" + month + "-" + day;
+        }
+    });
 </script>
 
 </x-page-layout>

@@ -11,30 +11,49 @@
                 <div class="relative">
                     @role('Admin')
                     <div class="max-w-full max-h-12 w-full h-12 text-center flex justify-start">
+                        <a href="{{ route('services.index')}}"><i class="fa-solid fa-arrow-left text-dirty-white text-[24px] mt-3"></i></a>
                         <p class="font-robotocondensed font-bold text-dirty-white text-5xl ml-5">REQUEST ACCOUNT INFORMATION CHANGE</p>
                         <div class="ml-12 mt-3">
                             @include('components.flash')
                         </div>
                     </div>
-                    <form method="POST" action="{{ route('updateinfo', $user->id) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('updateinfo', $request->id) }}" enctype="multipart/form-data">
                         @csrf
-                        <div class="flex flex-col ml-5">
+                        <div class="flex flex-col ml-5 mt-4">
                             <div class="mt-[2rem]">
-                                <label class="font-poppins text-[24px] text-dirty-white font-semibold">Information to Change:</label>
-                                <p class="rounded-lg border-2 border-black w-[550px] h-[50px] text-[26px] px-2 py-1 text-black bg-dirty-white">{{$request->selectedInformation}}</p>
+                                <label class="font-poppin text-[24px] text-dirty-white font-semibold">INFORMATION TO CHANGE:</label>
+                                <p class="rounded-lg border-2 border-black w-[550px] h-[50px] text-[26px] px-2 py-1 text-black bg-dirty-white">
+                                @if($request->selectedInformation == 'email' || $request->selectedInformation == 'Email Address')
+                                    Email
+                                @elseif($request->selectedInformation == 'contactNumber' || $request->selectedInformation == 'Contact Number')
+                                    Contact Number
+                                @endif
+                                </p>
                                 <input class="hidden" value="{{$request->selectedInformation}}" name="selectedInformation">
                             </div>
-                            <div class="mt-5 flex flex-col">
-                                <label class="font-poppins text-[24px] text-dirty-white font-semibold">User Old Information:</label>
+                
+                            <div class="mt-2 flex flex-col">
+                                <label class="font-poppin text-[24px] text-dirty-white font-semibold">OLD INFORMATION:</label>
                                 <input class="rounded-lg border-2 border-black w-[550px] h-[50px] text-[26px] px-2 py-1 text-black bg-dirty-white" style="border-color: #414833;" value="{{$request->requesteeOldInformation}}" name="requesteeOldInformation">
                             </div>
-                            <div class="mt-5 flex flex-col">
-                                <label class="font-poppins text-[24px] text-dirty-white font-semibold">User New Information:</label>
+                            <div class="mt-4 flex flex-col">
+                                <label class="font-poppin text-[24px] text-dirty-white font-semibold">NEW INFORMATION:</label>
                                 <input class="rounded-lg border-2 border-black w-[550px] h-[50px] text-[26px] px-2 py-1 text-black bg-dirty-white" style="border-color: #414833;" value="{{$request->requesteeNewInformation}}" name="requesteeNewInformation">
                             </div>
                             <div class="mt-[2rem] flex flex-col">
-                                <label class="font-poppins text-[24px] text-dirty-white font-semibold">Purpose of Request:</label>
+                                <label class="font-poppin text-[24px] text-dirty-white font-semibold">PURPOSE OF REQUEST:</label>
                                 <textarea class="rounded-lg border-2 border-black w-[550px] h-[50px] text-[26px] px-2 py-1 text-black bg-dirty-white" name="requestPurpose">{{$request->requestPurpose}}</textarea>
+                            </div>
+                            
+                            <div class="mt-[2rem] flex flex-col">
+                                <p class="font-poppin text-[24px] text-dirty-white font-semibold">UPLOADED REQUIREMENTS:</p>
+                                @forelse($filePaths as $file)
+                                <div class="flex flex-col justify-start w-[100px]">
+                                    <a href="{{ route('view_file', $file) }}" class="text-center font-poppins w-max bg-olive-green hover:bg-deep-green text-dirty-white hover:text-dirty-white font-medium rounded-lg text-sm px-5 py-2.5">{{$file}}</a>
+                                </div>
+                                @empty
+                                <p class="font-poppins text-[18px] mt-3 ml-10 font-semibold">No Uploaded Documents</p>
+                                @endforelse
                             </div>
                         </div>
                         <select name="status" id="status" class="ml-5 mt-8 text-center w-[300px] h-max font-robotocondensed font-bold text-[22px] text-deep-green bg-dirty-white px-4 py-2">

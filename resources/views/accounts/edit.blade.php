@@ -93,7 +93,7 @@
                                     <br>
                                     <input type="email" name="email" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$user->email}}">
                                 </div>
-                                <div class="">
+                                <div class="mt-4">
                                     <label for="dateOfBirth" class="font-roboto">Date of Birth</label>
                                     <br>
                                     <input type="date" name="dateOfBirth" class="block mb-4 w-[227.5px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$personalInfo->dateOfBirth}}">
@@ -101,15 +101,14 @@
                             </div>
                             <br>
                             <div class="max-w-[1250px] w-[1250px] max-h-[66px]">
-                                <div class="">
+                                <div class="float-left mr-10">
                                     <label for="contactnumber" class="font-roboto">Contact Number</label>
                                     <br>
                                     <input type="text" name="contactNumber" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$user->contactNumber}}">
                                 </div>
                             </div>
                             <br>
-
-                            <div class="mt-16 text-center mr-2">
+                            <div class="mt-[18px]">
                                 <button type="submit" name="submit" class="rounded bg-deep-green w-60 left-12 mx-auto">Update Account</button>
                             </div> 
                         </div>

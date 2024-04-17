@@ -28,7 +28,7 @@
             <!--TABLE HEADER-->
             <div class="bg-green w-[1400px] h-[48px] absolute flex flex-row border border-white shadow-lg">
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-6">REQUEST NO.</p>
-                <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-20">SELECTED INFORMATION</p>
+                <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-[8rem]">SELECTED INFORMATION</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">REQUESTED BY</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">REQUEST STATUS</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-44">ACTION</p>
@@ -42,22 +42,25 @@
                         <td class="px-6 py-4 w-[295px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 225px">
                             {{$account->id}}
                         </td>
-                        <td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 360px">
-                            {{$account->selectedInformation}}
+                        <td class="px-8 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 360px">
+                            @if($account->selectedInformation == 'email' || $account->selectedInformation == 'Email Address')
+                                Email
+                            @elseif($account->selectedInformation == 'contactNumber' || $account->selectedInformation == 'Contact Number')
+                                Contact Number
+                            @endif
                         </td>
-                        <td class="px-6 py-4 w-[490px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 348px">
+                        <td class="px-[5rem] py-4 w-[490px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 348px">
                             {{$account->resident['firstName']}} {{$account->resident['lastName']}}
                         </td>
-                        <td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 330px">
+                        <td class="px-6 py-4 font-robotocondensed text-deep-green text-[16px] font-bold w-[400px]">
                             {{$account->status}}
                         </td>
-                        <td class="px-6 py-4 w-[190px]" style="width: 230px">
+                        <td class="py-4 w-[190px]" style="width: 230px">
                             @if($account->status == "PENDING")
-                                <a href="{{ route('auth.updateinfo', $account->resident['id']) }}" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
+                                <a href="{{ route('auth.updateinfo', $account->id) }}" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
                             @else
-                                <a class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
+                                
                             @endif
-                            
                         </td>
                         @empty
                         <td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 330px">
@@ -67,7 +70,9 @@
                     @endforelse
                 </tbody>
             </table>
-
+            <div class="flex flex-row justify-evenly mt-4 self-center">
+                {{$accounts->links()}}
+            </div>  
         </div>
         @endrole
         @hasanyrole('Barangay Captain|Barangay Secretary')
@@ -96,7 +101,7 @@
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-6">REQUEST ID</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-20">SERVICE/CERTIFICATE TYPE</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-40">DATE REQUESTED</p>
-                <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">FORWARDED BY</p>
+                <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">REQUESTED BY</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-32">STATUS</p>
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-44">ACTION</p>
             </div>
@@ -116,7 +121,7 @@
                             {{ $transaction->createdDate }}
                         </td>
                         <td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold ">
-                            {{ $transaction->issuedBy}}
+                            {{ $transaction->requesteeName}}
                         </td>
                         <td class="px-6 py-4 w-[450px] font-robotocondensed text-deep-green text-[16px] font-bold">
                             {{ $transaction->serviceStatus }}
@@ -128,7 +133,9 @@
                     @endforeach
                 </tbody>
             </table>
-
+            <div class="flex flex-row justify-evenly mt-4 self-center">
+                {{$transactions->links()}}
+            </div>    
         </div>
         @endhasanyrole
     </div>

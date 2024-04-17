@@ -1,71 +1,3 @@
-@role('Admin')
-<x-page-layout>
-    <x-slot name="header">
-    </x-slot>
-    <a href="{{ route('services.index') }}"><i class="fa-solid fa-arrow-left text-dirty-white text-[40px] ml-14 mt-20"></i></a>
-    <div class="font-robotocondensed text-deep-green w-[1400px] h-[813px] ml-40 mt-16 px-16 pt-6 bg-dirty-white border-2 border-black" style="border-color: black;">
-        <div class="justify-center flex flex-row">
-            <p class="text-center font-bold text-[40px]">Request Type: Account Information Update</p>
-        </div>
-        <div class="flex flex-row mt-8">
-            <div class="text-[30px]">
-                <div>
-                    <p class="font-bold">Reason for Change</p>
-                    <div class="w-[500px] h-[250px] border-2 border-black px-4 py-4" style="border-color: black;">
-                        <p class="text-xl">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                        </p>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <p class="font-bold">Supporting Document</p>
-                    <div class="w-[500px] border-2 border-black mt-2 px-2" style="border-color: black;">
-                        <a href="">None</a>
-                    </div>
-                </div>
-            </div>
-            <div class="text-5xl ml-40">
-                <p class="font-bold">Name of Requester</p>
-                <p class="ml-10">----</p>
-                <p class="font-bold">ID Number</p>
-                <p class="ml-10">----</p>
-                <p class="font-bold">Account Type</p>
-                <p class="ml-10">----</p>
-            </div>
-        </div>
-        <div class="border-2 border-[#414833] mt-6" style="border-color: #414833;"></div>
-        <div class="text-[30px] flex flex-row mt-2">
-            <div class="ml-4">
-                <p class="font-bold">Type of Information to Change</p>
-                <div class="w-[380px] border-2 border-black mt-2 px-2" style="border-color: black;">
-                    <a href="">----</a>
-                </div>
-            </div>
-            <div class="ml-32">
-                <p class="font-bold">Old Information</p>
-                <div class="w-[300px] border-2 border-black mt-2 px-2" style="border-color: black;">
-                    <a href="">----</a>
-                </div>
-            </div>
-            <div class="ml-32">
-                <p class="font-bold">New Information</p>
-                <div class="w-[300px] border-2 border-black mt-2 px-2" style="border-color: black;">
-                    <a href="">----</a>
-                </div>
-            </div>
-        </div>
-        <div class="border-2 border-[#414833] mt-6" style="border-color: #414833;"></div>
-        <div class="justify-center flex flex-row mt-4">
-            <a href="" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-dirty-white bg-deep-green px-4 py-2" style="width: 400px; font-size: 32px;">Approve Request</a>
-            <a href="" class="text-center w-[400px] ml-8 font-robotocondensed font-bold text-[32px] text-dirty-white bg-deep-green px-4 py-2" style="width: 400px; font-size: 32px;">Deny Request</a>
-        </div>
-    </div>
-</x-page-layout>
-@endrole
-
 @hasanyrole('Barangay Captain|Barangay Secretary')
 <x-app-layout>
     <x-slot name="header">
@@ -128,9 +60,13 @@
                         <p>Payment Reference Code:</p>
                         <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->payment['successURL'] }}</p>
                     </div>
+                    <div class="font-robotocondensed font-bold text-[32px] text-deep-green mt-6" style="font-size: 18px;">
+                        <p>Amount Due:</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">PHP {{ $transaction->serviceAmount }}</p>
+                    </div>
                     @else
                     <p>Payment Type:</p>
-                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">CASH ON SITE</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->payment['paymentMethod'] }}</p>
                     @endif
                     </div>
                     <div class="font-robotocondensed font-bold text-[32px] text-deep-green mt-6" style="font-size: 18px;">
@@ -139,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            @if($transaction->payment['paymentMethod'] == 'GCASH')
+            @if($transaction->payment['paymentMethod'] == 'GCash')
             <div class="ml-20 mt-20">
                 <p class="font-robotocondensed font-bold text-[18px] text-deep-green">Payment Receipt:</p>
                 <img src="{{ Storage::url($transaction->payment['screenshot']) }}" alt="Image {{ $key }}" class="mt-4 border-2 border-deep-green shadow-sm w-[280px] h-[400px]">
@@ -149,15 +85,43 @@
         @role('Barangay Secretary')
         @if ($transaction->serviceStatus == 'Pending')
         <div class="justify-center flex flex-row mt-8">
-            <form method="GET" action="{{ route('accepted', $transaction->id) }}">
-                @if($transaction->approval != 1)
-                    <button type="submit" class="text-center w-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;" disabled>Approve Request </button>
-                @else
-                    <button type="submit" class="text-center w-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;">Approve Request </button>
-                @endif
-            </form>
-            <form method="GET" action="{{ route('deny', $transaction->id) }}">
-                <button type="submit" class="text-center w-max ml-8 font-robotocondensed font-bold text-[22px] text-dirty-white px-4 py-2" style="width: 300px; font-size: 22px; background-color: #D86F4D;">Deny Request</button>
+                <button id="remarks" type="submit" class="text-center w-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;">Approve Request </button>
+                <form method="POST" action="{{ route('accepted', $transaction->id) }}">
+                <div id="RemarksModal" class="modal hidden fixed z-10 pt-28 top-0 mt-[120px] w-[800px] h-max drop-shadow-lg -ml-[20rem] border-deep-green">
+                        <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
+                                @csrf
+                                <span class="close font-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
+                                <div class="input-area">
+                                    <label for="remarks" class="font-robotocondensed text-[28px] text-deep-green">Remarks:</label>
+                                    <input type="text" name="remarks" class="block mt-4 w-full h-[100px] bg-dirty-white" maxlength="225">
+                                </div>
+                                <x-button class="text-base mt-8 bg-deep-green text-dirty-white border-0 w-60 l-12">
+                                    <div class="m-auto">
+                                        Approve Request
+                                    </div>
+                                </x-button>  
+                            </form>
+                        </div>
+                    </div>
+                </form>
+                <button id="remarksDeny" type="submit" class="text-center w-max ml-8 font-robotocondensed font-bold text-[22px] text-dirty-white px-4 py-2" style="width: 300px; font-size: 22px; background-color: #D86F4D;">Deny Request</button>
+            <form method="POST" action="{{ route('deny', $transaction->id) }}">
+            <div id="DenyRemarksModal" class="modal hidden fixed z-10 pt-28 top-0 mt-[120px] w-[800px] h-max drop-shadow-lg -ml-[40rem] border-deep-green">
+                        <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
+                                @csrf
+                                <span class="closedeny font-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
+                                <div class="input-area">
+                                    <label for="remarks" class="font-robotocondensed text-[28px] text-deep-green">Remarks:</label>
+                                    <input type="text" name="remarks" class="block mt-4 w-full h-[100px] bg-dirty-white" maxlength="225">
+                                </div>
+                                <x-button class="text-base mt-8 bg-deep-green text-dirty-white border-0 w-60 l-12">
+                                    <div class="m-auto">
+                                        Deny Request
+                                    </div>
+                                </x-button>  
+                            </form>
+                        </div>
+                    </div>
             </form>
         </div>
         @elseif ($transaction->serviceStatus == 'Signed')
@@ -168,7 +132,48 @@
         </div>
         @endif
         @endrole
-
     </div>
+    
+
+<script>
+    var modal = document.getElementById("RemarksModal");
+    var denymodal = document.getElementById("DenyRemarksModal");
+    var btn = document.getElementById("remarks");
+    var btnDeny = document.getElementById("remarksDeny");
+
+    var span = document.getElementsByClassName("close")[0];
+    var spandeny = document.getElementsByClassName("closedeny")[0];
+    // Open Modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    btnDeny.onclick = function() {
+        denymodal.style.display = "block";
+    }
+
+
+    // Close Modal (using the X button)
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    spandeny.onclick = function() {
+        denymodal.style.display = "none";
+    }
+
+    // Close Modal (clicking anywhere else outside the Modal)
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    window.onclick = function(event) {
+        if (event.target == denymodal) {
+            denymodal.style.display = "none";
+        }
+    }
+</script>
 </x-app-layout>
 @endhasanyrole

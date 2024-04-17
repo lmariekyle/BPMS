@@ -19,7 +19,7 @@ class BHWController extends Controller
      */
     public function index()
     {
-        $bhws = User::where('userlevel','Barangay Health Worker')->paginate();
+        $bhws = User::where('userlevel','Barangay Health Worker')->paginate(10);
 
         foreach ($bhws as $key) {
             $resident=Resident::where('id',$key->residentID)->first();
@@ -117,7 +117,11 @@ class BHWController extends Controller
     public function search(Request $request)
     { 
         $search=$request['search'];
-        $bhwsFirstName = Resident::all();
+        if(empty($search)){
+            return $this->index();
+        }
+
+        $bhwsFirstName = Resident::paginate(10);
         $bhwsFirstName->makeVisible('firstName');
 
         foreach($bhwsFirstName as $x=>$bhwFirstName){
@@ -126,7 +130,7 @@ class BHWController extends Controller
             }
         }
 
-        $bhwsLastName = Resident::all();
+        $bhwsLastName = Resident::paginate(10);
         $bhwsLastName->makeVisible('lastName');
 
         foreach($bhwsLastName as $x=>$bhwLastName){
@@ -135,7 +139,7 @@ class BHWController extends Controller
             }
         }
 
-        $bhwsFullName = Resident::all();
+        $bhwsFullName = Resident::paginate(10);
         $bhwsFullName->makeVisible('firstName', 'lastName');
 
         foreach($bhwsFullName as $x=>$bhwFullName){

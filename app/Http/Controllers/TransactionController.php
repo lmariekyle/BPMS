@@ -22,13 +22,33 @@ use Illuminate\Support\Str;
 
 class TransactionController extends Controller
 {
+
+    public function requestList($id){
+
+        $userTransactions=Transaction::where('userID',$id)->paginate(10);
+        // $document = Document::where('id', $userTransactions->documentID)->first();
+    
+        return view('residents.requests',compact('userTransactions'));
+    }
+
+    public function showRequest($id){
+
+        $transaction=Transaction::where('id',$id)->first();
+        $requester = DocumentDetails::where('id',$transaction->detailID)->first();
+        $requester->makeVisible('requesteeFName', 'requesteeLName','requesteeContactNumber');
+        // $document = Document::where('id', $userTransactions->documentID)->first();
+    
+        return view('residents.show',compact('transaction','requester'));
+    }
+
+
+
     public function mobileTransactionRequest(Request $request){
 
         $document = Document::where('id', $request->documentId)->first();
         $user = User::where('residentID', $request->userId)->first();
         $user->makeVisible('firstName', 'middleName', 'lastName');
         $date = Carbon::now()->format('Y-m-d');
-        $docType = $document->docType;
         $certRequirements = [];
 
         if ($request->hasFile('file')) {
@@ -53,12 +73,38 @@ class TransactionController extends Controller
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-FC']);
             $payment = Payment::create([
                 'paymentMethod' => $request->paymentMethod,
-                'accountNumber' => NULL,
-                'paymentStatus' => 'PAID',
-                'successURL' => NULL,
-                'failURL' =>  NULL,
+                'accountNumber' => 'Not Applicable',
+                'paymentStatus' => 'Paid',
+                'referenceNumber' => 'Not Applicable',
+                'remarks' =>  'Not Applicable',
             ]);
 
+            if($request->complaintMName == null ){
+                $request->complaintMName == 'N/A';
+            }else if($request->complaineeMName == null){
+                $request->complaineeMName == 'N/A';
+            }
+
+            $detail = DocumentDetails::create([
+                'requesteeFName' => $request->complaintFName,
+                'requesteeMName' => $request->complaintMName,
+                'requesteeLName' => $request->complaintLName,
+                'requesteeEmail'  => $request->complaintEmail,
+                'requesteeContactNumber' => $request->complaintContactNumber,
+                'requestPurpose' => $request->requestPurpose,
+                'file' => $reqJson,
+            ]);
+
+            $transaction = Transaction::create([
+                'documentID' => $request->documentId,
+                'userID' => $user->id,
+                'paymentID' => $payment->id,
+                'detailID' => $detail->id,
+                'docNumber' => $docId,
+                'serviceStatus' => "Pending",
+            ]);
+
+            
             $complain = Complain::create([
                 'complaintFName' => $request->complaintFName,
                 'complaintMName' => $request->complaintMName,
@@ -70,29 +116,6 @@ class TransactionController extends Controller
                 'complaineeLName' => $request->complaineeLName,
                 'complaineeSitio' => $request->complaineeSitio,
                 'requestPurpose' => $request->requestPurpose,
-            ]);
-
-            $detail = DocumentDetails::create([
-                'requesteeFName' => $complain->complaintFName,
-                'requesteeMName' => $complain->complaintMName,
-                'requesteeLName' => $complain->complaintLName,
-                'requesteeEmail'  => $complain->complaintEmail,
-                'requesteeContactNumber' => $complain->complaintContactNumber,
-                'requestPurpose' => $complain->requestPurpose,
-                'file' => $reqJson,
-            ]);
-
-            $transaction = Transaction::create([
-                'documentID' => $request->documentId,
-                'userID' => $user->id,
-                'paymentID' => $payment->id,
-                'detailID' => $detail->id,
-                'serviceAmount' =>  $request->serviceAmount,
-                'docNumber' => $docId,
-                'serviceStatus' => "Pending",
-                'issuedDocument' => "Pending",
-                'issuedBy' => $user->id,
-                'issuedOn' => $date,
             ]);
 
             $notifyUsers = User::where('userLevel', 'Barangay Secretary')->get();
@@ -121,20 +144,24 @@ class TransactionController extends Controller
         }else{
             if ($request->paymentMethod == '1'){
                 $payment = Payment::create([
-                    'paymentMethod' => 'CASH-ON-SITE',
-                    'accountNumber' => 'None',
+                    'paymentMethod' => 'Cash-on-PickUp',
+                    'accountNumber' => 'Not Applicable',
                     'paymentStatus' => 'Pending',
-                    'successURL' => 'Not Applicable',
-                    'failURL' => 'Not Applicable',
+                    'referenceNumber' => 'Not Applicable',
+                    'remarks' => 'Not Applicable',
                 ]);
             }else{
                 $payment = Payment::create([
-                    'paymentMethod' => 'GCASH',
+                    'paymentMethod' => 'GCash',
                     'accountNumber' => 'Pending',
                     'paymentStatus' => 'Pending',
-                    'successURL' => 'Unavailable',
-                    'failURL' => 'Unavailable',
+                    'referenceNumber' => 'Pending',
+                    'remarks' => 'Pending',
                 ]);
+            }
+
+            if($request->middleName == null ){
+                $request->middleName == 'N/A';
             }
 
             $detail = DocumentDetails::create([
@@ -155,12 +182,8 @@ class TransactionController extends Controller
                     'userID' => $user->id,
                     'paymentID' => $payment->id,
                     'detailID' => $detail->id,
-                    'serviceAmount' =>  $request->serviceAmount,
                     'docNumber' => $docId,
                     'serviceStatus' => "Pending",
-                    'issuedDocument' => "Pending",
-                    'issuedBy' => $user->id,
-                    'issuedOn' => $date,
                 ]);
             }else if($document->docType == "Barangay Clearance"){
                 $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CL']);
@@ -170,12 +193,8 @@ class TransactionController extends Controller
                     'userID' => $user->id,
                     'paymentID' => $payment->id,
                     'detailID' => $detail->id,
-                    'serviceAmount' =>  $request->serviceAmount,
                     'docNumber' => $docId,
                     'serviceStatus' => "Pending",
-                    'issuedDocument' => "Pending",
-                    'issuedBy' => $user->id,
-                    'issuedOn' => $date,
                 ]);
             }
                 
@@ -185,6 +204,7 @@ class TransactionController extends Controller
         }
         if($request->paymentMethod == '2'){
             $receivedPayment = $this->createpayment($payment->id);
+            $receivedPayment->fee = $document->fee;
 
             $user->token = $request->token;
             $user->success = true;
@@ -212,59 +232,12 @@ class TransactionController extends Controller
         return $response;
     }
 
-    public function createInvoice($request)
-    {
-        $xenditKey = base64_encode(env('XENDIT_SECRET_KEY'));
-        $headers = [
-            'Content-Type' => 'application/json',
-            'Authorization' => 'Basic ' . $xenditKey,
-        ];
-    
-        $res = Http::withHeaders($headers)
-            ->withOptions([
-                'curl' => [CURLOPT_SSL_VERIFYPEER => false],
-            ])
-            ->post('https://api.xendit.co/v2/invoices', $request);
-    
-
-        $res = Http::withHeaders($headers)
-            ->withOptions([
-                'curl' => [CURLOPT_SSL_VERIFYPEER => false],
-            ])
-            ->post('https://api.xendit.co/v2/invoices', $request);
-
-        return json_decode($res->body(), true);
-    }
-
     public function createpayment($id)
     {
         $payment = Payment::where('id', $id)->first();
-        $transaction = Transaction::where('paymentID', $payment->id)->first();
-        $externalID = 'INV' . date('Ymd') . '-' . rand(1000, 9999);
-
-        $payment->accountNumber = $externalID;
-        $payment->save();
-       
-        $successRedirectUrl = route('services.success', $payment->id);
-        $failureRedirectUrl = route('services.failure', $payment->id);
-
-        $params = [
-            'external_id' => $externalID,
-            'amount' => $transaction->serviceAmount,
-            'user_id' => $transaction->userID,
-            'success_redirect_url' => $successRedirectUrl,
-            'failure_redirect_url' => $failureRedirectUrl,
-            'payment_methods' => ['GCASH'],
-            'currency' => 'PHP',
-            'invoice_duration' => 30000,
-        ];
-
-        $invoice = $this->createInvoice($params);
-        $payment->update([
-            'successURL' => $invoice['invoice_url']
-        ]);
-
+        $payment->accountNumber = "Pending";
         $payment->paymentStatus = 'Pending';
+        $payment->save();
         $payment->success = true;
 
         return $payment;
@@ -274,11 +247,15 @@ class TransactionController extends Controller
 
         $paymentScreenshot = [];
 
+        $transaction = Transaction::where('paymentID', $request->paymentID)->first();
+        $detail = DocumentDetails::where('id', $transaction->detailID)->first();
+        $detail->makeVisible('requesteeLName');
+
         if ($request->hasFile('file')) {
             foreach ($request->file('file') as $file) {
                 if ($file->isValid()) {
-                        $file_name = Str::slug($request->lastName) . '_' . 'payment' . uniqid() . '.' . $file->getClientOriginalExtension();
-                    $file->storeAs('requirements', $file_name);
+                        $file_name = Str::slug($detail->requesteeLName) . '_' . 'payment' . uniqid() . '.' . $file->getClientOriginalExtension();
+                    $file->storeAs('paymentRecords', $file_name);
                     $path = $file_name;
                     $paymentScreenshot[] = $path;
                 }
@@ -292,6 +269,7 @@ class TransactionController extends Controller
 
         $payment->update([
             'accountNumber' => $request->accountNumber,
+            'referenceNumber' => $request->accountNumber,
             'paymentStatus' => 'Paid',
             'screenshot' => $reqJson,
         ]);
@@ -307,37 +285,30 @@ class TransactionController extends Controller
         return $response;
     }
 
-    // public function mobileCallback(Request $request)
-    // {
-    //     try {
-    //         $payment = Payment::where('accountNumber', $request->external_id)->first();
-    //         if ($request->header('x-callback-token') != env('XENDIT_CALLBACK_TOKEN')) {
-    //             return response()->json([
-    //                 'status' => 'error',
-    //                 'message' => 'Invalid Callback Token'
-    //             ], 400);
-    //         }
+    public function mobileRequestList(Request $request){
+        $user = User::where('residentID', $request->id)->first();
+        $transactions = Transaction::where('userID', $user->id)->get();
+        foreach($transactions as $transaction){
+            $document = Document::where('id', $transaction->documentID)->first();
+            $payment = Payment::where('id', $transaction->paymentID)->first();
+            $transaction->documentName = $document->docName;
+            $transaction->paymentStatus = $payment->paymentStatus;
+        }
+        
 
-    //         if ($payment) {
-    //             if ($request->status == 'PAID') {
-    //                 $payment->update([
-    //                     'paymentStatus' => 'Paid'
-    //                 ]);
-    //             } else {
-    //                 $payment->update([
-    //                     'paymentStatus' => 'Expired',
-    //                 ]);
-    //             }
-    //         }
+        $response = ['transactions' => $transactions, 'success' => true,];
 
-    //         return response()->json([
-    //             'status' => 'success',
-    //         ]);
-    //     } catch (\Exception $e) {
-    //         return response()->json([
-    //             'status' => 'error',
-    //             'message' => $e->getMessage()
-    //         ], 500);
-    //     }
-    // }
+        return $response;
+    }
+
+    public function mobileRequestDetails(Request $request){
+        $transaction = Transaction::where('id', $request->id)->first();
+        $transactiondetails = DocumentDetails::where('id', $transaction->detailID)->first();
+        $payment = Payment::where('id', $transaction->paymentID)->first();
+        $document = Document::where('id', $transaction->documentID)->first();
+        $user = User::where('id', $transaction->userID)->first();
+        $resident = Resident::where('id', $user->residentID)->first();
+        $response = ['transaction' => $transaction, 'details' => $transactiondetails, 'payment' => $payment, 'document' => $document, 'user' => $resident, 'success' => true,];
+        return $response;
+    }
 }

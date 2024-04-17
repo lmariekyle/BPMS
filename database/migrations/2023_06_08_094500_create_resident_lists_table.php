@@ -21,7 +21,6 @@ class CreateResidentListsTable extends Migration
 
             
             $table->string('houseNumber')->nullable();
-            $table->boolean('householdHead')->nullable();
             $table->smallInteger('memberNumber')->nullable();
 
             $table->string('createdBy')->nullable();

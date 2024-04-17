@@ -14,7 +14,6 @@ class ResidentList extends Model
         'houseID',
 
         'houseNumber',
-        'householdHead',
         'memberNumber',
 
         'createdBy',

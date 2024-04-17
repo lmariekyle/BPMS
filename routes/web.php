@@ -13,6 +13,7 @@ use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\SitioCountController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\TransactionController;
 use App\Models\Statistics;
 use Hydrat\Laravel2FA\Controllers\TwoFactorAuthController;
 use Spatie\Permission\Models\Role;
@@ -72,11 +73,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', [ServicesController::class, 'residentDashboard']);
     Route::get('/direction/{id}', [ServicesController::class, 'direction'])->name('direction');
     Route::get('/manage/{id}', [ServicesController::class, 'manage'])->name('manage');
-    Route::get('/accepted/{id}', [ServicesController::class, 'accepted'])->name('accepted');
+    Route::post('/accepted/{id}', [ServicesController::class, 'accepted'])->name('accepted');
     Route::get('generate', [ServicesController::class, 'generate']);
     Route::get('/approve/{id}', [ServicesController::class, 'approve'])->name('approve');
     Route::get('/pdf/viewdoc/{id}', [ServicesController::class, 'pdfGeneration'])->name('pdf.export');
-    Route::get('/deny/{id}', [ServicesController::class, 'deny'])->name('deny');
+    Route::post('/deny/{id}', [ServicesController::class, 'deny'])->name('deny');
     Route::get('/approval/{id}', [ServicesController::class, 'approval'])->name('approval');
     Route::get('/forwarded/{id}', [ServicesController::class, 'forwarded'])->name('forwarded');
     Route::get('/signed/{id}', [ServicesController::class, 'signed'])->name('signed');
@@ -90,7 +91,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('update/{id}', [ResidentUserController::class, 'update'])->name('updateinfo');;
     Route::get('request/{docType}', [ServicesController::class, 'request'])->name('services.request');
     Route::post('request/{docType}', [ServicesController::class, 'storerequest'])->name('services.storerequest');
-    Route::post('createpayment/{id}', [ServicesController::class, 'createpayment'])->name('services.createpayment');
+    Route::get('createpayment/{id}', [ServicesController::class, 'createpayment'])->name('services.createpayment');
+    Route::post('storepayment/{id}', [ServicesController::class, 'storepayment'])->name('services.storepayment');
     // Route::post('payment', [ServicesController::class, 'createpayment'])->name('services.gcash');
     Route::get('successpayment/{id}', [ServicesController::class, 'successpayment'])->name('services.success');
     // Route::get('successpayment/{id}', function () {
@@ -98,6 +100,9 @@ Route::group(['middleware' => 'auth'], function () {
     // })->name('services.success');
     Route::get('failurepayment/{id}', [ServicesController::class, 'failurepayment'])->name('services.failure');
     Route::get('/markRead/{id}', [NotificationController::class, 'markRead'])->name('viewNotifications');
+    Route::get('/delete/{id}', [NotificationController::class, 'destroy'])->name('deleteNotifications');
+    Route::get('/requestlist/{id}', [TransactionController::class, 'requestList'])->name('resident.requests');
+    Route::get('/showRequest/{id}', [TransactionController::class, 'showRequest'])->name('resident.showrequest');
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {

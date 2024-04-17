@@ -17,15 +17,16 @@ class CreateComplainsTable extends Migration
             $table->id();
 
             $table->string('complaintFName');
-            $table->string('complaintMName');
+            $table->string('complaintMName')->nullable();
             $table->string('complaintLName');
             $table->string('complaintEmail');
             $table->string('complaintContactNumber');
 
             $table->string('complaineeFName');
-            $table->string('complaineeMName');
+            $table->string('complaineeMName')->nullable();;
             $table->string('complaineeLName');
             $table->string('complaineeSitio');
+            $table->string('remarks')->nullable();
 
             $table->string('requestPurpose');
     

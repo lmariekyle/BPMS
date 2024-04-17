@@ -19,6 +19,15 @@ class BHWSeeder extends Seeder
     public function run()
     {
         //MILES//
+        ResidentList::create([
+            'residentID' => '2',
+            'houseID' => '25',
+            'houseNumber'=>2,
+            'memberNumber'=>1,
+            'createdBy'=>1,
+            'revisedBy'=>1,
+        ]);
+
         User::create([
             'residentID' => '2',
             'sitioID' => '2',
@@ -28,13 +37,21 @@ class BHWSeeder extends Seeder
             'userlevel' => 'Barangay Health Worker',
             'userstatus' => 'Active',
             'profileImage' => 'images/morales.jpg',
-            'email' => 'lourdeskyle9@gmail.com',
+            'email' => '19101720@usc.edu.ph',
             'email_verified_at' => now(),
             'password' => Hash::make('moralesbpms'),
         ])->assignRole('Barangay Health Worker');
 
 
         //GWEN//
+        ResidentList::create([
+            'residentID' => '3',
+            'houseID' => '25',
+            'houseNumber'=>2,
+            'memberNumber'=>2,
+            'createdBy'=>1,
+            'revisedBy'=>1,
+        ]);
         User::create([
             'residentID' => '3',
             'sitioID' => '4',
@@ -50,6 +67,14 @@ class BHWSeeder extends Seeder
         ])->assignRole('Barangay Secretary');
 
         //PETER//
+        ResidentList::create([
+            'residentID' => '7',
+            'houseID' => '25',
+            'houseNumber'=>2,
+            'memberNumber'=>3,
+            'createdBy'=>1,
+            'revisedBy'=>1,
+        ]);
         User::create([
             'residentID' => '7',
             'sitioID' => '5',
@@ -58,13 +83,21 @@ class BHWSeeder extends Seeder
             'contactnumber' => '09876543212',
             'userlevel' => 'User',
             'userstatus' => 'Active',
-            'profileImage' => 'images/peter.webp',
+            'profileImage' => 'images/peter.jpg',
             'email' => '19100340@usc.edu.ph',
             'email_verified_at' => now(),
             'password' => Hash::make('parkerbpms'),
         ])->assignRole('User');
 
         //Lourdes//
+        ResidentList::create([
+            'residentID'=>'4',
+            'houseID'=>'3',
+            'houseNumber'=>4,
+            'memberNumber'=>1,
+            'createdBy'=>1,
+            'revisedBy'=>1,
+        ]);
         User::create([
             'residentID' => '4',
             'sitioID' => '6',

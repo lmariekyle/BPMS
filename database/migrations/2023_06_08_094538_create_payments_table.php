@@ -18,10 +18,13 @@ class CreatePaymentsTable extends Migration
 
             $table->string('paymentMethod')->default('CASH-ON-SITE');
             $table->string('accountNumber')->nullable();
+            $table->string('amountPaid')->nullable();
             $table->string('paymentStatus')->default('PENDING');
-            $table->string('successURL')->nullable();
+            $table->string('receivedBy')->nullable();
+            $table->date('paymentDate')->nullable();
+            $table->string('referenceNumber')->nullable();
             $table->string('screenshot')->nullable();
-            $table->string('failURL')->nullable();
+            $table->string('remarks')->nullable();
 
             $table->timestamps();
         });

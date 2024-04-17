@@ -16,7 +16,7 @@
         <!-- Scripts -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <script src="{{ asset('js/app.js') }}" defer></script>
-
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v3.x.x/dist/alpine.min.js" defer></script>
     </head>
     <body class="bg-dirty-white">
     <div class="px-5 py-[4rem] text-center justify-center w-50 h-42 bg-olive-green"> 
@@ -25,5 +25,8 @@
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
+
+        <script>
+        </script>
     </body>
 </html>

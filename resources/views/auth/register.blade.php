@@ -1,22 +1,24 @@
     <x-page-layout>
-        <div class="absolute left-[33px] top-[49px] flex justify-start">
+        <div class="ml-12 mt-8 flex flex-row">
+            <div class="flex flex-row">
             <a href="/accounts">
                 <i class="fa-sharp fa-solid fa-arrow-left text-3xl mt-4" style="color:#fdffee;"></i>
             </a>
-            <p class="font-robotocondensed font-bold ml-[20px] text-dirty-white text-5xl">Account Registration</p>
-            <div class="ml-12 mt-3">
-                @include('components.flash')
+                <p class="font-robotocondensed font-bold ml-[20px] mt-2 text-dirty-white text-5xl">Account Registration</p>
+            </div>
+            
+            <div class="ml-10">
+                    @include('components.flash')
             </div>
         </div>
 
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
 
         <form method="POST" action="{{ route('register') }}" class="font-robotocondensed text-xl" enctype="multipart/form-data">
             @csrf
 
-            <div class="absolute mt-[8rem] ml-14 w-[13rem] h-[8rem]">
+            <div class="absolute mt-[4rem] ml-14 w-[13rem] h-[8rem]">
                 <i class="fa-solid fa-image text-[200px] text-dirty-white"></i>
                 <div>
                     <input id="profileImage" class="-mt-[5px] w-[15rem] h-[42px] px-2 py-2 text-center text-[14px] text-dirty-white file:w-[7rem] file:h-[42px]file:overflow-hidden file:bg-deep-green file:text-[14px] file:text-dirty-white file:font-robotocondensed file:cursor-pointer" type="file" name="profileImage" />
@@ -62,10 +64,13 @@
                 </div>
 
                 <div>
-                    <x-label for="contactnumber" :value="__('* Contact Number')" class="font-roboto text-xl" style="color:white;" />
-
-                    <x-input id="contactnumber" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="contactnumber" :value="old('contactnumber')" required autofocus />
+                    <x-label for="contactnumber" :value="__('* Contact Number')" class="font-roboto" style="color:white;" />
+                    <div class="flex flex-row">
+                    <input type="text" class="block mb-4 w-[50px] h-[42px] bg-dirty-white rounded-md" id="" name="" value="+63" readonly>
+                    <x-input id="contactnumber" class="block mb-4 w-[450px] h-[42px] bg-dirty-white" type="text" name="contactNumber" :value="old('contactNumber')" required autofocus />
                 </div>
+               
+            </div>
 
                 <div>
                     <x-label for="dateOfBirth" :value="__('* Date of Birth')" class="font-roboto text-xl" style="color:white;" />
@@ -104,14 +109,14 @@
 
 
 
-                <div class="mt-4">
+                <div class="mt-4" style="display: none;">
                     <div class="input-group">
                         <x-input id="password" class="form-control hidden" type="password" name="password" required autocomplete="new-password" />
                     </div>
                 </div>
 
                 <!-- Confirm Password -->
-                <div class="mt-4">
+                <div class="mt-4" style="display: none;">
                     <div class="input-group">
                         <x-input id="password_confirmation" class="form-control hidden" type="password" name="password_confirmation" required />
                     </div>
@@ -146,6 +151,31 @@
                     $('#password_confirmation').val(password);
                 });
 
+            });
+
+            document.addEventListener("DOMContentLoaded", function() {
+                var currentDate = new Date();
+                var maxYear = currentDate.getFullYear() - 18; // Maximum year for 18 years old and above
+
+                var dateOfBirthInput = document.getElementById("dateOfBirth");
+                dateOfBirthInput.setAttribute("max", formatDate(maxYear, 12, 31)); // Set maximum date to the end of the calculated maximum year
+
+                // Format the date as YYYY-MM-DD
+                function formatDate(year, month, day) {
+                    month = String(month).padStart(2, "0");
+                    day = String(day).padStart(2, "0");
+                    return year + "-" + month + "-" + day;
+                }
+            });
+
+            document.addEventListener("DOMContentLoaded", function() {
+                var span = document.getElementsByClassName("close");
+                if (span) {
+                    span.onclick = function() {
+                        span.style.display = "none";
+                        window.location.reload();
+                    }
+                }
             });
         </script>
     </x-page-layout>

@@ -67,12 +67,20 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'firstname' => ['required','regex:/^[a-zA-Z]+$/u','max:12'],
+            'middlename' => ['regex:/^[a-zA-Z]+$/u','max:18'],
+            'lastname' => ['required','regex:/^[a-zA-Z]+$/u','max:18'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed'],
             'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'dateOfBirth' => 'required|date|before:' . Carbon::now()->subYears(18),
+            'contactNumber' => ['required', 'numeric', 'digits:11',new \App\Rules\StartsWith09]
         ],
         [
+            'firstname.regex' => 'Use only alphabetical characters in your first name',
+            'middlename.regex' => 'Use only alphabetical characters in your middle name',
+            'lastname.regex' => 'Use only alphabetical characters in your last name',
+            'contactNumber.required' =>'Invalid Contact Number',
             'dateOfBirth.before' => 'User must be 18 Years Old and Above to Register!',
             'profileImage.required' => 'File Types must only be jpeg, png, jpg, gif, svg'
         ]);
@@ -99,7 +107,7 @@ class RegisteredUserController extends Controller
             'middleName' => $request->middlename,
             'lastName' => $request->lastname,
             'dateOfBirth' => $request->dateOfBirth,
-            'contactNumber' => $request->contactnumber,
+            'contactNumber' => $request->contactNumber,
             'email' => $request->email,
         ]);
 
@@ -138,13 +146,14 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'sitioID' => $request->sitio,
             'assignedSitioID' => '1',
-            'contactNumber' => $request->contactnumber,
+            'contactNumber' => '63' . $request->contactNumber,
             'password' => Hash::make($request->password)
         ]);
         $resident->user->assignRole($request->userlevel);
 
+
         event(new Registered($resident->user));
         Mail::to($request->email)->send(new AccountMail($resident->user));
-        return Redirect::back()->with('success', 'User Account has been created.');
+        return Redirect::back()->with('success', 'Email verification has been sent');
     }
 }

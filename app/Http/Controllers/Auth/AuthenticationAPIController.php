@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Contracts\Encryption\DecryptException;
-use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -11,10 +9,11 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Sitio;
 use App\Models\Resident;
 use App\Models\Statistics;
-use DB;
-use Carbon\Carbon;
-use App\Http\Requests\Auth\LoginRequest;
-use Hydrat\Laravel2FA\TwoFactorAuth;
+use Ichtrojan\Otp\Otp;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OTPMail;
+use Illuminate\Support\Facades\Storage;
+use Svg\Gradient\Stop;
 
 class AuthenticationAPIController extends Controller
 {
@@ -23,6 +22,8 @@ class AuthenticationAPIController extends Controller
         $user = User::where('id', $request->id)->first();
         $resident = Resident::where('id', $user->residentID)->first();
         $user->username = $resident->firstName . ' ' . $resident->lastName;
+        $image =$this->mobileProfilePic($request);
+        
         if($user->userLevel == "Barangay Health Worker"){
             $sitio = Sitio::where('id', $user->assignedSitioID)->first();
             $user->assignedSitio  = $sitio->sitioName;
@@ -57,29 +58,69 @@ class AuthenticationAPIController extends Controller
             }
 
             $statistics = Statistics::where('year', $currentYear)->where('quarter', $currentQuarter)->first();
+            
             $statistic = null;
             //if the statistics for the current period does not exist.
-            if($statistics == NULL){
+            if($statistics == null){
                 //if the new statistics is the first for the year (Year: 2024 | Date: 01/01->03/31)
                     //$year =  Statistics::max('year');
                     $statisticsYear = Statistics::where('year', '<=' ,$currentYear)->get();
-                    foreach($statisticsYear as $statistics){
-                        if($statistics->quarter < $currentQuarter){
-                            $statistic = $statistics;
-                            $currentQuarter = $statistic->quarter;
+                    $currentYear= Statistics::min('year');
+                    $currentQuarter=1;
+
+                    foreach($statisticsYear as $stat){
+                        
+                        if($stat->year >= $currentYear){
+                            if($stat->quarter >= $currentQuarter){
+                                $statistic = $stat;
+                                $currentQuarter = $statistic->quarter;
+                            }
                         }
+
                     }
+                    
             }else{               
                 $statistic = $statistics;
             }
-            $response = ['user' => $user, 'statistics' => $statistic,'success' => true];
+            $response = ['user' => $user, 'statistics' => $statistic, 'image' => $image, 'success' => true];
         }else{
-            $response = ['user' => $user, 'success' => true];
+            $response = ['user' => $user, 'image' => $image, 'success' => true];
         }
         return response()->json($response, 200);
     }
 
+    
+    public function mobileProfilePic(Request $request){
+        $user = User::where('id', $request->id)->first();
+        $image = Storage::url($user->profileImage);
+        $imageUrl = "http://10.0.2.2:8000" . $image;
+        return $imageUrl;
+    }
+
     public function sanctumLogin(Request $request){
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+            'device_name' => 'required',
+            'otp' => 'required'
+        ]);
+
+        if($request->otp != 'Not Applicable'){
+            $details = (new Otp)->validate($request->email, $request->otp);
+            if($details->status == false){
+                $response = ['message' => 'One Time Pin Failed', 'success' => false];
+                return response()->json($response, 200);
+            }
+        }
+        $user = User::where('email', $request->email)->first();
+        $token = $user->createToken($request->device_name)->plainTextToken;
+        $resident = Resident::where('id', $user->residentID)->first();
+        $user->username = $resident->firstName . ' ' . $resident->lastName;
+        $response = ['user' => $user, 'token' => $token, 'success' => true];
+        return response()->json($response, 200);
+    }
+
+    public function mobileOTP(Request $request){
         $request->validate([
             'email' => 'required',
             'password' => 'required',
@@ -89,43 +130,18 @@ class AuthenticationAPIController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if($user && Hash::check($request->password, $user->password)){
-            $token = $user->createToken($request->device_name)->plainTextToken;
-            $resident = Resident::where('id', $user->residentID)->first();
-            $user->username = $resident->firstName . ' ' . $resident->lastName;
-            $response = ['user' => $user, 'token' => $token, 'success' => true];
-            return $this->authenticated($request, $user);
-            // return response()->json($response, 200);
+            if($user->userLevel == "Barangay Health Worker"){
+                $details = (new Otp)->generate($request->email, 'numeric', 6);
+                Mail::to($request->email)->send(new OTPMail($user));
+                $response = ['otp' => true, 'success' => true];
+            }else{
+                $response = ['otp' => false, 'success' => true];
+            }
+            return response()->json($response, 200);
         }else{
             $response = ['message' => 'Incorrect email or password', 'success' => false];
             return response()->json($response, 200);
         }
     }
-
-    protected function authenticated(Request $request, $user)
-    {
-        # Trigger 2FA if necessary.
-        if (TwoFactorAuth::getDriver()->mustTrigger($request, $user)) {
-            return TwoFactorAuth::getDriver()->trigger($request, $user);
-        }
-
-        # If not, do the usual job.
-        return redirect();
-    }  
-
-    // public function mobileStore(LoginRequest $request)
-    // {
-     
-    //     $request->authenticate();
-    //     $user = $request->user();
-
-    //     if (auth()->check() && (auth()->user()->userStatus == 'Archived')) {
-    //         $response = ['message' => 'Sorry, Account has been Archived.', 'success' => false];
-
-    //         return $response;
-    //     } else {  
-    //         return $this->authenticated($request, $user);
-        
-    //     }
-    // }
 
 }

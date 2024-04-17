@@ -25,12 +25,16 @@ class Resident extends Model
         'philHealthNumber',
         'occupation',
         'monthlyIncome',
+        'familyRole',
+        'educationalAttainment',
         'ageClassification',
         'pregnancyClassification',
         'registeredSeniorCitizen',
         'registeredPWD',
         'dateOfDeath',
         'supportingDocument',
+        'createdBy',
+        'revisedBy',
     ];
 
     protected $hidden = [

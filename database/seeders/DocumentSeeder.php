@@ -29,7 +29,7 @@ class DocumentSeeder extends Seeder
             'docName' => 'Disco',
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
-            'fee' => '100.0',
+            'fee' => '530.0',
             'requirements' => 'Residence Certificate',
 
             'createdBy' => 'A-001',
@@ -58,27 +58,6 @@ class DocumentSeeder extends Seeder
             'revisedBy' => 'A-001',
         ]);
 
-        Document::create([
-            'docName' => 'Financial Assistance',
-            'docType' => 'Barangay Certificate',
-            'docTemplate' => 'CertificateTemplate',
-            'fee' => '100.0',
-            'requirements' => 'Residence Certificate',
-
-            'createdBy' => 'A-001',
-            'revisedBy' => 'A-001',
-        ]);
-
-        Document::create([
-            'docName' => 'Low Income',
-            'docType' => 'Barangay Certificate',
-            'docTemplate' => 'CertificateTemplate',
-            'fee' => '100.0',
-            'requirements' => 'Residence Certificate',
-
-            'createdBy' => 'A-001',
-            'revisedBy' => 'A-001',
-        ]);
 
         Document::create([
             'docName' => 'Indigency',
@@ -113,22 +92,12 @@ class DocumentSeeder extends Seeder
             'revisedBy' => 'A-001',
         ]);
 
-        Document::create([
-            'docName' => 'Others',
-            'docType' => 'Barangay Certificate',
-            'docTemplate' => 'CertificateTemplate',
-            'fee' => '100.0',
-            'requirements' => 'Residence Certificate',
-
-            'createdBy' => 'A-001',
-            'revisedBy' => 'A-001',
-        ]);
 
         Document::create([
-            'docName' => "Business/Mayor's Permit",
+            'docName' => "Business Permit",
             'docType' => 'Barangay Clearance',
             'docTemplate' => 'ClearanceTemplate',
-            'fee' => '100.0',
+            'fee' => '330.0',
             'requirements' => 'Cedula, Copy of Previous Permit, Tax Declaration, Affidavit of Consent',
 
             'createdBy' => 'A-001',
