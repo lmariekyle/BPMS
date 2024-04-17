@@ -307,6 +307,29 @@ class TransactionController extends Controller
         $document = Document::where('id', $transaction->documentID)->first();
         $user = User::where('id', $transaction->userID)->first();
         $resident = Resident::where('id', $user->residentID)->first();
+        
+        if($transaction->endorsedBy != null){
+            if($transaction->endorsedBy != 'Not Applicable'){
+                $employee = Resident::where('id', $transaction->endorsedBy)->first();
+                $employee->makeVisible('firstName', 'lastName');
+                $transaction->endorsedBy = $employee->firstName. ' ' .$employee->lastName; 
+            }
+        }
+        if($transaction->approvedBy != null){
+            if($transaction->approvedBy != 'Not Applicable'){
+                $employee = Resident::where('id', $transaction->approvedBy)->first();
+                $employee->makeVisible('firstName', 'lastName');
+                $transaction->approvedBy = $employee->firstName. ' ' .$employee->lastName; 
+            }
+        }
+        if($transaction->releasedBy != null){
+            if($transaction->releasedBy != 'Not Applicable'){
+                $employee = Resident::where('id', $transaction->releasedBy)->first();
+                $employee->makeVisible('firstName', 'lastName');
+                $transaction->releasedBy = $employee->firstName. ' ' .$employee->lastName; 
+            }
+        }
+
         $response = ['transaction' => $transaction, 'details' => $transactiondetails, 'payment' => $payment, 'document' => $document, 'user' => $resident, 'success' => true,];
         return $response;
     }

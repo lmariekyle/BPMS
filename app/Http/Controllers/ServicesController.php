@@ -969,7 +969,7 @@ class ServicesController extends Controller
     public function released($id)
     {
         $transaction = Transaction::where('id', $id)->first();
-        $user = Auth::user()->residentID;
+        $user = Auth::user();
         $resident = Resident::where('id', $user)->first();
         $transaction->fill([
             'releasedBy' => $user->id,
