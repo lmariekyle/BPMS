@@ -9,7 +9,11 @@ use App\Models\SitioCount;
 use App\Models\Households;
 use App\Models\Resident;
 use App\Models\ResidentList;
+use App\Models\Payment;
+use App\Models\Transaction;
+use App\Models\User;
 // use Barryvdh\DomPDF\Facade\PDF;
+use DateTime;
 use PDF;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -667,8 +671,77 @@ class StatisticsController extends Controller
 
         //Get the different types of Households
         
+        //-------------------------------------------------------------------------------------------------------
 
-        return view('dashboard', compact('documents', 'totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'yearList', 'request', 'nameSitio', 'chartAllRes', 'chartAllHh', 'chartIncomeCurrent', 'chartPreg'));
+        //Get the Payment Statistics
+        $paymentData = "";
+        $refundData = "";
+        $prCount = "";
+
+        for($x=$statID; $x>0 && $x>=$minID; $x--){
+            $SAID = Statistics::where('id', '=', $x)->value('id');
+            $SAYear = Statistics::where('id', '=', $x)->value('year');
+            $SAQuarter = Statistics::where('id', '=', $x)->value('quarter');
+            switch($SAQuarter){
+                case 1:
+                    $QDesc = "Jan-Mar";
+                    break;
+                case 2:
+                    $QDesc = "April-June";
+                    break;
+                case 3:
+                    $QDesc = "July-Sept";
+                    break;
+                case 4:
+                    $QDesc = "Oct-Dec";
+                    break;
+                default:
+                    $QDesc = "N/A";
+                    break;
+            }
+            $YQ = $SAYear . ' ' . $QDesc;
+
+            $sumPay = 0;
+            $sumRefund = 0;
+
+            $payCtr = 0;
+            $refundCtr = 0;
+
+            $payStats = Payment::get();
+            foreach($payStats as $PS){
+                $date = new DateTime($PS->paymentDate);
+                $year = $date->format('Y');
+                $md = $date->format('m-d');
+                if($md >= '01-01' && $md <= '03-31'){
+                    $Q = 1;
+                }elseif($md >= '04-01' && $md <= '06-30'){
+                    $Q = 2;
+                }elseif($md >= '07-01' && $md <= '09-30'){
+                    $Q = 3;
+                }else{
+                    $Q = 4;
+                }
+
+                //This is to check if the payment is done at a certain quarter
+                if($year == $SAYear && $Q == $SAQuarter){
+                    if($PS->paymentStatus == 'Paid'){
+                        $sumPay = $sumPay + $PS->amountPaid;
+                        $payCtr++;
+                    }elseif($PS->paymentStatus == 'Refunded'){
+                        $sumRefund = $sumRefund + $PS->amountPaid;
+                        $refundCtr++;
+                    }
+                }
+            }
+            $paymentData .= "['" . $YQ . "'," . $sumPay . "],";
+            $refundData .= "['" . $YQ . "'," . $sumRefund . "],";
+            $prCount .= "['" . $YQ . "'," . $payCtr . "," . $refundCtr . "],";
+        }
+        $payChart = $paymentData;
+        $refundChart = $refundData;
+        $prChart = $prCount;
+
+        return view('dashboard', compact('documents', 'totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'yearList', 'request', 'nameSitio', 'chartAllRes', 'chartAllHh', 'chartIncomeCurrent', 'chartPreg', 'payChart', 'refundChart', 'prChart'));
     }
 
     public function exportpdf(Request $request)

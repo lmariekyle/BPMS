@@ -33,6 +33,9 @@
         google.charts.setOnLoadCallback(drawAllHousehold);
         google.charts.setOnLoadCallback(drawChartCurrentMonthInc);
         google.charts.setOnLoadCallback(drawPregResident);
+        google.charts.setOnLoadCallback(drawPayment);
+        google.charts.setOnLoadCallback(drawRefund);
+        google.charts.setOnLoadCallback(drawPRCount);
 
         function drawChartResident() {
 
@@ -186,6 +189,71 @@
             });
 
             chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+
+        function drawPayment() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year-Quarter', 'Total Amount Paid'],
+                <?php echo $payChart ?> 
+            ]);
+            
+            var options = {
+                title: 'Amount Paid Per Quarter',
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'none',
+                chartArea: {
+                    height: "70%",
+                    width: "70%"
+                },
+                colors: ['green']
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('Paychart'));
+
+            chart.draw(data, options);
+        }
+
+        function drawRefund() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year-Quarter', 'Total Amount Refunded'],
+                <?php echo $refundChart ?> 
+            ]);
+            
+            var options = {
+                title: 'Amount Refunded Per Quarter',
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'none',
+                chartArea: {
+                    height: "70%",
+                    width: "70%"
+                },
+                colors: ['red']
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('Refundchart'));
+
+            chart.draw(data, options);
+        }
+
+        function drawPRCount() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year-Quarter', 'Paid', 'Refunded',],
+                <?php echo $prChart ?>
+            ]);
+
+            var options = {
+                chart: {
+                    title: 'Differences Between Paid and Refunded Transactions',
+                    subtitle: 'Per Quarter',
+                    backgroundColor: 'none',
+                }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('prCountchart'));
+
+            chart.draw(data, options);
         }
     </script>
     <script type="text/javascript">
@@ -367,6 +435,7 @@
                     <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
                         <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE CENSUS DATA</p>
                     </div>
+                    {{ $prChart }}
                     <div class="flex flex-row mt-[2rem] self-start bg-dirty-white justify-center">
                         <div class="shadow-lg border-2 border-green mt-[2rem] py-10 ml-[12%]">
                             <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
@@ -501,15 +570,15 @@
                             </div>
                         </div>
                     </div>
-                    @if(($request->sitio || $request->gender || $request->ageclass))
+                    
                     <div class="flex flex-row">
                         <div id="currentMonthInchart" class="mt-[2rem] bg-dirty-white shadow-lg border-2 border-green" style="width: 70%; height: 600px;"></div>
                         <div>
-                            <div id="Pregchart" class="" style="width: 30%; height: 250px;"></div>
-                            <div id="" style="width: 30%; height: 250px;"></div>
+                            <div id="Paychart" style=""></div>
+                            <div id="Refundchart" style=""></div>
+                            <div id="prCountchart" style=""></div>
                         </div>
                     </div>
-                    @endif
                 </div>
                 @endif
             </div>
