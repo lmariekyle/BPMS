@@ -42,15 +42,9 @@
                             {{$account->id}}
                         </td>
                         <td class="px-8 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold" style="width: 360px">
-                            @if($account->selectedInformation == 'lastName')
-                                Last Name
-                            @elseif($account->selectedInformation == 'firstName')
-                                First Name
-                            @elseif($account->selectedInformation == 'middleName')
-                                Middle Name
-                            @elseif($account->selectedInformation == 'email')
+                            @if($account->selectedInformation == 'email' || $account->selectedInformation == 'Email Address')
                                 Email
-                            @elseif($account->selectedInformation == 'contactNumber')
+                            @elseif($account->selectedInformation == 'contactNumber' || $account->selectedInformation == 'Contact Number')
                                 Contact Number
                             @endif
                         </td>

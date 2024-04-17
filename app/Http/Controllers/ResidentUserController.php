@@ -291,12 +291,15 @@ class ResidentUserController extends Controller
         $account = AccountInfoChange::where('id',$id)->first();
         $user = User::where('id',$account->userID)->first();
         $requested = $request->selectedInformation;
+        if($requested == "Email Address") {
+            $requested = "email";
+        }else if($requested == "Contact Number"){
+            $requested = "contactNumber";
+        }
         $resident = Resident::where('id', $user->residentID)->first();
         if($request->status == "1"){        
             $resident->{$requested} = $request->requesteeNewInformation;
-            if($requested == "email" || $requested == "contactNumber"){
-                $user->{$requested} = $request->requesteeNewInformation;
-            }
+            $user->{$requested} = $request->requesteeNewInformation;
             $account->status ='DONE';
             $resident->save();
             $user->save();
@@ -305,6 +308,8 @@ class ResidentUserController extends Controller
         }else if($request->status == "2"){
             $account->status ='DENIED';
             $account->save();
+            return Redirect::back();
+        }else{
             return Redirect::back();
         }
     }

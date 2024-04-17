@@ -20,13 +20,15 @@ class Transaction extends Model
         'userID',
         'paymentID',
         'detailID',
-        'serviceAmount',
         'docNumber',
         'serviceStatus',
-        'issuedDocument',
+        'endorsedBy',
+        'endorsedOn',
+        'approvedBy',
+        'approvedOn',
+        'releasedBy',
+        'releasedOn',
         'remarks',
-        'issuedBy',
-        'issuedOn',
     ];
 
     /**

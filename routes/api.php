@@ -4,17 +4,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BHWController;
 use App\Http\Controllers\SitioAssignmentController;
-use App\Http\Controllers\ResidentUserController;
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\Auth\AuthenticationAPIController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\HouseholdRegistrationController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HouseholdListController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\NotificationController;
-use App\Models\Transaction;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +39,8 @@ Route::middleware('auth:sanctum')->get('/user/revoke', function (Request $reques
 Route::get('/bhwDashboard', [BHWController::class, 'mobileDashboard']);
 Route::post('/mobileUserData', [AccountController::class, 'mobileUserData']);
 Route::post('/mobileRequestServices', [DocumentController::class, 'mobileRequestServices']);
+Route::post('/mobileRequestList', [TransactionController::class, 'mobileRequestList']);
+Route::post('/mobileRequestDetails', [TransactionController::class, 'mobileRequestDetails']);
 Route::post('/mobileGetDocuments', [DocumentController::class, 'mobileGetDocuments']);
 Route::post('/register', 'App\Http\Controllers\ResidentUserController@mobileStore');
 Route::post('/sitioAssignment', [SitioAssignmentController::class, 'mobileSitiosAssignment']);
@@ -59,6 +57,8 @@ Route::post('/household', 'App\Http\Controllers\HouseholdRegistrationController@
 Route::post('/forgotPassword', 'App\Http\Controllers\Auth\PasswordResetLinkController@mobileStore')->name('mobileForgotPassword');
 Route::post('/callback', [ServicesController::class, 'callback'])->name('mobileCallback');
 Route::post('createpayment/{id}', [TransactionController::class, 'createpayment'])->name('createpayment');
+
+Route::get('/image', [AccountController::class, 'mobileProfilePic'])->name('profileImage');
 
 //Route::middleware(['role:Barangay Health Worker'])->group(function () {
     //care of Cate (tabang lord)

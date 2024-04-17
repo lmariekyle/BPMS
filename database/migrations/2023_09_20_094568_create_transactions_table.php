@@ -20,13 +20,16 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('paymentID')->references('id')->on('payments')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('detailID')->references('id')->on('documentdetails')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->string('serviceAmount');
             $table->string('docNumber');
             $table->string('serviceStatus');
-            $table->string('issuedDocument'); /*filePath*/
+
+            $table->string('endorsedBy')->nullable();
+            $table->date('endorsedOn')->nullable();
+            $table->string('approvedBy')->nullable();
+            $table->date('approvedOn')->nullable();            
+            $table->string('releasedBy')->nullable();
+            $table->date('releasedOn')->nullable();
             $table->string('remarks')->nullable();
-            $table->string('issuedBy'); /*sect id*/
-            $table->date('issuedOn');
 
             $table->timestamps();
         });

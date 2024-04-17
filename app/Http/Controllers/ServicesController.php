@@ -62,17 +62,6 @@ class ServicesController extends Controller
         foreach ($accounts as $account) {
             $user = User::where('id', $account->userID)->first();
             $account->resident = Resident::where('id', $user->residentID)->first();
-            if($account->selectedInformation == "firstName"){
-                $selectedInformation = "First Name";
-            }else if($account->selectedInformation == "middleName"){
-                $selectedInformation = "Middle Name";
-            }else if($account->selectInformation == "lastName"){
-                $selectedInformation = "Last Name";
-            }else if($account->selectInformation == "email"){
-                $selectedInformation = "Email Address";
-            }else if($account->selectInformation == "contactNumber"){
-                $selectedInformation = "Contact Number";
-            }
         }
         return view('services.index', compact('transactions', 'accounts'));
     }
@@ -115,7 +104,7 @@ class ServicesController extends Controller
         $transaction->detail = DocumentDetails::where('id', $transaction->detailID)->first();
         $transaction->document = Document::where('id', $transaction->documentID)->first();
         $payment= Payment::where('id',$transaction->paymentID);
-        $level = User::where('id', $transaction->issuedBy)->first();
+        $level = User::where('id', $transaction->userID)->first();
         $levelUser = Resident::where('id', $level->residentID)->first();
         $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
         $date = Carbon::now();
@@ -126,11 +115,6 @@ class ServicesController extends Controller
             $filePaths = [];
         }        
         $transaction->payment = Payment::where('id', $transaction->paymentID)->first();
-        if ($transaction->payment['paymentMethod'] == 'CASH-ON-SITE' || $transaction->payment['paymentStatus'] == 'Paid') {
-            $transaction->approval = 1;
-        } else {
-            $transaction->approval = 2;
-        }
 
         return view('services.manage', compact('transaction', 'filePaths','date','payment'));
     }
@@ -151,11 +135,11 @@ class ServicesController extends Controller
     {
         
         $user = Auth::user();
+        $userInfo = Resident::where('id', $user->residentID)->first();
         $transaction = Transaction::where('id', $id)->first();
         $transaction->fill([
             'remarks' => $request->remarks,
             'serviceStatus' => 'Processing',
-            'issuedBy' => $user->id,
         ]);
         $transaction->save();
 
@@ -167,7 +151,7 @@ class ServicesController extends Controller
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
             $transaction->document = Document::where('id', $transaction->documentID)->first();
-            $level = User::where('id', $transaction->issuedBy)->first();
+            $level = User::where('id', $transaction->userID)->first();
             $levelUser = Resident::where('id', $level->residentID)->first();
             $transaction->issuedBy = $levelUser->firstName. ' ' .$levelUser->lastName;
             $newtime = strtotime($transaction->created_at);
@@ -186,6 +170,12 @@ class ServicesController extends Controller
     {
      
         $transaction = Transaction::where('id', $id)->first();
+        $transaction->payment = Payment::where('id', $transaction->paymentID)->first();
+        if ($transaction->payment['paymentStatus'] == 'Paid') {
+            $transaction->approval = 1;
+        } else {
+            $transaction->approval = 2;
+        }
         $requestee = DocumentDetails::where('id', $transaction->detailID)->first(); 
 
         $doc = Document::where('id', $transaction->documentID)->first();
@@ -410,11 +400,9 @@ class ServicesController extends Controller
                 'amountPaid' => NULL,
                 'accountNumber' => 'Pending',
                 'paymentStatus' => 'Pending',
-                'successURL' => NULL,
-                'failURL' =>  NULL,
+                'referenceNumber' => NULL,
+                'remarks' =>  NULL,
             ]);
-
-            $transaction->issuedBy = $user->id;
         } else if ($doctype->docType == "File Complain") {
             $complain = Complain::create([
                 'complaintFName' => $request->complaintFName,
@@ -443,15 +431,12 @@ class ServicesController extends Controller
 
             $transactionpayment = $transaction->transactionpayment()->create([
                 'paymentMethod' => 'FREE',
-                'amountPaid' => NULL,
-                'accountNumber' => NULL,
+                'amountPaid' => 'Not Applicable',
+                'accountNumber' => 'Not Applicable',
                 'paymentStatus' => 'Paid',
-                'successURL' => NULL,
-                'failURL' =>  NULL,
-            ]);
-
-            $transaction->issuedBy = $user->id;
-            
+                'referenceNumber' => 'Not Applicable',
+                'remarks' =>  'Not Applicable',
+            ]);            
         } else if ($doctype->docType == "Account Information Change") {
         //  dd($request);
             $account = AccountInfoChange::create([
@@ -597,10 +582,11 @@ class ServicesController extends Controller
     {
         $transaction = Transaction::where('id', $id)->first();
         $user = Auth::user();
-        $resident = Resident::where('id', $user->residentID)->first();
+        $userInfo = Resident::where('id', $user->residentID)->first();
         $transaction->fill([
             'serviceStatus' => 'Endorsed',
-            'issuedBy' => $user->id,
+            'endorsedBy' => $user->id,
+            'endorsedOn' => today(),
         ]);
         $transaction->save();
 
@@ -634,10 +620,11 @@ class ServicesController extends Controller
         if ($request->status == 1) {
             $transaction = Transaction::where('id', $id)->first();
             $user = Auth::user();
-            $resident = Resident::where('id', $user->residentID)->first();
+            $userInfo = Resident::where('id', $user->residentID)->first();
             $transaction->fill([
                 'serviceStatus' => 'For Signature',
-                'issuedBy' => $user->id,
+                'approvedBy' => $user->id,
+                'approvedOn' => today(),
             ]);
             $transaction->save();
 
@@ -651,13 +638,14 @@ class ServicesController extends Controller
                 $newtime = strtotime($transaction->created_at);
                 $transaction->createdDate = date('M d, Y', $newtime);
             }
-        } else {
+        } else if ($request->status == 2){
             $transaction = Transaction::where('id', $id)->first();
             $user = Auth::user();
             $resident = Resident::where('id', $user->residentID)->first();
             $transaction->fill([
                 'serviceStatus' => 'Denied',
-                'issuedBy' => $user->id,
+                'approvedBy' => 'Not Applicable',
+                'releasedBy' => 'Not Applicable',
             ]);
             $transaction->save();
 
@@ -672,6 +660,17 @@ class ServicesController extends Controller
             $notifyUsers = User::where('id', $transaction->userID)->get();
             Notification::sendNow($notifyUsers, new DenyNotification($transaction));
 
+            $transactions = Transaction::paginate(10);
+            foreach ($transactions as $transaction) {
+                $user = User::where('id', $transaction->userID)->first();
+                $transaction->resident = Resident::where('id', $user->residentID)->first();
+                $transaction->document = Document::where('id', $transaction->documentID)->first();
+                $docDetails = DocumentDetails::where('id', $transaction->detailID)->first();
+                $transaction->requesteeName = $docDetails->requesteeFName. ' ' .$docDetails->requesteeLName;
+                $newtime = strtotime($transaction->created_at);
+                $transaction->createdDate = date('M d, Y', $newtime);
+            }
+        } else{
             $transactions = Transaction::paginate(10);
             foreach ($transactions as $transaction) {
                 $user = User::where('id', $transaction->userID)->first();
@@ -700,7 +699,9 @@ class ServicesController extends Controller
         $transaction->fill([
             'remarks' => $request->remarks,
             'serviceStatus' => "Not Eligible",
-            'issuedBy' => $user->id,
+            'endorsedBy' => 'Not Applicable',
+            'approvedBy' => 'Not Applicable',
+            'releasedBy' => 'Not Applicable',
         ]);
         $transaction->save();
 
@@ -734,11 +735,10 @@ class ServicesController extends Controller
     public function signed($id)
     {
         $transaction = Transaction::where('id', $id)->first();
-        $user = Auth::user()->residentID;
+        $user = Auth::user();
         $resident = Resident::where('id', $user)->first();
         $transaction->fill([
             'serviceStatus' => 'Signed',
-            'issuedOn' => today(),
         ]);
         $transaction->save();
 
@@ -761,9 +761,11 @@ class ServicesController extends Controller
     public function released($id)
     {
         $transaction = Transaction::where('id', $id)->first();
-        $user = Auth::user()->residentID;
+        $user = Auth::user();
         $resident = Resident::where('id', $user)->first();
         $transaction->fill([
+            'releasedBy' => $user->id,
+            'releasedOn' => today(),
             'serviceStatus' => 'Released',
         ]);
         $transaction->save();

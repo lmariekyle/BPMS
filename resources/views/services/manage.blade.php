@@ -66,7 +66,7 @@
                     </div>
                     @else
                     <p>Payment Type:</p>
-                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">CASH ON SITE</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->payment['paymentMethod'] }}</p>
                     @endif
                     </div>
                     <div class="font-robotocondensed font-bold text-[32px] text-deep-green mt-6" style="font-size: 18px;">
@@ -75,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            @if($transaction->payment['paymentMethod'] == 'GCASH')
+            @if($transaction->payment['paymentMethod'] == 'GCash')
             <div class="ml-20 mt-20">
                 <p class="font-robotocondensed font-bold text-[18px] text-deep-green">Payment Receipt:</p>
                 <img src="{{ Storage::url($transaction->payment['screenshot']) }}" alt="Image {{ $key }}" class="mt-4 border-2 border-deep-green shadow-sm w-[280px] h-[400px]">
@@ -85,11 +85,7 @@
         @role('Barangay Secretary')
         @if ($transaction->serviceStatus == 'Pending')
         <div class="justify-center flex flex-row mt-8">
-                @if($transaction->approval != 1)
-                    <button id="remarks" type="submit" class="text-center w-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;" disabled>Approve Request </button>
-                @else
-                    <button id="remarks" type="submit" class="text-center w-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;">Approve Request </button>
-                @endif
+                <button id="remarks" type="submit" class="text-center w-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;">Approve Request </button>
                 <form method="POST" action="{{ route('accepted', $transaction->id) }}">
                 <div id="RemarksModal" class="modal hidden fixed z-10 pt-28 top-0 mt-[120px] w-[800px] h-max drop-shadow-lg -ml-[20rem] border-deep-green">
                         <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
