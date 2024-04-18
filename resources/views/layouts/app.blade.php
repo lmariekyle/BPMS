@@ -80,6 +80,7 @@
                 infoLabel.innerHTML = `Error`;
             });
     });
+
 });
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -89,31 +90,38 @@
             console.log('Selected Option:', selectedOption);
             var requirements;
             var note;
+            var fee;
 
             // Set requirements based on selected option
             switch(selectedOption) {
             case '1':
                 requirements = "* Purpose of Request:";
                 note = "Ex: Scholarship Application"
+                fee = "PHP 100"
             break;
             case '2':
                 requirements = "* Please specify the sitio where the disco will be held: ";
                 note = "Ex: Sitio Labangon"
+                fee = "PHP 530"
                 break;
-            case '4':
+            case '3':
                 requirements = "* Purpose of Request: ";
                 note = "Ex: Senior Citizen Association Membership Update/Application"
-                break;
-            case '11':
-                requirements = "* Please specify the name of the Business in the Purpose of Request Field";
-                note = "Ex: Nicko's Kitchen"
+                fee = "FREE"
                 break;
             case '5':
+                requirements = "* Please specify the complete name of your mother (maiden) and father";
+                note = "Ex: Milagrosa Cruz and Peping Fajardo"
+                fee = "PHP 330"
+                break;
+            case '4':
                 requirements = "*Please choose between Financial Assistance or Low Income";
                 note = "Reason for Request of Indigency"
+                fee = "PHP 100"
                 break;
             case '6':
                 requirements = "Please specify the name of the Business in the Purpose of Request Field";
+                fee = "PHP 330"
                 break;
             default:
                 requirements = "";
@@ -124,6 +132,7 @@
             // Show the corresponding requirements container
             document.getElementById('requirementsContainer').innerHTML = requirements;
             document.getElementById('notesContainer').innerHTML = note;
+            document.getElementById('feeContainer').innerHTML = fee;
         }
 
         // Call the function initially to show requirements for the default selected option
@@ -191,21 +200,18 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const printLink = document.getElementById('printLink');
-            const approvePickup = document.getElementById('approvePickup');
-
-            if (printLink) {
-                printLink.addEventListener('click', function(event) {
-                    console.log('Print link clicked');
-                    // After a short delay to ensure the download has started, remove the 'hidden' attribute
-                    setTimeout(() => {
-                        approvePickup.removeAttribute('hidden');
-                    }, 500); // Adjust the delay as needed
-                });
+        document.getElementById('cashstatus').addEventListener('click', function() {
+            var selectedValue = this.value;
+            var submitButton = document.getElementById('submitButton');
+            console.log(selectedValue);
+            if (selectedValue == 1) {
+                submitButton.disabled = true;
+            } else {
+                submitButton.disabled = false;
             }
         });
 
+        
     </script>
 
 

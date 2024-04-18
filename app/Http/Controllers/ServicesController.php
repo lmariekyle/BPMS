@@ -194,7 +194,6 @@ class ServicesController extends Controller
         $birthdateCarbon = Carbon::createFromFormat('Y-m-d', $check_res->dateOfBirth);
         $gender = $check_res->gender;
 
-;
         
         // Assuming you have the month number (e.g., $date['month'] = 4 for April)
         // $dateObject = Carbon::createFromFormat('Y-m-d', $date_string);
@@ -339,6 +338,7 @@ class ServicesController extends Controller
         // Get the corresponding month name
         $monthWord = $monthNames[$monthNumber] ?? "Invalid month";
 
+       
         $pdf = PDF::loadView('documents.barangaycertificate', compact('id', 'requestee', 'doc','date','age','monthWord','dateNum','year','transaction','birthdateCarbon','gender','sitio'));
         $filename = "{$requestee->requesteeLName}_{$doc->docName}.pdf";
         return $pdf->download($filename);                 
@@ -398,7 +398,7 @@ class ServicesController extends Controller
             $transactionpayment = $transaction->transactionpayment()->create([
                 'paymentMethod' => $request->paymentMethod,
                 'amountPaid' => NULL,
-                'accountNumber' => 'Pending',
+                'orNumber' => 'Pending',
                 'paymentStatus' => 'Pending',
                 'referenceNumber' => NULL,
                 'remarks' =>  NULL,
@@ -432,7 +432,7 @@ class ServicesController extends Controller
             $transactionpayment = $transaction->transactionpayment()->create([
                 'paymentMethod' => 'FREE',
                 'amountPaid' => 'Not Applicable',
-                'accountNumber' => 'Not Applicable',
+                'orNumber' => 'Not Applicable',
                 'paymentStatus' => 'Paid',
                 'referenceNumber' => 'Not Applicable',
                 'remarks' =>  'Not Applicable',
@@ -460,11 +460,8 @@ class ServicesController extends Controller
             $transaction->userID = $user->id;
             $transaction->paymentID = $transactionPaymentId;
             $transaction->documentID = $doctype->id;
-            $transaction->serviceAmount = $request->docfee;
             $transaction->serviceStatus = 'Pending';
             $transaction->docNumber = $docNumber;
-            $transaction->issuedDocument = $request->selectedDocument;
-            $transaction->issuedOn = today();
             $transaction->save();
 
             $notifyUsers = User::where('userLevel', 'Barangay Secretary')->get();
@@ -475,10 +472,10 @@ class ServicesController extends Controller
         $payment = Payment::where('id', $transactionPaymentId)->first();
         
         if ($request->paymentMethod == 'GCASH') {
-            $payment->amountPaid = $request->docfee;
-            return view('services.gcash', compact('payment'));
+            // $payment->amountPaid = $request->docfee;
+            // return view('services.gcash', compact('payment'));
             // return view('services.gcash', $payment->id);
-            // return $this->createpayment($payment->id);
+            return $this->createpayment($payment->id);
         } else {
             return view('services.success');
         }
@@ -652,7 +649,7 @@ class ServicesController extends Controller
             $payment = Payment::where('id', $transaction->paymentID)->first();
             $payment->fill([
                 'amountPaid' => NULL,
-                'failURL' => 'Denied',
+                'remarks' => 'Denied',
                 'paymentStatus' => "Refunded",
             ]);
             $payment->save();
@@ -708,7 +705,7 @@ class ServicesController extends Controller
         $payment = Payment::where('id', $transaction->paymentID)->first();
         $payment->fill([
             'amountPaid' => NULL,
-            'failURL' => 'Denied',
+            'remarks' => 'Denied',
             'paymentStatus' => "Refunded",
         ]);
         $payment->save();
@@ -732,9 +729,17 @@ class ServicesController extends Controller
 
 
 
-    public function signed($id)
+    public function signed(Request $request, $id)
     {
+
+        $request->validate([
+            'orNumber' => 'required|numeric',
+        ], [
+            'orNumber.required' => 'O.R Number cannot be empty',
+        ]);
+
         $transaction = Transaction::where('id', $id)->first();
+        $payment = Payment::where('id',$transaction->paymentID)->first();
         $user = Auth::user();
         $resident = Resident::where('id', $user)->first();
         $transaction->fill([
@@ -742,6 +747,15 @@ class ServicesController extends Controller
         ]);
         $transaction->save();
 
+        $payment->fill([
+            'orNumber' => $request->orNumber,
+            'remarks' => $request->remarks,
+            'paymentDate' => today(),
+            'receivedBy' => $user->id,
+        ]);
+        
+
+        $payment->save();
         $notifyUsers = User::where('id', $transaction->userID)->get();
         Notification::sendNow($notifyUsers, new SignedNotification($transaction));
 
@@ -758,9 +772,13 @@ class ServicesController extends Controller
         return view('services.index', compact('transactions'));
     }
 
-    public function released($id)
+    public function released(Request $request, $id)
     {
+
+    
+
         $transaction = Transaction::where('id', $id)->first();
+        $payment = Payment::where('id',$transaction->paymentID)->first();
         $user = Auth::user();
         $resident = Resident::where('id', $user)->first();
         $transaction->fill([
@@ -769,6 +787,17 @@ class ServicesController extends Controller
             'serviceStatus' => 'Released',
         ]);
         $transaction->save();
+
+        $payment->fill([
+            'orNumber' => $request->orNumber,
+            'remarks' => $request->remarks,
+            'paymentDate' => today(),
+            'receivedBy' => $user->id,
+            'paymentStatus' => 'Paid',
+            'amountPaid' => $transaction->document->docfee,
+        ]);
+        
+        $payment->save();
 
         $notifyUsers = User::where('id', $transaction->userID)->get();
         Notification::sendNow($notifyUsers, new ReleasedNotification($transaction));
@@ -799,49 +828,50 @@ class ServicesController extends Controller
     }
 
 
-    public function createpayment(Request $request , $id)
+    public function createpayment($id)
     {
         
         $payment = Payment::where('id', $id)->first();
         $transaction = Transaction::where('paymentID', $payment->id)->first();
-  
+        $document = Document::where('id',$transaction->documentID)->first();
         // return Redirect::to($payment->successURL); 
-        return view('services.gcash', compact('payment'));
+        return view('services.gcash', compact('payment','document'));
     }
 
 
     public function storepayment(Request $request , $id)
-{
-    $payment = Payment::findOrFail($id);
-    $externalID = 'PAYMENT' . date('Ymd') . '-' . rand(1000, 9999);
-    $request->validate([
-        'successURL' => 'required|numeric|digits:13',
-        'screenshot' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
-    ], [
-        'successURL.required' => 'Reference Code cannot be empty',
-        'successURL.numeric' => 'Reference Code must contain only numbers',
-        'successURL.digits' => 'Reference Code must be exactly 13 digits long',
-        'screenshot.mimes' => 'File type must be jpeg, png, or jpg',
-    ]);
+    {
+        $payment = Payment::findOrFail($id);
+    
+        $request->validate([
+            'referenceNumber' => 'required|numeric|digits:13',
+            'screenshot' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
+        ], [
+            'referenceNumber.required' => 'Reference Code cannot be empty',
+            'referenceNumber.numeric' => 'Reference Code must contain only numbers',
+            'referenceNumber.digits' => 'Reference Code must be exactly 13 digits long',
+            'screenshot.mimes' => 'File type must be jpeg, png, or jpg',
+        ]);
 
-    // If validation fails, the code execution will not reach here
-    // Proceed with the payment processing
-    //Image Upload 
-    if ($request->hasFile('screenshot')) {
-        $screenshot_name = time() . '.' . $request->screenshot->getClientOriginalExtension();
-        $path = $request->screenshot->storeAs('gcash', $screenshot_name, 'public');
-    } else {
-        $path = 'gcash/default.jpg';
+        // If validation fails, the code execution will not reach here
+        // Proceed with the payment processing
+        //Image Upload 
+        if ($request->hasFile('screenshot')) {
+            $screenshot_name = time() . '.' . $request->screenshot->getClientOriginalExtension();
+            $path = $request->screenshot->storeAs('gcash', $screenshot_name, 'public');
+        } else {
+            $path = 'gcash/default.jpg';
+        }
+
+        $payment->update([
+            'orNumber' => NULL,
+            'amountPaid' => $request->amountPaid,
+            'referenceNumber' => $request->referenceNumber,
+            'screenshot' => $path,
+            'paymentStatus' => 'Paid',
+        ]);
+
+        // Redirect to the success page
+        return view('services.success');
     }
-
-    $payment->update([
-        'accountNumber' => $externalID,
-        'successURL' => $request->successURL,
-        'screenshot' => $path,
-        'paymentStatus' => 'Paid',
-    ]);
-
-    // Redirect to the success page
-    return view('services.success');
-}
 }
