@@ -71,7 +71,7 @@
                             <div id="notesContainer" class="text-[18px] italic"></div>
                         </div>
                         @elseif ($doctypename == 'FILE COMPLAIN')
-                        <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="16" name="selectedDocument">
+                        <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="7" name="selectedDocument">
                         <p class="font-poppins text-[24px] text-deep-green mt-[2rem] underline underline-offset-8">COMPLAINANT DETAILS</p>
                         <p class="font-poppins text-[14px] text-deep-green italic">(ANG NAG REKLAMO)</p>
                         <div class="mt-[1rem] flex flex-row text-[23px]">
@@ -140,7 +140,7 @@
                         </div>
                         @elseif($doctypename == 'ACCOUNT INFORMATION CHANGE')
                         <div class="flex flex-col">
-                        <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="17" name="selectedDocument">
+                        <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="8" name="selectedDocument">
                             <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="{{$user->id}}" name="requestee">
                             <div class="">
                                 <label>* INFORMATION TO CHANGE</label>

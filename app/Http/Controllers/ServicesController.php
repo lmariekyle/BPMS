@@ -32,6 +32,8 @@ use App\Notifications\SignatureNotification;
 use App\Notifications\SignedNotification;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
+
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -378,9 +380,10 @@ class ServicesController extends Controller
             $reqJson = NULL;
         }
 
+        
+
         $user = Auth::user();
         $doctype = Document::where('id', $request->selectedDocument)->first();
-
         $docNumber = $this->docNumber($doctype);
 
         if ($doctype->docType != 'File Complain' && $doctype->docType != 'Account Information Change') {
@@ -404,39 +407,54 @@ class ServicesController extends Controller
                 'remarks' =>  NULL,
             ]);
         } else if ($doctype->docType == "File Complain") {
-            $complain = Complain::create([
-                'complaintFName' => $request->complaintFName,
-                'complaintMName' => $request->complaintMName,
-                'complaintLName' => $request->complaintLName,
-                'complaintEmail' => $request->complaintEmail,
-                'complaintContactNumber' => $request->complaintContactNumber,
-                'complaineeFName' => $request->complaineeFName,
-                'complaineeMName' => $request->complaineeMName,
-                'complaineeLName' => $request->complaineeLName,
-                'complaineeSitio' => $request->complaineeSitio,
-                'requestPurpose' => $request->requestPurpose,
-            ]);
+            $residents = Resident::all();
+            $residents->makeVisible('firstName','lastName');
+    
+            $check_res = $residents->where('firstName', '=', $request->complaineeFName)
+            ->where('lastName', '=', $request->complaineeLName)
+            ->first();
+           
+            if ($check_res !== null) {
+                $complain = Complain::create([
+                    'complaintFName' => $request->complaintFName,
+                    'complaintMName' => $request->complaintMName,
+                    'complaintLName' => $request->complaintLName,
+                    'complaintEmail' => $request->complaintEmail,
+                    'complaintContactNumber' => $request->complaintContactNumber,
+                    'complaineeFName' => $request->complaineeFName,
+                    'complaineeMName' => $request->complaineeMName,
+                    'complaineeLName' => $request->complaineeLName,
+                    'complaineeSitio' => $request->complaineeSitio,
+                    'requestPurpose' => $request->requestPurpose,
+                ]);
+    
+                
+                $transaction = new Transaction;
+                $transactiondetail =  $transaction->transactiondetail()->create([
+                    'requesteeFName' => $request->complaintFName,
+                    'requesteeMName' => $request->complaintMName,
+                    'requesteeLName' => $request->complaintLName,
+                    'requesteeEmail' => $request->complaintEmail,
+                    'requesteeContactNumber' => $request->complaintContactNumber,
+                    'requestPurpose' => $request->requestPurpose,
+                    'file' => NULL,
+                ]);
+    
+                $transactionpayment = $transaction->transactionpayment()->create([
+                    'paymentMethod' => 'FREE',
+                    'amountPaid' => 'Not Applicable',
+                    'orNumber' => 'Not Applicable',
+                    'paymentStatus' => 'Paid',
+                    'referenceNumber' => 'Not Applicable',
+                    'remarks' =>  'Not Applicable',
+                ]);
+            } else {
+                Session::flash('warning', 'Complainee must be a resident of Barangay Poblacion, Dalaguete');
+                return redirect()->back();
 
-            
-            $transaction = new Transaction;
-            $transactiondetail =  $transaction->transactiondetail()->create([
-                'requesteeFName' => $request->complaintFName,
-                'requesteeMName' => $request->complaintMName,
-                'requesteeLName' => $request->complaintLName,
-                'requesteeEmail' => $request->complaintEmail,
-                'requesteeContactNumber' => $request->complaintContactNumber,
-                'requestPurpose' => $request->requestPurpose,
-                'file' => NULL,
-            ]);
+            }
 
-            $transactionpayment = $transaction->transactionpayment()->create([
-                'paymentMethod' => 'FREE',
-                'amountPaid' => 'Not Applicable',
-                'orNumber' => 'Not Applicable',
-                'paymentStatus' => 'Paid',
-                'referenceNumber' => 'Not Applicable',
-                'remarks' =>  'Not Applicable',
-            ]);            
+                    
         } else if ($doctype->docType == "Account Information Change") {
         //  dd($request);
             $account = AccountInfoChange::create([
@@ -774,9 +792,6 @@ class ServicesController extends Controller
 
     public function released(Request $request, $id)
     {
-
-    
-
         $transaction = Transaction::where('id', $id)->first();
         $payment = Payment::where('id',$transaction->paymentID)->first();
         $user = Auth::user();
