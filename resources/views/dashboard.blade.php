@@ -114,6 +114,11 @@
 
             var chart = new google.visualization.ColumnChart(document.getElementById('currentMonthInchart'));
 
+            var checkBox = document.getElementById('addInfo');
+                checkBox.addEventListener('change', function () {
+                    chart.draw(data, options);
+            });
+
             chart.draw(data, options);
         }
 
@@ -211,6 +216,11 @@
 
             var chart = new google.visualization.ColumnChart(document.getElementById('Paychart'));
 
+            var checkBox = document.getElementById('addInfo');
+                checkBox.addEventListener('change', function () {
+                    chart.draw(data, options);
+            });
+
             chart.draw(data, options);
         }
 
@@ -234,6 +244,11 @@
 
             var chart = new google.visualization.ColumnChart(document.getElementById('Refundchart'));
 
+            var checkBox = document.getElementById('addInfo');
+                checkBox.addEventListener('change', function () {
+                    chart.draw(data, options);
+            });
+
             chart.draw(data, options);
         }
 
@@ -253,6 +268,11 @@
 
             var chart = new google.charts.Bar(document.getElementById('prCountchart'));
 
+            var checkBox = document.getElementById('addInfo');
+                checkBox.addEventListener('change', function () {
+                    chart.draw(data, options);
+            });
+
             chart.draw(data, options);
         }
     </script>
@@ -260,22 +280,28 @@
         function viewRes(){
             const checkBox = document.getElementById('resCheck');
             const view = document.getElementById('resDisplay');
+            const viewAdd = document.getElementById('resAddInfo');
 
             if(checkBox.checked){
                 view.style.display = "block";
+                viewAdd.style.display = "block";
             }else{
                 view.style.display = "none";
+                viewAdd.style.display = "none";
             }
         }
 
         function viewHouse(){
             const checkBox = document.getElementById('hhCheck');
             const view = document.getElementById('hhDisplay');
+            const viewAdd = document.getElementById('hhAddInfo');
 
             if(checkBox.checked){
                 view.style.display = "block";
+                viewAdd.style.display = "block";
             }else{
                 view.style.display = "none";
+                viewAdd.style.display = "none";
             }
         }
 
@@ -304,6 +330,17 @@
             }else{
                 details.style.display = "none";
                 lessDetails.style.display = "block";
+            }
+        }
+
+        function viewAddInfo(){
+            const checkBox = document.getElementById('addInfo');
+            const view = document.getElementById('addInfoDisplay');
+
+            if(checkBox.checked){
+                view.style.display = "block";
+            }else{
+                view.style.display = "none";
             }
         }
     </script>
@@ -435,7 +472,6 @@
                     <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
                         <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE CENSUS DATA</p>
                     </div>
-                    {{ $prChart }}
                     <div class="flex flex-row mt-[2rem] self-start bg-dirty-white justify-center">
                         <div class="shadow-lg border-2 border-green mt-[2rem] py-10 ml-[12%]">
                             <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
@@ -469,9 +505,9 @@
                     </div>
                     <div class="flex flex-row mt-[2rem] ml-[3rem]">
                         <input type="checkbox" id="resCheck" class="mt-[3.8px]" onchange="viewRes()">
-                        <label for="detailsCheckBox" class="ml-[8px]">Resident</label>
-                        <input type="checkbox" id="hhCheck" class="mt-[3.8px]" onchange="viewHouse()">
-                        <label for="detailsCheckBox" class="ml-[8px]">Household</label>
+                        <label for="resCheck" class="ml-[8px]">Resident</label>
+                        <input type="checkbox" id="hhCheck" class="mt-[3.8px] ml-[15px]" onchange="viewHouse()">
+                        <label for="hhCheck" class="ml-[8px]">Household</label>
                     </div>
                     <div id="resDisplay" class="self-center space-x-8 mb-[4rem]" style="display: none;">
                         <div class="flex flex-row mt-[2rem] ml-[3rem]">
@@ -571,12 +607,25 @@
                         </div>
                     </div>
                     
-                    <div class="flex flex-row">
-                        <div id="currentMonthInchart" class="mt-[2rem] bg-dirty-white shadow-lg border-2 border-green" style="width: 70%; height: 600px;"></div>
-                        <div>
-                            <div id="Paychart" style=""></div>
-                            <div id="Refundchart" style=""></div>
-                            <div id="prCountchart" style=""></div>
+                    <div class="flex flex-row mt-[2rem] ml-[3rem]">
+                        <input type="checkbox" id="addInfo" class="mt-[3.8px]" onchange="viewAddInfo()">
+                        <label for="addInfo" class="ml-[8px]">Additional Details</label>
+                    </div>
+                    <div id="addInfoDisplay" class="mt-[2rem] w-[1050px] self-center" style="display: none;">
+                        <hr></hr>
+                        <div id="resAddInfo" style="display: none;">
+                            <div class="h-[700px] border-2 border-green">
+                                <div class="h-[700px]" id="currentMonthInchart"></div>
+                            </div>
+                            <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
+                                <div id="Paychart" class="w-[500px]"></div>
+                                <div id="Refundchart" class="w-[500px]"></div>
+                            </div>
+                            <div id="prCountchart" class="mt-[2rem] w-[1050px] h-[275px]"></div>
+                            <div class="my-[2rem] border-2 border-green"></div>
+                        </div>
+                        <div id="hhAddInfo" style="display: none;">
+                            
                         </div>
                     </div>
                 </div>

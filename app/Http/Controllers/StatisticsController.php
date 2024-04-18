@@ -44,6 +44,27 @@ class StatisticsController extends Controller
             $currentQuarter = 4;
         }
 
+        switch($currentQuarter){
+            case 1:
+                $dateB = $currentYear . '-' . '01-01';
+                $dateE = $currentYear . '-' . '03-31';
+                break;
+            case 2:
+                $dateB = $currentYear . '-' . '04-01';
+                $dateE = $currentYear . '-' . '06-30';
+                break;
+            case 3:
+                $dateB = $currentYear . '-' . '07-01';
+                $dateE = $currentYear . '-' . '09-30';
+                break;
+            case 4:
+                $dateB = $currentYear . '-' . '10-01';
+                $dateE = $currentYear . '-' . '12-31';
+                break;
+            default:
+                break;
+        }
+
         $statistics = Statistics::where('year', $currentYear)->where('quarter', $currentQuarter)->first();
         //if the statistics for the current period does not exist.
         if($statistics == NULL){
@@ -57,11 +78,11 @@ class StatisticsController extends Controller
             $statistics = Statistics::create([
                 'year' => $currentYear,
                 'quarter' => $currentQuarter,
-                'totalHouseholdsSitio' => $oldStatisticsData->totalHouseholdsSitio,
-                'totalResidentsSitio' => $oldStatisticsData->totalResidentsSitio,
-                'totalHouseholdsBarangay' => $oldStatisticsData->totalHouseholdsBarangay,
-                'totalResidentsBarangay' => $oldStatisticsData->totalResidentsBarangay,
-                'revisedBy' => $oldStatisticsData->revisedBy,
+                'totalHouseholdsSitio' => 0,
+                'totalResidentsSitio' => 0,
+                'totalHouseholdsBarangay' => 0,
+                'totalResidentsBarangay' => 0,
+                'revisedBy' => 1,
             ]);
             $statistics->save();
         }
@@ -100,11 +121,14 @@ class StatisticsController extends Controller
         $SitioCountsRes = SitioCount::whereIn('statID',[$statistics->id])
                                    ->where('genderGroup', '!=', '--')
                                    ->where('ageGroup', '!=', '--')->get();
+                                   
         //insert on each Sitio Counter for Residents
         foreach($SitioCountsRes as $SitioCount){
             $sitioResCounter = DB::table('resident_lists')
                 ->join('households','resident_lists.houseID','=','households.id')
                 ->join('residents','resident_lists.residentID','=','residents.id')
+                ->where('households.dateOfVisit', '>=', $dateB)
+                ->where('households.dateOfVisit', '<=', $dateE)
                 ->where('residents.dateOfDeath', '=', NULL)
                 ->where('households.sitioID', '=', $SitioCount->sitioID)
                 ->where('residents.gender', '=', $SitioCount->genderGroup)
@@ -153,6 +177,8 @@ class StatisticsController extends Controller
         foreach($SitioCountsHh as $SitioCount){
             $sitioHhCounter = DB::table('households')
                 ->where('sitioID', '=', $SitioCount->sitioID)
+                ->where('dateOfVisit', '>=', $dateB)
+                ->where('dateOfVisit', '<=', $dateE)
                 ->count();
             $SitioCount->residentCount = $sitioHhCounter;
             $SitioCount->save();
