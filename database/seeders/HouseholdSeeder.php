@@ -15,7 +15,7 @@ class HouseholdSeeder extends Seeder
     public function run()
     {
         Households::create([
-            'sitioID' => '2',
+            'sitioID' => '1',
             'houseNumber' => '1'
         ]);
 
@@ -298,6 +298,48 @@ class HouseholdSeeder extends Seeder
         Households::create([
             'sitioID' => '14',
             'houseNumber' => '33'
+        ]);
+        
+        Households::create([
+            'sitioID' => '2',
+            'houseNumber' => '2',
+            'street'=>'TOOOOOOO',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'yearOfVisit'=>2022,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2022-8-14',
+            'respondentName'=>'Rook',
+            'createdBy'=>2,
+            'revisedBy'=>2
+        ]);
+
+        Households::create([
+            'sitioID' => '2',
+            'houseNumber' => '2',
+            'street'=>'TOOOOOOO',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-14',
+            'respondentName'=>'Rook',
+            'createdBy'=>2,
+            'revisedBy'=>2
         ]);
     }
 }

@@ -37,7 +37,7 @@ class CreateResidentsTable extends Migration
             $table->string('educationalAttainment')->default('Undergraduate');
 
             $table->string('ageClassification')->default('AB')->nullable();
-            $table->string('pregnancyClassification')->default('WBA')->nullable();
+            $table->string('pregnancyClassification')->default('N')->nullable();
             $table->boolean('registeredSeniorCitizen')->default(false)->nullable();
             $table->boolean('registeredPWD')->default(false)->nullable();
 

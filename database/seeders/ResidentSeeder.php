@@ -247,5 +247,64 @@ class ResidentSeeder extends Seeder
             'monthlyIncome' => '0',
             'ageClassification' => 'A',
         ]);
+        
+        Resident::create([
+            'id' => '14',
+            'residentID' => 'RES-00002',
+            'firstName' => 'Miles',
+            'middleName' => 'Davis',
+            'lastName' => 'Morales',
+            'dateOfBirth' => '2002-05-07',
+            'contactNumber' => '09876543211',
+            'email' => 'morales@gmail.com',
+            'maritalStatus' => 'Single',
+            'gender' => 'M',
+            'occupation' => 'Barangay Health Worker',
+            'monthlyIncome' => '12500',
+            'ageClassification' => 'AB',
+            'familyRole'=>'Household Head',
+            'dateOfDeath' => null,
+            'createdBy' => 2,
+            'revisedBy' => 2,
+        ]);
+        
+        Resident::create([
+            'id' => '15',
+            'residentID' => 'RES-00002',
+            'firstName' => 'Miles',
+            'middleName' => 'Davis',
+            'lastName' => 'Morales',
+            'dateOfBirth' => '2002-05-07',
+            'contactNumber' => '09876543211',
+            'email' => 'morales@gmail.com',
+            'maritalStatus' => 'Single',
+            'gender' => 'M',
+            'occupation' => 'Barangay Health Worker',
+            'monthlyIncome' => '12500',
+            'ageClassification' => 'AB',
+            'familyRole'=>'Household Head',
+            'dateOfDeath' => null,
+            'createdBy' => 2,
+            'revisedBy' => 2,
+        ]);
+        Resident::create([
+            'id' => '16',
+            'residentID' => 'RES-00014',
+            'firstName' => 'Joseph',
+            'middleName' => 'James',
+            'lastName' => 'Jamer',
+            'dateOfBirth' => '2008-02-07',
+            'contactNumber' => '09876533211',
+            'email' => 'joseph@gmail.com',
+            'maritalStatus' => 'Single',
+            'gender' => 'M',
+            'occupation' => 'Barangay Health Worker',
+            'monthlyIncome' => 'None',
+            'ageClassification' => 'AB',
+            'dateOfDeath' => null,
+            'createdBy' => 2,
+            'revisedBy' => 2,
+        ]);
+
     }
 }

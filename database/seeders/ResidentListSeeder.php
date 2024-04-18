@@ -148,5 +148,35 @@ class ResidentListSeeder extends Seeder
             'createdBy'=>1,
             'revisedBy'=>1,
         ]);
+
+        
+        ResidentList::create([
+            'residentID' => '14',
+            'houseID' => '39',
+            'houseNumber'=>2,
+            //'householdHead'=>1,
+            'memberNumber'=>1,
+            'createdBy'=>1,
+            'revisedBy'=>1,
+        ]);   
+        
+        ResidentList::create([
+            'residentID' => '15',
+            'houseID' => '40',
+            'houseNumber'=>2,
+            //'householdHead'=>1,
+            'memberNumber'=>1,
+            'createdBy'=>1,
+            'revisedBy'=>1,
+        ]);   
+        ResidentList::create([
+            'residentID' => '16',
+            'houseID' => '40',
+            'houseNumber'=>2,
+            //'householdHead'=>1,
+            'memberNumber'=>2,
+            'createdBy'=>1,
+            'revisedBy'=>1,
+        ]);   
     }
 }
