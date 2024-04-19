@@ -11,7 +11,7 @@ class Payment extends Model
 
     protected $fillable = [
         'paymentMethod',
-        'accountNumber',
+        'orNumber',
         'paymentStatus',
         'referenceNumber',
         'receivedBy',
