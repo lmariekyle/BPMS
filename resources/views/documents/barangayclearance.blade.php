@@ -34,7 +34,7 @@
     <div style="margin-top:12px;">
       <img src="images/BarangayPobHeader.png" width="1040" border="0" alt="" style="display: block; width: 100%; max-width: 640px; margin-left:42px;">
     </div>
-    <hr style="border: 1px solid black; margin-top: 2px;">
+    <hr style="align-self:end; border: 1px solid black; margin-top: 2px;">
     <div style="margin-top:32px; align-self:center;">
       <h2 style="font-family: 'Playfair Display', serif;font-size: 24px; font-weight:600; text-align: center; letter-spacing: 0.1em;">Office of the Barangay Poblacion</h2>
     </div>  
@@ -54,7 +54,7 @@
       <p style="font-family: 'Lora', serif;font-size: 14px;text-align: start;margin-left: 44px;margin-right: 44px; text-indent: 22px;">Issued this <span style="text-decoration: underline;">{{$date->day}} </span>of &nbsp;<span style="text-decoration: underline;">{{$monthWord}}</span>, <span style="text-decoration: underline;">{{$date->year}}</span> at Poblacion, Dalaguete, Cebu, Philippines upon the request of <span style="text-decoration: underline;">{{$requestee->requesteeFName}} {{$requestee->requesteeMName}} {{$requestee->requesteeLName}}</span> for the period from <span style="text-decoration: underline;">{{$date->month}}, {{$date->day}}, {{$date->year}}</span></p>
     </div>
     <div style="display: flex;flex-direction: column;margin-top: 54px; margin-right:2rem">
-  <hr style="align-self: end;border: 2px solid black;border-top-width: 2px;width: 250px;margin-right: 80px;margin-top: 10px;">
+    <hr style="align-self: end;border: 2px solid black;border-top-width: 2px;width: 250px;margin-right: 80px;margin-top: 10px;">
       <p style="text-align: start;margin-left: 30rem;font-family: 'Lora', serif;font-size: 18px;font-weight: 600;">Punong Barangay</p>
     </div>
     <div style="display: flex;flex-direction: column;margin-top: 48px; margin-left: 2rem;">

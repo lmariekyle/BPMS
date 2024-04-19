@@ -80,8 +80,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/deny/{id}', [ServicesController::class, 'deny'])->name('deny');
     Route::get('/approval/{id}', [ServicesController::class, 'approval'])->name('approval');
     Route::get('/forwarded/{id}', [ServicesController::class, 'forwarded'])->name('forwarded');
-    Route::get('/signed/{id}', [ServicesController::class, 'signed'])->name('signed');
-    Route::get('/released/{id}', [ServicesController::class, 'released'])->name('released');
+    Route::post('/signed/{id}', [ServicesController::class, 'signed'])->name('signed');
+    Route::post('/released/{id}', [ServicesController::class, 'released'])->name('released');
     Route::get('request', [ServicesController::class, 'request']);
     Route::get('requestSearch', [ServicesController::class, 'search'])->name('requestSearch');
     Route::get('/view_file/{file}', [ServicesController::class, 'view_file'])->name('view_file');
@@ -103,6 +103,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/delete/{id}', [NotificationController::class, 'destroy'])->name('deleteNotifications');
     Route::get('/requestlist/{id}', [TransactionController::class, 'requestList'])->name('resident.requests');
     Route::get('/showRequest/{id}', [TransactionController::class, 'showRequest'])->name('resident.showrequest');
+    Route::get('/get-documents', [TransactionController::class, 'getDocuments']);
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {

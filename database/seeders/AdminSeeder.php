@@ -23,7 +23,7 @@ class AdminSeeder extends Seeder
             'contactnumber' => '1234567890',
             'userlevel' => 'Admin',
             'userstatus' => 'Active',
-            'email' => 'admin@bpms.com',
+            'email' => 'dbarangaypob@bpms.com',
             'email_verified_at' => now(),
             'password' => Hash::make('adminbpms'),
         ])->assignRole('Admin');

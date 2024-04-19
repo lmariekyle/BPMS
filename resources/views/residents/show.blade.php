@@ -52,15 +52,15 @@
                 <div class="ml-24 mt-[67px] flex flex-col">
                     <div class="font-robotocondensed font-bold text-deep-green" style="font-size: 18px;">
                         <p>Payment Method:</p>
-                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->payment->paymentMethod}}</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->transactionpayment->paymentMethod}}</p>
                     </div>
                     <div class="font-robotocondensed font-bold  text-deep-green mt-6" style="font-size: 18px;">
                         <p>Service Amount:</p>
-                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->payment->amountPaid }}</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">₱ {{ $transaction->transactionpayment->amountPaid}}</p>
                     </div>
                     <div class="font-robotocondensed font-bold text-deep-green mt-6" style="font-size: 18px;">
                         <p>Payment Status:</p>
-                        <p class="px-6 border-2 w-[300px] mt-1" style="border-color: #414833;"> {{$transaction->payment->paymentStatus}}</p>
+                        <p class="px-6 border-2 w-[300px] mt-1" style="border-color: #414833;"> {{$transaction->transactionpayment->paymentStatus}}</p>
                     </div>
                 </div>
             </div>
@@ -69,14 +69,6 @@
         <div class="flex flex-row">
             <div>
                 <div class="ml-24 mt-4 flex flex-col" style="margin-left: 92px;">
-                    <div class="font-robotocondensed font-bold text-deep-green mt-6" style="font-size: 18px;">
-                        <p>Reviewed By:</p>
-                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $requester->requesteeEmail }}</p>
-                    </div>
-                    <div class="font-robotocondensed font-bold text-deep-green mt-6" style="font-size: 18px;">
-                        <p>Reviewed On:</p>
-                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $requester->requesteeContactNumber }}</p>
-                    </div>
                     <div class="font-robotocondensed font-bold text-deep-green mt-6" style="font-size: 18px;">
                         <p>Endorsed By:</p>
                         <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">Pending</p>
@@ -98,11 +90,15 @@
                         <p>Approved On:</p>
                         <p class="px-6 border-2 w-[300px] h-[max]" style="border-color: #414833;">Pending</p>
                     </div>
+                </div>
+            </div>
+            <div>
+                <div class="ml-24 mt-4 flex flex-col" style="margin-left: 92px;">
                     <div class="font-robotocondensed font-bold text-deep-green mt-6" style="font-size: 18px;">
                         <p>Issued By:</p>
                         <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">Pending</p>
                     </div>
-                    <div class="font-robotocondensed font-bold text-deep-green mt-6" style="font-size: 18px;">
+                    <div class="font-robotocondensed font-bold  text-deep-green mt-6" style="font-size: 18px;">
                         <p>Issued On:</p>
                         <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">Pending</p>
                     </div>
