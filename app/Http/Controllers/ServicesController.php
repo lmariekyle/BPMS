@@ -11,6 +11,8 @@ use App\Models\Payment;
 use App\Models\Resident;
 use App\Models\Sitio;
 use App\Models\Transaction;
+use App\Models\Households;
+use App\Models\ResidentList;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Notifications\DenyNotification;
@@ -415,39 +417,51 @@ class ServicesController extends Controller
             ->first();
            
             if ($check_res !== null) {
-                $complain = Complain::create([
-                    'complaintFName' => $request->complaintFName,
-                    'complaintMName' => $request->complaintMName,
-                    'complaintLName' => $request->complaintLName,
-                    'complaintEmail' => $request->complaintEmail,
-                    'complaintContactNumber' => $request->complaintContactNumber,
-                    'complaineeFName' => $request->complaineeFName,
-                    'complaineeMName' => $request->complaineeMName,
-                    'complaineeLName' => $request->complaineeLName,
-                    'complaineeSitio' => $request->complaineeSitio,
-                    'requestPurpose' => $request->requestPurpose,
-                ]);
-    
-                
-                $transaction = new Transaction;
-                $transactiondetail =  $transaction->transactiondetail()->create([
-                    'requesteeFName' => $request->complaintFName,
-                    'requesteeMName' => $request->complaintMName,
-                    'requesteeLName' => $request->complaintLName,
-                    'requesteeEmail' => $request->complaintEmail,
-                    'requesteeContactNumber' => $request->complaintContactNumber,
-                    'requestPurpose' => $request->requestPurpose,
-                    'file' => NULL,
-                ]);
-    
-                $transactionpayment = $transaction->transactionpayment()->create([
-                    'paymentMethod' => 'FREE',
-                    'amountPaid' => 'Not Applicable',
-                    'orNumber' => 'Not Applicable',
-                    'paymentStatus' => 'Paid',
-                    'referenceNumber' => 'Not Applicable',
-                    'remarks' =>  'Not Applicable',
-                ]);
+                $check_resList = ResidentList::where('residentID', $check_res->id)->first();
+
+                $check_household = Households::where('id', $check_resList->houseID)->first();
+
+                $sitio = Sitio::where('sitioName', $request->complaineeSitio)->first();
+
+                if($check_household->sitioID == $sitio->id){
+                    $complain = Complain::create([
+                        'complaintFName' => $request->complaintFName,
+                        'complaintMName' => $request->complaintMName,
+                        'complaintLName' => $request->complaintLName,
+                        'complaintEmail' => $request->complaintEmail,
+                        'complaintContactNumber' => $request->complaintContactNumber,
+                        'complaineeFName' => $request->complaineeFName,
+                        'complaineeMName' => $request->complaineeMName,
+                        'complaineeLName' => $request->complaineeLName,
+                        'complaineeSitio' => $request->complaineeSitio,
+                        'requestPurpose' => $request->requestPurpose,
+                    ]);
+        
+                    
+                    $transaction = new Transaction;
+                    $transactiondetail =  $transaction->transactiondetail()->create([
+                        'requesteeFName' => $request->complaintFName,
+                        'requesteeMName' => $request->complaintMName,
+                        'requesteeLName' => $request->complaintLName,
+                        'requesteeEmail' => $request->complaintEmail,
+                        'requesteeContactNumber' => $request->complaintContactNumber,
+                        'requestPurpose' => $request->requestPurpose,
+                        'file' => NULL,
+                    ]);
+        
+                    $transactionpayment = $transaction->transactionpayment()->create([
+                        'paymentMethod' => 'FREE',
+                        'amountPaid' => 'Not Applicable',
+                        'orNumber' => 'Not Applicable',
+                        'paymentStatus' => 'Paid',
+                        'referenceNumber' => 'Not Applicable',
+                        'remarks' =>  'Not Applicable',
+                    ]);
+                }else{
+                    Session::flash('warning', 'Complainee must be a resident of Barangay Poblacion, Dalaguete');
+                    return redirect()->back();
+                }
+
             } else {
                 Session::flash('warning', 'Complainee must be a resident of Barangay Poblacion, Dalaguete');
                 return redirect()->back();
