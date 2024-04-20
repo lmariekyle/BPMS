@@ -38,7 +38,7 @@ class ResidentSeeder extends Seeder
         
         // houseID 2
         Resident::create([
-            'id' => '2',
+            'id' => '4',
             'residentID' => 'RES-00002',
             'firstName' => 'Andres',
             'middleName' => 'Jefferson',
@@ -78,7 +78,7 @@ class ResidentSeeder extends Seeder
             'revisedBy' => 2,
         ]);
         Resident::create([
-            'id' => '4',
+            'id' => '2',
             'residentID' => 'RES-00004',
             'firstName' => 'Miles',
             'middleName' => 'Davis',
@@ -221,7 +221,7 @@ class ResidentSeeder extends Seeder
         ]);
         Resident::create([
             'id' => '11',
-            'residentID' => 'RES-00017',
+            'residentID' => 'RES-00005',
             'firstName' => 'Joseph',
             'middleName' => 'Jefferson',
             'lastName' => 'Morales',
@@ -243,7 +243,7 @@ class ResidentSeeder extends Seeder
         //houseID 5
         Resident::create([
             'id' => '12',
-            'residentID' => 'RES-00005',
+            'residentID' => 'RES-00006',
             'firstName' => 'Gwen',
             'middleName' => 'Maxine',
             'lastName' => 'Stacy',
@@ -263,7 +263,7 @@ class ResidentSeeder extends Seeder
         ]);
         Resident::create([
             'id' => '13',
-            'residentID' => 'RES-00006',
+            'residentID' => 'RES-00007',
             'firstName' => 'James',
             'middleName' => 'Madelyn',
             'lastName' => 'Stacy',
@@ -284,7 +284,7 @@ class ResidentSeeder extends Seeder
         //houseID 6
         Resident::create([
             'id' => '14',
-            'residentID' => 'RES-00005',
+            'residentID' => 'RES-00006',
             'firstName' => 'Gwen',
             'middleName' => 'Maxine',
             'lastName' => 'Stacy',
@@ -304,7 +304,7 @@ class ResidentSeeder extends Seeder
         ]);
         Resident::create([
             'id' => '15',
-            'residentID' => 'RES-00006',
+            'residentID' => 'RES-00007',
             'firstName' => 'James',
             'middleName' => 'Madelyn',
             'lastName' => 'Stacy',
@@ -325,7 +325,7 @@ class ResidentSeeder extends Seeder
         //houseID 7
         Resident::create([
             'id' => '16',
-            'residentID' => 'RES-00005',
+            'residentID' => 'RES-00006',
             'firstName' => 'Gwen',
             'middleName' => 'Maxine',
             'lastName' => 'Stacy',
@@ -345,7 +345,7 @@ class ResidentSeeder extends Seeder
         ]);
         Resident::create([
             'id' => '17',
-            'residentID' => 'RES-00006',
+            'residentID' => 'RES-00007',
             'firstName' => 'James',
             'middleName' => 'Madelyn',
             'lastName' => 'Stacy',
@@ -367,7 +367,7 @@ class ResidentSeeder extends Seeder
         //houseID 8
         Resident::create([
             'id' => '18',
-            'residentID' => 'RES-00007',
+            'residentID' => 'RES-00008',
             'firstName' => 'Francine',
             'middleName' => 'Marie',
             'lastName' => 'Kyle',
@@ -387,7 +387,7 @@ class ResidentSeeder extends Seeder
         ]);
         Resident::create([
             'id' => '19',
-            'residentID' => 'RES-00008',
+            'residentID' => 'RES-00009',
             'firstName' => 'Juan',
             'middleName' => 'Marie',
             'lastName' => 'Kyle',
@@ -408,7 +408,7 @@ class ResidentSeeder extends Seeder
         //houseID 10
         Resident::create([
             'id' => '20',
-            'residentID' => 'RES-00007',
+            'residentID' => 'RES-00008',
             'firstName' => 'Francine',
             'middleName' => 'Marie',
             'lastName' => 'Kyle',
@@ -428,7 +428,7 @@ class ResidentSeeder extends Seeder
         ]);
         Resident::create([
             'id' => '21',
-            'residentID' => 'RES-00008',
+            'residentID' => 'RES-00009',
             'firstName' => 'Juan',
             'middleName' => 'Marie',
             'lastName' => 'Kyle',
@@ -449,7 +449,7 @@ class ResidentSeeder extends Seeder
         //houseID 12
         Resident::create([
             'id' => '22',
-            'residentID' => 'RES-00007',
+            'residentID' => 'RES-00008',
             'firstName' => 'Francine',
             'middleName' => 'Marie',
             'lastName' => 'Kyle',
@@ -469,7 +469,7 @@ class ResidentSeeder extends Seeder
         ]);
         Resident::create([
             'id' => '23',
-            'residentID' => 'RES-00008',
+            'residentID' => 'RES-00009',
             'firstName' => 'Juan',
             'middleName' => 'Marie',
             'lastName' => 'Kyle',
@@ -489,7 +489,7 @@ class ResidentSeeder extends Seeder
         ]);
         Resident::create([
             'id' => '24',
-            'residentID' => 'RES-00018',
+            'residentID' => 'RES-00010',
             'firstName' => 'Frances',
             'middleName' => 'Marie',
             'lastName' => 'Kyle',
@@ -511,7 +511,7 @@ class ResidentSeeder extends Seeder
         //houseID 9
         Resident::create([
             'id' => '25',
-            'residentID' => 'RES-00009',
+            'residentID' => 'RES-00011',
             'firstName' => 'Emily',
             'middleName' => 'Smith',
             'lastName' => 'Doe',
@@ -533,7 +533,7 @@ class ResidentSeeder extends Seeder
         //houseID 11
         Resident::create([
             'id' => '26',
-            'residentID' => 'RES-00009',
+            'residentID' => 'RES-00011',
             'firstName' => 'Emily',
             'middleName' => 'Smith',
             'lastName' => 'Doe',
@@ -555,7 +555,7 @@ class ResidentSeeder extends Seeder
         //houseID 13
         Resident::create([
             'id' => '27',
-            'residentID' => 'RES-00009',
+            'residentID' => 'RES-00011',
             'firstName' => 'Emily',
             'middleName' => 'Smith',
             'lastName' => 'Doe',
@@ -576,7 +576,7 @@ class ResidentSeeder extends Seeder
         ]);
         Resident::create([
             'id' => '28',
-            'residentID' => 'RES-00010',
+            'residentID' => 'RES-00012',
             'firstName' => 'Janice',
             'middleName' => 'Smith',
             'lastName' => 'Doe',
@@ -598,7 +598,7 @@ class ResidentSeeder extends Seeder
         //houseID 14
         Resident::create([
             'id' => '29',
-            'residentID' => 'RES-00011',
+            'residentID' => 'RES-00013',
             'firstName' => 'Zen Christopher',
             'middleName' => 'Camp',
             'lastName' => 'Alonso',
@@ -618,7 +618,7 @@ class ResidentSeeder extends Seeder
         ]);
         Resident::create([
             'id' => '30',
-            'residentID' => 'RES-00012',
+            'residentID' => 'RES-00014',
             'firstName' => 'Milo',
             'middleName' => 'Camp',
             'lastName' => 'Alonso',
@@ -640,7 +640,7 @@ class ResidentSeeder extends Seeder
         //houseID 15
         Resident::create([
             'id' => '31',
-            'residentID' => 'RES-00011',
+            'residentID' => 'RES-00013',
             'firstName' => 'Zen Christopher',
             'middleName' => 'Camp',
             'lastName' => 'Alonso',
@@ -660,7 +660,7 @@ class ResidentSeeder extends Seeder
         ]);
         Resident::create([
             'id' => '32',
-            'residentID' => 'RES-00012',
+            'residentID' => 'RES-00014',
             'firstName' => 'Milo',
             'middleName' => 'Camp',
             'lastName' => 'Alonso',
@@ -682,7 +682,7 @@ class ResidentSeeder extends Seeder
         //houseID 16
         Resident::create([
             'id' => '33',
-            'residentID' => 'RES-00013',
+            'residentID' => 'RES-00015',
             'firstName' => 'Maria',
             'middleName' => 'Marie',
             'lastName' => 'Magdalene',
@@ -703,7 +703,7 @@ class ResidentSeeder extends Seeder
         //houseID 17
         Resident::create([
             'id' => '34',
-            'residentID' => 'RES-00013',
+            'residentID' => 'RES-00015',
             'firstName' => 'Maria',
             'middleName' => 'Marie',
             'lastName' => 'Magdalene',
@@ -724,7 +724,7 @@ class ResidentSeeder extends Seeder
         //houseID 18
         Resident::create([
             'id' => '35',
-            'residentID' => 'RES-00013',
+            'residentID' => 'RES-00015',
             'firstName' => 'Maria',
             'middleName' => 'Marie',
             'lastName' => 'Magdalene',
@@ -746,7 +746,7 @@ class ResidentSeeder extends Seeder
         //houseID 19
         Resident::create([
             'id' => '36',
-            'residentID' => 'RES-00014',
+            'residentID' => 'RES-00016',
             'firstName' => 'Peter',
             'middleName' => 'Benjamin',
             'lastName' => 'Parker',
@@ -767,7 +767,7 @@ class ResidentSeeder extends Seeder
 
         Resident::create([
             'id' => '37',
-            'residentID' => 'RES-00015',
+            'residentID' => 'RES-00017',
             'firstName' => 'Mary Jane',
             'middleName' => 'Jones',
             'lastName' => 'Parker',
@@ -788,7 +788,7 @@ class ResidentSeeder extends Seeder
 
         Resident::create([
             'id' => '38',
-            'residentID' => 'RES-00016',
+            'residentID' => 'RES-00018',
             'firstName' => 'Pedro Pascal',
             'middleName' => 'Jones',
             'lastName' => 'Parker',
@@ -810,7 +810,7 @@ class ResidentSeeder extends Seeder
         //houseID 20
         Resident::create([
             'id' => '39',
-            'residentID' => 'RES-00014',
+            'residentID' => 'RES-00016',
             'firstName' => 'Peter',
             'middleName' => 'Benjamin',
             'lastName' => 'Parker',
@@ -831,7 +831,7 @@ class ResidentSeeder extends Seeder
 
         Resident::create([
             'id' => '40',
-            'residentID' => 'RES-00015',
+            'residentID' => 'RES-00017',
             'firstName' => 'Mary Jane',
             'middleName' => 'Jones',
             'lastName' => 'Parker',
@@ -852,7 +852,7 @@ class ResidentSeeder extends Seeder
 
         Resident::create([
             'id' => '41',
-            'residentID' => 'RES-00016',
+            'residentID' => 'RES-00018',
             'firstName' => 'Pedro Pascal',
             'middleName' => 'Jones',
             'lastName' => 'Parker',
@@ -874,7 +874,7 @@ class ResidentSeeder extends Seeder
         //houseID 20
         Resident::create([
             'id' => '42',
-            'residentID' => 'RES-00014',
+            'residentID' => 'RES-00016',
             'firstName' => 'Peter',
             'middleName' => 'Benjamin',
             'lastName' => 'Parker',
@@ -895,7 +895,7 @@ class ResidentSeeder extends Seeder
 
         Resident::create([
             'id' => '43',
-            'residentID' => 'RES-00015',
+            'residentID' => 'RES-00017',
             'firstName' => 'Mary Jane',
             'middleName' => 'Jones',
             'lastName' => 'Parker',
@@ -916,7 +916,7 @@ class ResidentSeeder extends Seeder
 
         Resident::create([
             'id' => '44',
-            'residentID' => 'RES-00016',
+            'residentID' => 'RES-00018',
             'firstName' => 'Pedro Pascal',
             'middleName' => 'Jones',
             'lastName' => 'Parker',
@@ -934,24 +934,6 @@ class ResidentSeeder extends Seeder
             'createdBy' => 2,
             'revisedBy' => 2,
         ]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         Resident::create([
             'id' => '45',
