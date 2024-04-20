@@ -31,11 +31,15 @@
         google.charts.setOnLoadCallback(drawChartHousehold);
         google.charts.setOnLoadCallback(drawAllResident);
         google.charts.setOnLoadCallback(drawAllHousehold);
-        google.charts.setOnLoadCallback(drawChartCurrentMonthInc);
-        google.charts.setOnLoadCallback(drawPregResident);
+        google.charts.setOnLoadCallback(drawChartMonthInc);
         google.charts.setOnLoadCallback(drawPayment);
         google.charts.setOnLoadCallback(drawRefund);
         google.charts.setOnLoadCallback(drawPRCount);
+        google.charts.setOnLoadCallback(drawEducation);
+        google.charts.setOnLoadCallback(drawIP);
+        google.charts.setOnLoadCallback(drawNHTS);
+        google.charts.setOnLoadCallback(drawWater);
+        google.charts.setOnLoadCallback(drawToilet);
 
         function drawChartResident() {
 
@@ -94,63 +98,55 @@
             chart.draw(data, options);
         }
 
-        function drawChartCurrentMonthInc() {
+        function drawEducation() {
             var data = google.visualization.arrayToDataTable([
-                ['Sitio', 'Average Monthly Income'],
-                <?php echo $chartIncomeCurrent ?>   
+                ['Year-Quarter', 'Undergraduate', 'Elementary Graduate','Junior High School Graduate','Senior High School Graduate','College Graduate'],
+                <?php echo $chartAllEdu ?>
             ]);
 
             var options = {
-                width: '100%',
-                height: '100%',
-                color: 'green',
-                backgroundColor: 'none',
-                chartArea: {
-                    height: "70%",
-                    width: "70%"
-                },
-                colors: ['green']
+                chart: {
+                    title: 'Educational Attainment Per Quarter',
+                    backgroundColor: 'none',
+                }
             };
 
-            var chart = new google.visualization.ColumnChart(document.getElementById('currentMonthInchart'));
+            var chart = new google.charts.Bar(document.getElementById('Educhart'));
 
             var checkBox = document.getElementById('addInfo');
                 checkBox.addEventListener('change', function () {
                     chart.draw(data, options);
             });
 
-            chart.draw(data, options);
+            chart.draw(data, google.charts.Bar.convertOptions(options));
         }
 
-        function drawPregResident() {
+        function drawChartMonthInc() {
             var data = google.visualization.arrayToDataTable([
-                ['Status', 'Female'],
-                <?php echo $chartPreg ?>   
+                ['Year-Quarter', 'None', 'less than 9,100','9,100 - 18,200','18,200 - 36,400','36,400 - 63,700','63,700 - 109,200','109,200 - 182,200','above 182,000'],
+                <?php echo $chartAllIncome ?>
             ]);
 
-            var redShades = ['#FC0303', '#BF3030'];
-            
             var options = {
-                title: 'Pregnancy Percentage',
-                pieHole: 0.6,
-                width: '100%',
-                height: '100%',
-                backgroundColor: 'none',
-                chartArea: {
-                    height: "70%",
-                    width: "70%"
-                },
-                colors: redShades,
+                chart: {
+                    title: 'Income Per Quarter',
+                    subtitle: 'Per Value Range',
+                    backgroundColor: 'none',
+                }
             };
 
-            var chart = new google.visualization.PieChart(document.getElementById('Pregchart'));
+            var chart = new google.charts.Bar(document.getElementById('monthInchart'));
 
-            chart.draw(data, options);
+            var checkBox = document.getElementById('addInfo');
+                checkBox.addEventListener('change', function () {
+                    chart.draw(data, options);
+            });
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
         }
 
         function drawAllResident() {
             var data = google.visualization.arrayToDataTable([
-                ['Year-Quarter', 'Cabangyao', 'Catadman', 'Guiwanon', 'Hawlandia', 'Hilltops', 'Ilaya', 'Krasher', 'Labangon', 'Lalin', 'Lapaz', 'Sto. Rosario', 'Suba', 'Tamsapa'],
                 <?php echo $chartAllRes ?>
             ]);
 
@@ -174,7 +170,6 @@
 
         function drawAllHousehold() {
             var data = google.visualization.arrayToDataTable([
-                ['Year-Quarter', 'Cabangyao', 'Catadman', 'Guiwanon', 'Hawlandia', 'Hilltops', 'Ilaya', 'Krasher', 'Labangon', 'Lalin', 'Lapaz', 'Sto. Rosario', 'Suba', 'Tamsapa'],
                 <?php echo $chartAllHh ?>
             ]);
 
@@ -267,6 +262,98 @@
             };
 
             var chart = new google.charts.Bar(document.getElementById('prCountchart'));
+
+            var checkBox = document.getElementById('addInfo');
+                checkBox.addEventListener('change', function () {
+                    chart.draw(data, options);
+            });
+
+            chart.draw(data, options);
+        }
+
+        function drawIP() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year-Quarter', 'IP', 'Non-IP',],
+                <?php echo $chartAllIP ?>
+            ]);
+
+            var options = {
+                chart: {
+                    title: 'Household IP',
+                    backgroundColor: 'none',
+                }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('IPchart'));
+
+            var checkBox = document.getElementById('addInfo');
+                checkBox.addEventListener('change', function () {
+                    chart.draw(data, options);
+            });
+
+            chart.draw(data, options);
+        }
+
+        function drawNHTS() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year-Quarter', 'NHTS', 'Non-NHTS',],
+                <?php echo $chartAllNHTS ?>
+            ]);
+
+            var options = {
+                chart: {
+                    title: 'Household NHTS',
+                    backgroundColor: 'none',
+                }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('NHTSchart'));
+
+            var checkBox = document.getElementById('addInfo');
+                checkBox.addEventListener('change', function () {
+                    chart.draw(data, options);
+            });
+
+            chart.draw(data, options);
+        }
+
+        function drawWater() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year-Quarter','Doubtful','L1','L2','L3'],
+                <?php echo $chartWater ?>
+            ]);
+
+            var options = {
+                chart: {
+                    title: 'Household Water Access',
+                    backgroundColor: 'none',
+                }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('Waterchart'));
+
+            var checkBox = document.getElementById('addInfo');
+                checkBox.addEventListener('change', function () {
+                    chart.draw(data, options);
+            });
+
+            chart.draw(data, options);
+        }
+
+        function drawToilet() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year-Quarter','Sanitary','Insanitary','None','Shared'],
+                <?php echo $chartToilet ?>
+            ]);
+
+            var options = {
+                chart: {
+                    title: 'Household Toilet Facilities',
+                    backgroundColor: 'none',
+                }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('Toiletchart'));
 
             var checkBox = document.getElementById('addInfo');
                 checkBox.addEventListener('change', function () {
@@ -472,6 +559,9 @@
                     <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
                         <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE CENSUS DATA</p>
                     </div>
+
+                    
+
                     <div class="flex flex-row mt-[2rem] self-start bg-dirty-white justify-center">
                         <div class="shadow-lg border-2 border-green mt-[2rem] py-10 ml-[12%]">
                             <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
@@ -614,18 +704,24 @@
                     <div id="addInfoDisplay" class="mt-[2rem] w-[1050px] self-center" style="display: none;">
                         <hr></hr>
                         <div id="resAddInfo" style="display: none;">
-                            <div class="h-[700px] border-2 border-green">
-                                <div class="h-[700px]" id="currentMonthInchart"></div>
-                            </div>
+                            <div class="h-[700px] w-[1050px]" id="monthInchart"></div>
                             <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
-                                <div id="Paychart" class="w-[500px]"></div>
-                                <div id="Refundchart" class="w-[500px]"></div>
+                                <div id="Paychart" class="w-[525px]"></div>
+                                <div id="Refundchart" class="w-[525px]"></div>
                             </div>
                             <div id="prCountchart" class="mt-[2rem] w-[1050px] h-[275px]"></div>
+                            <div id="Educhart" class="mt-[2rem] w-[1050px] h-[275px]"></div>
                             <div class="my-[2rem] border-2 border-green"></div>
                         </div>
                         <div id="hhAddInfo" style="display: none;">
-                            
+                            <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
+                                <div id="IPchart" class="w-[520px]"></div>
+                                <div id="NHTSchart" class="w-[520px] ml-[5px]"></div>
+                            </div>
+                            <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
+                                <div id="Waterchart" class="w-[520px]"></div>
+                                <div id="Toiletchart" class="w-[520px] ml-[5px]"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

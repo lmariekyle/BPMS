@@ -68,13 +68,6 @@ class StatisticsController extends Controller
         $statistics = Statistics::where('year', $currentYear)->where('quarter', $currentQuarter)->first();
         //if the statistics for the current period does not exist.
         if($statistics == NULL){
-            //if the new statistics is the first for the year (Year: 2024 | Date: 01/01->03/31)
-            if($currentQuarter == 1){
-                $oldStatisticsData = Statistics::where('year', $currentYear - 1)->where('quarter', 4)->first();
-            //if the new statistics is otherwise (e.g. : (Year: 2024 | Date: 04/01->06/30))
-            } else{
-                $oldStatisticsData = Statistics::where('year', $currentYear)->where('quarter', $currentQuarter - 1)->first();
-            }
             $statistics = Statistics::create([
                 'year' => $currentYear,
                 'quarter' => $currentQuarter,
@@ -236,24 +229,13 @@ class StatisticsController extends Controller
         $currentYear = date('Y');
         $currentDate = date('m-d');
 
-        //Establishes the static dates for determining the quarter to be used
-        //Q = quarter | B = start or beginning | E = end
-        $dateQoneB = '01-01';
-        $dateQoneE = '03-31';
-        $dateQtwoB = '04-01';
-        $dateQtwoE = '06-30';
-        $dateQthreeB = '07-01';
-        $dateQthreeE = '09-30';
-        //no need to make for quarter 4 because if such case happens, it implies that the current date provided
-        //is later than the three comparisons done
-
-        if($currentDate >= $dateQoneB && $currentDate <= $dateQoneE){
+        if($currentDate >= '01-01' && $currentDate <= '03-31'){
         //if currentDatetime is between Jan 1 and March 31
             $currentQuarter = 1;
-        } else if($currentDate >= $dateQtwoB && $currentDate <= $dateQtwoE){
+        } else if($currentDate >= '04-01' && $currentDate <= '06-30'){
         //if currentDatetime is between April 1 and June 30
             $currentQuarter = 2;
-        } else if($currentDate >= $dateQthreeB && $currentDate <= $dateQthreeE){
+        } else if($currentDate >= '07-01' && $currentDate <= '09-30'){
         //if currentDatetime is between July 1 and September 30
             $currentQuarter = 3;
         } else {
@@ -543,6 +525,14 @@ class StatisticsController extends Controller
         //Resident
         //maxValue gets the value from the sitio_counts table that HAS at least 1 resident the highest sitioID recorded
         $maxValueSitio = Sitio::max('id');
+        $headerHh = "";
+        for($x=2; $x<=$maxValueSitio; $x++){
+            $label = Sitio::where('id','=',$x)->value('sitioName');
+            $headerHh .= "'" . $label . "',";
+        }
+        $headerHh = "'Year-Quarter'," . $headerHh;
+        $labelChart = "[$headerHh],";
+
 
         $minID = $statID - 3;
 
@@ -574,7 +564,7 @@ class StatisticsController extends Controller
                         ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
                         ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
                         ->where('sitio_counts.statID', $SAID)
-                        ->where('sitio_counts.genderGroup', '!=', '--')
+                        ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
                         ->where('sitio_counts.ageGroup', '!=', '--')
                         ->get();
 
@@ -589,22 +579,19 @@ class StatisticsController extends Controller
                         $sumRes = $sumRes + $resCount->residentCount;
                     }
                 }
-                if($indexResident != $maxValueSitio){
-                    $dataRes .= $sumRes . ",";
-                }else{
-                    $dataRes .= $sumRes;
-                }
+                $dataRes .= $sumRes . ",";
                 $indexResident++;
             }
             $AllResData .= "['" . $YQ . "'," . $dataRes . "],";
         }
 
-        $chartAllRes = $AllResData;
+        $chartAllRes = $labelChart . $AllResData;
 
         //---------------------------------------------------------------------------
 
         //Household
         $AllHhData = "";
+
         for($x=$statID; $x>0 && $x>=$minID; $x--){
             $SAID = Statistics::where('id', '=', $x)->value('id');
             $SAYear = Statistics::where('id', '=', $x)->value('year');
@@ -623,11 +610,11 @@ class StatisticsController extends Controller
                     $QDesc = "Oct-Dec";
                     break;
                 default:
-                    $QDesc = "N/A";
                     break;
             }
             $YQ = $SAYear . ' ' . $QDesc;
             $dataHh = "";
+            
             //index starts at 2 because 1 is a sitioFiller option (i.e. No option)
             $indexHousehold = 2;
 
@@ -637,41 +624,139 @@ class StatisticsController extends Controller
                                                          ->where('genderGroup', '=', '--')
                                                          ->where('ageGroup', '=', '--')
                                                          ->value('residentCount');
-                if($indexHousehold != $maxValueSitio){
-                    $dataHh .= $sumHousehold . ",";
-                }else{
-                    $dataHh .= $sumHousehold;
-                }
+                $dataHh .= $sumHousehold . ",";
                 $indexHousehold++;
             }
+
             $AllHhData .= "['" . $YQ . "'," . $dataHh . "],";
         }
 
-        $chartAllHh = $AllHhData;
-
+        $chartAllHh = $labelChart . $AllHhData;
         //-----------------------------------------------------------------------------------------------------------
 
-        //Get average income of current Residents per Sitio
-        $dataIncomeCurrent = "";
-        for($x=2; $x<=$maxValueSitio; $x++){
-            $sitioAvIncome = DB::table('resident_lists')
-                ->select(DB::raw('AVG(residents.monthlyIncome) as average_income'))
-                ->join('households', 'resident_lists.houseID', '=', 'households.id')
-                ->join('residents', 'resident_lists.residentID', '=', 'residents.id')
-                ->where('residents.dateOfDeath', '=', NULL)
-                ->where('households.sitioID', '=', $x)
-                ->first();
+        //Get Monthly Income of Residents per Quarter
+        $dataIncome = "";
+        $MonthlyIncome = array(
+            "None",
+            "less than 9,100",
+            "9,100 - 18,200",
+            "18,200 - 36,400",
+            "36,400 - 63,700",
+            "63,700 - 109,200",
+            "109,200 - 182,200",
+            "above 182,000"
+            );
+        $miaSize = count($MonthlyIncome);
 
-            if (!isset($sitioAvIncome->average_income)) {
-                $sitioAvIncome->average_income = 0;
+        for($x=$statID; $x>0 && $x>=$minID; $x--){
+            $SAID = Statistics::where('id', '=', $x)->value('id');
+            $SAYear = Statistics::where('id', '=', $x)->value('year');
+            $SAQuarter = Statistics::where('id', '=', $x)->value('quarter');
+            switch($SAQuarter){
+                case 1:
+                    $QDesc = "Jan-Mar";
+                    $dateB = $SAYear . '-' . '01-01';
+                    $dateE = $SAYear . '-' . '03-31';
+                    break;
+                case 2:
+                    $QDesc = "April-June";
+                    $dateB = $SAYear . '-' . '04-01';
+                    $dateE = $SAYear . '-' . '06-30';
+                    break;
+                case 3:
+                    $QDesc = "July-Sept";
+                    $dateB = $SAYear . '-' . '07-01';
+                    $dateE = $SAYear . '-' . '09-30';
+                    break;
+                case 4:
+                    $QDesc = "Oct-Dec";
+                    $dateB = $SAYear . '-' . '10-01';
+                    $dateE = $SAYear . '-' . '12-31';
+                    break;
+                default:
+                    break;
             }
 
-            $sitioName = Sitio::where('id', '=', $x)->value('sitioName');
+            $YQ = $SAYear . ' ' . $QDesc;
+            $dataInc = "";
 
-            $dataIncomeCurrent .= "['" . $sitioName . "'," . $sitioAvIncome->average_income . "],";
+            for($y=0; $y<$miaSize; $y++){
+                $resIncome = DB::table('resident_lists')
+                    ->join('households','resident_lists.houseID','=','households.id')
+                    ->join('residents','resident_lists.residentID','=','residents.id')
+                    ->where('households.dateOfVisit', '>=', $dateB)
+                    ->where('households.dateOfVisit', '<=', $dateE)
+                    ->where('residents.dateOfDeath', '=', NULL)
+                    ->where('residents.monthlyIncome', '=', $MonthlyIncome[$y])
+                    ->count();
+                $dataInc .= $resIncome . ",";
+            }
+            $dataIncome .= "['" . $YQ . "'," . $dataInc . "],";
         }
 
-        $chartIncomeCurrent = $dataIncomeCurrent;
+        $chartAllIncome = $dataIncome;
+        
+        //-------------------------------------------------------------------------------------------------------
+
+        //Get the educational attainment per quarter
+        $dataEducation = "";
+
+        $EducationAtt = array(
+            "Undergraduate",
+            "Elementary Graduate",
+            "Junior High School Graduate",
+            "Senior High School Graduate",
+            "College Graduate",
+            );
+        $eaSize = count($EducationAtt);
+
+        for($x=$statID; $x>0 && $x>=$minID; $x--){
+            $SAID = Statistics::where('id', '=', $x)->value('id');
+            $SAYear = Statistics::where('id', '=', $x)->value('year');
+            $SAQuarter = Statistics::where('id', '=', $x)->value('quarter');
+            switch($SAQuarter){
+                case 1:
+                    $QDesc = "Jan-Mar";
+                    $dateB = $SAYear . '-' . '01-01';
+                    $dateE = $SAYear . '-' . '03-31';
+                    break;
+                case 2:
+                    $QDesc = "April-June";
+                    $dateB = $SAYear . '-' . '04-01';
+                    $dateE = $SAYear . '-' . '06-30';
+                    break;
+                case 3:
+                    $QDesc = "July-Sept";
+                    $dateB = $SAYear . '-' . '07-01';
+                    $dateE = $SAYear . '-' . '09-30';
+                    break;
+                case 4:
+                    $QDesc = "Oct-Dec";
+                    $dateB = $SAYear . '-' . '10-01';
+                    $dateE = $SAYear . '-' . '12-31';
+                    break;
+                default:
+                    break;
+            }
+
+            $YQ = $SAYear . ' ' . $QDesc;
+            $dataEdu = "";
+
+            for($y=0; $y<$eaSize; $y++){
+                $resEdu = DB::table('resident_lists')
+                    ->join('households','resident_lists.houseID','=','households.id')
+                    ->join('residents','resident_lists.residentID','=','residents.id')
+                    ->where('households.dateOfVisit', '>=', $dateB)
+                    ->where('households.dateOfVisit', '<=', $dateE)
+                    ->where('residents.dateOfDeath', '=', NULL)
+                    ->where('residents.educationalAttainment', '=', $EducationAtt[$y])
+                    ->count();
+                $dataEdu .= $resEdu . ",";
+            }
+            $dataEducation .= "['" . $YQ . "'," . $dataEdu . "],";
+        }
+
+        $chartAllEdu = $dataEducation;
 
         //-------------------------------------------------------------------------------------------------------
 
@@ -693,10 +778,6 @@ class StatisticsController extends Controller
         
         $chartPreg = $dataPreg;
 
-        //-------------------------------------------------------------------------------------------------------
-
-        //Get the different types of Households
-        
         //-------------------------------------------------------------------------------------------------------
 
         //Get the Payment Statistics
@@ -767,7 +848,210 @@ class StatisticsController extends Controller
         $refundChart = $refundData;
         $prChart = $prCount;
 
-        return view('dashboard', compact('documents', 'totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'yearList', 'request', 'nameSitio', 'chartAllRes', 'chartAllHh', 'chartIncomeCurrent', 'chartPreg', 'payChart', 'refundChart', 'prChart'));
+        //-------------------------------------------------------------------------------------------------------
+
+        //Get the different types of Households
+        //Indigenous Household (IP)
+        $dataIP = "";
+        $IP = array("IP","nonIP");
+        $ipSize = count($IP);
+        
+        for($x=$statID; $x>0 && $x>=$minID; $x--){
+            $SAID = Statistics::where('id', '=', $x)->value('id');
+            $SAYear = Statistics::where('id', '=', $x)->value('year');
+            $SAQuarter = Statistics::where('id', '=', $x)->value('quarter');
+            switch($SAQuarter){
+                case 1:
+                    $QDesc = "Jan-Mar";
+                    $dateB = $SAYear . '-' . '01-01';
+                    $dateE = $SAYear . '-' . '03-31';
+                    break;
+                case 2:
+                    $QDesc = "April-June";
+                    $dateB = $SAYear . '-' . '04-01';
+                    $dateE = $SAYear . '-' . '06-30';
+                    break;
+                case 3:
+                    $QDesc = "July-Sept";
+                    $dateB = $SAYear . '-' . '07-01';
+                    $dateE = $SAYear . '-' . '09-30';
+                    break;
+                case 4:
+                    $QDesc = "Oct-Dec";
+                    $dateB = $SAYear . '-' . '10-01';
+                    $dateE = $SAYear . '-' . '12-31';
+                    break;
+                default:
+                    break;
+            }
+
+            $YQ = $SAYear . ' ' . $QDesc;
+            $dIP = "";
+
+            for($y=0; $y<$ipSize; $y++){
+                $hhIP = DB::table('households')
+                    ->where('dateOfVisit', '>=', $dateB)
+                    ->where('dateOfVisit', '<=', $dateE)
+                    ->where('IP', '=', $IP[$y])
+                    ->count();
+                $dIP .= $hhIP . ",";
+            }
+            $dataIP .= "['" . $YQ . "'," . $dIP . "],";
+        }
+
+        $chartAllIP = $dataIP;
+
+        //NHTS Household (nHTS)
+        $dataNHTS = "";
+        $NHTS = array("NHTS","nonNHTS");
+        $nhtsSize = count($NHTS);
+        
+        for($x=$statID; $x>0 && $x>=$minID; $x--){
+            $SAID = Statistics::where('id', '=', $x)->value('id');
+            $SAYear = Statistics::where('id', '=', $x)->value('year');
+            $SAQuarter = Statistics::where('id', '=', $x)->value('quarter');
+            switch($SAQuarter){
+                case 1:
+                    $QDesc = "Jan-Mar";
+                    $dateB = $SAYear . '-' . '01-01';
+                    $dateE = $SAYear . '-' . '03-31';
+                    break;
+                case 2:
+                    $QDesc = "April-June";
+                    $dateB = $SAYear . '-' . '04-01';
+                    $dateE = $SAYear . '-' . '06-30';
+                    break;
+                case 3:
+                    $QDesc = "July-Sept";
+                    $dateB = $SAYear . '-' . '07-01';
+                    $dateE = $SAYear . '-' . '09-30';
+                    break;
+                case 4:
+                    $QDesc = "Oct-Dec";
+                    $dateB = $SAYear . '-' . '10-01';
+                    $dateE = $SAYear . '-' . '12-31';
+                    break;
+                default:
+                    break;
+            }
+
+            $YQ = $SAYear . ' ' . $QDesc;
+            $dNHTS = "";
+
+            for($y=0; $y<$nhtsSize; $y++){
+                $hhNHTS = DB::table('households')
+                    ->where('dateOfVisit', '>=', $dateB)
+                    ->where('dateOfVisit', '<=', $dateE)
+                    ->where('nHTS', '=', $NHTS[$y])
+                    ->count();
+                $dNHTS .= $hhNHTS . ",";
+            }
+            $dataNHTS .= "['" . $YQ . "'," . $dNHTS . "],";
+        }
+
+        $chartAllNHTS = $dataNHTS;
+
+        //House Water Supply Access
+        $dataWater = "";
+        $WaterAccess = array("Doubtful","L1","L2","L3");
+        $wSize = count($WaterAccess);
+        
+        for($x=$statID; $x>0 && $x>=$minID; $x--){
+            $SAID = Statistics::where('id', '=', $x)->value('id');
+            $SAYear = Statistics::where('id', '=', $x)->value('year');
+            $SAQuarter = Statistics::where('id', '=', $x)->value('quarter');
+            switch($SAQuarter){
+                case 1:
+                    $QDesc = "Jan-Mar";
+                    $dateB = $SAYear . '-' . '01-01';
+                    $dateE = $SAYear . '-' . '03-31';
+                    break;
+                case 2:
+                    $QDesc = "April-June";
+                    $dateB = $SAYear . '-' . '04-01';
+                    $dateE = $SAYear . '-' . '06-30';
+                    break;
+                case 3:
+                    $QDesc = "July-Sept";
+                    $dateB = $SAYear . '-' . '07-01';
+                    $dateE = $SAYear . '-' . '09-30';
+                    break;
+                case 4:
+                    $QDesc = "Oct-Dec";
+                    $dateB = $SAYear . '-' . '10-01';
+                    $dateE = $SAYear . '-' . '12-31';
+                    break;
+                default:
+                    break;
+            }
+
+            $YQ = $SAYear . ' ' . $QDesc;
+            $dWater = "";
+
+            for($y=0; $y<$wSize; $y++){
+                $hhWater = DB::table('households')
+                    ->where('dateOfVisit', '>=', $dateB)
+                    ->where('dateOfVisit', '<=', $dateE)
+                    ->where('accessToWaterSupply', '=', $WaterAccess[$y])
+                    ->count();
+                $dWater .= $hhWater . ",";
+            }
+            $dataWater .= "['" . $YQ . "'," . $dWater . "],";
+        }
+
+        $chartWater = $dataWater;
+
+        //House Toilet Facilities
+        $dataToilet = "";
+        $ToiletFacilities = array("Sanitary","Insanitary","None","Shared");
+        $toiletSize = count($ToiletFacilities);
+        
+        for($x=$statID; $x>0 && $x>=$minID; $x--){
+            $SAID = Statistics::where('id', '=', $x)->value('id');
+            $SAYear = Statistics::where('id', '=', $x)->value('year');
+            $SAQuarter = Statistics::where('id', '=', $x)->value('quarter');
+            switch($SAQuarter){
+                case 1:
+                    $QDesc = "Jan-Mar";
+                    $dateB = $SAYear . '-' . '01-01';
+                    $dateE = $SAYear . '-' . '03-31';
+                    break;
+                case 2:
+                    $QDesc = "April-June";
+                    $dateB = $SAYear . '-' . '04-01';
+                    $dateE = $SAYear . '-' . '06-30';
+                    break;
+                case 3:
+                    $QDesc = "July-Sept";
+                    $dateB = $SAYear . '-' . '07-01';
+                    $dateE = $SAYear . '-' . '09-30';
+                    break;
+                case 4:
+                    $QDesc = "Oct-Dec";
+                    $dateB = $SAYear . '-' . '10-01';
+                    $dateE = $SAYear . '-' . '12-31';
+                    break;
+                default:
+                    break;
+            }
+
+            $YQ = $SAYear . ' ' . $QDesc;
+            $dToilet = "";
+
+            for($y=0; $y<$toiletSize; $y++){
+                $hhToilet = DB::table('households')
+                    ->where('dateOfVisit', '>=', $dateB)
+                    ->where('dateOfVisit', '<=', $dateE)
+                    ->where('householdToiletFacilities', '=', $ToiletFacilities[$y])
+                    ->count();
+                $dToilet .= $hhToilet . ",";
+            }
+            $dataToilet .= "['" . $YQ . "'," . $dToilet . "],";
+        }
+
+        $chartToilet = $dataToilet;
+
+        return view('dashboard', compact('documents', 'totalHouseholdCount', 'totalResidentCount', 'chartdataHousehold', 'chartdataResident', 'sitioList', 'gender', 'ageClassification', 'yearList', 'request', 'nameSitio', 'chartAllRes', 'chartAllHh', 'chartAllIncome', 'chartPreg', 'payChart', 'refundChart', 'prChart', 'chartAllEdu', 'chartAllIP', 'chartAllNHTS', 'chartWater', 'chartToilet'));
     }
 
     public function exportpdf(Request $request)
