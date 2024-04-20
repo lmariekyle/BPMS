@@ -45,7 +45,7 @@ class HouseholdSeeder extends Seeder
         Households::create([
             'id'=>'3',
             'sitioID' => '2',
-            'houseNumber' => '2',
+            'houseNumber' => '1',
             'street'=>'Bonifacio',
             'buildingName'=>'NULL',
             'unitNumber'=>'NULL',
@@ -67,7 +67,7 @@ class HouseholdSeeder extends Seeder
         Households::create([
             'id'=>'4',
             'sitioID' => '2',
-            'houseNumber' => '2',
+            'houseNumber' => '1',
             'street'=>'Bonifacio',
             'buildingName'=>'NULL',
             'unitNumber'=>'NULL',
