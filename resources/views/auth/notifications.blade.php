@@ -22,12 +22,12 @@
                         @if($notification->read_at==NULL) <!--Probably the only idea I got rn if the notification is [Unread] LMAO-->
                                     <p class="inline text-dirty-white bg-green px-2 py-2 w-max rounded-sm shadow-sm">[ New ]</p>
                                 @endif
-                            <p class="font-bold text-[18px] mt-2">{{ $notification->data['type'] }} Notification</p>
+                            <p class="font-bold text-[18px] mt-2">{{ $notification->document['docType'] }} {{ $notification->data['type'] }} Notification</p>
                             <div class="inline">
                                 @if($notification->data['type'] == 'Transaction')
                                 <div class="text-xl">
                                     <p class="font-robotocondensed text-justify">
-                                        {{ $notification->resident['firstName'] }} {{ $notification->resident['lastName'] }} requested {{ $notification->document['docName'] }}
+                                        {{ $notification->document['docName'] }} was requested by {{ $notification->resident['firstName'] }} {{ $notification->resident['lastName'] }} 
                                     </p>
                                 </div>
                                 @else

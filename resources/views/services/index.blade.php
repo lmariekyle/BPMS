@@ -128,7 +128,7 @@
             <!--DISPLAY ONLY PLS CHANGE WHEN CODING WITH THE ACTUAL DATABASE-->
             <table id="documents-table" class="mt-10">
                 <tbody>
-                    @foreach ($transactions as $transaction)
+                    @forelse ($transactions as $transaction)
                     <tr class="border shadow-md">
                         <td class="px-6 py-4 w-[295px] font-robotocondensed text-deep-green text-[16px] font-bold">
                             {{ $transaction->id }}
@@ -148,12 +148,17 @@
                         <td class="px-6 py-4 w-[190px]">
                             <a href="{{ route('direction', $transaction->id) }}" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
                         </td>
+
+                        @empty
+                        <td class="px-6 py-4 font-robotocondensed text-deep-green text-[16px] font-bold">
+                            We can't find the transaction
+                        </td>
                     </tr>
-                    @endforeach
+                    @endforelse
                 </tbody>
             </table>
             <div class="flex flex-row justify-evenly mt-4 self-center">
-                {{$transactions->links()}}
+                {{-- {{$transactions->links()}} --}}
             </div>    
         </div>
         @endhasanyrole
