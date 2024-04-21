@@ -42,13 +42,18 @@
                         @hasanyrole('Barangay Captain|Barangay Secretary')
                             <div class="float-right flex flex-row max-h-[30px] ml-4 mt-10">
                                 <form method="GET" action="{{ route('viewNotifications', $notification->id) }}">
-                                    <button id="btn{{ $notification->id }}" class="hover:text-green"><i class="fa-solid fa-eye"></i></button>
+                                    <button class="btn-view-notification hover:text-green" data-modal-id="{{ $notification->id }}">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
                                 </form>
                                 <form method="GET" action="{{ route('deleteNotifications', $notification->id) }}">
-                                    <button id="btn-delete{{ $notification->id }}" class="hover:text-green ml-8 mr-4"><i class="fa-solid fa-trash"></i></button>
+                                    <button class="btn-delete-notification hover:text-green ml-8 mr-4">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
                                 </form>
                             </div>
-                            <div id="NotifModal" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[150px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
+
+                            <div id="NotifModal-{{ $notification->id }}" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[50px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
                                 <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
                                     <span class="close text-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
                                     <div class="">
@@ -63,18 +68,25 @@
                         @hasanyrole('User|Barangay Health Worker')
                             <div class="float-right flex flex-row max-h-[30px] ml-4 mt-10">
                                 <form method="GET" action="{{ route('viewNotifications', $notification->id) }}">
-                                    <button id="btn{{ $notification->id }}" class="hover:text-green"><i class="fa-solid fa-eye"></i></button>
+                                    <button class="btn-view-notification hover:text-green" data-modal-id="{{ $notification->id }}">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
                                 </form>
                                 <form method="GET" action="{{ route('deleteNotifications', $notification->id) }}">
-                                    <button id="btn-delete{{ $notification->id }}" class="hover:text-green ml-8 mr-4"><i class="fa-solid fa-trash"></i></button>
+                                    <button class="btn-delete-notification hover:text-green ml-8 mr-4">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
                                 </form>
                             </div>
-                            <div id="NotifModal" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[50px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
+
+                            <div id="NotifModal-{{ $notification->id }}" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[50px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
                                 <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
-                                    <span class="close text-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
+                                    <span id="close-{{ $notification->id }}" class="close text-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
                                     <div class="">
                                         <p class="font-robotocondensed text-[28px] text-deep-green" >{{ $notification->document['docName'] }} {{ $notification->data['transaction']['serviceStatus'] }}</p>
                                         <p>Your Document {{ $notification->document['docName'] }} with a document number: {{ $notification->data['transaction']['docNumber'] }} is being {{ $notification->data['transaction']['serviceStatus'] }} by {{ $notification->processedByUser['firstName'] }} {{ $notification->processedByUser['lastName'] }}.</p>
+                                        <br>
+                                        <p>Remarks: {{ $notification->remarks }}</p>
                                         <br>
                                         <p>{{ $notification->processedByUser['firstName'] }} {{ $notification->processedByUser['lastName'] }}</p>
                                         <p>{{ $notification->processedBy['userLevel'] }}</p>
@@ -84,12 +96,42 @@
                             </div>
                         @endhasanyrole
                     </div>
+                    <!-- Script -->
                     <script>
-                        var modal = document.getElementById("NotifModal");
+                    // Add event listeners for view buttons
+                    var viewButtons = document.querySelectorAll('.btn-view-notification');
+                    viewButtons.forEach(function(button) {
+                        button.addEventListener('click', function() {
+                            var modalId = this.getAttribute('data-modal-id');
+                            var modal = document.getElementById("NotifModal-" + modalId);
+                            modal.style.display = "block";
+                        });
+                    });
+                    
+                    // Add event listeners for close buttons
+                    var closeButtons = document.querySelectorAll('.close');
+                    closeButtons.forEach(function(button) {
+                        button.addEventListener('click', function() {
+                            var modal = this.closest('.modal');
+                            modal.style.display = "none";
+                            window.location.reload();
+                        });
+                    });
+                    
+                    // Add event listener for delete buttons (if needed)
+                    var deleteButtons = document.querySelectorAll('.btn-delete-notification');
+                    deleteButtons.forEach(function(button) {
+                        button.addEventListener('click', function() {
+                            window.location.reload();
+                        });
+                    });
+                    </script>
+                    {{-- <script>
+                        var modal = document.getElementById("NotifModal-{{ $notification->id }}");
                         
                         var btn = document.getElementById("btn{{ $notification->id }}");
                         
-                        var span = document.getElementsByClassName("close")[0];
+                        var span =document.getElementById("close-{{ $notification->id }}");
                         
                         // Open Modal
                         btn.onclick = function() {
@@ -110,7 +152,7 @@
 
                         btndel.addEventListener("click", handleClick);
 
-                    </script>
+                    </script> --}}
                 @empty
                     <div class="py-8">
                         <hr class="h-2 mt-4 w-[315px] ml-[388px] bg-stone-700 border-0">
