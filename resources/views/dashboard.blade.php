@@ -40,6 +40,7 @@
         google.charts.setOnLoadCallback(drawNHTS);
         google.charts.setOnLoadCallback(drawWater);
         google.charts.setOnLoadCallback(drawToilet);
+        google.charts.setOnLoadCallback(drawPregnancy);
 
         function drawChartResident() {
 
@@ -153,7 +154,6 @@
             var options = {
                 chart: {
                     title: 'Resident Population Per Quarter Recorded',
-                    subtitle: 'Per Sitio',
                     backgroundColor: 'none',
                 }
             };
@@ -176,7 +176,6 @@
             var options = {
                 chart: {
                     title: 'Households Per Quarter Recorded',
-                    subtitle: 'Per Sitio',
                     backgroundColor: 'none',
                 }
             };
@@ -194,7 +193,7 @@
         function drawPayment() {
             var data = google.visualization.arrayToDataTable([
                 ['Year-Quarter', 'Total Amount Paid'],
-                <?php echo $payChart ?> 
+                <?php echo $payAllChart ?> 
             ]);
             
             var options = {
@@ -222,7 +221,7 @@
         function drawRefund() {
             var data = google.visualization.arrayToDataTable([
                 ['Year-Quarter', 'Total Amount Refunded'],
-                <?php echo $refundChart ?> 
+                <?php echo $refundAllChart ?> 
             ]);
             
             var options = {
@@ -250,7 +249,7 @@
         function drawPRCount() {
             var data = google.visualization.arrayToDataTable([
                 ['Year-Quarter', 'Paid', 'Refunded',],
-                <?php echo $prChart ?>
+                <?php echo $prAllChart ?>
             ]);
 
             var options = {
@@ -354,6 +353,29 @@
             };
 
             var chart = new google.charts.Bar(document.getElementById('Toiletchart'));
+
+            var checkBox = document.getElementById('addInfo');
+                checkBox.addEventListener('change', function () {
+                    chart.draw(data, options);
+            });
+
+            chart.draw(data, options);
+        }
+
+        function drawPregnancy() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year-Quarter','Not Pregnant','Pregnant','Post-Partum'],
+                <?php echo $chartPreg ?>
+            ]);
+
+            var options = {
+                chart: {
+                    title: 'Pregnancy',
+                    backgroundColor: 'none',
+                }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('Pregchart'));
 
             var checkBox = document.getElementById('addInfo');
                 checkBox.addEventListener('change', function () {
@@ -579,16 +601,7 @@
                             </div>
                             <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
                                 <p class="font-poppin text-center font-black text-[30px] text-dirty-white">
-                                    @if($request->sitio || $request->gender || $request->ageclass)
-                                        @if($request->gender=="NULL" && $request->ageclass=="NULL")
-                                        {{ $totalHouseholdCount }}
-                                        @else
-                                        --
-                                        @endif
-                                    @else
-                                        0
-                                    @endif
-                                    HOUSEHOLDS
+                                    {{ $totalHouseholdCount }} HOUSEHOLDS
                                 </p>
                             </div>
                         </div>
@@ -616,7 +629,7 @@
                                     @endif
                                 </h1>
                             </div>
-                            @if (($request->sitio || $request->gender || $request->ageclass) && $totalResidentCount>0)
+                            @if (($request->sitio || $request->gender || $request->ageclass))
                             <div class="w-[1050px] h-[600px]" id="residentBarchart" style=""></div>
                             <div class="w-[1050px] h-[600px]" id="AllReschart" style="display: none;"></div>
                             <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
@@ -674,36 +687,22 @@
                             </div>
                             <div class="">
                                 @if(($request->sitio || $request->gender || $request->ageclass))
-                                    @if($request->gender=="NULL" && $request->ageclass=="NULL")
-                                    <div class="mt-2 mx-auto">
-                                        @if($totalHouseholdCount>0)
-                                        <div class="w-[1050px] h-[600px]" id="householdBarchart" style=""></div>
-                                        <div class="w-[1050px] h-[600px]" id="AllHhchart" style="display: none;"></div>
-                                        @else
-                                        <div class="w-[1050px] h-[600px]"></div>
-                                        @endif
-                                    </div>
-                                    @else
-                                    <div class="w-[1050px] h-[600px] mt-2 px-2 flex items-center justify-center">
-                                        <p class="text-xl font-robotocondensed w-80 text-center text-deep-green">
-                                            Since Age/Gender filters are applied, Household Information is unavailable.
-                                        </p>
-                                    </div>
-                                    @endif
+                                <div class="w-[1050px] h-[600px]" id="householdBarchart" style=""></div>
+                                <div class="w-[1050px] h-[600px]" id="AllHhchart" style="display: none;"></div>
                                 @else
                                 <div class="w-[1050px] h-[600px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center"></div>
                                 @endif
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="flex flex-row mt-[2rem] ml-[3rem]">
+                    <div class="my-[2rem] border-2 border-green"></div>
+                    <div class="flex flex-row ml-[3rem]">
                         <input type="checkbox" id="addInfo" class="mt-[3.8px]" onchange="viewAddInfo()">
                         <label for="addInfo" class="ml-[8px]">Additional Details</label>
                     </div>
                     <div id="addInfoDisplay" class="mt-[2rem] w-[1050px] self-center" style="display: none;">
-                        <hr></hr>
                         <div id="resAddInfo" style="display: none;">
+                            <p class="font-bold text-[22px] my-2">Resident Additional Information</p>
                             <div class="h-[700px] w-[1050px]" id="monthInchart"></div>
                             <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
                                 <div id="Paychart" class="w-[525px]"></div>
@@ -711,9 +710,11 @@
                             </div>
                             <div id="prCountchart" class="mt-[2rem] w-[1050px] h-[275px]"></div>
                             <div id="Educhart" class="mt-[2rem] w-[1050px] h-[275px]"></div>
+                            <div id="Pregchart" class="mt-[2rem] w-[1050px] h-[275px]"></div>
                             <div class="my-[2rem] border-2 border-green"></div>
                         </div>
                         <div id="hhAddInfo" style="display: none;">
+                            <p class="font-bold text-[22px] my-2">Household Additional Information</p>
                             <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
                                 <div id="IPchart" class="w-[520px]"></div>
                                 <div id="NHTSchart" class="w-[520px] ml-[5px]"></div>

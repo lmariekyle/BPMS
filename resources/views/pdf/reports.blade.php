@@ -113,13 +113,7 @@
         </h2>
         <h2>Total Households:
             @if ($totalHouseholdCount>0) 
-                @if($request->gender=="NULL" && $request->ageclass=="NULL")
-                {{ $totalHouseholdCount }}
-                @else
-                Not Applicable
-                @endif
-            @elseif ($totalHouseholdCount==0)
-            --
+            {{ $totalHouseholdCount }}
             @else
             --
             @endif
