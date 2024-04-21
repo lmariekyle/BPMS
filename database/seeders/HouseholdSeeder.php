@@ -1155,7 +1155,7 @@ class HouseholdSeeder extends Seeder
             'respondentName'=>'Leonard',
         ]);
 
-        //household 2 Donna - Sophie - Sam - Ruby Sherridan (54-55-56)
+        //household 2 Donna - Sophie - Ruby Sherridan (54-55-56)
         Households::create([
             'id'=>'54',
             'sitioID' => '5',
@@ -1545,7 +1545,7 @@ class HouseholdSeeder extends Seeder
             'respondentName'=>'Jan Michael',
         ]);
 
-        //household 2 Nina Therese, Kiara Ina, Gloria (72-73-74)
+        //household 2 Nina Therese, Kiara Ina, Sayu Sayu(72-73-74)
         Households::create([
             'id'=>'72',
             'sitioID' => '7',
@@ -1610,7 +1610,7 @@ class HouseholdSeeder extends Seeder
             'respondentName'=>'Nina',
         ]);
 
-        //household 1 Francine - Kate - Kitts - Innavelyn (74-76-77)
+        //household 1 Francine - Leah - Jenny - Katrina (74-76-77)
         Households::create([
             'id'=>'75',
             'sitioID' => '8',
@@ -1675,7 +1675,7 @@ class HouseholdSeeder extends Seeder
             'respondentName'=>'Francine',
         ]);
 
-        //household 2 Joseph Jobo - Janie Lane - Jurry - Meelo - Allie - Mongmong (78-79-80)
+        //household 2 Joseph Jobo - Janie Lane (78-79-80)
         Households::create([
             'id'=>'78',
             'sitioID' => '8',
@@ -1805,7 +1805,7 @@ class HouseholdSeeder extends Seeder
             'respondentName'=>'Cate',
         ]);
 
-        //household 2 Kris - Tyronne - Falcon (84-85-86)
+        //household 2 Kris - Tyronne (84-85-86)
         Households::create([
             'id'=>'84',
             'sitioID' => '9',
@@ -1870,7 +1870,7 @@ class HouseholdSeeder extends Seeder
             'respondentName'=>'Kris',
         ]);
 
-        //household 1 Freddy - Chicky - Bonni (87-88-89) Foxine
+        //household 1 Freddy - Chicka - Bonni (87-88-89) Foxine
         Households::create([
             'id'=>'87',
             'sitioID' => '10',
