@@ -43,7 +43,7 @@ class CreateResidentsTable extends Migration
 
             $table->date('dateOfDeath')->nullable();
 
-            $table->string('supportingDocument')->nullable(); /*filePath*/
+            $table->string('supportingDocument')->default("residentDocumentPlaceholder.pdf")->nullable();
 
             $table->string('createdBy')->nullable();;
             $table->string('revisedBy')->nullable();;
