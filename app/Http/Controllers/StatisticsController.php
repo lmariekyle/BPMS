@@ -887,7 +887,6 @@ class StatisticsController extends Controller
                         ->join('residents', function ($join) {
                             $join->on('users.residentID', '=', 'residents.id');
                         })
-                        //->where('users.sitioID', '=', $filterSitio)
                         ->where('residents.gender', 'LIKE', "%$filterGender%")
                         ->select('payments.*') 
                         ->get();
@@ -902,7 +901,6 @@ class StatisticsController extends Controller
                         ->join('residents', function ($join) {
                             $join->on('users.residentID', '=', 'residents.id');
                         })
-                        //->where('users.sitioID', '=', $filterSitio)
                         ->where('residents.gender', 'LIKE', "%$filterGender%")
                         ->where('residents.ageClassification', '=', $filterAgeGroup)
                         ->select('payments.*') 
@@ -971,12 +969,14 @@ class StatisticsController extends Controller
     
                     //Indigenous Households
                     for($y=0; $y<$ipSize; $y++){
+                        //No Gender or/and Age Group Filter Selected
                         if ($filterGender == "" && $filterAgeGroup == "") {
                             $hhIP = DB::table('households')
                             ->where('dateOfVisit', '>=', $dateB)
                             ->where('dateOfVisit', '<=', $dateE)
                             ->where('IP', '=', $IP[$y])
                             ->count();
+                        //Otherwise
                         }else{
                             $hhIP = 0;
                             $houseList = Households::where('dateOfVisit', '>=', $dateB)
@@ -1015,12 +1015,14 @@ class StatisticsController extends Controller
     
                     //NHTS Households
                     for($y=0; $y<$nhtsSize; $y++){
+                        //No Gender or/and Age Group Filter Selected
                         if ($filterGender == "" && $filterAgeGroup == "") {
                             $hhNHTS = DB::table('households')
                                 ->where('dateOfVisit', '>=', $dateB)
                                 ->where('dateOfVisit', '<=', $dateE)
                                 ->where('nHTS', '=', $NHTS[$y])
                                 ->count();
+                        //Otherwise
                         }else{
                             $hhNHTS = 0;
                             $houseList = Households::where('dateOfVisit', '>=', $dateB)
@@ -1059,12 +1061,14 @@ class StatisticsController extends Controller
     
                     //Water Access
                     for($y=0; $y<$wSize; $y++){
+                        //No Gender or/and Age Group Filter Selected
                         if ($filterGender == "" && $filterAgeGroup == "") {
                             $hhWater = DB::table('households')
                                 ->where('dateOfVisit', '>=', $dateB)
                                 ->where('dateOfVisit', '<=', $dateE)
                                 ->where('accessToWaterSupply', '=', $WaterAccess[$y])
                                 ->count();
+                        //Otherwise
                         }else{
                             $hhWater = 0;
                             $houseList = Households::where('dateOfVisit', '>=', $dateB)
@@ -1103,6 +1107,7 @@ class StatisticsController extends Controller
     
                     //Toilet Facilities
                     for($y=0; $y<$toiletSize; $y++){
+                        //No Gender or/and Age Group Filter Selected
                         if ($filterGender == "" && $filterAgeGroup == "") {
                             $hhToilet = DB::table('households')
                                 ->where('dateOfVisit', '>=', $dateB)
@@ -1694,42 +1699,853 @@ class StatisticsController extends Controller
             } else {
                 $filterAgeGroup = "";
             }
+
+            $maxValueSitio = Sitio::max('id');
     
             //-------------------------------------
             
             //Resident
             //When the user didn't select any Sitio in the options
             if ($filterSitio == "") {
-                $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
-                    $join->on('sitio_counts.sitioID', "=", 'sitios.id');
-                })
-                    ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
-                    ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                if($filterAgeGroup == ""){
+                    $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
+                        $join->on('sitio_counts.sitioID', "=", 'sitios.id');
+                    })
+                    ->select('sitios.sitioName', 'sitio_counts.ageGroup',
+                    DB::raw('SUM(CASE WHEN sitio_counts.genderGroup = "M" THEN sitio_counts.residentCount ELSE 0 END) as maleResident'),
+                    DB::raw('SUM(CASE WHEN sitio_counts.genderGroup = "F" THEN sitio_counts.residentCount ELSE 0 END) as femaleResident'),
+                    DB::raw('SUM(sitio_counts.residentCount) as totalResident'))
                     ->where('sitio_counts.statID', $statCheck->id)
                     ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
-                    ->where('sitio_counts.ageGroup', 'LIKE', "%$filterAgeGroup%")->where('sitio_counts.ageGroup', '!=', '--')
+                    ->where('sitio_counts.ageGroup', '!=', '--')
+                    ->groupBy('sitios.sitioName', 'sitio_counts.ageGroup')
                     ->get();
+                }else{
+                    $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
+                        $join->on('sitio_counts.sitioID', "=", 'sitios.id');
+                    })
+                    ->select('sitios.sitioName', 'sitio_counts.ageGroup',
+                    DB::raw('SUM(CASE WHEN sitio_counts.genderGroup = "M" THEN sitio_counts.residentCount ELSE 0 END) as maleResident'),
+                    DB::raw('SUM(CASE WHEN sitio_counts.genderGroup = "F" THEN sitio_counts.residentCount ELSE 0 END) as femaleResident'),
+                    DB::raw('SUM(sitio_counts.residentCount) as totalResident'))
+                    ->where('sitio_counts.statID', $statCheck->id)
+                    ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
+                    ->where('sitio_counts.ageGroup', '=', $filterAgeGroup)->where('sitio_counts.ageGroup', '!=', '--')
+                    ->groupBy('sitios.sitioName', 'sitio_counts.ageGroup')
+                    ->get();
+                }
             //Otherwise (Sitio)
             }else{
-                $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
-                    $join->on('sitio_counts.sitioID', "=", 'sitios.id');
-                })
-                    ->select('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
-                    ->groupBy('sitio_counts.id', 'sitio_counts.sitioID', 'sitios.sitioName', 'sitio_counts.ageGroup', 'sitio_counts.genderGroup', 'sitio_counts.residentCount')
+                if($filterAgeGroup == ""){
+                    $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
+                        $join->on('sitio_counts.sitioID', "=", 'sitios.id');
+                    })
+                    ->select('sitios.sitioName', 'sitio_counts.ageGroup',
+                    DB::raw('SUM(CASE WHEN sitio_counts.genderGroup = "M" THEN sitio_counts.residentCount ELSE 0 END) as maleResident'),
+                    DB::raw('SUM(CASE WHEN sitio_counts.genderGroup = "F" THEN sitio_counts.residentCount ELSE 0 END) as femaleResident'),
+                    DB::raw('SUM(sitio_counts.residentCount) as totalResident'))
                     ->where('sitio_counts.statID', $statCheck->id)
                     ->where('sitio_counts.sitioID', $filterSitio)
                     ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
-                    ->where('sitio_counts.ageGroup', 'LIKE', "%$filterAgeGroup%")->where('sitio_counts.ageGroup', '!=', '--')
+                    ->where('sitio_counts.ageGroup', '!=', '--')
+                    ->groupBy('sitios.sitioName', 'sitio_counts.ageGroup')
                     ->get();
+                }else{
+                    $residentCount = DB::table('sitio_counts')->leftJoin('sitios', function ($join) {
+                        $join->on('sitio_counts.sitioID', "=", 'sitios.id');
+                    })
+                    ->select('sitios.sitioName', 'sitio_counts.ageGroup',
+                    DB::raw('SUM(CASE WHEN sitio_counts.genderGroup = "M" THEN sitio_counts.residentCount ELSE 0 END) as maleResident'),
+                    DB::raw('SUM(CASE WHEN sitio_counts.genderGroup = "F" THEN sitio_counts.residentCount ELSE 0 END) as femaleResident'),
+                    DB::raw('SUM(sitio_counts.residentCount) as totalResident'))
+                    ->where('sitio_counts.statID', $statCheck->id)
+                    ->where('sitio_counts.sitioID', $filterSitio)
+                    ->where('sitio_counts.genderGroup', 'LIKE', "%$filterGender%")->where('sitio_counts.genderGroup', '!=', '--')
+                    ->where('sitio_counts.ageGroup', '=', $filterAgeGroup)->where('sitio_counts.ageGroup', '!=', '--')
+                    ->groupBy('sitios.sitioName', 'sitio_counts.ageGroup')
+                    ->get();
+                }
             }
-    
             //Calculates the total Residents
             $totalResidentCount = 0;
     
             foreach ($residentCount as $resCount) {
-                $totalResidentCount = $totalResidentCount + $resCount->residentCount;
+                $totalResidentCount = $totalResidentCount + $resCount->totalResident;
             }
+
+            //For checking purposes
+            $SAID = Statistics::where('id', '=', $statCheck->id)->value('id');
+            $SAYear = Statistics::where('id', '=', $statCheck->id)->value('year');
+            $SAQuarter = Statistics::where('id', '=', $statCheck->id)->value('quarter');
+            switch($SAQuarter){
+                case 1:
+                    $dateB = $SAYear . '-' . '01-01';
+                    $dateE = $SAYear . '-' . '03-31';
+                    break;
+                case 2:
+                    $dateB = $SAYear . '-' . '04-01';
+                    $dateE = $SAYear . '-' . '06-30';
+                    break;
+                case 3:
+                    $dateB = $SAYear . '-' . '07-01';
+                    $dateE = $SAYear . '-' . '09-30';
+                    break;
+                case 4:
+                    $dateB = $SAYear . '-' . '10-01';
+                    $dateE = $SAYear . '-' . '12-31';
+                    break;
+                default:
+                    break;
+            }
+
+            //Monthly Income of each resident
+            $dataIncome = array();
+            $MonthlyIncome = array(
+                "None",
+                "less than 9,100",
+                "9,100 - 18,200",
+                "18,200 - 36,400",
+                "36,400 - 63,700",
+                "63,700 - 109,200",
+                "109,200 - 182,200",
+                "above 182,000"
+                );
+
+            //Payment/Refunds (Resident)
+            $sumPay = 0;
+            $sumRefund = 0;
+            $payCtr = 0;
+            $refundCtr = 0;
+            $prInfo = array();
+
+            //Educational Attainment (Resident)
+            $dataEducation = array();
+            $EducationAtt = array(
+                "Undergraduate",
+                "Elementary Graduate",
+                "Junior High School Graduate",
+                "Senior High School Graduate",
+                "College Graduate",
+                );
+
+            //Pregancy (Resident)
+            $dataPreg = array();
+            $Pregnancy = array("N","P","PP");
+            
+            //Indigenous (Household)
+            $dataIP = array();
+            $IP = array("IP","nonIP");
+
+            //NHTS (Household)
+            $dataNHTS = array();
+            $NHTS = array("NHTS","nonNHTS");
+
+            //Water Access (Household)
+            $dataWater = array();
+            $WaterAccess = array("Doubtful","L1","L2","L3");
+            
+            //Toilet Facilities (Household)
+            $dataToilet = array();
+            $ToiletFacilities = array("Sanitary","Insanitary","None","Shared");
+            
+            //No Sitio Filter Selected
+            if($filterSitio == ""){
+                for($x=2;$x<=$maxValueSitio;$x++){
+                    $sitioName = Sitio::where('id', $x)->value('sitioName');
+
+                    //Monthly Income
+                    $dataIncome[$sitioName] = array();
+                    foreach($MonthlyIncome as $MI){
+                        if($filterAgeGroup == ""){
+                            $resIncome = DB::table('resident_lists')
+                            ->join('households','resident_lists.houseID','=','households.id')
+                            ->join('residents','resident_lists.residentID','=','residents.id')
+                            ->where('households.sitioID', '=', $x)
+                            ->where('households.dateOfVisit', '>=', $dateB)
+                            ->where('households.dateOfVisit', '<=', $dateE)
+                            ->where('residents.dateOfDeath', '=', NULL)
+                            ->where('residents.gender', 'LIKE', "%$filterGender%")
+                            ->where('residents.monthlyIncome', '=', $MI)
+                            ->count();
+                        }else{
+                            $resIncome = DB::table('resident_lists')
+                            ->join('households','resident_lists.houseID','=','households.id')
+                            ->join('residents','resident_lists.residentID','=','residents.id')
+                            ->where('households.sitioID', '=', $x)
+                            ->where('households.dateOfVisit', '>=', $dateB)
+                            ->where('households.dateOfVisit', '<=', $dateE)
+                            ->where('residents.dateOfDeath', '=', NULL)
+                            ->where('residents.gender', 'LIKE', "%$filterGender%")
+                            ->where('residents.ageClassification', '=', $filterAgeGroup)
+                            ->where('residents.monthlyIncome', '=', $MI)
+                            ->count();
+                        }
+                        $dataIncome[$sitioName][$MI] = $resIncome;
+                    }
+
+                    //Payment/Refund Transactions
+                    $sumPay = 0;
+                    $sumRefund = 0;
+                    $payCtr = 0;
+                    $refundCtr = 0;
+                    if($filterAgeGroup == ""){
+                        $payStats = Payment::join('transactions', function ($join) {
+                            $join->on('payments.id', '=', 'transactions.paymentID');
+                        })
+                        ->join('users', function ($join) {
+                            $join->on('transactions.userID', '=', 'users.id');
+                        })
+                        ->join('residents', function ($join) {
+                            $join->on('users.residentID', '=', 'residents.id');
+                        })
+                        ->where('users.sitioID', '=', $x)
+                        ->where('residents.gender', 'LIKE', "%$filterGender%")
+                        ->select('payments.*') 
+                        ->get();
+                    }else{
+                        $payStats = Payment::join('transactions', function ($join) {
+                            $join->on('payments.id', '=', 'transactions.paymentID');
+                        })
+                        ->join('users', function ($join) {
+                            $join->on('transactions.userID', '=', 'users.id');
+                        })
+                        ->join('residents', function ($join) {
+                            $join->on('users.residentID', '=', 'residents.id');
+                        })
+                        ->where('users.sitioID', '=', $x)
+                        ->where('residents.gender', 'LIKE', "%$filterGender%")
+                        ->where('residents.ageClassification', '=', $filterAgeGroup)
+                        ->select('payments.*') 
+                        ->get();
+                    }
+                    foreach($payStats as $PS){
+                        $date = new DateTime($PS->paymentDate);
+                        $year = $date->format('Y');
+                        $md = $date->format('m-d');
+                        if($md >= '01-01' && $md <= '03-31'){
+                            $Q = 1;
+                        }elseif($md >= '04-01' && $md <= '06-30'){
+                            $Q = 2;
+                        }elseif($md >= '07-01' && $md <= '09-30'){
+                            $Q = 3;
+                        }else{
+                            $Q = 4;
+                        }
     
+                        //This is to check if the payment is done at a certain quarter
+                        if($year == $SAYear && $Q == $SAQuarter){
+                            if($PS->paymentStatus == 'Paid'){
+                                $sumPay = $sumPay + $PS->amountPaid;
+                                $payCtr++;
+                            }elseif($PS->paymentStatus == 'Refunded'){
+                                $sumRefund = $sumRefund + $PS->amountPaid;
+                                $refundCtr++;
+                            }
+                        }
+                    }
+                    $prInfo[] = array('sitio' => $sitioName, 'pCtr' => $payCtr, 'pAmount' => $sumPay, 'rCtr' => $refundCtr, 'rAmount' => $sumRefund);
+
+                    //Educational Attainment
+                    $dataEducation[$sitioName] = array();
+                    foreach($EducationAtt as $EA){
+                        //Age Group Filter not Selected
+                        if($filterAgeGroup == ""){
+                            $resEdu = DB::table('resident_lists')
+                                ->join('households','resident_lists.houseID','=','households.id')
+                                ->join('residents','resident_lists.residentID','=','residents.id')
+                                ->where('households.sitioID', '=', $x)
+                                ->where('households.dateOfVisit', '>=', $dateB)
+                                ->where('households.dateOfVisit', '<=', $dateE)
+                                ->where('residents.dateOfDeath', '=', NULL)
+                                ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                ->where('residents.educationalAttainment', '=', $EA)
+                                ->count();
+                        //Otherwise
+                        }else{
+                            $resEdu = DB::table('resident_lists')
+                                ->join('households','resident_lists.houseID','=','households.id')
+                                ->join('residents','resident_lists.residentID','=','residents.id')
+                                ->where('households.sitioID', '=', $x)
+                                ->where('households.dateOfVisit', '>=', $dateB)
+                                ->where('households.dateOfVisit', '<=', $dateE)
+                                ->where('residents.dateOfDeath', '=', NULL)
+                                ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                ->where('residents.ageClassification', '=', $filterAgeGroup)
+                                ->where('residents.educationalAttainment', '=', $EA)
+                                ->count();
+                        }
+                        $dataEducation[$sitioName][$EA] = $resEdu;
+                    }
+
+                    //Pregnancy
+                    $dataPreg[$sitioName] = array();
+                    foreach($Pregnancy as $P){
+                        //Age Group Filter not Selected
+                        if($filterAgeGroup == ""){
+                            $resPreg = DB::table('resident_lists')
+                                ->join('households','resident_lists.houseID','=','households.id')
+                                ->join('residents','resident_lists.residentID','=','residents.id')
+                                ->where('households.sitioID', '=', $x)
+                                ->where('households.dateOfVisit', '>=', $dateB)
+                                ->where('households.dateOfVisit', '<=', $dateE)
+                                ->where('residents.dateOfDeath', '=', NULL)
+                                ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                ->where('residents.gender', '!=', 'M')
+                                ->where('residents.pregnancyClassification', '=', $P)
+                                ->count();
+                        //Otherwise
+                        }else{
+                            $resPreg = DB::table('resident_lists')
+                                ->join('households','resident_lists.houseID','=','households.id')
+                                ->join('residents','resident_lists.residentID','=','residents.id')
+                                ->where('households.sitioID', '=', $x)
+                                ->where('households.dateOfVisit', '>=', $dateB)
+                                ->where('households.dateOfVisit', '<=', $dateE)
+                                ->where('residents.dateOfDeath', '=', NULL)
+                                ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                ->where('residents.gender', '!=', 'M')
+                                ->where('residents.ageClassification', '=', $filterAgeGroup)
+                                ->where('residents.pregnancyClassification', '=', $P)
+                                ->count();
+                        }
+                        $dataPreg[$sitioName][$P] = $resPreg;
+                    }
+
+                    //Indigenous Households
+                    $dataIP[$sitioName] = array();
+                    foreach($IP as $I){
+                        if ($filterGender == "" && $filterAgeGroup == "") {
+                            $hhIP = DB::table('households')
+                            ->where('sitioID', '=', $x)
+                            ->where('dateOfVisit', '>=', $dateB)
+                            ->where('dateOfVisit', '<=', $dateE)
+                            ->where('IP', '=', $I)
+                            ->count();
+                        }else{
+                            $hhIP = 0;
+                            $houseList = Households::where('sitioID', '=', $x)
+                                    ->where('dateOfVisit', '>=', $dateB)
+                                    ->where('dateOfVisit', '<=', $dateE)
+                                    ->where('IP', '=', $I)
+                                    ->get();
+                            foreach ($houseList as $HL){
+                                //User didn't select Age Group Filter
+                                if ($filterAgeGroup == ""){
+                                    $residentCheck = DB::table('resident_lists')
+                                        ->join('households','resident_lists.houseID','=','households.id')
+                                        ->join('residents','resident_lists.residentID','=','residents.id')
+                                        ->where('resident_lists.houseID', '=', $HL->id)
+                                        ->where('residents.dateOfDeath', '=', NULL)
+                                        ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                        ->first();
+                                //Otherwise
+                                }else{
+                                    $residentCheck = DB::table('resident_lists')
+                                        ->join('households','resident_lists.houseID','=','households.id')
+                                        ->join('residents','resident_lists.residentID','=','residents.id')
+                                        ->where('resident_lists.houseID', '=', $HL->id)
+                                        ->where('residents.dateOfDeath', '=', NULL)
+                                        ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                        ->where('residents.ageClassification', '=', $filterAgeGroup)
+                                        ->first();
+                                }
+                                if($residentCheck != NULL){
+                                    $hhIP++;
+                                }
+                            }
+                        }
+                        $dataIP[$sitioName][$I] = $hhIP;
+                    }
+
+                    //NHTS Households
+                    $dataNHTS[$sitioName] = array();
+                    foreach($NHTS as $N){
+                        if ($filterGender == "" && $filterAgeGroup == "") {
+                            $hhNHTS = DB::table('households')
+                                ->where('sitioID', '=', $x)
+                                ->where('dateOfVisit', '>=', $dateB)
+                                ->where('dateOfVisit', '<=', $dateE)
+                                ->where('nHTS', '=', $N)
+                                ->count();
+                        }else{
+                            $hhNHTS = 0;
+                            $houseList = Households::where('sitioID', '=', $x)
+                                    ->where('dateOfVisit', '>=', $dateB)
+                                    ->where('dateOfVisit', '<=', $dateE)
+                                    ->where('nHTS', '=', $N)
+                                    ->get();
+                            foreach ($houseList as $HL){
+                                //User didn't select Age Group Filter
+                                if ($filterAgeGroup == ""){
+                                    $residentCheck = DB::table('resident_lists')
+                                        ->join('households','resident_lists.houseID','=','households.id')
+                                        ->join('residents','resident_lists.residentID','=','residents.id')
+                                        ->where('resident_lists.houseID', '=', $HL->id)
+                                        ->where('residents.dateOfDeath', '=', NULL)
+                                        ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                        ->first();
+                                //Otherwise
+                                }else{
+                                    $residentCheck = DB::table('resident_lists')
+                                        ->join('households','resident_lists.houseID','=','households.id')
+                                        ->join('residents','resident_lists.residentID','=','residents.id')
+                                        ->where('resident_lists.houseID', '=', $HL->id)
+                                        ->where('residents.dateOfDeath', '=', NULL)
+                                        ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                        ->where('residents.ageClassification', '=', $filterAgeGroup)
+                                        ->first();
+                                }
+                                if($residentCheck != NULL){
+                                    $hhNHTS++;
+                                }
+                            }
+                        }
+                        $dataNHTS[$sitioName][$N] = $hhNHTS;
+                    }
+
+                    //Water Access
+                    $dataWater[$sitioName] = array();
+                    foreach($WaterAccess as $WA){
+                        //No Gender or/and Age Group Filter Selected
+                        if ($filterGender == "" && $filterAgeGroup == "") {
+                            $hhWater = DB::table('households')
+                                ->where('sitioID', '=', $x)
+                                ->where('dateOfVisit', '>=', $dateB)
+                                ->where('dateOfVisit', '<=', $dateE)
+                                ->where('accessToWaterSupply', '=', $WA)
+                                ->count();
+                        //Otherise
+                        }else{
+                            $hhWater = 0;
+                            $houseList = Households::where('sitioID', '=', $x)
+                                    ->where('dateOfVisit', '>=', $dateB)
+                                    ->where('dateOfVisit', '<=', $dateE)
+                                    ->where('accessToWaterSupply', '=', $WA)
+                                    ->get();
+                            foreach ($houseList as $HL){
+                                //User didn't select Age Group Filter
+                                if ($filterAgeGroup == ""){
+                                    $residentCheck = DB::table('resident_lists')
+                                        ->join('households','resident_lists.houseID','=','households.id')
+                                        ->join('residents','resident_lists.residentID','=','residents.id')
+                                        ->where('resident_lists.houseID', '=', $HL->id)
+                                        ->where('residents.dateOfDeath', '=', NULL)
+                                        ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                        ->first();
+                                //Otherwise
+                                }else{
+                                    $residentCheck = DB::table('resident_lists')
+                                        ->join('households','resident_lists.houseID','=','households.id')
+                                        ->join('residents','resident_lists.residentID','=','residents.id')
+                                        ->where('resident_lists.houseID', '=', $HL->id)
+                                        ->where('residents.dateOfDeath', '=', NULL)
+                                        ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                        ->where('residents.ageClassification', '=', $filterAgeGroup)
+                                        ->first();
+                                }
+                                if($residentCheck != NULL){
+                                    $hhWater++;
+                                }
+                            }
+                        }
+                        $dataWater[$sitioName][$WA] = $hhWater;   
+                    }
+
+                    //Toilet
+                    $dataToilet[$sitioName] = array();
+                    foreach($ToiletFacilities as $TF){
+                        //No Gender or/and Age Group Filter Selected
+                        if ($filterGender == "" && $filterAgeGroup == "") {
+                            $hhToilet = DB::table('households')
+                                ->where('sitioID', '=', $x)
+                                ->where('dateOfVisit', '>=', $dateB)
+                                ->where('dateOfVisit', '<=', $dateE)
+                                ->where('householdToiletFacilities', '=', $TF)
+                                ->count();
+                        //Otherwise
+                        }else{
+                            $hhToilet = 0;
+                            $houseList = Households::where('sitioID', '=', $x)
+                                    ->where('dateOfVisit', '>=', $dateB)
+                                    ->where('dateOfVisit', '<=', $dateE)
+                                    ->where('householdToiletFacilities', '=', $TF)
+                                    ->get();
+                            foreach ($houseList as $HL){
+                                //User didn't select Age Group Filter
+                                if ($filterAgeGroup == ""){
+                                    $residentCheck = DB::table('resident_lists')
+                                        ->join('households','resident_lists.houseID','=','households.id')
+                                        ->join('residents','resident_lists.residentID','=','residents.id')
+                                        ->where('resident_lists.houseID', '=', $HL->id)
+                                        ->where('residents.dateOfDeath', '=', NULL)
+                                        ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                        ->first();
+                                //Otherwise
+                                }else{
+                                    $residentCheck = DB::table('resident_lists')
+                                        ->join('households','resident_lists.houseID','=','households.id')
+                                        ->join('residents','resident_lists.residentID','=','residents.id')
+                                        ->where('resident_lists.houseID', '=', $HL->id)
+                                        ->where('residents.dateOfDeath', '=', NULL)
+                                        ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                        ->where('residents.ageClassification', '=', $filterAgeGroup)
+                                        ->first();
+                                }
+                                if($residentCheck != NULL){
+                                    $hhToilet++;
+                                }
+                            }
+                        }
+                        $dataToilet[$sitioName][$TF] = $hhToilet;
+                    }
+                }
+            //Otherwise (Sitio Selected)
+            }else{
+                $sitioName = Sitio::where('id', $filterSitio)->value('sitioName');
+                $dataIncome[$sitioName] = array();
+                foreach($MonthlyIncome as $MI){
+                    if($filterAgeGroup == ""){
+                        $resIncome = DB::table('resident_lists')
+                        ->join('households','resident_lists.houseID','=','households.id')
+                        ->join('residents','resident_lists.residentID','=','residents.id')
+                        ->where('households.sitioID', '=', $filterSitio)
+                        ->where('households.dateOfVisit', '>=', $dateB)
+                        ->where('households.dateOfVisit', '<=', $dateE)
+                        ->where('residents.dateOfDeath', '=', NULL)
+                        ->where('residents.gender', 'LIKE', "%$filterGender%")
+                        ->where('residents.monthlyIncome', '=', $MI)
+                        ->count();
+                    }else{
+                        $resIncome = DB::table('resident_lists')
+                        ->join('households','resident_lists.houseID','=','households.id')
+                        ->join('residents','resident_lists.residentID','=','residents.id')
+                        ->where('households.sitioID', '=', $x)
+                        ->where('households.dateOfVisit', '>=', $dateB)
+                        ->where('households.dateOfVisit', '<=', $dateE)
+                        ->where('residents.dateOfDeath', '=', NULL)
+                        ->where('residents.gender', 'LIKE', "%$filterGender%")
+                        ->where('residents.ageClassification', '=', $filterAgeGroup)
+                        ->where('residents.monthlyIncome', '=', $MI)
+                        ->count();
+                    }
+                    $dataIncome[$sitioName][$MI] = $resIncome;
+                }
+
+                //Payment/Refund Transactions
+                $sumPay = 0;
+                $sumRefund = 0;
+                $payCtr = 0;
+                $refundCtr = 0;
+                if($filterAgeGroup == ""){
+                    $payStats = Payment::join('transactions', function ($join) {
+                        $join->on('payments.id', '=', 'transactions.paymentID');
+                    })
+                    ->join('users', function ($join) {
+                        $join->on('transactions.userID', '=', 'users.id');
+                    })
+                    ->join('residents', function ($join) {
+                        $join->on('users.residentID', '=', 'residents.id');
+                    })
+                    ->where('users.sitioID', '=', $filterSitio)
+                    ->where('residents.gender', 'LIKE', "%$filterGender%")
+                    ->select('payments.*') 
+                    ->get();
+                }else{
+                    $payStats = Payment::join('transactions', function ($join) {
+                        $join->on('payments.id', '=', 'transactions.paymentID');
+                    })
+                    ->join('users', function ($join) {
+                        $join->on('transactions.userID', '=', 'users.id');
+                    })
+                    ->join('residents', function ($join) {
+                        $join->on('users.residentID', '=', 'residents.id');
+                    })
+                    ->where('users.sitioID', '=', $filterSitio)
+                    ->where('residents.gender', 'LIKE', "%$filterGender%")
+                    ->where('residents.ageClassification', '=', $filterAgeGroup)
+                    ->select('payments.*') 
+                    ->get();
+                }
+                foreach($payStats as $PS){
+                    $date = new DateTime($PS->paymentDate);
+                    $year = $date->format('Y');
+                    $md = $date->format('m-d');
+                    if($md >= '01-01' && $md <= '03-31'){
+                        $Q = 1;
+                    }elseif($md >= '04-01' && $md <= '06-30'){
+                        $Q = 2;
+                    }elseif($md >= '07-01' && $md <= '09-30'){
+                        $Q = 3;
+                    }else{
+                        $Q = 4;
+                    }
+
+                    //This is to check if the payment is done at a certain quarter
+                    if($year == $SAYear && $Q == $SAQuarter){
+                        if($PS->paymentStatus == 'Paid'){
+                            $sumPay = $sumPay + $PS->amountPaid;
+                            $payCtr++;
+                        }elseif($PS->paymentStatus == 'Refunded'){
+                            $sumRefund = $sumRefund + $PS->amountPaid;
+                            $refundCtr++;
+                        }
+                    }
+                }
+                $prInfo[] = array('sitio' => $sitioName, 'pCtr' => $payCtr, 'pAmount' => $sumPay, 'rCtr' => $refundCtr, 'rAmount' => $sumRefund);
+
+                //Educational Attainment
+                $dataEducation[$sitioName] = array();
+                foreach($EducationAtt as $EA){
+                    //Age Group Filter not Selected
+                    if($filterAgeGroup == ""){
+                        $resEdu = DB::table('resident_lists')
+                            ->join('households','resident_lists.houseID','=','households.id')
+                            ->join('residents','resident_lists.residentID','=','residents.id')
+                            ->where('households.sitioID', '=', $filterSitio)
+                            ->where('households.dateOfVisit', '>=', $dateB)
+                            ->where('households.dateOfVisit', '<=', $dateE)
+                            ->where('residents.dateOfDeath', '=', NULL)
+                            ->where('residents.gender', 'LIKE', "%$filterGender%")
+                            ->where('residents.educationalAttainment', '=', $EA)
+                            ->count();
+                    //Otherwise
+                    }else{
+                        $resEdu = DB::table('resident_lists')
+                            ->join('households','resident_lists.houseID','=','households.id')
+                            ->join('residents','resident_lists.residentID','=','residents.id')
+                            ->where('households.sitioID', '=', $filterSitio)
+                            ->where('households.dateOfVisit', '>=', $dateB)
+                            ->where('households.dateOfVisit', '<=', $dateE)
+                            ->where('residents.dateOfDeath', '=', NULL)
+                            ->where('residents.gender', 'LIKE', "%$filterGender%")
+                            ->where('residents.ageClassification', '=', $filterAgeGroup)
+                            ->where('residents.educationalAttainment', '=', $EA)
+                            ->count();
+                    }
+                    $dataPreg[$sitioName][$EA] = $resEdu;
+                }
+
+                //Pregnancy
+                $dataPreg[$sitioName] = array();
+                foreach($Pregnancy as $P){
+                    //Age Group Filter not Selected
+                    if($filterAgeGroup == ""){
+                        $resPreg = DB::table('resident_lists')
+                            ->join('households','resident_lists.houseID','=','households.id')
+                            ->join('residents','resident_lists.residentID','=','residents.id')
+                            ->where('households.sitioID', '=', $filterSitio)
+                            ->where('households.dateOfVisit', '>=', $dateB)
+                            ->where('households.dateOfVisit', '<=', $dateE)
+                            ->where('residents.dateOfDeath', '=', NULL)
+                            ->where('residents.gender', 'LIKE', "%$filterGender%")
+                            ->where('residents.gender', '!=', 'M')
+                            ->where('residents.pregnancyClassification', '=', $P)
+                            ->count();
+                    //Otherwise
+                    }else{
+                        $resPreg = DB::table('resident_lists')
+                            ->join('households','resident_lists.houseID','=','households.id')
+                            ->join('residents','resident_lists.residentID','=','residents.id')
+                            ->where('households.sitioID', '=', $filterSitio)
+                            ->where('households.dateOfVisit', '>=', $dateB)
+                            ->where('households.dateOfVisit', '<=', $dateE)
+                            ->where('residents.dateOfDeath', '=', NULL)
+                            ->where('residents.gender', 'LIKE', "%$filterGender%")
+                            ->where('residents.gender', '!=', 'M')
+                            ->where('residents.ageClassification', '=', $filterAgeGroup)
+                            ->where('residents.pregnancyClassification', '=', $P)
+                            ->count();
+                    }
+                    $dataPreg[$sitioName][$P] = $resPreg;
+                }
+
+                //Indigenous Households
+                $dataIP[$sitioName] = array();
+                foreach($IP as $I){
+                    if ($filterGender == "" && $filterAgeGroup == "") {
+                        $hhIP = DB::table('households')
+                        ->where('households.sitioID', '=', $filterSitio)
+                        ->where('dateOfVisit', '>=', $dateB)
+                        ->where('dateOfVisit', '<=', $dateE)
+                        ->where('IP', '=', $I)
+                        ->count();
+                    }else{
+                        $hhIP = 0;
+                        $houseList = Households::where('households.sitioID', '=', $filterSitio)
+                                ->where('dateOfVisit', '>=', $dateB)
+                                ->where('dateOfVisit', '<=', $dateE)
+                                ->where('IP', '=', $I)
+                                ->get();
+                        foreach ($houseList as $HL){
+                            //User didn't select Age Group Filter
+                            if ($filterAgeGroup == ""){
+                                $residentCheck = DB::table('resident_lists')
+                                    ->join('households','resident_lists.houseID','=','households.id')
+                                    ->join('residents','resident_lists.residentID','=','residents.id')
+                                    ->where('resident_lists.houseID', '=', $HL->id)
+                                    ->where('residents.dateOfDeath', '=', NULL)
+                                    ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                    ->first();
+                            //Otherwise
+                            }else{
+                                $residentCheck = DB::table('resident_lists')
+                                    ->join('households','resident_lists.houseID','=','households.id')
+                                    ->join('residents','resident_lists.residentID','=','residents.id')
+                                    ->where('resident_lists.houseID', '=', $HL->id)
+                                    ->where('residents.dateOfDeath', '=', NULL)
+                                    ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                    ->where('residents.ageClassification', '=', $filterAgeGroup)
+                                    ->first();
+                            }
+                            if($residentCheck != NULL){
+                                $hhIP++;
+                            }
+                        }
+                    }
+                    $dataIP[$sitioName][$I] = $hhIP;
+                }
+
+                //NHTS Households
+                $dataNHTS[$sitioName] = array();
+                foreach($NHTS as $N){
+                    if ($filterGender == "" && $filterAgeGroup == "") {
+                        $hhNHTS = DB::table('households')
+                            ->where('sitioID', '=', $filterSitio)
+                            ->where('dateOfVisit', '>=', $dateB)
+                            ->where('dateOfVisit', '<=', $dateE)
+                            ->where('nHTS', '=', $N)
+                            ->count();
+                    }else{
+                        $hhNHTS = 0;
+                        $houseList = Households::where('sitioID', '=', $filterSitio)
+                                ->where('dateOfVisit', '>=', $dateB)
+                                ->where('dateOfVisit', '<=', $dateE)
+                                ->where('nHTS', '=', $N)
+                                ->get();
+                        foreach ($houseList as $HL){
+                            //User didn't select Age Group Filter
+                            if ($filterAgeGroup == ""){
+                                $residentCheck = DB::table('resident_lists')
+                                    ->join('households','resident_lists.houseID','=','households.id')
+                                    ->join('residents','resident_lists.residentID','=','residents.id')
+                                    ->where('resident_lists.houseID', '=', $HL->id)
+                                    ->where('residents.dateOfDeath', '=', NULL)
+                                    ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                    ->first();
+                            //Otherwise
+                            }else{
+                                $residentCheck = DB::table('resident_lists')
+                                    ->join('households','resident_lists.houseID','=','households.id')
+                                    ->join('residents','resident_lists.residentID','=','residents.id')
+                                    ->where('resident_lists.houseID', '=', $HL->id)
+                                    ->where('residents.dateOfDeath', '=', NULL)
+                                    ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                    ->where('residents.ageClassification', '=', $filterAgeGroup)
+                                    ->first();
+                            }
+                            if($residentCheck != NULL){
+                                $hhNHTS++;
+                            }
+                        }
+                    }
+                    $dataNHTS[$sitioName][$N] = $hhNHTS;
+                }
+
+                //Water Access
+                $dataWater[$sitioName] = array();
+                foreach($WaterAccess as $WA){
+                    if ($filterGender == "" && $filterAgeGroup == "") {
+                        $hhWater = DB::table('households')
+                            ->where('sitioID', '=', $filterSitio)
+                            ->where('dateOfVisit', '>=', $dateB)
+                            ->where('dateOfVisit', '<=', $dateE)
+                            ->where('accessToWaterSupply', '=', $WA)
+                            ->count();
+                    }else{
+                        $hhWater = 0;
+                        $houseList = Households::where('sitioID', '=', $filterSitio)
+                                ->where('dateOfVisit', '>=', $dateB)
+                                ->where('dateOfVisit', '<=', $dateE)
+                                ->where('accessToWaterSupply', '=', $WA)
+                                ->get();
+                        foreach ($houseList as $HL){
+                            //User didn't select Age Group Filter
+                            if ($filterAgeGroup == ""){
+                                $residentCheck = DB::table('resident_lists')
+                                    ->join('households','resident_lists.houseID','=','households.id')
+                                    ->join('residents','resident_lists.residentID','=','residents.id')
+                                    ->where('resident_lists.houseID', '=', $HL->id)
+                                    ->where('residents.dateOfDeath', '=', NULL)
+                                    ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                    ->first();
+                            //Otherwise
+                            }else{
+                                $residentCheck = DB::table('resident_lists')
+                                    ->join('households','resident_lists.houseID','=','households.id')
+                                    ->join('residents','resident_lists.residentID','=','residents.id')
+                                    ->where('resident_lists.houseID', '=', $HL->id)
+                                    ->where('residents.dateOfDeath', '=', NULL)
+                                    ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                    ->where('residents.ageClassification', '=', $filterAgeGroup)
+                                    ->first();
+                            }
+                            if($residentCheck != NULL){
+                                $hhWater++;
+                            }
+                        }
+                    }
+                    $dataWater[$sitioName][$WA] = $hhWater;   
+                }
+
+                //Toilet
+                $dataToilet[$sitioName] = array();
+                foreach($ToiletFacilities as $TF){
+                    //No Gender or/and Age Group Filter Selected
+                    if ($filterGender == "" && $filterAgeGroup == "") {
+                        $hhToilet = DB::table('households')
+                            ->where('sitioID', '=', $filterSitio)
+                            ->where('dateOfVisit', '>=', $dateB)
+                            ->where('dateOfVisit', '<=', $dateE)
+                            ->where('householdToiletFacilities', '=', $TF)
+                            ->count();
+                    //Otherwise
+                    }else{
+                        $hhToilet = 0;
+                        $houseList = Households::where('sitioID', '=', $filterSitio)
+                                ->where('dateOfVisit', '>=', $dateB)
+                                ->where('dateOfVisit', '<=', $dateE)
+                                ->where('householdToiletFacilities', '=', $TF)
+                                ->get();
+                        foreach ($houseList as $HL){
+                            //User didn't select Age Group Filter
+                            if ($filterAgeGroup == ""){
+                                $residentCheck = DB::table('resident_lists')
+                                    ->join('households','resident_lists.houseID','=','households.id')
+                                    ->join('residents','resident_lists.residentID','=','residents.id')
+                                    ->where('resident_lists.houseID', '=', $HL->id)
+                                    ->where('residents.dateOfDeath', '=', NULL)
+                                    ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                    ->first();
+                            //Otherwise
+                            }else{
+                                $residentCheck = DB::table('resident_lists')
+                                    ->join('households','resident_lists.houseID','=','households.id')
+                                    ->join('residents','resident_lists.residentID','=','residents.id')
+                                    ->where('resident_lists.houseID', '=', $HL->id)
+                                    ->where('residents.dateOfDeath', '=', NULL)
+                                    ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                    ->where('residents.ageClassification', '=', $filterAgeGroup)
+                                    ->first();
+                            }
+                            if($residentCheck != NULL){
+                                $hhToilet++;
+                            }
+                        }
+                    }
+                    $dataToilet[$sitioName][$TF] = $hhToilet;
+                }
+            }
+
             //Household
             $householdCount = array();
             $totalHouseholdCount = 0;
@@ -1738,23 +2554,15 @@ class StatisticsController extends Controller
             if ($filterGender == "" && $filterAgeGroup == "") {
                 //When the user didn't select any Sitio in the options
                 if ($filterSitio == "") {
-                    //puts the household info ahead
-                    $maxValueHousehold = DB::table('sitio_counts')->where('statID',$statCheck->id)
-                                                                  ->where('genderGroup', '=', '--')
-                                                                  ->where('ageGroup', '=', '--')
-                                                                  ->max('sitioID');
-
-                    $indexHousehold = 2;
-
-                    while ($indexHousehold <= $maxValueHousehold) {
-                    $sitioName = Sitio::where('id', $indexHousehold)->value('sitioName');
+                    //puts the household info
+                    for($x=2;$x<=$maxValueSitio;$x++) {
+                    $sitioName = Sitio::where('id', $x)->value('sitioName');
                     $sumHousehold = DB::table('sitio_counts')->where('statID', $statCheck->id)
-                                                             ->where('sitioID', $indexHousehold)
+                                                             ->where('sitioID', $x)
                                                              ->where('genderGroup', '=', '--')
                                                              ->where('ageGroup', '=', '--')
                                                              ->value('residentCount');
                     $householdCount[] = array('sitio' => $sitioName, 'houseCount' => $sumHousehold);
-                    $indexHousehold++;
                     }
 
                     $totalHouseholdCount = DB::table('sitio_counts')->where('statID', $statCheck->id)
@@ -1762,9 +2570,7 @@ class StatisticsController extends Controller
                                         ->where('ageGroup', '=', '--')
                                         ->sum('residentCount');
                 //Otherwise (Sitio)
-                }else{
-                    $householdCount = array();
-    
+                }else{ 
                     $sitioName = Sitio::where('id', $filterSitio)->value('sitioName');
                     $sumHousehold = DB::table('sitio_counts')->where('statID', $statCheck->id)
                                                              ->where('sitioID', $filterSitio)
@@ -1774,10 +2580,87 @@ class StatisticsController extends Controller
                     $householdCount[] = array('sitio' => $sitioName, 'houseCount' => $sumHousehold);
                     $totalHouseholdCount = $sumHousehold;
                 }
-            }//No need to make an else statement if otherwise (Gender and Age Group) because it is already initialized above
+            //The user picked either the Gender or Age Group (or both)
+            }else{
+                //w/o Sitio Filter applied
+                if ($filterSitio == ""){
+                    //The user selected any Gender or Age Group Filter
+                    for($x=2;$x<=$maxValueSitio;$x++){
+                        $sitioName = Sitio::where('id', $x)->value('sitioName');
+                        $sumHousehold = 0;
+                        $houseList = Households::where('sitioID', '=', $x)
+                                        ->where('dateOfVisit', '>=', $dateB)
+                                        ->where('dateOfVisit', '<=', $dateE)
+                                        ->get();
+                        foreach ($houseList as $HL){
+                            //User didn't select Age Group Filter
+                            if ($filterAgeGroup == ""){
+                                $residentCheck = DB::table('resident_lists')
+                                    ->join('households','resident_lists.houseID','=','households.id')
+                                    ->join('residents','resident_lists.residentID','=','residents.id')
+                                    ->where('resident_lists.houseID', '=', $HL->id)
+                                    ->where('residents.dateOfDeath', '=', NULL)
+                                    ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                    ->first();
+                            //Otherwise
+                            }else{
+                                $residentCheck = DB::table('resident_lists')
+                                    ->join('households','resident_lists.houseID','=','households.id')
+                                    ->join('residents','resident_lists.residentID','=','residents.id')
+                                    ->where('resident_lists.houseID', '=', $HL->id)
+                                    ->where('residents.dateOfDeath', '=', NULL)
+                                    ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                    ->where('residents.ageClassification', '=', $filterAgeGroup)
+                                    ->first();
+                            }
+                            if($residentCheck != NULL){
+                                $sumHousehold++;
+                                $totalHouseholdCount++;
+                                }
+                        }
+                        $householdCount[] = array('sitio' => $sitioName, 'houseCount' => $sumHousehold);
+                    }
+                //Otherwise
+                }else{
+                    //The user selected didn't any Age Group Filter
+                    $sitioName = Sitio::where('id', $filterSitio)->value('sitioName');
+                    $sumHousehold = 0;
+                    $houseList = Households::where('sitioID', '=', $filterSitio)
+                                    ->where('dateOfVisit', '>=', $dateB)
+                                    ->where('dateOfVisit', '<=', $dateE)
+                                    ->get();
+                    foreach ($houseList as $HL){
+                        //User didn't select Age Group Filter
+                        if ($filterAgeGroup == ""){
+                            $residentCheck = DB::table('resident_lists')
+                                ->join('households','resident_lists.houseID','=','households.id')
+                                ->join('residents','resident_lists.residentID','=','residents.id')
+                                ->where('resident_lists.houseID', '=', $HL->id)
+                                ->where('residents.dateOfDeath', '=', NULL)
+                                ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                ->first();
+                        //Otherwise
+                        }else{
+                            $residentCheck = DB::table('resident_lists')
+                                ->join('households','resident_lists.houseID','=','households.id')
+                                ->join('residents','resident_lists.residentID','=','residents.id')
+                                ->where('resident_lists.houseID', '=', $HL->id)
+                                ->where('residents.dateOfDeath', '=', NULL)
+                                ->where('residents.gender', 'LIKE', "%$filterGender%")
+                                ->where('residents.ageClassification', '=', $filterAgeGroup)
+                                ->first();
+                        }
+                        if($residentCheck != NULL){
+                            $sumHousehold++;
+                            $totalHouseholdCount++;
+                        }
+                    }
+                    $householdCount[] = array('sitio' => $sitioName, 'houseCount' => $sumHousehold);
+                }
+            }
         }
 
-        $pdf = PDF::loadView('pdf.reports', compact('householdCount', 'totalHouseholdCount', 'residentCount', 'totalResidentCount', 'request', 'nameSitio'));
+        $pdf = PDF::loadView('pdf.reports', compact('householdCount', 'totalHouseholdCount', 'residentCount', 'totalResidentCount', 'request', 'nameSitio', 'MonthlyIncome', 'dataIncome', 'prInfo', 'EducationAtt', 'dataEducation', 'Pregnancy', 'dataPreg', 'IP', 'dataIP', 'NHTS', 'dataNHTS', 'WaterAccess', 'dataWater', 'ToiletFacilities', 'dataToilet'));
         return $pdf->stream('reports.pdf');
     }
 }
