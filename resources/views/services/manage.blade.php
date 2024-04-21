@@ -12,6 +12,9 @@
                 <div class="flex flex-row ml-10">
                     <a href="{{ route('services.index') }}"><i class="fa-solid fa-arrow-left text-deep-green text-[28px] py-3"></i></a>
                     <p class="font-robotocondensed text-[32px] font-bold text-deep-green ml-8" style="font-size: 32px;">REQUEST NO. {{ $transaction->id }}</p>
+                    @if($transaction->payment['paymentStatus'] == 'Paid')
+                        <a href="{{route('pdf.export', $transaction->id)}}" class="float-right" id="printLink"><i class="fa-solid fa-print text-deep-green text-[28px] mt-3 ml-8"></i></a>
+                    @endif
                 </div>
                 <div class="ml-24 mt-4 flex flex-col" style="margin-left: 92px;">
                     <div class="font-robotocondensed font-bold text-deep-green" style="font-size: 18px;">
@@ -78,7 +81,6 @@
                         <p>O.R Number:</p>
                         <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->payment['orNumber'] }}</p>
                     </div>
-                    <a href="{{route('pdf.export', $transaction->id)}}" class="float-right mt-3" id="printLink"><i class="fa-solid fa-print text-deep-green text-[28px] mt-7 ml-8"></i></a>
                     @endif
                 </div>
             </div>

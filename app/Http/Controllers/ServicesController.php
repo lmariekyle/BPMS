@@ -428,7 +428,6 @@ class ServicesController extends Controller
                     'requestPurpose' => $request->requestPurpose,
                 ]);
     
-                
                 $transaction = new Transaction;
                 $transactiondetail =  $transaction->transactiondetail()->create([
                     'requesteeFName' => $request->complaintFName,
