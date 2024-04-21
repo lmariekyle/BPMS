@@ -775,7 +775,7 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '09876543211',
             'email' => 'parker@gmail.com',
             'maritalStatus' => 'Married',
-            'familyRole' => 'Spouse Household Head',
+            'familyRole' => 'Spouse of Household Head',
             'educationalAttainment' => 'College Graduate',
             'gender' => 'M',
             'occupation' => 'Principal',
@@ -795,8 +795,8 @@ class ResidentSeeder extends Seeder
             'dateOfBirth' => '2012-10-09',
             'contactNumber' => '09876543211',
             'email' => 'parker@gmail.com',
-            'maritalStatus' => 'Married',
-            'familyRole' => 'Spouse Household Head',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Child of Household Head',
             'educationalAttainment' => 'UnderGraduate',
             'gender' => 'M',
             'occupation' => 'Student',
@@ -839,7 +839,7 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '09876543211',
             'email' => 'parker@gmail.com',
             'maritalStatus' => 'Married',
-            'familyRole' => 'Spouse Household Head',
+            'familyRole' => 'Spouse of Household Head',
             'educationalAttainment' => 'College Graduate',
             'gender' => 'M',
             'occupation' => 'Principal',
@@ -859,8 +859,8 @@ class ResidentSeeder extends Seeder
             'dateOfBirth' => '2012-10-09',
             'contactNumber' => '09876543211',
             'email' => 'parker@gmail.com',
-            'maritalStatus' => 'Married',
-            'familyRole' => 'Spouse Household Head',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Child of Household Head',
             'educationalAttainment' => 'UnderGraduate',
             'gender' => 'M',
             'occupation' => 'Student',
@@ -871,7 +871,7 @@ class ResidentSeeder extends Seeder
             'revisedBy' => 2,
         ]);
         
-        //houseID 20
+        //houseID 21
         Resident::create([
             'id' => '42',
             'residentID' => 'RES-00016',
@@ -903,7 +903,7 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '09876543211',
             'email' => 'parker@gmail.com',
             'maritalStatus' => 'Married',
-            'familyRole' => 'Spouse Household Head',
+            'familyRole' => 'Spouse of Household Head',
             'educationalAttainment' => 'College Graduate',
             'gender' => 'M',
             'occupation' => 'Principal',
@@ -923,8 +923,8 @@ class ResidentSeeder extends Seeder
             'dateOfBirth' => '2012-10-09',
             'contactNumber' => '09876543211',
             'email' => 'parker@gmail.com',
-            'maritalStatus' => 'Married',
-            'familyRole' => 'Spouse Household Head',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Child of Household Head',
             'educationalAttainment' => 'UnderGraduate',
             'gender' => 'M',
             'occupation' => 'Student',
@@ -934,26 +934,823 @@ class ResidentSeeder extends Seeder
             'createdBy' => 2,
             'revisedBy' => 2,
         ]);
-
         Resident::create([
             'id' => '45',
-            'residentID' => 'RES-00019',
-            'firstName' => 'Horbs',
-            'middleName' => 'Bars',
-            'lastName' => 'Mendoza',
-            'dateOfBirth' => '2001-11-18',
-            'contactNumber' => '1234567890',
-            'email' => 'horeb@bpms.com',
-            'maritalStatus' => 'Married',
+            'residentID' => 'RES-00042',
+            'firstName' => 'Pascal',
+            'middleName' => 'Benjamin',
+            'lastName' => 'Parker',
+            'dateOfBirth' => '1980-10-09',
+            'contactNumber' => '09876543211',
+            'email' => 'pascal@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Sibling of Household Head',
+            'educationalAttainment' => 'UnderGraduate',
             'gender' => 'M',
-            'occupation' => 'IT Programmer',
-            'monthlyIncome' => '40000',
+            'occupation' => 'None',
+            'monthlyIncome' => 'None',
+            'ageClassification' => 'AB',
+            'dateOfDeath' => null,
+            'createdBy' => 2,
+            'revisedBy' => 2,
+        ]);
+
+        //22 - 46 47 48
+        Resident::create([
+            'id' => '46',
+            'residentID' => 'RES-00019',
+            'firstName' => 'John Jacob',
+            'middleName' => 'Ang',
+            'lastName' => 'Black',
+            'dateOfBirth' => '2000-11-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'None',
+            'monthlyIncome' => 'None',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '47',
+            'residentID' => 'RES-00020',
+            'firstName' => 'Dorothy',
+            'middleName' => 'Ang',
+            'lastName' => 'Black',
+            'dateOfBirth' => '1980-12-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Spouse of Household Head',
+            'educationalAttainment' => 'UnderGraduate',
+            'gender' => 'F',
+            'occupation' => 'Teacher',
+            'monthlyIncome' => '9,100 - 18,200',
+            'ageClassification' => 'WRA',
+        ]);
+        Resident::create([
+            'id' => '48',
+            'residentID' => 'RES-00021',
+            'firstName' => 'Billy',
+            'middleName' => 'Ang',
+            'lastName' => 'Black',
+            'dateOfBirth' => '1970-10-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Spouse Household Head',
+            'educationalAttainment' => 'UnderGraduate',
+            'gender' => 'M',
+            'occupation' => 'Teacher',
+            'monthlyIncome' => '9,100 - 18,200',
             'ageClassification' => 'AB',
         ]);
 
+        //23 - 49 50 51
         Resident::create([
-            'id' => '46',
+            'id' => '49',
+            'residentID' => 'RES-00019',
+            'firstName' => 'John Jacob',
+            'middleName' => 'Ang',
+            'lastName' => 'Black',
+            'dateOfBirth' => '2000-11-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'None',
+            'monthlyIncome' => 'None',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '50',
             'residentID' => 'RES-00020',
+            'firstName' => 'Dorothy',
+            'middleName' => 'Ang',
+            'lastName' => 'Black',
+            'dateOfBirth' => '1980-12-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Spouse of Household Head',
+            'educationalAttainment' => 'UnderGraduate',
+            'gender' => 'F',
+            'occupation' => 'Teacher',
+            'monthlyIncome' => '9,100 - 18,200',
+            'ageClassification' => 'WRA',
+        ]);
+        Resident::create([
+            'id' => '51',
+            'residentID' => 'RES-00021',
+            'firstName' => 'Billy',
+            'middleName' => 'Ang',
+            'lastName' => 'Black',
+            'dateOfBirth' => '1970-10-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Spouse Household Head',
+            'educationalAttainment' => 'UnderGraduate',
+            'gender' => 'M',
+            'occupation' => 'Teacher',
+            'monthlyIncome' => '9,100 - 18,200',
+            'ageClassification' => 'AB',
+        ]);
+
+        //24 - 52 53 54
+        Resident::create([
+            'id' => '52',
+            'residentID' => 'RES-00019',
+            'firstName' => 'John Jacob',
+            'middleName' => 'Ang',
+            'lastName' => 'Black',
+            'dateOfBirth' => '2000-11-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'None',
+            'monthlyIncome' => 'None',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '53',
+            'residentID' => 'RES-00020',
+            'firstName' => 'Dorothy',
+            'middleName' => 'Ang',
+            'lastName' => 'Black',
+            'dateOfBirth' => '1980-12-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Spouse of Household Head',
+            'educationalAttainment' => 'UnderGraduate',
+            'gender' => 'F',
+            'occupation' => 'Teacher',
+            'monthlyIncome' => '9,100 - 18,200',
+            'ageClassification' => 'WRA',
+        ]);
+        Resident::create([
+            'id' => '54',
+            'residentID' => 'RES-00021',
+            'firstName' => 'Billy',
+            'middleName' => 'Ang',
+            'lastName' => 'Black',
+            'dateOfBirth' => '1970-10-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Spouse Household Head',
+            'educationalAttainment' => 'UnderGraduate',
+            'gender' => 'M',
+            'occupation' => 'Teacher',
+            'monthlyIncome' => '9,100 - 18,200',
+            'ageClassification' => 'AB',
+        ]);
+
+        //25 - 55 56 57 58
+        Resident::create([
+            'id' => '55',
+            'residentID' => 'RES-00022',
+            'firstName' => 'Edward',
+            'middleName' => 'Santos',
+            'lastName' => 'Cullen',
+            'dateOfBirth' => '2000-11-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'Doctor',
+            'monthlyIncome' => '36,400 - 63,700',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '56',
+            'residentID' => 'RES-00023',
+            'firstName' => 'Carlisle',
+            'middleName' => 'Santos',
+            'lastName' => 'Cullen',
+            'dateOfBirth' => '1960-11-2',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Parent of Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'Retired',
+            'monthlyIncome' => '36,400 - 63,700',
+            'ageClassification' => 'SC',
+        ]);
+        Resident::create([
+            'id' => '57',
+            'residentID' => 'RES-00024',
+            'firstName' => 'Esme',
+            'middleName' => 'Santos',
+            'lastName' => 'Cullen',
+            'dateOfBirth' => '1970-7-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Parent of Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'F',
+            'occupation' => 'Doctor',
+            'monthlyIncome' => '63,700 - 109,200',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '58',
+            'residentID' => 'RES-00025',
+            'firstName' => 'Alice',
+            'middleName' => 'Santos',
+            'lastName' => 'Cullen',
+            'dateOfBirth' => '2010-11-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Sibling of Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'F',
+            'occupation' => 'None',
+            'monthlyIncome' => 'None',
+            'ageClassification' => 'A',
+        ]);
+
+        //26 - 59 60 61 62
+        Resident::create([
+            'id' => '59',
+            'residentID' => 'RES-00022',
+            'firstName' => 'Edward',
+            'middleName' => 'Santos',
+            'lastName' => 'Cullen',
+            'dateOfBirth' => '2000-11-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'Doctor',
+            'monthlyIncome' => '63,700 - 109,200',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '60',
+            'residentID' => 'RES-00023',
+            'firstName' => 'Carlisle',
+            'middleName' => 'Santos',
+            'lastName' => 'Cullen',
+            'dateOfBirth' => '1960-11-2',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Parent of Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'Retired',
+            'monthlyIncome' => '36,400 - 63,700',
+            'ageClassification' => 'SC',
+        ]);
+        Resident::create([
+            'id' => '61',
+            'residentID' => 'RES-00024',
+            'firstName' => 'Esme',
+            'middleName' => 'Santos',
+            'lastName' => 'Cullen',
+            'dateOfBirth' => '1970-7-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Parent of Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'F',
+            'occupation' => 'Doctor',
+            'monthlyIncome' => '63,700 - 109,200',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '62',
+            'residentID' => 'RES-00025',
+            'firstName' => 'Alice',
+            'middleName' => 'Santos',
+            'lastName' => 'Cullen',
+            'dateOfBirth' => '2010-11-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Sibling of Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'F',
+            'occupation' => 'None',
+            'monthlyIncome' => 'None',
+            'ageClassification' => 'A',
+        ]);
+
+        //27 - 63 64 65 66
+        Resident::create([
+            'id' => '63',
+            'residentID' => 'RES-00022',
+            'firstName' => 'Edward',
+            'middleName' => 'Santos',
+            'lastName' => 'Cullen',
+            'dateOfBirth' => '2000-11-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'Doctor',
+            'monthlyIncome' => '63,700 - 109,200',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '64',
+            'residentID' => 'RES-00023',
+            'firstName' => 'Carlisle',
+            'middleName' => 'Santos',
+            'lastName' => 'Cullen',
+            'dateOfBirth' => '1960-11-2',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Parent of Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'Retired',
+            'monthlyIncome' => '36,400 - 63,700',
+            'ageClassification' => 'SC',
+        ]);
+        Resident::create([
+            'id' => '65',
+            'residentID' => 'RES-00024',
+            'firstName' => 'Esme',
+            'middleName' => 'Santos',
+            'lastName' => 'Cullen',
+            'dateOfBirth' => '1970-7-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Parent of Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'F',
+            'occupation' => 'Doctor',
+            'monthlyIncome' => '63,700 - 109,200',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '66',
+            'residentID' => 'RES-00025',
+            'firstName' => 'Alice',
+            'middleName' => 'Santos',
+            'lastName' => 'Cullen',
+            'dateOfBirth' => '2010-11-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Sibling of Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'F',
+            'occupation' => 'None',
+            'monthlyIncome' => 'None',
+            'ageClassification' => 'A',
+        ]);
+
+        //28 - 67 68 69
+        Resident::create([
+            'id' => '67',
+            'residentID' => 'RES-00026',
+            'firstName' => 'Bella',
+            'middleName' => 'Maria',
+            'lastName' => 'Swan',
+            'dateOfBirth' => '1990-11-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'F',
+            'occupation' => 'Teacher',
+            'monthlyIncome' => '9,100 - 18,200',
+            'ageClassification' => 'WRA',
+        ]);
+        Resident::create([
+            'id' => '68',
+            'residentID' => 'RES-00027',
+            'firstName' => 'Renesmee',
+            'middleName' => 'Maria',
+            'lastName' => 'Swan',
+            'dateOfBirth' => '2018-7-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Child of Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'F',
+            'occupation' => 'None',
+            'monthlyIncome' => 'None',
+            'ageClassification' => 'U',
+        ]);
+        Resident::create([
+            'id' => '69',
+            'residentID' => 'RES-00028',
+            'firstName' => 'Marco Polo',
+            'middleName' => 'Maria',
+            'lastName' => 'Swan',
+            'dateOfBirth' => '1990-6-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Sibling of Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'M',
+            'occupation' => 'Construction Worker',
+            'monthlyIncome' => 'less than 9,100',
+            'ageClassification' => 'AB',
+        ]);
+
+        //29 70 71 72
+        Resident::create([
+            'id' => '70',
+            'residentID' => 'RES-00026',
+            'firstName' => 'Bella',
+            'middleName' => 'Maria',
+            'lastName' => 'Swan',
+            'dateOfBirth' => '1990-11-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'F',
+            'occupation' => 'Teacher',
+            'monthlyIncome' => '9,100 - 18,200',
+            'ageClassification' => 'WRA',
+        ]);
+        Resident::create([
+            'id' => '71',
+            'residentID' => 'RES-00027',
+            'firstName' => 'Renesmee',
+            'middleName' => 'Maria',
+            'lastName' => 'Swan',
+            'dateOfBirth' => '2018-7-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Child of Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'F',
+            'occupation' => 'None',
+            'monthlyIncome' => 'None',
+            'ageClassification' => 'B',
+        ]);
+        Resident::create([
+            'id' => '72',
+            'residentID' => 'RES-00028',
+            'firstName' => 'Marco Polo',
+            'middleName' => 'Maria',
+            'lastName' => 'Swan',
+            'dateOfBirth' => '1990-6-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Sibling of Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'M',
+            'occupation' => 'Construction Worker',
+            'monthlyIncome' => 'less than 9,100',
+            'ageClassification' => 'AB',
+        ]);
+
+        //30 - 73 74 75
+        Resident::create([
+            'id' => '73',
+            'residentID' => 'RES-00026',
+            'firstName' => 'Bella',
+            'middleName' => 'Maria',
+            'lastName' => 'Swan',
+            'dateOfBirth' => '1990-11-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'F',
+            'occupation' => 'Teacher',
+            'monthlyIncome' => '9,100 - 18,200',
+            'ageClassification' => 'WRA',
+        ]);
+        Resident::create([
+            'id' => '74',
+            'residentID' => 'RES-00027',
+            'firstName' => 'Renesmee',
+            'middleName' => 'Maria',
+            'lastName' => 'Swan',
+            'dateOfBirth' => '2018-7-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Child of Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'F',
+            'occupation' => 'None',
+            'monthlyIncome' => 'None',
+            'ageClassification' => 'B',
+        ]);
+        Resident::create([
+            'id' => '75',
+            'residentID' => 'RES-00028',
+            'firstName' => 'Marco Polo',
+            'middleName' => 'Maria',
+            'lastName' => 'Swan',
+            'dateOfBirth' => '1990-6-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Sibling of Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'M',
+            'occupation' => 'Construction Worker',
+            'monthlyIncome' => '9,100 - 18,200',
+            'ageClassification' => 'AB',
+        ]);
+
+
+        //31 - 76 77 78 79 80
+        Resident::create([
+            'id' => '76',
+            'residentID' => 'RES-00029',
+            'firstName' => 'Horbs',
+            'middleName' => 'Bars',
+            'lastName' => 'Mendoza',
+            'dateOfBirth' => '1990-11-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'IT Programmer',
+            'monthlyIncome' => '36,400 - 63,700',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '77',
+            'residentID' => 'RES-00030',
+            'firstName' => 'Lourdes Marie Kyle',
+            'middleName' => 'Campomanes',
+            'lastName' => 'Mendoza',
+            'dateOfBirth' => '1990-11-11',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Spouse of Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'F',
+            'occupation' => 'Web Developer',
+            'monthlyIncome' => '18,200 - 36,400',
+            'ageClassification' => 'WRA',
+        ]);
+        Resident::create([
+            'id' => '78',
+            'residentID' => 'RES-00031',
+            'firstName' => 'Teddy Bartlett',
+            'middleName' => 'Bars',
+            'lastName' => 'Mendoza',
+            'dateOfBirth' => '1990-1-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Sibling of Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'IT Programmer',
+            'monthlyIncome' => '36,400 - 63,700',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '79',
+            'residentID' => 'RES-00032',
+            'firstName' => 'Nikolai Tumapon',
+            'middleName' => 'Bars',
+            'lastName' => 'Mendoza',
+            'dateOfBirth' => '1990-5-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Relative',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'IT Programmer',
+            'monthlyIncome' => '36,400 - 63,700',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '80',
+            'residentID' => 'RES-00033',
+            'firstName' => 'Van Vanguardia',
+            'middleName' => 'Bars',
+            'lastName' => 'Mendoza',
+            'dateOfBirth' => '1990-7-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Relative',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'IT Programmer',
+            'monthlyIncome' => '63,700 - 109,200',
+            'ageClassification' => 'AB',
+        ]);
+
+        //32 81 82 83 84 85
+        Resident::create([
+            'id' => '81',
+            'residentID' => 'RES-00029',
+            'firstName' => 'Horbs',
+            'middleName' => 'Bars',
+            'lastName' => 'Mendoza',
+            'dateOfBirth' => '1990-11-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'IT Programmer',
+            'monthlyIncome' => '36,400 - 63,700',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '82',
+            'residentID' => 'RES-00030',
+            'firstName' => 'Lourdes Marie Kyle',
+            'middleName' => 'Campomanes',
+            'lastName' => 'Mendoza',
+            'dateOfBirth' => '1990-11-11',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Spouse of Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'F',
+            'occupation' => 'Web Developer',
+            'monthlyIncome' => '18,200 - 36,400',
+            'ageClassification' => 'WRA',
+        ]);
+        Resident::create([
+            'id' => '83',
+            'residentID' => 'RES-00031',
+            'firstName' => 'Teddy Bartlett',
+            'middleName' => 'Bars',
+            'lastName' => 'Mendoza',
+            'dateOfBirth' => '1990-1-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Sibling of Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'IT Programmer',
+            'monthlyIncome' => '36,400 - 63,700',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '84',
+            'residentID' => 'RES-00032',
+            'firstName' => 'Nikolai Tumapon',
+            'middleName' => 'Bars',
+            'lastName' => 'Mendoza',
+            'dateOfBirth' => '1990-5-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Relative',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'IT Programmer',
+            'monthlyIncome' => '36,400 - 63,700',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '85',
+            'residentID' => 'RES-00033',
+            'firstName' => 'Van Vanguardia',
+            'middleName' => 'Bars',
+            'lastName' => 'Mendoza',
+            'dateOfBirth' => '1990-7-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Relative',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'IT Programmer',
+            'monthlyIncome' => '63,700 - 109,200',
+            'ageClassification' => 'AB',
+        ]);
+
+
+        //33 86 87 88 89 90
+        Resident::create([
+            'id' => '86',
+            'residentID' => 'RES-00029',
+            'firstName' => 'Horbs',
+            'middleName' => 'Bars',
+            'lastName' => 'Mendoza',
+            'dateOfBirth' => '1990-11-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'IT Programmer',
+            'monthlyIncome' => '36,400 - 63,700',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '87',
+            'residentID' => 'RES-00030',
+            'firstName' => 'Lourdes Marie Kyle',
+            'middleName' => 'Campomanes',
+            'lastName' => 'Mendoza',
+            'dateOfBirth' => '1990-11-11',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Spouse of Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'F',
+            'occupation' => 'Web Developer',
+            'monthlyIncome' => '18,200 - 36,400',
+            'ageClassification' => 'WRA',
+        ]);
+        Resident::create([
+            'id' => '88',
+            'residentID' => 'RES-00031',
+            'firstName' => 'Teddy Bartlett',
+            'middleName' => 'Bars',
+            'lastName' => 'Mendoza',
+            'dateOfBirth' => '1990-1-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Sibling of Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'IT Programmer',
+            'monthlyIncome' => '36,400 - 63,700',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '89',
+            'residentID' => 'RES-00032',
+            'firstName' => 'Nikolai Tumapon',
+            'middleName' => 'Bars',
+            'lastName' => 'Mendoza',
+            'dateOfBirth' => '1990-5-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Relative',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'IT Programmer',
+            'monthlyIncome' => '36,400 - 63,700',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '90',
+            'residentID' => 'RES-00033',
+            'firstName' => 'Van Vanguardia',
+            'middleName' => 'Bars',
+            'lastName' => 'Mendoza',
+            'dateOfBirth' => '1990-7-18',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Relative',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'IT Programmer',
+            'monthlyIncome' => '63,700 - 109,200',
+            'ageClassification' => 'AB',
+        ]);
+
+
+        //34 91 92 93 94 95
+        Resident::create([
+            'id' => '91',
+            'residentID' => 'RES-00034',
             'firstName' => 'Mark',
             'middleName' => 'Sola',
             'lastName' => 'Tabangon',
@@ -961,15 +1758,16 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '0999913125',
             'email' => 'marktabangon@gmail.com',
             'maritalStatus' => 'Married',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'College Graduate',
             'gender' => 'M',
             'occupation' => 'Teacher',
-            'monthlyIncome' => '20000',
+            'monthlyIncome' => '9,100 - 18,200',
             'ageClassification' => 'AB',
         ]);
-
         Resident::create([
-            'id' => '47',
-            'residentID' => 'RES-00021',
+            'id' => '92',
+            'residentID' => 'RES-00035',
             'firstName' => 'Juniper',
             'middleName' => 'Lela',
             'lastName' => 'Tabangon',
@@ -977,66 +1775,413 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '0999819478',
             'email' => 'junilela@gmail.com',
             'maritalStatus' => 'Married',
+            'familyRole' => 'Spouse of Household Head',
+            'educationalAttainment' => 'College Graduate',
             'gender' => 'F',
             'occupation' => 'Accountant',
-            'monthlyIncome' => '17000',
+            'monthlyIncome' => '18,200 - 36,400',
             'ageClassification' => 'WRA',
         ]);
-
         Resident::create([
-            'id' => '48',
-            'residentID' => 'RES-00022',
+            'id' => '93',
+            'residentID' => 'RES-00036',
             'firstName' => 'Earl',
             'middleName' => 'Fuente',
             'lastName' => 'Tabangon',
             'dateOfBirth' => '1943-06-12',
-            'contactNumber' => '1234567890',
+            'contactNumber' => '09876541230',
             'email' => 'earltabangon@gmail.com',
             'maritalStatus' => 'Single',
-            'familyRole' => 'Household Head',
+            'familyRole' => 'Grandparent of Household Head',
             'educationalAttainment' => 'College Graduate',
             'gender' => 'M',
             'occupation' => 'Unemployed',
-            'monthlyIncome' => '0',
+            'monthlyIncome' => 'None',
             'ageClassification' => 'SC',
         ]);
-
         Resident::create([
-            'id' => '49',
-            'residentID' => 'RES-00023',
+            'id' => '94',
+            'residentID' => 'RES-00037',
             'firstName' => 'Leslie John',
             'middleName' => 'Lela',
             'lastName' => 'Tabangon',
             'dateOfBirth' => '2005-02-13',
-            'contactNumber' => '1234567890',
+            'contactNumber' => '09876541230',
             'email' => 'leslietabangon@gmail.com',
             'maritalStatus' => 'Single',
-            'familyRole' => 'Household Head',
-            'educationalAttainment' => 'College Graduate',
+            'familyRole' => 'Child of Household Head',
+            'educationalAttainment' => 'Junior High School Graduate',
             'gender' => 'M',
             'occupation' => 'Student',
-            'monthlyIncome' => '0',
+            'monthlyIncome' => 'None',
             'ageClassification' => 'A',
         ]);
-
         Resident::create([
-            'id' => '50',
-            'residentID' => 'RES-00024',
+            'id' => '95',
+            'residentID' => 'RES-00038',
             'firstName' => 'Ron',
             'middleName' => 'Lela',
             'lastName' => 'Tabangon',
             'dateOfBirth' => '2008-01-28',
-            'contactNumber' => '1234567890',
+            'contactNumber' => '09876541230',
             'email' => 'rontabangon@gmail.com',
             'maritalStatus' => 'Single',
-            'familyRole' => 'Household Head',
-            'educationalAttainment' => 'College Graduate',
+            'familyRole' => 'Child of Household Head',
+            'educationalAttainment' => 'Elementary Graduate',
             'gender' => 'M',
             'occupation' => 'Student',
-            'monthlyIncome' => '0',
+            'monthlyIncome' => 'None',
             'ageClassification' => 'A',
         ]);
         
+
+        //35 96 97 98 99 100
+        Resident::create([
+            'id' => '96',
+            'residentID' => 'RES-00034',
+            'firstName' => 'Mark',
+            'middleName' => 'Sola',
+            'lastName' => 'Tabangon',
+            'dateOfBirth' => '1980-01-27',
+            'contactNumber' => '0999913125',
+            'email' => 'marktabangon@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'Teacher',
+            'monthlyIncome' => '9,100 - 18,200',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '97',
+            'residentID' => 'RES-00035',
+            'firstName' => 'Juniper',
+            'middleName' => 'Lela',
+            'lastName' => 'Tabangon',
+            'dateOfBirth' => '1982-03-17',
+            'contactNumber' => '0999819478',
+            'email' => 'junilela@gmail.com',
+            'maritalStatus' => 'Married',
+            'familyRole' => 'Spouse of Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'F',
+            'occupation' => 'Accountant',
+            'monthlyIncome' => '18,200 - 36,400',
+            'ageClassification' => 'WRA',
+        ]);
+        Resident::create([
+            'id' => '98',
+            'residentID' => 'RES-00036',
+            'firstName' => 'Earl',
+            'middleName' => 'Fuente',
+            'lastName' => 'Tabangon',
+            'dateOfBirth' => '1943-06-12',
+            'contactNumber' => '09876541230',
+            'email' => 'earltabangon@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Grandparent of Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'Unemployed',
+            'monthlyIncome' => 'None',
+            'ageClassification' => 'SC',
+        ]);
+        Resident::create([
+            'id' => '99',
+            'residentID' => 'RES-00037',
+            'firstName' => 'Leslie John',
+            'middleName' => 'Lela',
+            'lastName' => 'Tabangon',
+            'dateOfBirth' => '2005-02-13',
+            'contactNumber' => '09876541230',
+            'email' => 'leslietabangon@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Child of Household Head',
+            'educationalAttainment' => 'Junior High School Graduate',
+            'gender' => 'M',
+            'occupation' => 'Student',
+            'monthlyIncome' => 'None',
+            'ageClassification' => 'A',
+        ]);
+        Resident::create([
+            'id' => '100',
+            'residentID' => 'RES-00038',
+            'firstName' => 'Ron',
+            'middleName' => 'Lela',
+            'lastName' => 'Tabangon',
+            'dateOfBirth' => '2008-01-28',
+            'contactNumber' => '09876541230',
+            'email' => 'rontabangon@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Child of Household Head',
+            'educationalAttainment' => 'Elementary Graduate',
+            'gender' => 'M',
+            'occupation' => 'Student',
+            'monthlyIncome' => 'None',
+            'ageClassification' => 'A',
+        ]);
+
+
+        //36 101 102 103
+        Resident::create([
+            'id' => '101',
+            'residentID' => 'RES-00039',
+            'firstName' => 'Owen',
+            'middleName' => 'Lela',
+            'lastName' => 'Zammy',
+            'dateOfBirth' => '1980-01-28',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'M',
+            'occupation' => 'Singer',
+            'monthlyIncome' => '36,400 - 63,700',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '102',
+            'residentID' => 'RES-00040',
+            'firstName' => 'Ollie',
+            'middleName' => 'Lela',
+            'lastName' => 'Zammy',
+            'dateOfBirth' => '1981-08-28',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Sibling of Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'F',
+            'occupation' => 'Dancer',
+            'monthlyIncome' => '63,700 - 109,200',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '103',
+            'residentID' => 'RES-00041',
+            'firstName' => 'Marjorie',
+            'middleName' => 'Lela',
+            'lastName' => 'Zammy',
+            'dateOfBirth' => '1940-08-28',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Grandparent of Household Head',
+            'educationalAttainment' => 'Elementary Graduate',
+            'gender' => 'M',
+            'occupation' => 'Retired',
+            'monthlyIncome' => '18,200 - 36,400',
+            'ageClassification' => 'SC',
+        ]);
+
+
+        //37 103 104 105
+        Resident::create([
+            'id' => '104',
+            'residentID' => 'RES-00039',
+            'firstName' => 'Owen',
+            'middleName' => 'Lela',
+            'lastName' => 'Zammy',
+            'dateOfBirth' => '1980-01-28',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'M',
+            'occupation' => 'Singer',
+            'monthlyIncome' => '36,400 - 63,700',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '105',
+            'residentID' => 'RES-00040',
+            'firstName' => 'Ollie',
+            'middleName' => 'Lela',
+            'lastName' => 'Zammy',
+            'dateOfBirth' => '1981-08-28',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Sibling of Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'F',
+            'occupation' => 'Dancer',
+            'monthlyIncome' => '63,700 - 109,200',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '106',
+            'residentID' => 'RES-00041',
+            'firstName' => 'Marjorie',
+            'middleName' => 'Lela',
+            'lastName' => 'Zammy',
+            'dateOfBirth' => '1940-08-28',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Grandparent of Household Head',
+            'educationalAttainment' => 'Elementary Graduate',
+            'gender' => 'M',
+            'occupation' => 'Retired',
+            'monthlyIncome' => '18,200 - 36,400',
+            'ageClassification' => 'SC',
+        ]);
+
+
+        //38 106 107 108
+        Resident::create([
+            'id' => '107',
+            'residentID' => 'RES-00039',
+            'firstName' => 'Owen',
+            'middleName' => 'Lela',
+            'lastName' => 'Zammy',
+            'dateOfBirth' => '1980-01-28',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'M',
+            'occupation' => 'Singer',
+            'monthlyIncome' => '36,400 - 63,700',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '108',
+            'residentID' => 'RES-00040',
+            'firstName' => 'Ollie',
+            'middleName' => 'Lela',
+            'lastName' => 'Zammy',
+            'dateOfBirth' => '1981-08-28',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Sibling of Household Head',
+            'educationalAttainment' => 'Senior High School Graduate',
+            'gender' => 'F',
+            'occupation' => 'Dancer',
+            'monthlyIncome' => '63,700 - 109,200',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '109',
+            'residentID' => 'RES-00041',
+            'firstName' => 'Marjorie',
+            'middleName' => 'Lela',
+            'lastName' => 'Zammy',
+            'dateOfBirth' => '1940-08-28',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Grandparent of Household Head',
+            'educationalAttainment' => 'Elementary Graduate',
+            'gender' => 'M',
+            'occupation' => 'Retired',
+            'monthlyIncome' => '18,200 - 36,400',
+            'ageClassification' => 'SC',
+        ]);
+
+
+        //39
+
+
+        //40
+
+        
+        //41
+        //42
+        //43
+        //44
+        //45
+        //46
+        //47
+        //48
+        //49
+        //50
+        //51
+        //52
+        //53
+        //54
+        //55
+        //56
+        //57
+        //58
+        //59
+        //60
+        //61
+        //62
+        //63
+        //64
+        //65
+        //66
+        //67
+        //68
+        //69
+        //70
+        //71
+        //72
+        //73
+        //74
+        //75
+        //76
+        //77
+        //78
+        //79
+        //80
+        //81
+        //82
+        //83
+        //84
+        //85
+        //86
+        //87
+        //88
+        //89
+        //90
+        //91
+        //92
+        //93
+        //94
+        //95
+        //96
+        //97
+        //98
+        //99
+        //100
+        //101
+        //102
+        //103
+        //104
+        //105
+        //106
+        //107
+        //108
+        //109
+        //110
+        //111
+        //112
+        //113
+        //114
+        //115
+        //116
+        //117
+        //118
+        //119
+        //120
+        //121
+        //122
+        //123
+        //124
+        //125
+        //126
+        //127
+        //128
+        //129
+        //130
+        //131
 
     }
 }

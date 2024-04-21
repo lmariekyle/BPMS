@@ -417,66 +417,552 @@ class ResidentListSeeder extends Seeder
         ]);
 
 
+        //22 - 46 47 48
         ResidentList::create([
-            'residentID'=>'45',
+            'residentID'=>'46',
             'houseID'=>'22',
-            'houseNumber'=>3,
-            // 'householdHead'=>1,
+            'houseNumber'=>'2A',
             'memberNumber'=>1,
             'createdBy'=>2,
             'revisedBy'=>2,
         ]);
-
         ResidentList::create([
-            'residentID'=>'46',
-            'houseID'=>'23',
-            'houseNumber'=>3,
-            // 'householdHead'=>0,
+            'residentID'=>'47',
+            'houseID'=>'22',
+            'houseNumber'=>'2A',
             'memberNumber'=>2,
             'createdBy'=>2,
             'revisedBy'=>2,
         ]);
 
         ResidentList::create([
-            'residentID'=>'47',
-            'houseID'=>'24',
-            'houseNumber'=>3,
-            // 'householdHead'=>0,
+            'residentID'=>'48',
+            'houseID'=>'22',
+            'houseNumber'=>'2A',
             'memberNumber'=>3,
             'createdBy'=>2,
             'revisedBy'=>2,
         ]);
 
+        //23 - 49 50 51
         ResidentList::create([
-            'residentID'=>'48',
-            'houseID'=>'26',
-            'houseNumber'=>3,
-            // 'householdHead'=>0,
+            'residentID'=>'49',
+            'houseID'=>'23',
+            'houseNumber'=>'2A',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'50',
+            'houseID'=>'23',
+            'houseNumber'=>'2A',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'51',
+            'houseID'=>'23',
+            'houseNumber'=>'2A',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //24 - 52 53 54
+        ResidentList::create([
+            'residentID'=>'52',
+            'houseID'=>'24',
+            'houseNumber'=>'2A',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'53',
+            'houseID'=>'24',
+            'houseNumber'=>'2A',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'54',
+            'houseID'=>'24',
+            'houseNumber'=>'2A',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+
+        //25 - 55 56 57 58
+        ResidentList::create([
+            'residentID'=>'55',
+            'houseID'=>'25',
+            'houseNumber'=>'2B',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'56',
+            'houseID'=>'25',
+            'houseNumber'=>'2B',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'57',
+            'houseID'=>'25',
+            'houseNumber'=>'2B',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'58',
+            'houseID'=>'25',
+            'houseNumber'=>'2B',
             'memberNumber'=>4,
             'createdBy'=>2,
             'revisedBy'=>2,
         ]);
 
+        //26 - 59 60 61 62
         ResidentList::create([
-            'residentID'=>'49',
+            'residentID'=>'59',
+            'houseID'=>'26',
+            'houseNumber'=>'2B',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'60',
+            'houseID'=>'26',
+            'houseNumber'=>'2B',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'61',
+            'houseID'=>'26',
+            'houseNumber'=>'2B',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'62',
+            'houseID'=>'26',
+            'houseNumber'=>'2B',
+            'memberNumber'=>4,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //27 - 63 64 65 66
+        ResidentList::create([
+            'residentID'=>'63',
+            'houseID'=>'27',
+            'houseNumber'=>'2B',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'64',
+            'houseID'=>'27',
+            'houseNumber'=>'2B',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'65',
+            'houseID'=>'27',
+            'houseNumber'=>'2B',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'66',
+            'houseID'=>'27',
+            'houseNumber'=>'2B',
+            'memberNumber'=>4,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+
+        //28 - 67 68 69
+        ResidentList::create([
+            'residentID'=>'67',
             'houseID'=>'28',
-            'houseNumber'=>3,
-            // 'householdHead'=>0,
+            'houseNumber'=>'2C',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'68',
+            'houseID'=>'28',
+            'houseNumber'=>'2C',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'69',
+            'houseID'=>'28',
+            'houseNumber'=>'2C',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //29 70 71 72
+        ResidentList::create([
+            'residentID'=>'70',
+            'houseID'=>'29',
+            'houseNumber'=>'2C',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'71',
+            'houseID'=>'29',
+            'houseNumber'=>'2C',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'72',
+            'houseID'=>'29',
+            'houseNumber'=>'2C',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //30 - 73 74 75
+        ResidentList::create([
+            'residentID'=>'73',
+            'houseID'=>'30',
+            'houseNumber'=>'2C',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'74',
+            'houseID'=>'30',
+            'houseNumber'=>'2C',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'75',
+            'houseID'=>'30',
+            'houseNumber'=>'2C',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        //31 - 76 77 78 79 80
+        ResidentList::create([
+            'residentID'=>'76',
+            'houseID'=>'31',
+            'houseNumber'=>'3',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'77',
+            'houseID'=>'31',
+            'houseNumber'=>'3',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'78',
+            'houseID'=>'31',
+            'houseNumber'=>'3',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'79',
+            'houseID'=>'31',
+            'houseNumber'=>'3',
+            'memberNumber'=>4,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'80',
+            'houseID'=>'31',
+            'houseNumber'=>'3',
             'memberNumber'=>5,
             'createdBy'=>2,
             'revisedBy'=>2,
         ]);
 
-        
+        //32 81 82 83 84 85
         ResidentList::create([
-            'residentID' => '50',
-            'houseID' => '39',
-            'houseNumber'=>2,
-            //'householdHead'=>1,
+            'residentID'=>'81',
+            'houseID'=>'32',
+            'houseNumber'=>'3',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'82',
+            'houseID'=>'32',
+            'houseNumber'=>'3',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'83',
+            'houseID'=>'32',
+            'houseNumber'=>'3',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'84',
+            'houseID'=>'32',
+            'houseNumber'=>'3',
+            'memberNumber'=>4,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'85',
+            'houseID'=>'32',
+            'houseNumber'=>'3',
+            'memberNumber'=>5,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //33 86 87 88 89 90
+        ResidentList::create([
+            'residentID'=>'86',
+            'houseID'=>'33',
+            'houseNumber'=>'3',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'87',
+            'houseID'=>'33',
+            'houseNumber'=>'3',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'88',
+            'houseID'=>'33',
+            'houseNumber'=>'3',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'89',
+            'houseID'=>'33',
+            'houseNumber'=>'3',
+            'memberNumber'=>4,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'90',
+            'houseID'=>'33',
+            'houseNumber'=>'3',
+            'memberNumber'=>5,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //34 91 92 93 94 95
+        ResidentList::create([
+            'residentID'=>'91',
+            'houseID'=>'34',
+            'houseNumber'=>'4',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'92',
+            'houseID'=>'34',
+            'houseNumber'=>'4',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'93',
+            'houseID'=>'34',
+            'houseNumber'=>'4',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'94',
+            'houseID'=>'34',
+            'houseNumber'=>'4',
+            'memberNumber'=>4,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'95',
+            'houseID'=>'34',
+            'houseNumber'=>'4',
+            'memberNumber'=>5,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //35 96 97 98 99 100
+        ResidentList::create([
+            'residentID'=>'96',
+            'houseID'=>'35',
+            'houseNumber'=>'4',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'97',
+            'houseID'=>'35',
+            'houseNumber'=>'4',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'98',
+            'houseID'=>'35',
+            'houseNumber'=>'4',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'99',
+            'houseID'=>'35',
+            'houseNumber'=>'4',
+            'memberNumber'=>4,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'100',
+            'houseID'=>'35',
+            'houseNumber'=>'4',
+            'memberNumber'=>5,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //36 101 102 103
+        ResidentList::create([
+            'residentID' => '101',
+            'houseID' => '36',
+            'houseNumber'=>'5',
             'memberNumber'=>1,
             'createdBy'=>2,
             'revisedBy'=>2,
         ]);   
+        ResidentList::create([
+            'residentID' => '102',
+            'houseID' => '36',
+            'houseNumber'=>'5',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);   
+        ResidentList::create([
+            'residentID' => '103',
+            'houseID' => '36',
+            'houseNumber'=>'5',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);   
+        //37 104 105 106
+        ResidentList::create([
+            'residentID' => '104',
+            'houseID' => '37',
+            'houseNumber'=>'5',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);   
+        ResidentList::create([
+            'residentID' => '105',
+            'houseID' => '37',
+            'houseNumber'=>'5',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);   
+        ResidentList::create([
+            'residentID' => '106',
+            'houseID' => '37',
+            'houseNumber'=>'5',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);   
+        //38 107 108 109
+        ResidentList::create([
+            'residentID' => '107',
+            'houseID' => '38',
+            'houseNumber'=>'5',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);   
+        ResidentList::create([
+            'residentID' => '108',
+            'houseID' => '38',
+            'houseNumber'=>'5',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);   
+        ResidentList::create([
+            'residentID' => '109',
+            'houseID' => '38',
+            'houseNumber'=>'5',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);   
+        
         
 /*        ResidentList::create([
             'residentID' => '51',

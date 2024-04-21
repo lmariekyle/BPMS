@@ -461,7 +461,7 @@ class HouseholdSeeder extends Seeder
             'revisedBy'=>2
         ]);
 
-        //household 2A
+        //household 2A John Jacob - Dorothy - Billy (22-23-24)
         Households::create([
             'id' => '22',
             'sitioID' => '3',
@@ -479,7 +479,7 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2023,
             'quarterNumber'=>3,
             'dateOfVisit'=>'2023-8-28',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'John Jacob',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
@@ -500,7 +500,7 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2024,
             'quarterNumber'=>4,
             'dateOfVisit'=>'2023-11-13',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'John Jacob',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
@@ -521,12 +521,12 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2024,
             'quarterNumber'=>1,
             'dateOfVisit'=>'2024-3-9',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'John Jacob',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
 
-        //household 2B
+        //household 2B Edward - Carlisle - Esme - Alice (25-26-27)
         Households::create([
             'id' => '25',
             'sitioID' => '3',
@@ -544,7 +544,7 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2023,
             'quarterNumber'=>3,
             'dateOfVisit'=>'2023-8-28',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Edward',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
@@ -565,7 +565,7 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2024,
             'quarterNumber'=>4,
             'dateOfVisit'=>'2023-11-13',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Edward',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
@@ -586,12 +586,12 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2024,
             'quarterNumber'=>1,
             'dateOfVisit'=>'2024-3-9',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Edward',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
 
-        //household 2C
+        //household 2C Bella - Renesmee - Marco Polo (28-29-30)
         Households::create([
             'id' => '28',
             'sitioID' => '3',
@@ -609,7 +609,7 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2023,
             'quarterNumber'=>3,
             'dateOfVisit'=>'2023-8-28',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Bella',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
@@ -630,7 +630,7 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2024,
             'quarterNumber'=>4,
             'dateOfVisit'=>'2023-11-13',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Bella',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
@@ -651,12 +651,12 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2024,
             'quarterNumber'=>1,
             'dateOfVisit'=>'2024-3-9',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Bella',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
 
-        //household 3
+        //household 3 Horbs - Teddy - Nikolai - Van - Lourdes (31-32-33)
         Households::create([
             'id' => '31',
             'sitioID' => '3',
@@ -674,7 +674,7 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2023,
             'quarterNumber'=>3,
             'dateOfVisit'=>'2023-8-28',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Horbs',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
@@ -695,7 +695,7 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2023,
             'quarterNumber'=>4,
             'dateOfVisit'=>'2023-10-28',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Horbs',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
@@ -716,12 +716,12 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2024,
             'quarterNumber'=>1,
             'dateOfVisit'=>'2024-1-21',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Horbs',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
 
-        //household 4
+        //household 4 Mark Tabangon - (34 -35)
         Households::create([
             'id' => '34',
             'sitioID' => '3',
@@ -739,7 +739,7 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2023,
             'quarterNumber'=>3,
             'dateOfVisit'=>'2023-11-28',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Mark',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
@@ -760,12 +760,12 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2024,
             'quarterNumber'=>1,
             'dateOfVisit'=>'2024-1-13',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Mark',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
 
-        //household 5
+        //household 5 Owen - Oli - Marjorie (36-37-38)
         Households::create([
             'id' => '36',
             'sitioID' => '3',
@@ -783,7 +783,7 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2023,
             'quarterNumber'=>3,
             'dateOfVisit'=>'2023-7-14',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Owen',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
@@ -804,7 +804,7 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2023,
             'quarterNumber'=>4,
             'dateOfVisit'=>'2023-11-14',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Owen',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
@@ -825,12 +825,12 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2024,
             'quarterNumber'=>1,
             'dateOfVisit'=>'2024-3-9',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Owen',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
 
-        //household 1
+        //household 1 John Carlo - Ayam - Nicholai (39 -40-41)
         Households::create([
             'id' => '39',
             'sitioID' => '4',
@@ -848,7 +848,7 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2023,
             'quarterNumber'=>3,
             'dateOfVisit'=>'2023-7-9',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'John Carlo',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
@@ -869,7 +869,7 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2023,
             'quarterNumber'=>3,
             'dateOfVisit'=>'2023-12-9',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'John Carlo',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
@@ -890,12 +890,12 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2024,
             'quarterNumber'=>1,
             'dateOfVisit'=>'2024-3-9',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'John Carlo',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
 
-        //household 2
+        //household 2 Luke - Mary - Hans - Andre (42-43-44)
         Households::create([
             'id' => '42',
             'sitioID' => '4',
@@ -913,7 +913,7 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2023,
             'quarterNumber'=>3,
             'dateOfVisit'=>'2023-9-12',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Luke',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
@@ -934,7 +934,7 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2023,
             'quarterNumber'=>4,
             'dateOfVisit'=>'2024-12-2',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Luke',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
@@ -955,14 +955,56 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2024,
             'quarterNumber'=>1,
             'dateOfVisit'=>'2024-3-9',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Luke',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
 
-        //household 3
+        //household 3 George - Mary - Georgie - Missy - Sheldon (45-46-47) Cooper
         Households::create([
             'id'=>'45',
+            'sitioID' => '4',
+            'houseNumber' => '3',
+            'street'=>'Mabini',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-8-9',
+            'respondentName'=>'George',
+            'createdBy'=>2,
+            'revisedBy'=>2
+        ]);
+        Households::create([
+            'id'=>'46',
+            'sitioID' => '4',
+            'houseNumber' => '3',
+            'street'=>'Mabini',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-11-9',
+            'respondentName'=>'George',
+            'createdBy'=>2,
+            'revisedBy'=>2
+        ]);
+        Households::create([
+            'id'=>'47',
             'sitioID' => '4',
             'houseNumber' => '3',
             'street'=>'Mabini',
@@ -978,14 +1020,56 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2024,
             'quarterNumber'=>1,
             'dateOfVisit'=>'2024-3-9',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'George',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
         
-        //household 4
+        //household 4 Jack - Judy - Monica - Ross (48-49-50) Geller
         Households::create([
             'id'=>'48',
+            'sitioID' => '4',
+            'houseNumber' => '4',
+            'street'=>'Magbanua',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-8-9',
+            'respondentName'=>'Jack',
+            'createdBy'=>2,
+            'revisedBy'=>2
+        ]);
+        Households::create([
+            'id'=>'49',
+            'sitioID' => '4',
+            'houseNumber' => '4',
+            'street'=>'Magbanua',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-11-9',
+            'respondentName'=>'Jack',
+            'createdBy'=>2,
+            'revisedBy'=>2
+        ]);
+        Households::create([
+            'id'=>'50',
             'sitioID' => '4',
             'houseNumber' => '4',
             'street'=>'Magbanua',
@@ -1001,472 +1085,1766 @@ class HouseholdSeeder extends Seeder
             'yearOfVisit'=>2024,
             'quarterNumber'=>1,
             'dateOfVisit'=>'2024-3-9',
-            'respondentName'=>'XXXX',
+            'respondentName'=>'Jack',
             'createdBy'=>2,
             'revisedBy'=>2
         ]);
 
-        //hosuehold 1
+        //hosuehold 1 Leonard - Sandra - Rachel - Amy - Jill (51-52-53) Greene
         Households::create([
             'id'=>'51',
             'sitioID' => '5',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-9-27',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Luna',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'Insanitary',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L3',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Leonard',
         ]);
         Households::create([
             'id'=>'52',
             'sitioID' => '5',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-11-27',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Luna',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'Insanitary',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L3',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Leonard',
         ]);
         Households::create([
             'id'=>'53',
             'sitioID' => '5',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-17',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Luna',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Leonard',
         ]);
 
-        //household 2
+        //household 2 Donna - Sophie - Sam - Ruby Sherridan (54-55-56)
         Households::create([
             'id'=>'54',
             'sitioID' => '5',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2024-9-27',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Luna',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Donna',
         ]);
         Households::create([
             'id'=>'55',
             'sitioID' => '5',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-11-27',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Luna',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Donna',
         ]);
         Households::create([
             'id'=>'56',
             'sitioID' => '5',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-17',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Luna',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Sam',
         ]);
 
-        //household 3
+        //household 3 Veatriz - Aaron (57-58-59)
         Households::create([
             'id'=>'57',
             'sitioID' => '5',
-            'houseNumber' => '3'
+            'houseNumber' => '3',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2024-9-27',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Aquino',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Veatriz',
         ]);
         Households::create([
             'id'=>'58',
             'sitioID' => '5',
-            'houseNumber' => '3'
+            'houseNumber' => '3',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-11-27',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Aquino',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Veatriz',
         ]);
         Households::create([
             'id'=>'59',
             'sitioID' => '5',
-            'houseNumber' => '3'
+            'houseNumber' => '3',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-17',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Aquino',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Veatriz',
         ]);
 
-        //househodl 1
+        //househodl 1 Hershey (60-61-62)
         Households::create([
             'id'=>'60',
             'sitioID' => '6',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-9-27',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Trias',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Hershey',
         ]);
         Households::create([
             'id'=>'61',
             'sitioID' => '6',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-10-5',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Trias',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Hershey',
         ]);
-
         Households::create([
             'id'=>'62',
             'sitioID' => '6',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-3-3',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Trias',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Hershey',
         ]);
 
-        //household 2
+        //household 2 Brendon James - Carl James - Blessy (63-64-65)
         Households::create([
             'id'=>'63',
             'sitioID' => '6',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-9-17',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Trias',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Brendon James',
         ]);
         Households::create([
             'id'=>'64',
             'sitioID' => '6',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-10-5',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Trias',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Brendon James',
         ]);
         Households::create([
             'id'=>'65',
             'sitioID' => '6',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-3-3',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Trias',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Brendon James',
         ]);
 
-        //household 3
+        //household 3 Roque - Shane - Courtney (66-67-68)
         Households::create([
             'id'=>'66',
             'sitioID' => '6',
-            'houseNumber' => '3'
+            'houseNumber' => '3',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-7-9',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Trias',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L3',
+            'remarksOfWaterSupply'=>'near a stream',
+            'respondentName'=>'Roque',
         ]);
         Households::create([
             'id'=>'67',
             'sitioID' => '6',
-            'houseNumber' => '3'
+            'houseNumber' => '3',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-10-5',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Trias',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L3',
+            'remarksOfWaterSupply'=>'near a stream',
+            'respondentName'=>'Roque',
         ]);
         Households::create([
             'id'=>'68',
             'sitioID' => '6',
-            'houseNumber' => '3'
+            'houseNumber' => '3',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-3-3',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Trias',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L3',
+            'remarksOfWaterSupply'=>'near a stream',
+            'respondentName'=>'Roque',
         ]);
 
-        //household 1
+        //household 1 Jan Michael, Jessie Malcolm, Jill Marie (69-70-71)
         Households::create([
             'id'=>'69',
             'sitioID' => '7',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-7-11',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Villavicencio',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Shared',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L3',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Jan Michael',
         ]);
         Households::create([
             'id'=>'70',
             'sitioID' => '7',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-12-15',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Villavicencio',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Shared',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L3',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Jan Michael',
         ]);
         Households::create([
             'id'=>'71',
             'sitioID' => '7',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-2-28',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Villavicencio',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Shared',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L3',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Jan Michael',
         ]);
 
-        //household 2
+        //household 2 Nina Therese, Kiara Ina, Gloria (72-73-74)
         Households::create([
             'id'=>'72',
             'sitioID' => '7',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-7-11',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Villavicencio',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Shared',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L3',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Nina',
         ]);
         Households::create([
             'id'=>'73',
             'sitioID' => '7',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-12-15',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Villavicencio',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Shared',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L3',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Nina',
         ]);
         Households::create([
             'id'=>'74',
             'sitioID' => '7',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-2-28',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Villavicencio',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Shared',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L3',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Nina',
         ]);
 
-        //household 1
+        //household 1 Francine - Kate - Kitts - Innavelyn (74-76-77)
         Households::create([
             'id'=>'75',
             'sitioID' => '8',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-7-11',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Del Pilar',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'Insanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'Doubtful',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Francine',
         ]);
         Households::create([
             'id'=>'76',
             'sitioID' => '8',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-12-15',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Del Pilar',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'Insanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'Doubtful',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Francine',
         ]);
         Households::create([
             'id'=>'77',
             'sitioID' => '8',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-2-29',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Del Pilar',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'Insanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'Doubtful',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Francine',
         ]);
 
-        //household 2
+        //household 2 Joseph Jobo - Janie Lane - Jurry - Meelo - Allie - Mongmong (78-79-80)
         Households::create([
             'id'=>'78',
             'sitioID' => '8',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-7-11',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Del Pilar',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Joseph Jobo',
         ]);
         Households::create([
             'id'=>'79',
             'sitioID' => '8',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-12-15',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Del Pilar',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Joseph Jobo',
         ]);
         Households::create([
             'id'=>'80',
             'sitioID' => '8',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-2-29',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Del Pilar',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Joseph Jobo',
         ]);
 
-        //household 1
+        //household 1 Cate - Francia (81-82-83)
         Households::create([
             'id'=>'81',
             'sitioID' => '9',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-8-24',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Alonso',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Cate',
         ]);
         Households::create([
             'id'=>'82',
             'sitioID' => '9',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-12-15',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Alonso',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Cate',
         ]);
         Households::create([
             'id'=>'83',
             'sitioID' => '9',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-5',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Alonso',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Cate',
         ]);
 
-        //household 2
+        //household 2 Kris - Tyronne - Falcon (84-85-86)
         Households::create([
             'id'=>'84',
             'sitioID' => '9',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-8-24',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Alonso',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Kris',
         ]);
         Households::create([
             'id'=>'85',
             'sitioID' => '9',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-12-15',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Alonso',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Kris',
         ]);
         Households::create([
             'id'=>'86',
             'sitioID' => '9',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-5',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Alonso',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Kris',
         ]);
 
-        //household 1
+        //household 1 Freddy - Chicky - Bonni (87-88-89) Foxine
         Households::create([
             'id'=>'87',
             'sitioID' => '10',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-8-24',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Palm',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Freddy',
         ]);
         Households::create([
             'id'=>'88',
             'sitioID' => '10',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-10-27',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Palm',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Freddy',
         ]);
         Households::create([
             'id'=>'89',
             'sitioID' => '10',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-5',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Palm',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Freddy',
         ]);
 
-        //household 2
+        //household 2 Jacob - Anne (90-91-92)
         Households::create([
             'id'=>'90',
             'sitioID' => '10',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-8-24',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Narra',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Jacob',
         ]);
         Households::create([
             'id'=>'91',
             'sitioID' => '10',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-10-27',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Narra',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Jacob',
         ]);
         Households::create([
             'id'=>'92',
             'sitioID' => '10',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-5',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Narra',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Insanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Jacob',
         ]);
 
-        //household 1
+        //household 1 Wayne - Sabrinah (93-94-95)
         Households::create([
             'id'=>'93',
             'sitioID' => '11',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-8-24',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Mangrove',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Wayne',
         ]);
         Households::create([
             'id'=>'94',
             'sitioID' => '11',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-10-27',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Mangrove',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L3',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Wayne',
         ]);
         Households::create([
             'id'=>'95',
             'sitioID' => '11',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-5',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Mangrove',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NHTS',
+            'householdToiletFacilities'=>'Insanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'Doubtful',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Wayne',
         ]);
 
-        //household 2
+        //household 2 Lorenz Leo - Nathan - Ramon (96-97-98)
         Households::create([
             'id'=>'96',
             'sitioID' => '11',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-9-23',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Mangrove',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Lorenz Leo',
         ]);
         Households::create([
             'id'=>'97',
             'sitioID' => '11',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-10-27',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Mangrove',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Lorenz Leo',
         ]);
         Households::create([
             'id'=>'98',
             'sitioID' => '11',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-5',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Mangrove',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Lorenz Leo',
         ]);
 
-        //household 3
+        //household 3 Bryan - Brian - Bryce (99-100-101)
         Households::create([
             'id'=>'99',
             'sitioID' => '11',
-            'houseNumber' => '3'
+            'houseNumber' => '3',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-9-23',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Mangrove',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Bryan',
         ]);
         Households::create([
             'id'=>'100',
             'sitioID' => '11',
-            'houseNumber' => '3'
+            'houseNumber' => '3',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-10-27',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Mangrove',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Bryan',
         ]);
         Households::create([
             'id'=>'101',
             'sitioID' => '11',
-            'houseNumber' => '3'
+            'houseNumber' => '3',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-5',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Mangrove',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Bryan',
         ]);
 
-        //household 4
+        //household 4 William - Michael - Evan - Elizabeth (102-103-104)
         Households::create([
             'id'=>'102',
             'sitioID' => '11',
-            'houseNumber' => '4'
+            'houseNumber' => '4',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-9-23',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Mangrove',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Shared',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'William',
         ]);
         Households::create([
             'id'=>'103',
             'sitioID' => '11',
-            'houseNumber' => '4'
+            'houseNumber' => '4',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-10-27',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Mangrove',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Shared',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'William',
         ]);
         Households::create([
             'id'=>'104',
             'sitioID' => '11',
-            'houseNumber' => '4'
+            'houseNumber' => '4',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-5',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Mangrove',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Shared',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L2',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'William',
         ]);
 
-        //household 5
+        //household 5A Henry - Charlie (105-106-107)
         Households::create([
             'id'=>'105',
             'sitioID' => '11',
-            'houseNumber' => '5A'
+            'houseNumber' => '5A',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-9-23',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Sampaguita',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Shared',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Henry',
         ]);
         Households::create([
             'id'=>'106',
             'sitioID' => '11',
-            'houseNumber' => '5A'
+            'houseNumber' => '5A',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-10-27',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Sampaguita',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Shared',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Henry',
         ]);
-
         Households::create([
             'id'=>'107',
             'sitioID' => '11',
-            'houseNumber' => '5A'
+            'houseNumber' => '5A',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-5',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Sampaguita',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Shared',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Henry',
         ]);
 
 
-        //household 5B
+        //household 5B Patrick - Ean - Khent - Chris (108-109-110)
         Households::create([
             'id'=>'108',
             'sitioID' => '11',
-            'houseNumber' => '5B'
+            'houseNumber' => '5B',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-9-23',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Sampaguita',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Shared',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Patrick',
         ]);
         Households::create([
             'id'=>'109',
             'sitioID' => '11',
-            'houseNumber' => '5B'
+            'houseNumber' => '5B',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-10-27',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Sampaguita',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Shared',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Patrick',
         ]);
         Households::create([
             'id'=>'110',
             'sitioID' => '11',
-            'houseNumber' => '5B'
+            'houseNumber' => '5B',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-5',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Sampaguita',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Shared',
+            'IP'=>'IP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Patrick',
         ]);
 
-        //household 6
+        //household 6 May - Cody - Rose (111-112-113)
         Households::create([
             'id'=>'111',
             'sitioID' => '11',
-            'houseNumber' => '6'
+            'houseNumber' => '6',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-9-23',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Sampaguita',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'May',
         ]);
         Households::create([
             'id'=>'112',
             'sitioID' => '11',
-            'houseNumber' => '6'
+            'houseNumber' => '6',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-10-27',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Sampaguita',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'May',
         ]);
         Households::create([
             'id'=>'113',
             'sitioID' => '11',
-            'houseNumber' => '6'
+            'houseNumber' => '6',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-5',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Sampaguita',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'May',
         ]);
 
-        //household 1
+        //household 1 Joel - Tess - Ellie (114-115-116)
         Households::create([
             'id'=>'114',
             'sitioID' => '12',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-8-30',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Orchid',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Insanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'Doubtful',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Joel',
+            
         ]);
         Households::create([
             'id'=>'115',
             'sitioID' => '12',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-11-17',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Orchid',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Insanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'Doubtful',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Joel',
         ]);
         Households::create([
             'id'=>'116',
             'sitioID' => '12',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-5',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Orchid',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Joel',
         ]);
 
-        //household 1
+        //household 2 Andy - Michelle (117-118-119)
         Households::create([
             'id'=>'117',
             'sitioID' => '12',
-            'houseNumber' => '1'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-8-30',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Orchid',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Andy',
         ]);
         Households::create([
             'id'=>'118',
             'sitioID' => '12',
-            'houseNumber' => '1'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-11-17',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Orchid',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Andy',
         ]);
         Households::create([
             'id'=>'119',
             'sitioID' => '12',
-            'houseNumber' => '1'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-1-5',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Orchid',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Andy',
         ]);
 
-        //household 2
+        //household 1 Bruno - Anderson - Selkie (120-121-122)
         Households::create([
             'id'=>'120',
             'sitioID' => '13',
-            'houseNumber' => '2'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-8-30',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Zamora',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Bruno',
         ]);
         Households::create([
             'id'=>'121',
             'sitioID' => '13',
-            'houseNumber' => '2'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-11-17',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Zamora',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Bruno',
         ]);
         Households::create([
             'id'=>'122',
             'sitioID' => '13',
-            'houseNumber' => '2'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-3-17',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Zamora',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Bruno',
         ]);
 
-        //household 3
+        //household 2 Edi - Yanni - Yobel - Marie - Bianca - Anika (123-124-125)
         Households::create([
             'id'=>'123',
             'sitioID' => '13',
-            'houseNumber' => '3'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-8-30',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Zamora',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'Doubtful',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Edi',
         ]);
         Households::create([
             'id'=>'124',
             'sitioID' => '13',
-            'houseNumber' => '3'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-11-17',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Zamora',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'Doubtful',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Edi',
         ]);
         Households::create([
             'id'=>'125',
             'sitioID' => '13',
-            'houseNumber' => '3'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-3-17',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Zamora',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'None',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'Doubtful',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Edi',
         ]);
 
-        //household 1
+        //household 1 Jessie - James - Melloo (126-127-128)
         Households::create([
             'id'=>'126',
             'sitioID' => '14',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-7-25',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Delos Reyes',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Jessie',
         ]);
         Households::create([
             'id'=>'127',
             'sitioID' => '14',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-11-17',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Delos Reyes',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Jessie',
         ]);
         Households::create([
             'id'=>'128',
             'sitioID' => '14',
-            'houseNumber' => '1'
+            'houseNumber' => '1',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-3-17',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Delos Reyes',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Jessie',
         ]);
 
-        //household 2
+        //household 2 Oscar - Lucy - Jane (129-130-131)
         Households::create([
             'id'=>'129',
             'sitioID' => '14',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>3,
+            'dateOfVisit'=>'2023-7-25',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Mango',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Oscar',
         ]);
-        
         Households::create([
             'id'=>'130',
             'sitioID' => '14',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2023,
+            'quarterNumber'=>4,
+            'dateOfVisit'=>'2023-11-17',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Mango',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Oscar',
         ]);
         Households::create([
             'id'=>'131',
             'sitioID' => '14',
-            'houseNumber' => '2'
+            'houseNumber' => '2',
+            'yearOfVisit'=>2024,
+            'quarterNumber'=>1,
+            'dateOfVisit'=>'2024-3-17',
+            'createdBy'=>2,
+            'revisedBy'=>2,
+            'street'=>'Mango',
+            'buildingName'=>'NULL',
+            'unitNumber'=>'NULL',
+            'floorNumber'=>'NULL',
+            'residenceType'=>'Residential Home',
+            'nHTS'=>'NonNHTS',
+            'householdToiletFacilities'=>'Sanitary',
+            'IP'=>'NonIP',
+            'accessToWaterSupply'=>'L1',
+            'remarksOfWaterSupply'=>'no remarks',
+            'respondentName'=>'Oscar',
         ]);
     }
 }
