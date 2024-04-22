@@ -37,13 +37,13 @@ class CreateResidentsTable extends Migration
             $table->string('educationalAttainment')->default('Undergraduate');
 
             $table->string('ageClassification')->default('AB')->nullable();
-            $table->string('pregnancyClassification')->default('WBA')->nullable();
+            $table->string('pregnancyClassification')->default('N')->nullable();
             $table->boolean('registeredSeniorCitizen')->default(false)->nullable();
             $table->boolean('registeredPWD')->default(false)->nullable();
 
             $table->date('dateOfDeath')->nullable();
 
-            $table->string('supportingDocument')->nullable(); /*filePath*/
+            $table->string('supportingDocument')->default("residentDocumentPlaceholder.pdf")->nullable();
 
             $table->string('createdBy')->nullable();;
             $table->string('revisedBy')->nullable();;

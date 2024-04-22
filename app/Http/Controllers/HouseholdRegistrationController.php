@@ -74,6 +74,7 @@ class HouseholdRegistrationController extends Controller
      */
     public function mobileUpdateResident(Request $request)
     {
+        
         $residentID = 0;
         $resident=$request->all();
         $deathdate = null;
@@ -112,7 +113,7 @@ class HouseholdRegistrationController extends Controller
                 }
                 $reqJson = json_encode($certRequirements);
             } else {
-                $reqJson = NULL;
+                $reqJson = "residentDocumentPlaceholder.pdf";
             }
             
             $newResident = new Resident();
@@ -162,9 +163,75 @@ class HouseholdRegistrationController extends Controller
                 }
                 $reqJson = json_encode($certRequirements);
             } else {
-                $reqJson = NULL;
+                $reqJson = "residentDocumentPlaceholder.pdf";
             }
             
+            $ageClass='';
+            $birthDateArray = explode('-',$resident['dateOfBirth'],3);
+
+            $birthYear=(int)$birthDateArray[0];
+            $birthMonth=(int)$birthDateArray[1];
+            $birthDate=(int)$birthDateArray[2];
+
+            $age = (int)Carbon::now()->year-$birthYear;
+
+            $currMonth = (int)Carbon::now()->month;
+            $currDay = (int)Carbon::now()->day;
+
+            if ($birthMonth == $currMonth) {
+                if ($currDay < $birthDate) {
+                    $age--;
+                }
+            } else if ($currMonth < $birthMonth) {
+                $age--;
+            }
+            
+
+            if ($age <= 0) {
+                $days=0;
+
+                if ($birthMonth == $currMonth) {
+                  $days = $currDay - $birthDate;
+                } else {
+                  $temp = Carbon::now()->month($currMonth)->daysInMonth - $birthDate;
+                  $days = $temp + $currDay;
+                }
+          
+                $ageClass = ($days <= 28)? 'N' : 'I';
+
+            } else if ($age >= 1 && $age <= 4) {
+            $ageClass = 'U';
+            } else if ($age >= 5 && $age <= 9) {
+            $ageClass = 'B';
+            } else if ($age >= 10) {
+                if ($resident['gender'] == 'F') {
+                    if ($resident['pregnancyClassification'] == 'P') {
+                    if ($age >= 15 && $age <= 19) {
+                        $ageClass = 'AP';
+                    } else {
+                        $ageClass = 'P';
+                    }
+                    } else if ($resident['pregnancyClassification'] == 'PP') {
+                    $ageClass = 'PP';
+                    } else if ($age >= 10 && $age <= 14) {
+                    $ageClass = 'A';
+                    } else if ($age >= 15 && $age <= 49) {
+                    $ageClass = 'WRA';
+                    } else if ($age >= 49 && $age <= 59) {
+                    $ageClass = 'AB';
+                    } else {
+                    $ageClass = 'SC';
+                    }
+                } else {
+                    if ($age >= 10 && $age <= 19) {
+                    $ageClass = 'A';
+                    } else if ($age >= 20 && $age <= 59) {
+                    $ageClass = 'AB';
+                    } else {
+                    $ageClass = 'SC';
+                    }
+                }
+            }
 
             $updatedResident = new Resident();
             $updatedResident->fill([
@@ -182,12 +249,12 @@ class HouseholdRegistrationController extends Controller
                 'monthlyIncome'=>$resident['monthlyIncome'],
                 'familyRole'=>$resident['familyRole'],
                 'educationalAttainment'=>$resident['educationalAttainment'],
-                'ageClassification'=>$resident['ageClassification'],
+                'ageClassification'=>$ageClass,
                 'pregnancyClassification'=>$resident['pregnancyClassification'],
                 'registeredSeniorCitizen'=>$resident['registeredSeniorCitizen'],
                 'registeredPWD'=>$resident['registeredPWD'],
                 'dateOfDeath'=>$deathdate,
-                'supportingDocument'=>$reqJson,
+                'supportingDocument'=>(strcmp($resident['supportingDocument'],'residentDocumentPlaceholder.pdf')!=0)?$resident['supportingDocument']:$reqJson,
                 
 
                 'createdBy' => $resident['createdBy'],

@@ -28,7 +28,7 @@ class HouseholdListController extends Controller
         foreach ($tempHousehold as $houseNum) {
             $house=Households::where('sitioID', $request->sitioID)
                                 ->where('houseNumber', $houseNum['houseNumber'])
-                                ->orderBy('created_at','desc')
+                                ->orderBy('dateOfVisit','desc')
                                 ->first();
             $user=User::where('id', $house['revisedBy'])
                                 ->first();
@@ -150,6 +150,7 @@ class HouseholdListController extends Controller
 
         $households=Households::where('sitioID', $request->sitioID)
                                 ->where('houseNumber', $request->houseNumber)
+                                ->orderBy('dateOfVisit','desc')
                                 ->first();
         
 

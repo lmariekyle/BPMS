@@ -23,6 +23,7 @@ class AuthenticationAPIController extends Controller
         $resident = Resident::where('id', $user->residentID)->first();
         $user->username = $resident->firstName . ' ' . $resident->lastName;
         $image =$this->mobileProfilePic($request);
+        $response = ['success' => false];
         
         if($user->userLevel == "Barangay Health Worker"){
             $sitio = Sitio::where('id', $user->assignedSitioID)->first();
@@ -129,17 +130,26 @@ class AuthenticationAPIController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if($user && Hash::check($request->password, $user->password)){
-            if($user->userLevel == "Barangay Health Worker"){
-                $details = (new Otp)->generate($request->email, 'numeric', 6);
-                Mail::to($request->email)->send(new OTPMail($user));
-                $response = ['otp' => true, 'success' => true];
+        if($user != null && $user->userStatus == "Active"){
+            if($user && Hash::check($request->password, $user->password)){
+                if($user->userLevel == "Barangay Health Worker"){
+                    $details = (new Otp)->generate($request->email, 'numeric', 6);
+                    Mail::to($request->email)->send(new OTPMail($user));
+                    $response = ['otp' => true, 'success' => true];
+                    return response()->json($response, 200);
+                }else if ($user->userLevel == "User"){
+                    $response = ['otp' => false, 'success' => true];
+                    return response()->json($response, 200);
+                }else{
+                    $response = ['message' => 'Features Not Available', 'success' => false];
+                    return response()->json($response, 200);
+                }
             }else{
-                $response = ['otp' => false, 'success' => true];
+                $response = ['message' => 'Incorrect email or password', 'success' => false];
+                return response()->json($response, 200);
             }
-            return response()->json($response, 200);
         }else{
-            $response = ['message' => 'Incorrect email or password', 'success' => false];
+            $response = ['message' => 'Credentials Not Found', 'success' => false];
             return response()->json($response, 200);
         }
     }
