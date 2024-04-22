@@ -17,6 +17,7 @@ class Payment extends Model
         'receivedBy',
         'paymentDate',
         'referenceNumber',
+        'referenceNumber',
         'screenshot',
         'remarks',
     ];
