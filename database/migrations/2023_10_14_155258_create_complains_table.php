@@ -15,6 +15,7 @@ class CreateComplainsTable extends Migration
     {
         Schema::create('complains', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('transactionID')->references('id')->on('transactions')->onDelete('cascade')->onUpdate('cascade');
 
             $table->string('complaintFName');
             $table->string('complaintMName')->nullable();
