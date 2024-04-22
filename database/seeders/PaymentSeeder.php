@@ -15,7 +15,7 @@ class PaymentSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
+    {/*
         Payment::create([
             'paymentMethod' => 'GCash',
             'accountNumber' => '--',
@@ -281,5 +281,5 @@ class PaymentSeeder extends Seeder
             'releasedOn' => '2023-12-05',
             'remarks' => '--',
         ]);
-    }
+    */}
 }

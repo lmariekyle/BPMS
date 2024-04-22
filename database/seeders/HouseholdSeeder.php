@@ -497,7 +497,7 @@ class HouseholdSeeder extends Seeder
             'IP'=>'IP',
             'accessToWaterSupply'=>'L3',
             'remarksOfWaterSupply'=>'no remarks',
-            'yearOfVisit'=>2024,
+            'yearOfVisit'=>2023,
             'quarterNumber'=>4,
             'dateOfVisit'=>'2023-11-13',
             'respondentName'=>'John Jacob',
@@ -562,7 +562,7 @@ class HouseholdSeeder extends Seeder
             'IP'=>'IP',
             'accessToWaterSupply'=>'L3',
             'remarksOfWaterSupply'=>'no remarks',
-            'yearOfVisit'=>2024,
+            'yearOfVisit'=>2023,
             'quarterNumber'=>4,
             'dateOfVisit'=>'2023-11-13',
             'respondentName'=>'Edward',
@@ -627,7 +627,7 @@ class HouseholdSeeder extends Seeder
             'IP'=>'IP',
             'accessToWaterSupply'=>'L3',
             'remarksOfWaterSupply'=>'no remarks',
-            'yearOfVisit'=>2024,
+            'yearOfVisit'=>2023,
             'quarterNumber'=>4,
             'dateOfVisit'=>'2023-11-13',
             'respondentName'=>'Bella',
@@ -737,7 +737,7 @@ class HouseholdSeeder extends Seeder
             'accessToWaterSupply'=>'L1',
             'remarksOfWaterSupply'=>'no remarks',
             'yearOfVisit'=>2023,
-            'quarterNumber'=>3,
+            'quarterNumber'=>4,
             'dateOfVisit'=>'2023-11-28',
             'respondentName'=>'Mark',
             'createdBy'=>2,
@@ -867,7 +867,7 @@ class HouseholdSeeder extends Seeder
             'accessToWaterSupply'=>'L1',
             'remarksOfWaterSupply'=>'no remarks',
             'yearOfVisit'=>2023,
-            'quarterNumber'=>3,
+            'quarterNumber'=>4,
             'dateOfVisit'=>'2023-12-9',
             'respondentName'=>'John Carlo',
             'createdBy'=>2,
@@ -1610,7 +1610,7 @@ class HouseholdSeeder extends Seeder
             'respondentName'=>'Nina',
         ]);
 
-        //household 1 Francine - Leah - Jenny - Katrina (74-76-77)
+        //household 1 Francine - Leah - Jenny - Katrina (75-76-77)
         Households::create([
             'id'=>'75',
             'sitioID' => '8',

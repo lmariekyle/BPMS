@@ -569,163 +569,170 @@
                         <input name="year" type="hidden" value="{{$request->year}}"></input>
                         <input name="quarter" type="hidden" value="{{$request->quarter}}"></input>
                         <div class="w-[30px] h-[30px] mt-8 mr-2">
+                            @if($totalResidentCount > 0 && $totalHouseholdCount > 0)
                             <button type="submit" class="">
                                 <i class="fa-solid fa-print text-deep-green text-[28px]"></i>
                             </button>
+                            @else
+                                <i class="fa-solid fa-print text-deep-green text-[28px] hover:cursor-not-allowed"></i>
+                            @endif
                         </div>
                     </form>
                 </div>
 
                 @if($request->sitio || $request->gender || $request->ageclass || $request->year || $request->quarter)
-                <div class="flex flex-col bg-dirty-white h-max w-[1200px] px-4 ml-10 mt-[5rem]">
-                    <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
-                        <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE CENSUS DATA</p>
-                    </div>
-
-                    
-
-                    <div class="flex flex-row mt-[2rem] self-start bg-dirty-white justify-center">
-                        <div class="shadow-lg border-2 border-green mt-[2rem] py-10 ml-[12%]">
-                            <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
-                                <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS</p>
-                            </div>
-                            <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                                <p class="font-poppin text-center font-black text-[30px] text-dirty-white">
-                                    {{ $totalResidentCount }} RESIDENTS
-                                </p>
-                            </div>
+                    @if($totalResidentCount > 0 && $totalHouseholdCount > 0)
+                    <div class="flex flex-col bg-dirty-white h-max w-[1200px] px-4 ml-10 mt-[5rem]">
+                        <div class="bg-green px-4 py-2 self-center w-max border-1 -mt-5 border-black rounded-md shadow-md">
+                            <p class="font-poppin text-[28px] text-dirty-white">BARANGAY POBLACION, DALAGUETE CENSUS DATA</p>
                         </div>
-                        <div class="mt-[2rem] shadow-lg border-2 border-green py-10 ml-[4%]">
-                            <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
-                                <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS</p>
-                            </div>
-                            <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
-                                <p class="font-poppin text-center font-black text-[30px] text-dirty-white">
-                                    {{ $totalHouseholdCount }} HOUSEHOLDS
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex flex-row mt-[2rem] ml-[3rem]">
-                        <input type="checkbox" id="resCheck" class="mt-[3.8px]" onchange="viewRes()">
-                        <label for="resCheck" class="ml-[8px]">Resident</label>
-                        <input type="checkbox" id="hhCheck" class="mt-[3.8px] ml-[15px]" onchange="viewHouse()">
-                        <label for="hhCheck" class="ml-[8px]">Household</label>
-                    </div>
-                    <div id="resDisplay" class="self-center space-x-8 mb-[4rem]" style="display: none;">
-                        <div class="flex flex-row mt-[2rem] ml-[3rem]">
-                            <input type="checkbox" id="detailsResCheckBox" class="mt-[3.8px]" onchange="viewMoreResDetails()">
-                            <label for="detailsResCheckBox" class="ml-[8px]">Show more details for comparison</label>
-                        </div>
-                        <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
-                            <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
-                                <h1 class="font-poppin text-[18px] text-dirty-white text-center">
-                                    @if(!($request->sitio))
-                                    TOTAL RESIDENTS PER SITIO
-                                    @elseif ($request->sitio=="NULL")
-                                    TOTAL RESIDENTS PER SITIO
-                                    @else
-                                    RESIDENTS IN {{ $nameSitio }}
-                                    @endif
-                                </h1>
-                            </div>
-                            @if (($request->sitio || $request->gender || $request->ageclass))
-                            <div class="w-[1050px] h-[600px]" id="residentBarchart" style=""></div>
-                            <div class="w-[1050px] h-[600px]" id="AllReschart" style="display: none;"></div>
-                            <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
-                            <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end mt-[15rem] mr-8">
-                                <div class="mb-2 w-80 text-justify">
-                                    <p class="py-2 text-xl">LEGEND</p>
-                                    <p>FORMAT: Sitio Name (Gender - Age Classification)*</p>
-                                    <br>
-                                    <div>
-                                        Gender:
-                                        <br>
-                                        M - Male
-                                        <br>
-                                        F - Female
-                                    </div>
-                                    <div class="my-2">
-                                        Age Classification:
-                                        <br>
-                                        <p>N - Newborn (0-28 Days Old)</p>
-                                        <p>I - Infant (29 Days - 11 Months Old)</p>
-                                        <p>U - Under-five (1-4 Years Old)</p>
-                                        <p>S - School-Aged Children (5-9 Years Old)</p>
-                                        <p>A - Adolescents (10-19 Years Old)</p>
-                                        <p>WRA - Not Pregnant and non-Post Partum (15-59 Years Old, Female)</p>
-                                        <p>P - Pregnant</p>
-                                        <p>AP - Adolescent-Pregnant</p>
-                                        <p>PP - Post Partum</p>
-                                        <p>AB - Adult (20-59 Years Old, Male)</p>
-                                        <p>SC - Senior Citizen (60 Years Old and Above)</p>
-                                    </div>
-                                <hr>
+                        <div class="flex flex-row mt-[2rem] self-start bg-dirty-white justify-center">
+                            <div class="shadow-lg border-2 border-green mt-[2rem] py-10 ml-[12%]">
+                                <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
+                                    <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL RESIDENTS</p>
+                                </div>
+                                <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
+                                    <p class="font-poppin text-center font-black text-[30px] text-dirty-white">
+                                        {{ $totalResidentCount }} RESIDENTS
+                                    </p>
                                 </div>
                             </div>
-                            @else
-                            <div class="w-[1050px] h-[600px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center"></div>
-                            @endif
-                        </div>
-                    </div>
-                    <div id="hhDisplay" class="self-center space-x-8 mb-[4rem]" style="display: none;">
-                        <div class="flex flex-row mt-[2rem] ml-[3rem]">
-                            <input type="checkbox" id="detailsHhCheckBox" class="mt-[3.8px]" onchange="viewMoreHhDetails()">
-                            <label for="detailsHhCheckBox" class="ml-[8px]">Show more details for comparison</label>
-                        </div>
-                        <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
-                            <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
-                                <h1 class="font-poppin text-[18px] text-dirty-white text-center">
-                                    @if(!($request->sitio))
-                                    TOTAL HOUSEHOLDS PER SITIO
-                                    @elseif ($request->sitio=="NULL")
-                                    TOTAL HOUSEHOLDS PER SITIO
-                                    @else
-                                    HOUSEHOLDS IN {{ $nameSitio }}
-                                    @endif
-                                </h1>
+                            <div class="mt-[2rem] shadow-lg border-2 border-green py-10 ml-[4%]">
+                                <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max mx-auto -mt-[4rem]">
+                                    <p class="font-poppin text-[18px] text-dirty-white text-center">TOTAL HOUSEHOLDS</p>
+                                </div>
+                                <div class="bg-green w-[525px] h-[95px] m-auto flex items-center justify-center mt-8 shadow-lg">
+                                    <p class="font-poppin text-center font-black text-[30px] text-dirty-white">
+                                        {{ $totalHouseholdCount }} HOUSEHOLDS
+                                    </p>
+                                </div>
                             </div>
-                            <div class="">
-                                @if(($request->sitio || $request->gender || $request->ageclass))
-                                <div class="w-[1050px] h-[600px]" id="householdBarchart" style=""></div>
-                                <div class="w-[1050px] h-[600px]" id="AllHhchart" style="display: none;"></div>
+                        </div>
+                        <div class="flex flex-row mt-[2rem] ml-[3rem]">
+                            <input type="checkbox" id="resCheck" class="mt-[3.8px]" onchange="viewRes()">
+                            <label for="resCheck" class="ml-[8px]">Resident</label>
+                            <input type="checkbox" id="hhCheck" class="mt-[3.8px] ml-[15px]" onchange="viewHouse()">
+                            <label for="hhCheck" class="ml-[8px]">Household</label>
+                        </div>
+                        <div id="resDisplay" class="self-center space-x-8 mb-[4rem]" style="display: none;">
+                            <div class="flex flex-row mt-[2rem] ml-[3rem]">
+                                <input type="checkbox" id="detailsResCheckBox" class="mt-[3.8px]" onchange="viewMoreResDetails()">
+                                <label for="detailsResCheckBox" class="ml-[8px]">Show more details for comparison</label>
+                            </div>
+                            <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
+                                <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
+                                    <h1 class="font-poppin text-[18px] text-dirty-white text-center">
+                                        @if(!($request->sitio))
+                                        TOTAL RESIDENTS PER SITIO
+                                        @elseif ($request->sitio=="NULL")
+                                        TOTAL RESIDENTS PER SITIO
+                                        @else
+                                        RESIDENTS IN {{ $nameSitio }}
+                                        @endif
+                                    </h1>
+                                </div>
+                                @if (($request->sitio || $request->gender || $request->ageclass))
+                                <div class="w-[1050px] h-[600px]" id="residentBarchart" style=""></div>
+                                <div class="w-[1050px] h-[600px]" id="AllReschart" style="display: none;"></div>
+                                <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
+                                <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end mt-[15rem] mr-8">
+                                    <div class="mb-2 w-80 text-justify">
+                                        <p class="py-2 text-xl">LEGEND</p>
+                                        <p>FORMAT: Sitio Name (Gender - Age Classification)*</p>
+                                        <br>
+                                        <div>
+                                            Gender:
+                                            <br>
+                                            M - Male
+                                            <br>
+                                            F - Female
+                                        </div>
+                                        <div class="my-2">
+                                            Age Classification:
+                                            <br>
+                                            <p>N - Newborn (0-28 Days Old)</p>
+                                            <p>I - Infant (29 Days - 11 Months Old)</p>
+                                            <p>U - Under-five (1-4 Years Old)</p>
+                                            <p>S - School-Aged Children (5-9 Years Old)</p>
+                                            <p>A - Adolescents (10-19 Years Old)</p>
+                                            <p>WRA - Not Pregnant and non-Post Partum (15-59 Years Old, Female)</p>
+                                            <p>P - Pregnant</p>
+                                            <p>AP - Adolescent-Pregnant</p>
+                                            <p>PP - Post Partum</p>
+                                            <p>AB - Adult (20-59 Years Old, Male)</p>
+                                            <p>SC - Senior Citizen (60 Years Old and Above)</p>
+                                        </div>
+                                    <hr>
+                                    </div>
+                                </div>
                                 @else
                                 <div class="w-[1050px] h-[600px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center"></div>
                                 @endif
                             </div>
                         </div>
-                    </div>
-                    <div class="my-[2rem] border-2 border-green"></div>
-                    <div class="flex flex-row ml-[3rem]">
-                        <input type="checkbox" id="addInfo" class="mt-[3.8px]" onchange="viewAddInfo()">
-                        <label for="addInfo" class="ml-[8px]">Additional Details</label>
-                    </div>
-                    <div id="addInfoDisplay" class="mt-[2rem] w-[1050px] self-center" style="display: none;">
-                        <div id="resAddInfo" style="display: none;">
-                            <p class="font-bold text-[22px] my-2">Resident Additional Information</p>
-                            <div class="h-[700px] w-[1050px]" id="monthInchart"></div>
-                            <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
-                                <div id="Paychart" class="w-[525px]"></div>
-                                <div id="Refundchart" class="w-[525px]"></div>
+                        <div id="hhDisplay" class="self-center space-x-8 mb-[4rem]" style="display: none;">
+                            <div class="flex flex-row mt-[2rem] ml-[3rem]">
+                                <input type="checkbox" id="detailsHhCheckBox" class="mt-[3.8px]" onchange="viewMoreHhDetails()">
+                                <label for="detailsHhCheckBox" class="ml-[8px]">Show more details for comparison</label>
                             </div>
-                            <div id="prCountchart" class="mt-[2rem] w-[1050px] h-[275px]"></div>
-                            <div id="Educhart" class="mt-[2rem] w-[1050px] h-[275px]"></div>
-                            <div id="Pregchart" class="mt-[2rem] w-[1050px] h-[275px]"></div>
-                            <div class="my-[2rem] border-2 border-green"></div>
-                        </div>
-                        <div id="hhAddInfo" style="display: none;">
-                            <p class="font-bold text-[22px] my-2">Household Additional Information</p>
-                            <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
-                                <div id="IPchart" class="w-[520px]"></div>
-                                <div id="NHTSchart" class="w-[520px] ml-[5px]"></div>
-                            </div>
-                            <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
-                                <div id="Waterchart" class="w-[520px]"></div>
-                                <div id="Toiletchart" class="w-[520px] ml-[5px]"></div>
+                            <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
+                                <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
+                                    <h1 class="font-poppin text-[18px] text-dirty-white text-center">
+                                        @if(!($request->sitio))
+                                        TOTAL HOUSEHOLDS PER SITIO
+                                        @elseif ($request->sitio=="NULL")
+                                        TOTAL HOUSEHOLDS PER SITIO
+                                        @else
+                                        HOUSEHOLDS IN {{ $nameSitio }}
+                                        @endif
+                                    </h1>
+                                </div>
+                                <div class="">
+                                    @if(($request->sitio || $request->gender || $request->ageclass))
+                                    <div class="w-[1050px] h-[600px]" id="householdBarchart" style=""></div>
+                                    <div class="w-[1050px] h-[600px]" id="AllHhchart" style="display: none;"></div>
+                                    @else
+                                    <div class="w-[1050px] h-[600px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center"></div>
+                                    @endif
+                                </div>
                             </div>
                         </div>
+                        <div class="my-[2rem] border-2 border-green"></div>
+                        <div class="flex flex-row ml-[3rem]">
+                            <input type="checkbox" id="addInfo" class="mt-[3.8px]" onchange="viewAddInfo()">
+                            <label for="addInfo" class="ml-[8px]">Additional Details</label>
+                        </div>
+                        <div id="addInfoDisplay" class="mt-[2rem] w-[1050px] self-center" style="display: none;">
+                            <div id="resAddInfo" style="display: none;">
+                                <p class="font-bold text-[22px] my-2">Resident Additional Information</p>
+                                <div class="h-[700px] w-[1050px]" id="monthInchart"></div>
+                                <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
+                                    <div id="Paychart" class="w-[525px]"></div>
+                                    <div id="Refundchart" class="w-[525px]"></div>
+                                </div>
+                                <div id="prCountchart" class="mt-[2rem] w-[1050px] h-[275px]"></div>
+                                <div id="Educhart" class="mt-[2rem] w-[1050px] h-[275px]"></div>
+                                <div id="Pregchart" class="mt-[2rem] w-[1050px] h-[275px]"></div>
+                                <div class="my-[2rem] border-2 border-green"></div>
+                            </div>
+                            <div id="hhAddInfo" style="display: none;">
+                                <p class="font-bold text-[22px] my-2">Household Additional Information</p>
+                                <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
+                                    <div id="IPchart" class="w-[520px]"></div>
+                                    <div id="NHTSchart" class="w-[520px] ml-[5px]"></div>
+                                </div>
+                                <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
+                                    <div id="Waterchart" class="w-[520px]"></div>
+                                    <div id="Toiletchart" class="w-[520px] ml-[5px]"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    @else
+                    <div class="px-4 pt-10 self-center">
+                        <p class="font-poppin text-[28px]">There is no data available with the filters selected.</p>
+                    </div>
+                    @endif
                 @endif
             </div>
             @endhasanyrole

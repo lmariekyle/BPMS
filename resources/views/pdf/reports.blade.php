@@ -263,38 +263,28 @@
             </table>
 
             <h3>IP & NHTS Households</h3>
-            <div style="display: flex; justify-content: space-between;">
-                <table style="width: 50%; float: left;">
-                    <tr>
-                        <th>Sitio</th>
-                        @foreach ($IP as $I)
-                        <th>{{ $I }}</th>
-                        @endforeach
-                    </tr>
-                    @foreach ($dataIP as $sitioName => $DI)
-                    <tr>
-                        <td>{{ $sitioName }}</td>
-                        @foreach ($IP as $I)
-                        <td>{{ isset($DI[$I]) ? $DI[$I] : 0 }}</td>
-                        @endforeach
-                    </tr>
+            <table>
+                <tr>
+                    <th>Sitio</th>
+                    @foreach ($IP as $I)
+                    <th>{{ $I }}</th>
                     @endforeach
-                </table>
-                <table style="width: 50%; float: right;">
-                    <tr>
-                        @foreach ($NHTS as $N)
-                        <th>{{ $N }}</th>
-                        @endforeach
-                    </tr>
-                    @foreach ($dataNHTS as $sitioName => $DN)
-                    <tr>
-                        @foreach ($NHTS as $N)
-                        <td>{{ isset($DN[$N]) ? $DN[$N] : 0 }}</td>
-                        @endforeach
-                    </tr>
+                    @foreach ($NHTS as $N)
+                    <th>{{ $N }}</th>
                     @endforeach
-                </table>
-            </div>
+                </tr>
+                @foreach ($dataIP as $sitioName => $DI)
+                <tr>
+                    <td>{{ $sitioName }}</td>
+                    @foreach ($IP as $I)
+                    <td>{{ isset($DI[$I]) ? $DI[$I] : 0 }}</td>
+                    @endforeach
+                    @foreach ($NHTS as $N)
+                    <td>{{ isset($dataNHTS[$sitioName][$N]) ? $dataNHTS[$sitioName][$N] : 0 }}</td>
+                    @endforeach
+                </tr>
+                @endforeach
+            </table>
 
             <h3>Water Access</h3>
             <table>

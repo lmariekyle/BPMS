@@ -1672,10 +1672,60 @@ class StatisticsController extends Controller
             $nameSitio = Sitio::where('id', $request['sitio'])->value('sitioName');
         }
 
+        //Monthly Income of each resident
+        $dataIncome = array();
+        $MonthlyIncome = array(
+            "None",
+            "less than 9,100",
+            "9,100 - 18,200",
+            "18,200 - 36,400",
+            "36,400 - 63,700",
+            "63,700 - 109,200",
+            "109,200 - 182,200",
+            "above 182,000"
+            );
+
+        //Payment/Refunds (Resident)
+        $sumPay = 0;
+        $sumRefund = 0;
+        $payCtr = 0;
+        $refundCtr = 0;
+        $prInfo = array();
+
+        //Educational Attainment (Resident)
+        $dataEducation = array();
+        $EducationAtt = array(
+            "Undergraduate",
+            "Elementary Graduate",
+            "Junior High School Graduate",
+            "Senior High School Graduate",
+            "College Graduate",
+            );
+
+        //Pregancy (Resident)
+        $dataPreg = array();
+        $Pregnancy = array("N","P","PP");
+        
+        //Indigenous (Household)
+        $dataIP = array();
+        $IP = array("IP","nonIP");
+
+        //NHTS (Household)
+        $dataNHTS = array();
+        $NHTS = array("NHTS","nonNHTS");
+
+        //Water Access (Household)
+        $dataWater = array();
+        $WaterAccess = array("Doubtful","L1","L2","L3");
+        
+        //Toilet Facilities (Household)
+        $dataToilet = array();
+        $ToiletFacilities = array("Sanitary","Insanitary","None","Shared");
+
         //Two ways: 
         //1. If the statitics information is NOT found
         //2. The statistics information exists, BUT has no resident/households recorded (i.e. 0)
-        if ($statCheck == NULL || ($statCheck->totalResidentsBarangay <= 0 || $statCheck->totalHouseholdsBarangay <= 0)){
+        if ($statCheck == NULL){
             $householdCount = "";
             $totalHouseholdCount = 0; 
             $residentCount = "";
@@ -1797,56 +1847,6 @@ class StatisticsController extends Controller
                 default:
                     break;
             }
-
-            //Monthly Income of each resident
-            $dataIncome = array();
-            $MonthlyIncome = array(
-                "None",
-                "less than 9,100",
-                "9,100 - 18,200",
-                "18,200 - 36,400",
-                "36,400 - 63,700",
-                "63,700 - 109,200",
-                "109,200 - 182,200",
-                "above 182,000"
-                );
-
-            //Payment/Refunds (Resident)
-            $sumPay = 0;
-            $sumRefund = 0;
-            $payCtr = 0;
-            $refundCtr = 0;
-            $prInfo = array();
-
-            //Educational Attainment (Resident)
-            $dataEducation = array();
-            $EducationAtt = array(
-                "Undergraduate",
-                "Elementary Graduate",
-                "Junior High School Graduate",
-                "Senior High School Graduate",
-                "College Graduate",
-                );
-
-            //Pregancy (Resident)
-            $dataPreg = array();
-            $Pregnancy = array("N","P","PP");
-            
-            //Indigenous (Household)
-            $dataIP = array();
-            $IP = array("IP","nonIP");
-
-            //NHTS (Household)
-            $dataNHTS = array();
-            $NHTS = array("NHTS","nonNHTS");
-
-            //Water Access (Household)
-            $dataWater = array();
-            $WaterAccess = array("Doubtful","L1","L2","L3");
-            
-            //Toilet Facilities (Household)
-            $dataToilet = array();
-            $ToiletFacilities = array("Sanitary","Insanitary","None","Shared");
             
             //No Sitio Filter Selected
             if($filterSitio == ""){
@@ -2219,7 +2219,7 @@ class StatisticsController extends Controller
                         $resIncome = DB::table('resident_lists')
                         ->join('households','resident_lists.houseID','=','households.id')
                         ->join('residents','resident_lists.residentID','=','residents.id')
-                        ->where('households.sitioID', '=', $x)
+                        ->where('households.sitioID', '=', $filterSitio)
                         ->where('households.dateOfVisit', '>=', $dateB)
                         ->where('households.dateOfVisit', '<=', $dateE)
                         ->where('residents.dateOfDeath', '=', NULL)
