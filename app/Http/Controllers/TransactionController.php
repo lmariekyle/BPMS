@@ -7,10 +7,13 @@ use App\Models\Payment;
 use App\Models\DocumentDetails;
 use App\Models\Document;
 use App\Models\User;
+use App\Models\Sitio;
 use App\Models\Resident;
 use App\Models\Complain;
 use App\Models\Transaction;
 use App\Models\AccountInfoChange;
+use App\Models\Households;
+use App\Models\ResidentList;
 use App\Notifications\NewRequestNotification;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
@@ -26,6 +29,7 @@ class TransactionController extends Controller
     public function requestList($id){
 
         $userTransactions=Transaction::where('userID',$id)->paginate(10);
+        
         // $document = Document::where('id', $userTransactions->documentID)->first();
     
         return view('residents.requests',compact('userTransactions'));
@@ -39,6 +43,40 @@ class TransactionController extends Controller
         // $document = Document::where('id', $userTransactions->documentID)->first();
     
         return view('residents.show',compact('transaction','requester'));
+    }
+
+    public function getDocuments(Request $request)
+    {
+        $status = $request->input('status');
+
+        if($status == 'Pending'){
+            $documents = Transaction::with(['document', 'transactionpayment'])
+            ->whereHas('transactionpayment', function ($query) {
+                $query->where('paymentStatus', '=', 'Pending');
+            })
+            ->get();
+        }elseif ($status == 'Paid'){
+            $documents = Transaction::with(['document', 'transactionpayment'])
+            ->whereHas('transactionpayment', function ($query) {
+                $query->where('paymentStatus', '=', 'Paid');
+            })
+            ->get();
+        }elseif ($status == 'Processing'){
+            $documents = Transaction::with(['document', 'transactionpayment'])
+            ->whereIn('serviceStatus', ['Pending', 'Processing', 'Endorsed', 'For Signature', 'Signed'])
+            ->get();
+        }elseif ($status == 'Released'){
+            $documents = Transaction::with(['document', 'transactionpayment'])
+            ->where('serviceStatus', '=', 'Released')
+            ->get();
+        }elseif ($status == 'Denied'){
+            $documents = Transaction::with(['document', 'transactionpayment'])
+            ->whereIn('serviceStatus', ['Not Eligible', 'Denied'])
+            ->get();
+        }
+
+        
+        return response()->json($documents);
     }
 
 
@@ -70,57 +108,82 @@ class TransactionController extends Controller
         }
 
         if($document->docType == "File Complain"){
-            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-FC']);
-            $payment = Payment::create([
-                'paymentMethod' => $request->paymentMethod,
-                'accountNumber' => 'Not Applicable',
-                'paymentStatus' => 'Paid',
-                'referenceNumber' => 'Not Applicable',
-                'remarks' =>  'Not Applicable',
-            ]);
+            $residents = Resident::all();
+            $residents->makeVisible('firstName');
+            $residents->makeVisible('lastName');
 
-            if($request->complaintMName == null ){
-                $request->complaintMName == 'N/A';
-            }else if($request->complaineeMName == null){
-                $request->complaineeMName == 'N/A';
+            $check_res = $residents->where('firstName', '=', $request->complaineeFName)
+            ->where('lastName', '=', $request->complaineeLName)
+            ->first();
+
+            if($check_res != NULL) {
+                $check_resList = ResidentList::where('residentID', $check_res->id)->first();
+
+                $check_household = Households::where('id', $check_resList->houseID)->first();
+
+                $sitio = Sitio::where('sitioName', $request->complaineeSitio)->first();
+
+                if($check_household->sitioID == $sitio->id){
+                    $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-FC']);
+                    $payment = Payment::create([
+                        'paymentMethod' => $request->paymentMethod,
+                        'accountNumber' => 'Not Applicable',
+                        'paymentStatus' => 'Paid',
+                        'referenceNumber' => 'Not Applicable',
+                        'remarks' =>  'Not Applicable',
+                    ]);
+
+                    if($request->complaintMName == null ){
+                        $request->complaintMName == 'N/A';
+                    }else if($request->complaineeMName == null){
+                        $request->complaineeMName == 'N/A';
+                    }
+
+                    $detail = DocumentDetails::create([
+                        'requesteeFName' => $request->complaintFName,
+                        'requesteeMName' => $request->complaintMName,
+                        'requesteeLName' => $request->complaintLName,
+                        'requesteeEmail'  => $request->complaintEmail,
+                        'requesteeContactNumber' => $request->complaintContactNumber,
+                        'requestPurpose' => $request->requestPurpose,
+                        'file' => $reqJson,
+                    ]);
+
+                    $transaction = Transaction::create([
+                        'documentID' => $request->documentId,
+                        'userID' => $user->id,
+                        'paymentID' => $payment->id,
+                        'detailID' => $detail->id,
+                        'docNumber' => $docId,
+                        'serviceStatus' => "Pending",
+                    ]);
+
+                    
+                    $complain = Complain::create([
+                        'complaintFName' => $request->complaintFName,
+                        'complaintMName' => $request->complaintMName,
+                        'complaintLName' => $request->complaintLName,
+                        'complaintEmail' => $request->complaintEmail,
+                        'complaintContactNumber' => $request->complaintContactNumber,
+                        'complaineeFName' => $request->complaineeFName,
+                        'complaineeMName' => $request->complaineeMName,
+                        'complaineeLName' => $request->complaineeLName,
+                        'complaineeSitio' => $request->complaineeSitio,
+                        'requestPurpose' => $request->requestPurpose,
+                    ]);
+
+                    $notifyUsers = User::where('userLevel', 'Barangay Secretary')->get();
+
+                    Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
+
+                    $response = ['paymentID' => $payment->id,'success' => true];
+                    
+                }else{
+                    $response = ['message' => 'Resident Not Found','success' => false];
+                }
+            }else{
+                $response = ['message' => 'Resident Not Found','success' => false];
             }
-
-            $detail = DocumentDetails::create([
-                'requesteeFName' => $request->complaintFName,
-                'requesteeMName' => $request->complaintMName,
-                'requesteeLName' => $request->complaintLName,
-                'requesteeEmail'  => $request->complaintEmail,
-                'requesteeContactNumber' => $request->complaintContactNumber,
-                'requestPurpose' => $request->requestPurpose,
-                'file' => $reqJson,
-            ]);
-
-            $transaction = Transaction::create([
-                'documentID' => $request->documentId,
-                'userID' => $user->id,
-                'paymentID' => $payment->id,
-                'detailID' => $detail->id,
-                'docNumber' => $docId,
-                'serviceStatus' => "Pending",
-            ]);
-
-            
-            $complain = Complain::create([
-                'complaintFName' => $request->complaintFName,
-                'complaintMName' => $request->complaintMName,
-                'complaintLName' => $request->complaintLName,
-                'complaintEmail' => $request->complaintEmail,
-                'complaintContactNumber' => $request->complaintContactNumber,
-                'complaineeFName' => $request->complaineeFName,
-                'complaineeMName' => $request->complaineeMName,
-                'complaineeLName' => $request->complaineeLName,
-                'complaineeSitio' => $request->complaineeSitio,
-                'requestPurpose' => $request->requestPurpose,
-            ]);
-
-            $notifyUsers = User::where('userLevel', 'Barangay Secretary')->get();
-
-            Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
         }else if($document->docType == "Account Information Change"){
             $account = AccountInfoChange::create([
                 'userID' => $user->id,
@@ -201,35 +264,23 @@ class TransactionController extends Controller
             $notifyUsers = User::where('userLevel', 'Barangay Secretary')->get();
     
             Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
-        }
-        if($request->paymentMethod == '2'){
-            $receivedPayment = $this->createpayment($payment->id);
-            $receivedPayment->fee = $document->fee;
-
-            $user->token = $request->token;
-            $user->success = true;
-
-            $documents = DB::select('select DISTINCT docType from documents');
-            $userData = Resident::where('id', $request->userId)->first();
-
-            $response = ['user' => $userData, 'documents' => $documents, 'payment' => $receivedPayment, 'success' => true];
-            return $response;
-        }
-
-        $user->token = $request->token;
-        $user->success = true;
-
-        $documents = DB::select('select DISTINCT docType from documents');
-        $userData = Resident::where('id', $request->userId)->first();
-        $userData->makeVisible('firstName', 'middleName', 'lastName');
-
-        if($document->docType == "Account Information Change"){
-            $response = ['user' => $userData, 'documents' => $documents, 'success' => true];
-        }else{
-            $response = ['user' => $userData, 'documents' => $documents, 'success' => true];
+            $response = ['paymentID' => $payment->id,'success' => true];
         }
         
         return $response;
+    }
+
+    public function findPayment(Request $request){
+            $receivedPayment = $this->createpayment($request->paymentID);
+            $transaction = Transaction::where('paymentID', $receivedPayment->id)->first();
+            $document = Document::where('id', $transaction->documentID)->first();
+            $receivedPayment->fee = $document->fee;
+
+            $userData = Resident::where('id', $request->residentID)->first();
+            $userData->makeVisible('lastName');
+
+            $response = ['user' => $userData, 'payment' => $receivedPayment, 'success' => true];
+            return $response;
     }
 
     public function createpayment($id)
@@ -268,7 +319,6 @@ class TransactionController extends Controller
         $payment = Payment::where('id', $request->paymentID)->first();
 
         $payment->update([
-            'accountNumber' => $request->accountNumber,
             'referenceNumber' => $request->accountNumber,
             'paymentStatus' => 'Paid',
             'screenshot' => $reqJson,
@@ -276,11 +326,7 @@ class TransactionController extends Controller
 
         $payment->save();
 
-        $documents = DB::select('select DISTINCT docType from documents');
-        $userData = Resident::where('id', $request->userID)->first();
-        $userData->makeVisible('firstName', 'middleName', 'lastName');
-
-        $response = ['user' => $userData, 'documents' => $documents, 'success' => true,];
+        $response = ['success' => true,];
 
         return $response;
     }
@@ -308,6 +354,29 @@ class TransactionController extends Controller
         $document = Document::where('id', $transaction->documentID)->first();
         $user = User::where('id', $transaction->userID)->first();
         $resident = Resident::where('id', $user->residentID)->first();
+        
+        if($transaction->endorsedBy != null){
+            if($transaction->endorsedBy != 'Not Applicable'){
+                $employee = Resident::where('id', $transaction->endorsedBy)->first();
+                $employee->makeVisible('firstName', 'lastName');
+                $transaction->endorsedBy = $employee->firstName. ' ' .$employee->lastName; 
+            }
+        }
+        if($transaction->approvedBy != null){
+            if($transaction->approvedBy != 'Not Applicable'){
+                $employee = Resident::where('id', $transaction->approvedBy)->first();
+                $employee->makeVisible('firstName', 'lastName');
+                $transaction->approvedBy = $employee->firstName. ' ' .$employee->lastName; 
+            }
+        }
+        if($transaction->releasedBy != null){
+            if($transaction->releasedBy != 'Not Applicable'){
+                $employee = Resident::where('id', $transaction->releasedBy)->first();
+                $employee->makeVisible('firstName', 'lastName');
+                $transaction->releasedBy = $employee->firstName. ' ' .$employee->lastName; 
+            }
+        }
+
         $response = ['transaction' => $transaction, 'details' => $transactiondetails, 'payment' => $payment, 'document' => $document, 'user' => $resident, 'success' => true,];
         return $response;
     }

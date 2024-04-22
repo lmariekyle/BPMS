@@ -1,5 +1,5 @@
 <h2 style="font-family: 'Roboto', sans-serif; font-size: 18px; font-weight: 800; text-align: center; letter-spacing: 0.1em;">Barangay Certificate</h2>
-      </div>
+</div>
       <div style="margin-top:48px;">
         <h2 style="font-family: 'Roboto', sans-serif; font-size: 14px;text-align: start; margin-left: 44px;">TO WHOM IT MAY CONCERN,</h2>
       </div>

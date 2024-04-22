@@ -42,6 +42,7 @@ Route::post('/mobileRequestServices', [DocumentController::class, 'mobileRequest
 Route::post('/mobileRequestList', [TransactionController::class, 'mobileRequestList']);
 Route::post('/mobileRequestDetails', [TransactionController::class, 'mobileRequestDetails']);
 Route::post('/mobileGetDocuments', [DocumentController::class, 'mobileGetDocuments']);
+Route::post('/mobileFindPayment', [TransactionController::class, 'findPayment']);
 Route::post('/register', 'App\Http\Controllers\ResidentUserController@mobileStore');
 Route::post('/sitioAssignment', [SitioAssignmentController::class, 'mobileSitiosAssignment']);
 Route::post('/forgotPassword', 'App\Http\Controllers\Auth\PasswordResetLinkController@mobileStore')->name('mobileForgotPassword');

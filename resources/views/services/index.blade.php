@@ -34,7 +34,6 @@
                 <p class="font-robotocondensed text-dirty-white text-[18px] font-bold px-max py-2 ml-44">ACTION</p>
             </div>
 
-            <!--DISPLAY ONLY PLS CHANGE WHEN CODING WITH THE ACTUAL DATABASE-->
             <table class="mt-10">
                 <tbody>
                     @forelse($accounts as $account)
@@ -78,7 +77,7 @@
         @hasanyrole('Barangay Captain|Barangay Secretary')
         <p class="text-dirty-white font-robotocondensed ml-3 font-bold text-[48px] text-start">SEARCH REQUESTS</p>
         <!--Search-->
-        <div>
+        <div class="">
             <form type="get" action="{{ route('requestSearch') }}">
                 <div class="mt-4 ml-12 flex w-[370px] h-[30px] flex-wrap items-stretch">
                     <input type="type" name="search" class="m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-lg border border-solid border-neutral-300 bg-white bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary" placeholder="Search" aria-label="Search" aria-describedby="button-addon1" />
@@ -91,6 +90,26 @@
                     </button>
                 </div>
             </form>
+        </div>
+
+        <div class="flex flex-row  space-x-5 w-[200px] h-[80px] ml-16 mt-7">
+        
+            <div>
+                <a href="" data-status="Pending" class="status-link px-2 py-1 w-max h-max bg-green border-1 border-deep-green shadow-md hover:bg-dirty-white text-dirty-white font-robotocondensed font-semibold hover:text-deep-green">UNPAID</a>
+            </div>
+            <div>
+                <a href="" data-status="Paid" class="status-link px-2 py-1 w-max h-max bg-green border-1 border-deep-green shadow-md hover:bg-dirty-white text-dirty-white font-robotocondensed font-semibold hover:text-deep-green">PAID</a>
+            </div>
+            <div>
+                <a href="" data-status="Processing" class="status-link px-2 py-1 w-max h-max bg-green border-1 border-deep-green shadow-md hover:bg-dirty-white text-dirty-white font-robotocondensed font-semibold hover:text-deep-green">ACTIVE</a>
+            </div>
+            <div>
+                <a href="" data-status="Released" class="status-link px-2 py-1 w-max h-max bg-green border-1 border-deep-green shadow-md hover:bg-dirty-white text-dirty-white font-robotocondensed font-semibold hover:text-deep-green">RELEASED</a>
+            </div>
+            <div>
+                <a href="" data-status="Denied" class="status-link px-2 py-1 w-max h-max bg-green border-1 border-deep-green shadow-md hover:bg-dirty-white text-dirty-white font-robotocondensed font-semibold hover:text-deep-green">DENIED</a>
+            </div>
+       
         </div>
 
 
@@ -107,9 +126,9 @@
             </div>
 
             <!--DISPLAY ONLY PLS CHANGE WHEN CODING WITH THE ACTUAL DATABASE-->
-            <table class="mt-10">
+            <table id="documents-table" class="mt-10">
                 <tbody>
-                    @foreach ($transactions as $transaction)
+                    @forelse ($transactions as $transaction)
                     <tr class="border shadow-md">
                         <td class="px-6 py-4 w-[295px] font-robotocondensed text-deep-green text-[16px] font-bold">
                             {{ $transaction->id }}
@@ -129,12 +148,17 @@
                         <td class="px-6 py-4 w-[190px]">
                             <a href="{{ route('direction', $transaction->id) }}" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>
                         </td>
+
+                        @empty
+                        <td class="px-6 py-4 font-robotocondensed text-deep-green text-[16px] font-bold">
+                            We can't find the transaction
+                        </td>
                     </tr>
-                    @endforeach
+                    @endforelse
                 </tbody>
             </table>
             <div class="flex flex-row justify-evenly mt-4 self-center">
-                {{$transactions->links()}}
+                {{-- {{$transactions->links()}} --}}
             </div>    
         </div>
         @endhasanyrole

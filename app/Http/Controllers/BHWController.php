@@ -9,6 +9,7 @@ use App\Models\ResidentList;
 use App\Models\Sitio;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class BHWController extends Controller
 {
@@ -121,35 +122,24 @@ class BHWController extends Controller
             return $this->index();
         }
 
-        $bhwsFirstName = Resident::paginate(10);
-        $bhwsFirstName->makeVisible('firstName');
+        $bhws = [];
 
-        foreach($bhwsFirstName as $x=>$bhwFirstName){
-            if(strcasecmp($bhwFirstName->firstName,$search) != 0){
-                unset($bhwsFirstName[$x]);
+        $resultbhws = Resident::paginate(10);
+        $resultbhws ->makeVisible('firstName', 'lastName');
+
+        foreach($resultbhws  as $x=>$bhw){
+            $bhw->fullName = $bhw->firstName . ' ' . $bhw->lastName;
+            $fullName = Str::of($bhw->fullName)->lower();
+            $find = Str::of($search)->lower();
+            
+            if(Str::contains($fullName, $find)){
+                array_push($bhws, $bhw);
             }
         }
 
-        $bhwsLastName = Resident::paginate(10);
-        $bhwsLastName->makeVisible('lastName');
-
-        foreach($bhwsLastName as $x=>$bhwLastName){
-            if(strcasecmp($bhwLastName->lastName,$search) != 0){
-                unset($bhwsLastName[$x]);
-            }
+        if(empty($bhws)){
+            return view('bhw.index')->with('bhws',$bhws);
         }
-
-        $bhwsFullName = Resident::paginate(10);
-        $bhwsFullName->makeVisible('firstName', 'lastName');
-
-        foreach($bhwsFullName as $x=>$bhwFullName){
-            $bhwFullName->fullName = $bhwFullName->firstName . ' ' . $bhwFullName->lastName;
-            if(strcasecmp($bhwFullName->fullName,$search) != 0){
-                unset($bhwsFullName[$x]);
-            }
-        }
-
-        $bhws = $bhwsFirstName->concat($bhwsLastName)->concat($bhwsFullName);
         
         foreach($bhws as $x=>$bhw){
             $resident=User::where('residentID',$bhw->id)->first();
@@ -165,7 +155,6 @@ class BHWController extends Controller
                 unset($bhws[$x]);
             }
         }
-
         return view('bhw.index')->with('bhws',$bhws);
     }
 

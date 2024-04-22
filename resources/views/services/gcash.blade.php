@@ -20,14 +20,16 @@
                     </div>
                     <div class="flex flex-row w-max px-4 mt-2 -ml-[5rem]">
                     <p class="font-poppins text-[18px] text-center font-medium w-max text-gray-800">Amount Due: </p>
-                    <p class="font-poppins text-[18px] text-center text-black font-medium w-max ml-2">{{$payment->amountPaid}}</p>
+                    <!-- <p class="font-poppins text-[18px] text-center text-black font-medium w-max ml-2">{{$document->fee}}</p> -->
+                    <input type="hidden" name="amountPaid" value="{{$document->fee}}">
+                    <input class="font-poppins text-[18px] text-start text-black ml-2" style="border-color: #414833;" value="PHP {{$document->fee}}" name="amountPaid" disabled>
                     </div>
                 </div>
 
                 <div class="flex flex-col justify-start mt-[5rem]  -ml-2">
                 @include('components.flash')
                     <label class="mt-4 mb-2 -ml-3 font-poppins text-[18px]">Reference Number:</label>
-                    <input class="px-2 focus:outline-none border-2 w-[300px]  text-deep-green -ml-3" style="border-color: #414833;" value="" name="successURL" required>
+                    <input class="px-2 focus:outline-none border-2 w-[300px]  text-deep-green -ml-3" style="border-color: #414833;" value="" name="referenceNumber" required>
                     <p class="mt-1 font-extralight italic text-[14px] -ml-3">Note: Reference Number contains 13 numbers only</p>
                     <p class="mt-1 font-extralight italic text-[14px] -ml-3">Example: 8347138123948</p>
                     <div class="mt-4 h-max -ml-3">

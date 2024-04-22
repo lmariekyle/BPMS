@@ -19,6 +19,7 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v3.x.x/dist/alpine.min.js" defer></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 
@@ -79,6 +80,7 @@
                 infoLabel.innerHTML = `Error`;
             });
     });
+
 });
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -87,22 +89,50 @@
             var selectedOption = document.getElementById('selectedDocument').value;
             console.log('Selected Option:', selectedOption);
             var requirements;
+            var note;
+            var fee;
 
             // Set requirements based on selected option
             switch(selectedOption) {
+            case '1':
+                requirements = "* Purpose of Request:";
+                note = "Ex: Scholarship Application"
+                fee = "PHP 100"
+            break;
             case '2':
-                requirements = "Please specify the Sitio where the Disco will be held in the Purpose of Request Field. Ex: Sitio Labangon";
+                requirements = "* Please specify the sitio where the disco will be held: ";
+                note = "Ex: Sitio Labangon"
+                fee = "PHP 530"
                 break;
-            case '11':
+            case '3':
+                requirements = "* Purpose of Request: ";
+                note = "Ex: Senior Citizen Association Membership Update/Application"
+                fee = "FREE"
+                break;
+            case '5':
+                requirements = "* Please specify the complete name of your mother (maiden) and father";
+                note = "Ex: Milagrosa Cruz and Peping Fajardo"
+                fee = "PHP 330"
+                break;
+            case '4':
+                requirements = "*Please choose between Financial Assistance or Low Income";
+                note = "Reason for Request of Indigency"
+                fee = "PHP 100"
+                break;
+            case '6':
                 requirements = "Please specify the name of the Business in the Purpose of Request Field";
+                fee = "PHP 330"
                 break;
             default:
-                requirements = "Default requirements";
+                requirements = "";
+                note = "";
         }
 
 
             // Show the corresponding requirements container
             document.getElementById('requirementsContainer').innerHTML = requirements;
+            document.getElementById('notesContainer').innerHTML = note;
+            document.getElementById('feeContainer').innerHTML = fee;
         }
 
         // Call the function initially to show requirements for the default selected option
@@ -115,6 +145,73 @@
 
     });
 
+    $(document).ready(function () {
+        $('.status-link').click(function (e) {
+            e.preventDefault();
+            var status = $(this).data('status');
+            $.ajax({
+                url: '/get-documents',
+                method: 'GET',
+                data: { status: status },
+                success: function (response) {
+                    $('#documents-table tbody').empty();
+                    $.each(response, function(index, document) {
+                        var paymentStatus = document.transactionpayment ? document.transactionpayment.paymentStatus : 'N/A';
+                        var docType = document.document ? document.document.docType : 'N/A';
+                        var docName = document.document ? document.document.docName : 'N/A';
+
+                        var monthNames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"];
+                        var createdAt = new Date(document.created_at);
+
+                        // Extract individual components of the date
+                        var month = createdAt.getMonth(); // Months are zero-based, so add 1
+                        var day = createdAt.getDate();
+                        var year = createdAt.getFullYear();
+
+                        // Format the date as Month-Day-Year
+                        var formattedDate = monthNames[month] + ' ' + day + ', ' + year;
+
+                        var newRow = $('<tr class="border shadow-md"></tr>');
+                        newRow.append('<td class="px-6 py-4 w-[295px] font-robotocondensed text-deep-green text-[16px] font-bold">' + formattedDate + '</td>');
+                        newRow.append('<td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold">' + docType + '</td>');
+                        newRow.append('<td class="px-6 py-4 w-[490px] font-robotocondensed text-deep-green text-[16px] font-bold">' + docName + '</td>');
+                        newRow.append('<td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold">' + paymentStatus + '</td>');
+                        newRow.append('<td class="px-6 py-4 w-[450px] font-robotocondensed text-deep-green text-[16px] font-bold">' + document.serviceStatus + '</td>');
+                        newRow.append('<td class="px-6 py-4 w-[190px]"><a href="/showRequest/' + document.id + '" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a></td>');
+                        $('#documents-table tbody').append(newRow);
+                });
+            },
+                error: function (xhr, status, error) {
+                    console.error(error); // Log any errors
+                }
+            });
+        });
+    });
+
+        document.getElementById('captainstatus').addEventListener('click', function() {
+            var selectedValue = this.value;
+            var submitButton = document.getElementById('submitButton');
+            console.log(selectedValue);
+            if (selectedValue == 0) {
+                submitButton.disabled = true;
+            } else {
+                submitButton.disabled = false;
+            }
+        });
+
+        document.getElementById('cashstatus').addEventListener('click', function() {
+            var selectedValue = this.value;
+            var submitButton = document.getElementById('submitButton');
+            console.log(selectedValue);
+            if (selectedValue == 1) {
+                submitButton.disabled = true;
+            } else {
+                submitButton.disabled = false;
+            }
+        });
+
+        
     </script>
 
 

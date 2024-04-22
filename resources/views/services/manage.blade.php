@@ -11,7 +11,7 @@
             <div>
                 <div class="flex flex-row ml-10">
                     <a href="{{ route('services.index') }}"><i class="fa-solid fa-arrow-left text-deep-green text-[28px] py-3"></i></a>
-                    <p class="font-robotocondensed text-[32px] font-bold text-deep-green ml-8 flex" style="font-size: 32px;">REQUEST NO. {{ $transaction->id }}</p>
+                    <p class="font-robotocondensed text-[32px] font-bold text-deep-green ml-8" style="font-size: 32px;">REQUEST NO. {{ $transaction->id }}</p>
                 </div>
                 <div class="ml-24 mt-4 flex flex-col" style="margin-left: 92px;">
                     <div class="font-robotocondensed font-bold text-deep-green" style="font-size: 18px;">
@@ -53,29 +53,36 @@
                         $key = $transaction->payment['screenshot'];
                     @endphp
                     @if($transaction->payment['paymentMethod'] == 'GCASH')
-                        <p>Payment Type:</p>
+                    <p>Payment Type:</p>
                         
-                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">GCASH</p>
+                    <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">GCASH</p>
                     <div class="font-robotocondensed font-bold text-[32px] text-deep-green mt-6" style="font-size: 18px;">
                         <p>Payment Reference Code:</p>
-                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->payment['successURL'] }}</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->payment['referenceNumber'] }}</p>
+                    </div>
+                    @else
+                        <p>Payment Type:</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">Cash-on-PickUp</p>
+                    @endif
                     </div>
                     <div class="font-robotocondensed font-bold text-[32px] text-deep-green mt-6" style="font-size: 18px;">
                         <p>Amount Due:</p>
-                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">PHP {{ $transaction->serviceAmount }}</p>
-                    </div>
-                    @else
-                    <p>Payment Type:</p>
-                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->payment['paymentMethod'] }}</p>
-                    @endif
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">PHP {{ $transaction->payment['amountPaid'] }}</p>
                     </div>
                     <div class="font-robotocondensed font-bold text-[32px] text-deep-green mt-6" style="font-size: 18px;">
                         <p>Payment Status:</p>
                         <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->payment['paymentStatus'] }}</p>
                     </div>
+                    @if($transaction->payment['paymentStatus'] == 'Paid')
+                    <div class="font-robotocondensed font-bold text-[32px] text-deep-green mt-6" style="font-size: 18px;">
+                        <p>O.R Number:</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->payment['orNumber'] }}</p>
+                    </div>
+                    <a href="{{route('pdf.export', $transaction->id)}}" class="float-right mt-3" id="printLink"><i class="fa-solid fa-print text-deep-green text-[28px] mt-7 ml-8"></i></a>
+                    @endif
                 </div>
             </div>
-            @if($transaction->payment['paymentMethod'] == 'GCash')
+            @if($transaction->payment['paymentMethod'] == 'GCASH')
             <div class="ml-20 mt-20">
                 <p class="font-robotocondensed font-bold text-[18px] text-deep-green">Payment Receipt:</p>
                 <img src="{{ Storage::url($transaction->payment['screenshot']) }}" alt="Image {{ $key }}" class="mt-4 border-2 border-deep-green shadow-sm w-[280px] h-[400px]">
@@ -86,7 +93,7 @@
         @if ($transaction->serviceStatus == 'Pending')
         <div class="justify-center flex flex-row mt-8">
                 <button id="remarks" type="submit" class="text-center w-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;">Approve Request </button>
-                <form method="POST" action="{{ route('accepted', $transaction->id) }}">
+            <form method="POST" action="{{ route('accepted', $transaction->id) }}">
                 <div id="RemarksModal" class="modal hidden fixed z-10 pt-28 top-0 mt-[120px] w-[800px] h-max drop-shadow-lg -ml-[20rem] border-deep-green">
                         <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
                                 @csrf
@@ -103,10 +110,10 @@
                             </form>
                         </div>
                     </div>
-                </form>
+            </form>
                 <button id="remarksDeny" type="submit" class="text-center w-max ml-8 font-robotocondensed font-bold text-[22px] text-dirty-white px-4 py-2" style="width: 300px; font-size: 22px; background-color: #D86F4D;">Deny Request</button>
             <form method="POST" action="{{ route('deny', $transaction->id) }}">
-            <div id="DenyRemarksModal" class="modal hidden fixed z-10 pt-28 top-0 mt-[120px] w-[800px] h-max drop-shadow-lg -ml-[40rem] border-deep-green">
+                    <div id="DenyRemarksModal" class="modal hidden fixed z-10 pt-28 top-0 mt-[120px] w-[800px] h-max drop-shadow-lg -ml-[40rem] border-deep-green">
                         <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
                                 @csrf
                                 <span class="closedeny font-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
@@ -125,9 +132,46 @@
             </form>
         </div>
         @elseif ($transaction->serviceStatus == 'Signed')
-        <div class="justify-center  flex flex-row mt-8">
-            <form method="GET" action="{{ route('released', $transaction->id) }}">
-                <button type="submit" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;">Confirm Pickup</button>
+        <hr class="mt-6 w-full border-1">
+        <div class="justify-center flex flex-col ml-16 mt-8">
+            <p class="font-robotocondensed text-[22px] font-bold text-deep-green">Official Receipt Details:</p>
+            <form method="POST" action="{{ route('released', $transaction->id) }}">
+                @csrf
+                <div class="flex flex-row mt-4">
+                    <div class="flex flex-col">
+                        <label for="orNumber" class="font-robotocondensed text-[18px] text-deep-green">O.R Number:</label>
+                        @if ($transaction->payment->paymentMethod == 'GCASH')
+                        <input type="text" name="orNumber" class="hidden px-6 border-2 w-[300px] mt-1 bg-" style="border-color: #414833;" value="{{$transaction->payment->orNumber}}">
+                        <input type="text" name="orNumber" class="px-6 border-2 w-[300px] mt-1 bg-" style="border-color: #414833;" value="{{$transaction->payment->orNumber}}" maxlength="225" required disabled>
+                        @else ($transaction->payment->paymentMethod == 'Cash-on-PickUp')
+                        <input type="text" name="orNumber" class="px-6 border-2 w-[300px] mt-1 bg-" style="border-color: #414833;" maxlength="225" required>
+                        @endif
+                    </div>
+                    <div class="flex flex-col ml-8">
+                        <label for="remarks" class="font-robotocondensed text-[18px] text-deep-green">Remarks:</label>
+                        @if ($transaction->payment->paymentMethod == 'GCASH')
+                        <input type="text" name="remarks" class="hidden px-6 border-2 w-[300px] mt-1 bg-" style="border-color: #414833;" value="{{$transaction->payment->remarks}}">
+                        <input type="text" name="remarks" class="px-6 border-2 w-[200px] mt-1 bg-white" style="border-color: #414833;" value="{{$transaction->payment->remarks}}" maxlength="225" disabled>
+                        @else ($transaction->payment->paymentMethod == 'Cash-on-PickUp')
+                        <input type="text" name="remarks" class="px-6 border-2 w-[200px] mt-1 bg-white" style="border-color: #414833;" maxlength="225" required>
+                        @endif
+                    </div>
+                    @if ($transaction->payment->paymentMethod == 'Cash-on-PickUp')
+                    <div class="flex flex-col ml-8">
+                    <label for="paymentStatus" class="font-robotocondensed text-[18px] text-deep-green">Payment Status:</label>
+                        <select name="paymentStatus" id="cashstatus" class="text-start w-[200px] font-robotocondensed font-bold text-[18px] text-deep-green bg-white border-2 border-deep-green px-2 mt-1">
+                                    <option value="Pending" class="">Pending</option>
+                                    <option value="Paid" class="">Paid</option>
+                        </select>
+                    </div>
+                    <a href="{{route('pdf.export', $transaction->id)}}" class="float-right mt-3" id="printLink" style="display:none"><i class="fa-solid fa-print text-deep-green text-[28px] mt-7 ml-8"></i></a>
+                    <button type="submit" class="mt-7 ml-8 text-center w-[200px] h-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-2 py-2" id="submitButton" disabled>Confirm Pickup</button>
+                    @endif
+                    @if ($transaction->payment->paymentStatus == 'Paid')
+                        <a href="{{route('pdf.export', $transaction->id)}}" class="float-right mt-3" id="printLink"><i class="fa-solid fa-print text-deep-green text-[28px] mt-7 ml-8"></i></a>
+                        <button type="submit" class="mt-7 ml-8 text-center w-[200px] h-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-2 py-2">Confirm Pickup</button>
+                    @endif
+                </div>
             </form>
         </div>
         @endif
@@ -136,13 +180,33 @@
     
 
 <script>
+        document.getElementById('cashstatus').addEventListener('click', function() {
+            var selectedValue = this.value;
+            var submitButton = document.getElementById('submitButton');
+            console.log(selectedValue);
+            if (selectedValue == "Pending") {
+                printLink.style.display = "none";
+                submitButton.disabled = true;
+            } else {
+                printLink.style.display = "inline-block";
+                submitButton.disabled = false;
+            }
+        });
+
     var modal = document.getElementById("RemarksModal");
     var denymodal = document.getElementById("DenyRemarksModal");
+    var paymodal = document.getElementById("PaymentRemarksModal");
+
+
     var btn = document.getElementById("remarks");
     var btnDeny = document.getElementById("remarksDeny");
+    var paymentbtn = document.getElementById("paymentModal");
 
     var span = document.getElementsByClassName("close")[0];
     var spandeny = document.getElementsByClassName("closedeny")[0];
+    var spanpayment = document.getElementsByClassName("spanpay")[0];
+
+
     // Open Modal
     btn.onclick = function() {
         modal.style.display = "block";
@@ -152,6 +216,18 @@
         denymodal.style.display = "block";
     }
 
+    // paymentbtn.onclick = function() {
+    //     paymodal.style.display = "block";
+    // }
+
+    // paymentbtn.onclick = function() {
+    //         // Show the paymodal
+    //         paymodal.style.display = "block";
+
+    //         // Log a message to the console
+    //         console.log("Payment button clicked!");
+    //     };
+
 
     // Close Modal (using the X button)
     span.onclick = function() {
@@ -160,6 +236,10 @@
 
     spandeny.onclick = function() {
         denymodal.style.display = "none";
+    }
+
+    spanpay.onclick = function() {
+        paymodal.style.display = "none";
     }
 
     // Close Modal (clicking anywhere else outside the Modal)
@@ -172,6 +252,12 @@
     window.onclick = function(event) {
         if (event.target == denymodal) {
             denymodal.style.display = "none";
+        }
+    }
+
+    window.onclick = function(event) {
+        if (event.target == denymodal) {
+            paymodal.style.display = "none";
         }
     }
 </script>

@@ -32,17 +32,20 @@
                         <p class="font-poppins text-[24px] text-deep-green mt-[2rem] underline underline-offset-8">REQUESTEE INFORMATION</p>
                         <div class="mt-[1rem] flex flex-row text-[23px]">
                             <div class="">
-                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->firstName}}" name="requesteeFName" required>
+                                <input type="hidden" name="requesteeFName" value="{{$user->firstName}}">
+                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->firstName}}" name="requesteeFName" required disabled>
                                 <br>
                                 <label>* FIRST NAME</label>
                             </div>
                             <div class="ml-8">
-                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->lastName}}" name="requesteeLName" required>
+                                <input type="hidden" name="requesteeLName" value="{{$user->lastName}}">
+                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->lastName}}" name="requesteeLName" required disabled>
                                 <br>
                                 <label>* LAST NAME</label>
                             </div>
                             <div class="ml-10">
-                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->middleName}}" name="requesteeMName">
+                                <input type="hidden" name="requesteeMName" value="{{$user->middleName}}">
+                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->middleName}}" name="requesteeMName" disabled>
                                 <br>
                                 <label>MIDDLE NAME</label>
                             </div>
@@ -60,15 +63,15 @@
                             </div>
                         </div>
                         <div class="mt-[3rem]">
-                            <label>* PURPOSE OF REQUEST</label>
+                            <!-- <label>* PURPOSE OF REQUEST</label> -->
+                            <div id="requirementsContainer" class="text-[22px]">
+                             <!-- Placeholder for requirements to be added dynamically -->
+                            </div>
                             <textarea class="px-2 focus:outline-none border-2 rounded-lg w-[650px] pl-6" style="border-color: #414833;" name="requestPurpose" required>{{ old('requestPurpose') }}</textarea>
-                                <div id="requirementsContainer" class="text-[16px] italic">
-                                    <!-- Placeholder for requirements to be added dynamically -->
-                                </div>
-                            <p></p>
+                            <div id="notesContainer" class="text-[18px] italic"></div>
                         </div>
                         @elseif ($doctypename == 'FILE COMPLAIN')
-                        <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="16" name="selectedDocument">
+                        <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="7" name="selectedDocument">
                         <p class="font-poppins text-[24px] text-deep-green mt-[2rem] underline underline-offset-8">COMPLAINANT DETAILS</p>
                         <p class="font-poppins text-[14px] text-deep-green italic">(ANG NAG REKLAMO)</p>
                         <div class="mt-[1rem] flex flex-row text-[23px]">
@@ -137,7 +140,7 @@
                         </div>
                         @elseif($doctypename == 'ACCOUNT INFORMATION CHANGE')
                         <div class="flex flex-col">
-                        <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="17" name="selectedDocument">
+                        <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="8" name="selectedDocument">
                             <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="{{$user->id}}" name="requestee">
                             <div class="">
                                 <label>* INFORMATION TO CHANGE</label>
@@ -228,13 +231,15 @@
                 @if($doctypename == 'BARANGAY CLEARANCE')
                 <div class="w-[300px] -mt-12">
                     <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">CERTIFICATE FEE:</p>
-                    <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">PHP 100</p>
+                    <!-- <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">PHP 100</p> -->
+                    <div id="feeContainer" class="text-[18px] italic"></div>
                     <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="100" name="docfee">
                 </div>
                 @elseif($doctypename == 'BARANGAY CERTIFICATE')
                 <div class="w-[300px] mt-[3.5rem]">
                     <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">CERTIFICATE FEE:</p>
-                    <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">PHP 100</p>
+                    <!-- <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">PHP 100</p> -->
+                    <div id="feeContainer" class="text-[18px] italic"></div>
                     <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="100" name="docfee">
                 </div>
                 @endif
@@ -245,7 +250,7 @@
                 <input type="radio" name="paymentMethod" id="gcash" value="GCASH" class="w-[20px] h-[20px] mb-1">
                 <br>
                 <label for="cash-on-site" class="mr-2 font-robotocondensed text-[22px] text-deep-green font-semibold">CASH ON PICK-UP</label>
-                <input type="radio" name="paymentMethod" id="cash-on-site" value="CASH-ON-SITE" class="w-[20px] h-[20px] mb-1">
+                <input type="radio" name="paymentMethod" id="cash-on-site" value="Cash-on-PickUp" class="w-[20px] h-[20px] mb-1">
             </div>
             @else
             <p class="mb-2 font-robotocondensed text-[24px] text-deep-green font-semibold underline underline-offset-8 -mt-[2rem]">THIS SERVICE HAS NO CHARGE</p>
