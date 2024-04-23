@@ -121,6 +121,7 @@
                 break;
             case '6':
                 requirements = "Please specify the name of the Business in the Purpose of Request Field";
+                note = "Ex: Nicko's Kitchen"
                 fee = "PHP 330"
                 break;
             default:

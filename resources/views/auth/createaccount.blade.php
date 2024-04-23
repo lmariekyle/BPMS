@@ -10,8 +10,8 @@
             <i class="fa-sharp fa-solid fa-arrow-left text-3xl mt-4 text-dirty-white"></i>
         </a>
         <p class="font-robotocondensed font-bold ml-[20px] text-dirty-white text-5xl">Register</p>
-        <div class="ml-12 mt-[2rem]">
-             <x-auth-validation-errors class="mb-4" id="close" :errors="$errors" />
+        <div class="ml-12 mt-4 z-50">
+            @include('components.flash')
         </div>
     </div>
 
@@ -41,7 +41,7 @@
             <div>
                 <x-label for="middlename" :value="__('Middle Name')" class="font-roboto" style="color:white;" />
 
-                <x-input id="middlename" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="middlename" :value="old('middlename')" required autofocus />
+                <x-input id="middlename" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="middlename" :value="old('middlename')" autofocus />
             </div>
 
             <div>
@@ -99,7 +99,7 @@
             </div>
 
             <!-- Confirm Password -->
-            <div class="mt-4">
+            <div class="mt-2">
                 <x-label for="password_confirmation" :value="__('* Confirm Password')" class="font-roboto" style="color:white;" />
                 <div class="input-group">
                     <x-input id="password_confirmation" class="form-control block mb-4 w-[500px] h-[42px] bg-dirty-white" type="password" name="password_confirmation" required />

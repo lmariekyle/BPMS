@@ -733,24 +733,27 @@
 
             @hasanyrole('User|Barangay Health Worker')
             <div class="w-max h-max grid grid-rows-2 grid-flow-col gap-16 ml-24 -mt-20 px-5 py-5 justify-between font-bold">
-                <div class="bg-dirty-white w-[472px] h-[421px] border-2 border-deep-green">
-                    <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border px-1 py-1 text-center">BARANGAY CERTIFICATE</p>
-                    <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">PURPOSES BARANGAY CERTIFICATION:</p>
-                    <ul class="ml-10 mt-2 list-disc font-roboto text-deep-green">
-                        @foreach($documents as $document)
-                        @if($document->docType == "Barangay Certificate")
-                        <li>{{$document->docName}}</li>
-                        @endif
-                        @endforeach
-                    </ul>
-                    <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">REQUIREMENTS</p>
-                    <ul class="ml-10 mt-2 list-disc font-roboto text-deep-green">
-                        <li>Residence Certificate</li>
-                    </ul>
-                    <div class="mt-[2rem]">
-                        <a href="{{ route('services.request', ['docType' => 'Barangay Certificate']) }}" class="px-3 py-2 bg-deep-green text-dirty-white font-medium">REQUEST BARANGAY CERTIFICATE</a>
+                <div class="flex flex-col">
+                    <div class=" bg-dirty-white w-[472px] h-[421px] border-2 border-deep-green">
+                        <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border px-1 py-1 text-center">BARANGAY CERTIFICATE</p>
+                        <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">PURPOSES BARANGAY CERTIFICATION:</p>
+                        <ul class="ml-10 mt-2 list-disc font-roboto text-deep-green">
+                            @foreach($documents as $document)
+                            @if($document->docType == "Barangay Certificate")
+                            <li>{{$document->docName}}</li>
+                            @endif
+                            @endforeach
+                        </ul>
+                        <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">REQUIREMENTS</p>
+                        <ul class="ml-10 mt-2 list-disc font-roboto text-deep-green">
+                            <li>Residence Certificate</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4">
+                            <a href="{{ route('services.request', ['docType' => 'Barangay Certificate']) }}" class="px-3 py-2 bg-deep-green text-dirty-white font-medium">REQUEST BARANGAY CERTIFICATE</a>
                     </div>
                 </div>
+                <div class="flex flex-col">
                 <div class="bg-dirty-white w-[472px] h-[300px] border-2 border-deep-green mt-10">
                     <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border px-1 py-1 text-center">FILING OF COMPLAINTS</p>
                     <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">PURPOSE:</p>
@@ -766,31 +769,38 @@
                         <li>Complainant can either be a resident or not a resident of Barangay Poblacion</li>
                         <li>Complainee must be a resident of Barangay Poblacion</li>
                     </ul>
-                    <div class="mt-[5rem]">
+                </div>
+                    <div class="mt-4">
                         <a href="{{ route('services.request', ['docType' => 'File Complain']) }}" class="px-3 py-2 bg-deep-green text-dirty-white font-medium">FILE COMPLAIN</a>
                     </div>
                 </div>
-                <div class="bg-dirty-white w-max h-[421px] border-2 border-deep-green">
-                    <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border px-1 py-1 text-center">BARANGAY CLEARANCE</p>
-                    <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">PURPOSE:</p>
-                    <ul class="ml-10 mt-2 list-disc font-roboto text-deep-green">
-                        @foreach($documents as $document)
-                        @if($document->docType == "Barangay Clearance")
-                        <li>{{$document->docName}}</li>
-                        @endif
-                        @endforeach
-                    </ul>
-                    <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">REQUIREMENTS</p>
-                    <ul class="ml-10 mt-2 mr-2 list-disc font-roboto text-deep-green">
-                        <li>Cedula</li>
-                        <li>Copy of the previous permit (If Any) for Building, Fencing, Electrical Permit</li>
-                        <li>Tax Declaration or Lot Title (If the applicant is not the registered owner of the lot) </li>
-                        <li>Affidavit of consent, deed of sale, or contact whichever is applicable</li>
-                    </ul>
-                    <div class="mt-[5rem]">
-                        <a href="{{ route('services.request', ['docType' => 'Barangay Clearance']) }}" class="px-3 py-2 bg-deep-green text-dirty-white font-medium">REQUEST BARANGAY CLEARANCE</a>
+                
+                <div class="flex flex-col">
+                    <div class="bg-dirty-white w-max h-[421px] border-2 border-deep-green">
+                        <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border px-1 py-1 text-center">BARANGAY CLEARANCE</p>
+                        <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">PURPOSE:</p>
+                        <ul class="ml-10 mt-2 list-disc font-roboto text-deep-green">
+                            @foreach($documents as $document)
+                            @if($document->docType == "Barangay Clearance")
+                            <li>{{$document->docName}}</li>
+                            @endif
+                            @endforeach
+                        </ul>
+                        <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">REQUIREMENTS</p>
+                        <ul class="ml-10 mt-2 mr-2 list-disc font-roboto text-deep-green">
+                            <li>Cedula</li>
+                            <li>Copy of the previous permit (If Any) for Building, Fencing, Electrical Permit</li>
+                            <li>Tax Declaration or Lot Title (If the applicant is not the registered owner of the lot) </li>
+                            <li>Affidavit of consent, deed of sale, or contact whichever is applicable</li>
+                        </ul>
+                  
                     </div>
+                    <div class="mt-4">
+                            <a href="{{ route('services.request', ['docType' => 'Barangay Clearance']) }}" class="px-3 py-2 bg-deep-green text-dirty-white font-medium">REQUEST BARANGAY CLEARANCE</a>
+                        </div>
                 </div>
+
+                <div class="flex flex-col">
                 <div class="bg-dirty-white w-[620px] h-[300px] border-2 border-deep-green mt-10">
                     <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border  px-1 py-1 text-center">PERSONAL INFORMATION CHANGE</p>
                     <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">PURPOSE:</p>
@@ -798,13 +808,13 @@
                         <li>Up-to-date Personal Record</li>
                     </ul>
                     <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">REQUIREMENTS</p>
-                    <ul class="ml-10 mt-2 mr-2 list-disc font-roboto text-deep-green">
-                        <li>Supporting Documents that will validate the requested change</li>
-                    </ul>
-                    <div class="mt-[8rem]">
+                 
+                </div>
+                <div class="mt-4">
                         <a href="{{ route('services.request', ['docType' => 'Account Information Change']) }}" class="px-3 py-2 bg-deep-green text-dirty-white font-medium">REQUEST PERSONAL INFORMATION CHANGE</a>
                     </div>
                 </div>
+                
             </div>
 
             @endhasanyrole
