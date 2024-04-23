@@ -202,7 +202,7 @@ class HouseholdRegistrationController extends Controller
             } else if ($age >= 1 && $age <= 4) {
             $ageClass = 'U';
             } else if ($age >= 5 && $age <= 9) {
-            $ageClass = 'B';
+            $ageClass = 'S';
             } else if ($age >= 10) {
                 if ($resident['gender'] == 'F') {
                     if ($resident['pregnancyClassification'] == 'P') {

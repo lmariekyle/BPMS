@@ -2729,11 +2729,11 @@ select {
   --tw-text-opacity: 1;
   color: rgb(253 255 238 / var(--tw-text-opacity));
 }
-.hover\:cursor-pointer:hover {
-  cursor: pointer;
-}
 .hover\:cursor-not-allowed:hover {
   cursor: not-allowed;
+}
+.hover\:cursor-pointer:hover {
+  cursor: pointer;
 }
 .hover\:border-gray-300:hover {
   --tw-border-opacity: 1;

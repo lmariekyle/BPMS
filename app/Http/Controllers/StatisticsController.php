@@ -24,7 +24,7 @@ class StatisticsController extends Controller
 {
     public function index()
     {
-    //Population of Residents and Households of a certain quarter selected
+    //Population of Residents and Households
 
         //Gets the statistic data that is the most recently added
         $currentYear = date('Y');
@@ -133,6 +133,55 @@ class StatisticsController extends Controller
 
         //-------------------------------------
 
+        //Gets all the Rows for counting Households
+        $SitioCountsHh = SitioCount::whereIn('statID',[$statistics->id])
+                                   ->where('genderGroup', '=', '--')
+                                   ->where('ageGroup', '=', '--')
+                                   ->get();
+        //insert on each Sitio Counter for Households
+        foreach($SitioCountsHh as $SitioCount){
+            $sitioHhCounter = DB::table('households')
+                ->where('sitioID', '=', $SitioCount->sitioID)
+                ->where('dateOfVisit', '>=', $dateB)
+                ->where('dateOfVisit', '<=', $dateE)
+                ->count();
+            $SitioCount->residentCount = $sitioHhCounter;
+            $SitioCount->save();
+        }
+
+        //-------------------------------------
+
+        //adds to the most recent statistic data row in the DB
+        $totalResidentCount = DB::table('sitio_counts')->where('statID', $statistics->id)
+                                                       ->where('genderGroup', '!=', '--')
+                                                       ->where('ageGroup', '!=', '--')
+                                                       ->sum('residentCount');
+        $totalHouseholdCount = DB::table('sitio_counts')->where('statID', $statistics->id)
+                                                        ->where('genderGroup', '=', '--')
+                                                        ->where('ageGroup', '=', '--')
+                                                        ->sum('residentCount');
+
+        $statistics->totalResidentsBarangay = $totalResidentCount;
+        $statistics->totalHouseholdsBarangay = $totalHouseholdCount;
+        $statistics->save();
+
+
+        //Charts------------------------------------------------------------------------------------------------
+
+        //-------------------------------------
+
+        $statID = $statistics->id;
+        $statYear = $statistics->year;
+        $statQuarter = $statistics->quarter;
+
+        if($statID > 1 && ($statistics->totalResidentsBarangay <= 0 && $statistics->totalHouseholdsBarangay <= 0)){
+            if($statQuarter == 1){
+                $statistics = Statistics::where('year', $statYear - 1)->where('quarter', 4)->first();
+            }else{
+                $statistics = Statistics::where('year', $statYear)->where('quarter', $statQuarter - 1)->first();
+            }
+        }
+
         //Resident
         $dataResident = "";
 
@@ -161,24 +210,6 @@ class StatisticsController extends Controller
 
         //-------------------------------------
 
-        //Gets all the Rows for counting Households
-        $SitioCountsHh = SitioCount::whereIn('statID',[$statistics->id])
-                                   ->where('genderGroup', '=', '--')
-                                   ->where('ageGroup', '=', '--')
-                                   ->get();
-        //insert on each Sitio Counter for Households
-        foreach($SitioCountsHh as $SitioCount){
-            $sitioHhCounter = DB::table('households')
-                ->where('sitioID', '=', $SitioCount->sitioID)
-                ->where('dateOfVisit', '>=', $dateB)
-                ->where('dateOfVisit', '<=', $dateE)
-                ->count();
-            $SitioCount->residentCount = $sitioHhCounter;
-            $SitioCount->save();
-        }
-
-        //-------------------------------------
-
         //Household
         $dataHousehold = "";
 
@@ -203,22 +234,6 @@ class StatisticsController extends Controller
         }
 
         $chartdataHousehold = $dataHousehold;
-
-        //-------------------------------------
-
-        //adds to the most recent statistic data row in the DB
-        $totalResidentCount = DB::table('sitio_counts')->where('statID', $statistics->id)
-                                                       ->where('genderGroup', '!=', '--')
-                                                       ->where('ageGroup', '!=', '--')
-                                                       ->sum('residentCount');
-        $totalHouseholdCount = DB::table('sitio_counts')->where('statID', $statistics->id)
-                                                        ->where('genderGroup', '=', '--')
-                                                        ->where('ageGroup', '=', '--')
-                                                        ->sum('residentCount');
-
-        $statistics->totalResidentsBarangay = $totalResidentCount;
-        $statistics->totalHouseholdsBarangay = $totalHouseholdCount;
-        $statistics->save();
 
         return view('welcome', compact('statistics', 'chartdataResident', 'chartdataHousehold'));
     }
