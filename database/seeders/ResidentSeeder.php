@@ -273,7 +273,7 @@ class ResidentSeeder extends Seeder
             'maritalStatus' => 'Married',
             'familyRole' => 'Household Head',
             'educationalAttainment' => 'College Graduate',
-            'gender' => 'F',
+            'gender' => 'M',
             'occupation' => 'Teacher',
             'monthlyIncome' => '9,100 - 18,200',
             'ageClassification' => 'AB',
@@ -314,7 +314,7 @@ class ResidentSeeder extends Seeder
             'maritalStatus' => 'Married',
             'familyRole' => 'Household Head',
             'educationalAttainment' => 'College Graduate',
-            'gender' => 'F',
+            'gender' => 'M',
             'occupation' => 'Teacher',
             'monthlyIncome' => '9,100 - 18,200',
             'ageClassification' => 'AB',
@@ -355,7 +355,7 @@ class ResidentSeeder extends Seeder
             'maritalStatus' => 'Married',
             'familyRole' => 'Household Head',
             'educationalAttainment' => 'College Graduate',
-            'gender' => 'F',
+            'gender' => 'M',
             'occupation' => 'Teacher',
             'monthlyIncome' => '18,200 - 36,400',
             'ageClassification' => 'AB',
@@ -606,12 +606,12 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '09876543211',
             'email' => 'mariekylec@gmail.com',
             'maritalStatus' => 'Single',
-            'familyRole' => 'Sibling of Household Head',
+            'familyRole' => 'Child of Household Head',
             'educationalAttainment' => 'Elementary Graduate',
             'gender' => 'M',
             'occupation' => 'Student',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'A',
             'dateOfDeath' => null,
             'createdBy' => 2,
             'revisedBy' => 2,
@@ -648,12 +648,12 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '09876543211',
             'email' => 'mariekylec@gmail.com',
             'maritalStatus' => 'Single',
-            'familyRole' => 'Sibling of Household Head',
+            'familyRole' => 'Child of Household Head',
             'educationalAttainment' => 'Elementary Graduate',
             'gender' => 'M',
             'occupation' => 'Student',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'A',
             'dateOfDeath' => null,
             'createdBy' => 2,
             'revisedBy' => 2,
@@ -692,7 +692,7 @@ class ResidentSeeder extends Seeder
             'maritalStatus' => 'Single',
             'familyRole' => 'Household Head',
             'educationalAttainment' => 'College Graduate',
-            'gender' => 'M',
+            'gender' => 'F',
             'occupation' => 'Cashier',
             'monthlyIncome' => 'less than 9,100',
             'ageClassification' => 'WRA',
@@ -713,7 +713,7 @@ class ResidentSeeder extends Seeder
             'maritalStatus' => 'Single',
             'familyRole' => 'Household Head',
             'educationalAttainment' => 'College Graduate',
-            'gender' => 'M',
+            'gender' => 'F',
             'occupation' => 'Developer',
             'monthlyIncome' => '36,400 - 63,700',
             'ageClassification' => 'WRA',
@@ -734,7 +734,7 @@ class ResidentSeeder extends Seeder
             'maritalStatus' => 'Single',
             'familyRole' => 'Household Head',
             'educationalAttainment' => 'College Graduate',
-            'gender' => 'M',
+            'gender' => 'F',
             'occupation' => 'Developer',
             'monthlyIncome' => '36,400 - 63,700',
             'ageClassification' => 'WRA',
@@ -777,7 +777,7 @@ class ResidentSeeder extends Seeder
             'maritalStatus' => 'Married',
             'familyRole' => 'Spouse of Household Head',
             'educationalAttainment' => 'College Graduate',
-            'gender' => 'M',
+            'gender' => 'F',
             'occupation' => 'Principal',
             'monthlyIncome' => '63,700 - 109,200',
             'ageClassification' => 'WRA',
@@ -797,11 +797,11 @@ class ResidentSeeder extends Seeder
             'email' => 'parker@gmail.com',
             'maritalStatus' => 'Single',
             'familyRole' => 'Child of Household Head',
-            'educationalAttainment' => 'UnderGraduate',
+            'educationalAttainment' => 'Undergraduate',
             'gender' => 'M',
             'occupation' => 'Student',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'A',
             'dateOfDeath' => null,
             'createdBy' => 2,
             'revisedBy' => 2,
@@ -841,7 +841,7 @@ class ResidentSeeder extends Seeder
             'maritalStatus' => 'Married',
             'familyRole' => 'Spouse of Household Head',
             'educationalAttainment' => 'College Graduate',
-            'gender' => 'M',
+            'gender' => 'F',
             'occupation' => 'Principal',
             'monthlyIncome' => '63,700 - 109,200',
             'ageClassification' => 'WRA',
@@ -861,11 +861,11 @@ class ResidentSeeder extends Seeder
             'email' => 'parker@gmail.com',
             'maritalStatus' => 'Single',
             'familyRole' => 'Child of Household Head',
-            'educationalAttainment' => 'UnderGraduate',
+            'educationalAttainment' => 'Undergraduate',
             'gender' => 'M',
             'occupation' => 'Student',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'A',
             'dateOfDeath' => null,
             'createdBy' => 2,
             'revisedBy' => 2,
@@ -905,7 +905,7 @@ class ResidentSeeder extends Seeder
             'maritalStatus' => 'Married',
             'familyRole' => 'Spouse of Household Head',
             'educationalAttainment' => 'College Graduate',
-            'gender' => 'M',
+            'gender' => 'F',
             'occupation' => 'Principal',
             'monthlyIncome' => '63,700 - 109,200',
             'ageClassification' => 'WRA',
@@ -925,11 +925,11 @@ class ResidentSeeder extends Seeder
             'email' => 'parker@gmail.com',
             'maritalStatus' => 'Single',
             'familyRole' => 'Child of Household Head',
-            'educationalAttainment' => 'UnderGraduate',
+            'educationalAttainment' => 'Undergraduate',
             'gender' => 'M',
             'occupation' => 'Student',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'A',
             'dateOfDeath' => null,
             'createdBy' => 2,
             'revisedBy' => 2,
@@ -945,7 +945,7 @@ class ResidentSeeder extends Seeder
             'email' => 'pascal@gmail.com',
             'maritalStatus' => 'Single',
             'familyRole' => 'Sibling of Household Head',
-            'educationalAttainment' => 'UnderGraduate',
+            'educationalAttainment' => 'Undergraduate',
             'gender' => 'M',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
@@ -965,7 +965,7 @@ class ResidentSeeder extends Seeder
             'dateOfBirth' => '2000-11-18',
             'contactNumber' => '09876541230',
             'email' => 'genericEmail@gmail.com',
-            'maritalStatus' => 'Married',
+            'maritalStatus' => 'Single',
             'familyRole' => 'Household Head',
             'educationalAttainment' => 'College Graduate',
             'gender' => 'M',
@@ -983,8 +983,8 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '09876541230',
             'email' => 'genericEmail@gmail.com',
             'maritalStatus' => 'Married',
-            'familyRole' => 'Spouse of Household Head',
-            'educationalAttainment' => 'UnderGraduate',
+            'familyRole' => 'Parent of Household Head',
+            'educationalAttainment' => 'Undergraduate',
             'gender' => 'F',
             'occupation' => 'Teacher',
             'monthlyIncome' => '9,100 - 18,200',
@@ -1000,8 +1000,8 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '09876541230',
             'email' => 'genericEmail@gmail.com',
             'maritalStatus' => 'Married',
-            'familyRole' => 'Spouse Household Head',
-            'educationalAttainment' => 'UnderGraduate',
+            'familyRole' => 'Parent of Household Head',
+            'educationalAttainment' => 'Undergraduate',
             'gender' => 'M',
             'occupation' => 'Teacher',
             'monthlyIncome' => '9,100 - 18,200',
@@ -1018,7 +1018,7 @@ class ResidentSeeder extends Seeder
             'dateOfBirth' => '2000-11-18',
             'contactNumber' => '09876541230',
             'email' => 'genericEmail@gmail.com',
-            'maritalStatus' => 'Married',
+            'maritalStatus' => 'Single',
             'familyRole' => 'Household Head',
             'educationalAttainment' => 'College Graduate',
             'gender' => 'M',
@@ -1036,8 +1036,8 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '09876541230',
             'email' => 'genericEmail@gmail.com',
             'maritalStatus' => 'Married',
-            'familyRole' => 'Spouse of Household Head',
-            'educationalAttainment' => 'UnderGraduate',
+            'familyRole' => 'Parent of Household Head',
+            'educationalAttainment' => 'Undergraduate',
             'gender' => 'F',
             'occupation' => 'Teacher',
             'monthlyIncome' => '9,100 - 18,200',
@@ -1053,8 +1053,8 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '09876541230',
             'email' => 'genericEmail@gmail.com',
             'maritalStatus' => 'Married',
-            'familyRole' => 'Spouse Household Head',
-            'educationalAttainment' => 'UnderGraduate',
+            'familyRole' => 'Parent of Household Head',
+            'educationalAttainment' => 'Undergraduate',
             'gender' => 'M',
             'occupation' => 'Teacher',
             'monthlyIncome' => '9,100 - 18,200',
@@ -1071,7 +1071,7 @@ class ResidentSeeder extends Seeder
             'dateOfBirth' => '2000-11-18',
             'contactNumber' => '09876541230',
             'email' => 'genericEmail@gmail.com',
-            'maritalStatus' => 'Married',
+            'maritalStatus' => 'Single',
             'familyRole' => 'Household Head',
             'educationalAttainment' => 'College Graduate',
             'gender' => 'M',
@@ -1089,8 +1089,8 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '09876541230',
             'email' => 'genericEmail@gmail.com',
             'maritalStatus' => 'Married',
-            'familyRole' => 'Spouse of Household Head',
-            'educationalAttainment' => 'UnderGraduate',
+            'familyRole' => 'Parent of Household Head',
+            'educationalAttainment' => 'Undergraduate',
             'gender' => 'F',
             'occupation' => 'Teacher',
             'monthlyIncome' => '9,100 - 18,200',
@@ -1106,8 +1106,8 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '09876541230',
             'email' => 'genericEmail@gmail.com',
             'maritalStatus' => 'Married',
-            'familyRole' => 'Spouse Household Head',
-            'educationalAttainment' => 'UnderGraduate',
+            'familyRole' => 'Parent of Household Head',
+            'educationalAttainment' => 'Undergraduate',
             'gender' => 'M',
             'occupation' => 'Teacher',
             'monthlyIncome' => '9,100 - 18,200',
@@ -1164,7 +1164,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'Doctor',
             'monthlyIncome' => '63,700 - 109,200',
-            'ageClassification' => 'AB',
+            'ageClassification' => 'WRA',
         ]);
         Resident::create([
             'id' => '58',
@@ -1176,8 +1176,8 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '09876541230',
             'email' => 'genericEmail@gmail.com',
             'maritalStatus' => 'Single',
-            'familyRole' => 'Sibling of Household Head',
-            'educationalAttainment' => 'Senior High School Graduate',
+            'familyRole' => 'Child of Household Head',
+            'educationalAttainment' => 'Elementary Graduate',
             'gender' => 'F',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
@@ -1234,7 +1234,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'Doctor',
             'monthlyIncome' => '63,700 - 109,200',
-            'ageClassification' => 'AB',
+            'ageClassification' => 'WRA',
         ]);
         Resident::create([
             'id' => '62',
@@ -1246,8 +1246,8 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '09876541230',
             'email' => 'genericEmail@gmail.com',
             'maritalStatus' => 'Single',
-            'familyRole' => 'Sibling of Household Head',
-            'educationalAttainment' => 'Senior High School Graduate',
+            'familyRole' => 'Child of Household Head',
+            'educationalAttainment' => 'Elementary Graduate',
             'gender' => 'F',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
@@ -1304,7 +1304,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'Doctor',
             'monthlyIncome' => '63,700 - 109,200',
-            'ageClassification' => 'AB',
+            'ageClassification' => 'WRA',
         ]);
         Resident::create([
             'id' => '66',
@@ -1357,7 +1357,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'U',
+            'ageClassification' => 'S',
         ]);
         Resident::create([
             'id' => '69',
@@ -1410,7 +1410,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
         Resident::create([
             'id' => '72',
@@ -1463,7 +1463,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
         Resident::create([
             'id' => '75',
@@ -1956,7 +1956,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'Dancer',
             'monthlyIncome' => '63,700 - 109,200',
-            'ageClassification' => 'AB',
+            'ageClassification' => 'WRA',
         ]);
         Resident::create([
             'id' => '103',
@@ -2010,7 +2010,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'Dancer',
             'monthlyIncome' => '63,700 - 109,200',
-            'ageClassification' => 'AB',
+            'ageClassification' => 'WRA',
         ]);
         Resident::create([
             'id' => '106',
@@ -2064,7 +2064,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'Dancer',
             'monthlyIncome' => '63,700 - 109,200',
-            'ageClassification' => 'AB',
+            'ageClassification' => 'WRA',
         ]);
         Resident::create([
             'id' => '109',
@@ -2317,7 +2317,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'M',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
 
         //43 123 124 125 126
@@ -2370,7 +2370,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'Developer',
             'monthlyIncome' => '109,200 - 182,000',
-            'ageClassification' => 'AB',
+            'ageClassification' => 'WRA',
         ]);
         Resident::create([
             'id' => '126',
@@ -2387,7 +2387,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'M',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
 
 
@@ -2441,7 +2441,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'Developer',
             'monthlyIncome' => '109,200 - 182,000',
-            'ageClassification' => 'AB',
+            'ageClassification' => 'WRA',
         ]);
         Resident::create([
             'id' => '130',
@@ -2458,7 +2458,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'M',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
         
 
@@ -2757,7 +2757,7 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '09876541230',
             'email' => 'genericEmail@gmail.com',
             'maritalStatus' => 'Married',
-            'familyRole' => 'Household Head',
+            'familyRole' => 'Spouse of Household Head',
             'educationalAttainment' => 'College Graduate',
             'gender' => 'F',
             'occupation' => 'Retired',
@@ -2774,7 +2774,7 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '09876541230',
             'email' => 'genericEmail@gmail.com',
             'maritalStatus' => 'Single',
-            'familyRole' => 'Household Head',
+            'familyRole' => 'Child of Household Head',
             'educationalAttainment' => 'College Graduate',
             'gender' => 'M',
             'occupation' => 'Teacher',
@@ -2791,7 +2791,7 @@ class ResidentSeeder extends Seeder
             'contactNumber' => '09876541230',
             'email' => 'genericEmail@gmail.com',
             'maritalStatus' => 'Single',
-            'familyRole' => 'Household Head',
+            'familyRole' => 'Child of Household Head',
             'educationalAttainment' => 'College Graduate',
             'gender' => 'F',
             'occupation' => 'Teacher',
@@ -4487,7 +4487,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'M',
             'occupation' => 'Engineer',
             'monthlyIncome' => '18,200 - 36,400',
-            'ageClassification' => 'WRA',
+            'ageClassification' => 'AB',
         ]);
         Resident::create([
             'id' => '254',
@@ -5318,11 +5318,11 @@ class ResidentSeeder extends Seeder
             'email' => 'genericEmail@gmail.com',
             'maritalStatus' => 'Single',
             'familyRole' => 'Sibling of Household Head',
-            'educationalAttainment' => 'Senior High School Graduate',
+            'educationalAttainment' => 'Elementary Graduate',
             'gender' => 'M',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
 
         //100 300 301 302
@@ -5371,11 +5371,11 @@ class ResidentSeeder extends Seeder
             'email' => 'genericEmail@gmail.com',
             'maritalStatus' => 'Single',
             'familyRole' => 'Sibling of Household Head',
-            'educationalAttainment' => 'Senior High School Graduate',
+            'educationalAttainment' => 'Elementary Graduate',
             'gender' => 'M',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
 
         //101 303 304 305
@@ -5424,11 +5424,11 @@ class ResidentSeeder extends Seeder
             'email' => 'genericEmail@gmail.com',
             'maritalStatus' => 'Single',
             'familyRole' => 'Sibling of Household Head',
-            'educationalAttainment' => 'Senior High School Graduate',
+            'educationalAttainment' => 'Elementary Graduate',
             'gender' => 'M',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
 
     //11 - 4
@@ -5500,7 +5500,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
 
         //103 310 311 312 313
@@ -5570,7 +5570,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
         
         //104 314 315 316 317
@@ -5640,7 +5640,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
         
     //11 - 5A
@@ -5678,7 +5678,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
 
 
@@ -5715,7 +5715,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
 
         //107 322 323
@@ -5751,7 +5751,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
 
 
@@ -6146,7 +6146,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'M',
             'occupation' => 'Engineer',
             'monthlyIncome' => '36,400 - 63,700',
-            'ageClassification' => 'WRA',
+            'ageClassification' => 'AB',
         ]);
         Resident::create([
             'id' => '346',
@@ -6163,7 +6163,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'Businessman',
             'monthlyIncome' => '18,200 - 36,400',
-            'ageClassification' => 'AB',
+            'ageClassification' => 'WRA',
         ]);
         Resident::create([
             'id' => '347',
@@ -6199,7 +6199,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'M',
             'occupation' => 'Engineer',
             'monthlyIncome' => '36,400 - 63,700',
-            'ageClassification' => 'WRA',
+            'ageClassification' => 'AB',
         ]);
         Resident::create([
             'id' => '349',
@@ -6216,7 +6216,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'Businessman',
             'monthlyIncome' => '18,200 - 36,400',
-            'ageClassification' => 'AB',
+            'ageClassification' => 'WRA',
         ]);
         Resident::create([
             'id' => '350',
@@ -6252,7 +6252,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'M',
             'occupation' => 'Engineer',
             'monthlyIncome' => '36,400 - 63,700',
-            'ageClassification' => 'WRA',
+            'ageClassification' => 'AB',
         ]);
         Resident::create([
             'id' => '352',
@@ -6269,7 +6269,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'Businessman',
             'monthlyIncome' => '18,200 - 36,400',
-            'ageClassification' => 'AB',
+            'ageClassification' => 'WRA',
         ]);
         Resident::create([
             'id' => '353',
@@ -6451,7 +6451,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
 
         //121 363 364 365
@@ -6504,7 +6504,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
 
         //122 366 367 368
@@ -6557,7 +6557,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'None',
             'monthlyIncome' => 'None',
-            'ageClassification' => 'B',
+            'ageClassification' => 'S',
         ]);
 
     //13 - 2
