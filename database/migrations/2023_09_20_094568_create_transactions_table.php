@@ -23,11 +23,11 @@ class CreateTransactionsTable extends Migration
             $table->string('docNumber');
             $table->string('serviceStatus');
 
-            $table->string('endorsedBy')->nullable();
+            $table->string('endorsedBy')->nullable()->default('Pending');
             $table->date('endorsedOn')->nullable();
-            $table->string('approvedBy')->nullable();
-            $table->date('approvedOn')->nullable();            
-            $table->string('releasedBy')->nullable();
+            $table->string('approvedBy')->nullable()->default('Pending');
+            $table->date('approvedOn')->nullable();
+            $table->string('releasedBy')->nullable()->default('Pending');
             $table->date('releasedOn')->nullable();
             $table->string('remarks')->nullable();
 
@@ -44,4 +44,5 @@ class CreateTransactionsTable extends Migration
     {
         Schema::dropIfExists('transactions');
     }
+    
 }

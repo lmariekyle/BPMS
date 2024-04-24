@@ -225,15 +225,15 @@
                                     </div>
                                     <!-- slider buttons -->
                                     <div class="ml-[6rem] mt-[128.3rem] absolute px-5 flex h-[12px] w-[490px] top-0 left-0 self-center">
-                                        <div class="my-auto  w-full flex justify-between">
+                                        <!-- <div class="my-auto  w-full flex justify-between">
                                             <button id="prevButtonslider1" class="p-3 text-deep-green rounded-full bg-white opacity-75">
                                             <i class="fa-solid fa-chevron-left"></i>
                                             </button>
                                             <button  id="nextButtonslider1" class="p-3 text-deep-green bg-white opacity-75 rounded-full">
                                             <i class="fa-solid fa-chevron-right"></i>
                                             </button>
-                                        </div>
-                                    </div> <!-- end of buttons -->
+                                        </div> -->
+                                    </div> 
                                 </div>   
                         </div> <!-- end of image --> 
 
@@ -295,14 +295,14 @@
                                     </div>
                                     <!-- slider buttons -->
                                     <div class="absolute px-5 flex h-[12px] w-[490px] self-center">
-                                        <div class="my-auto w-full flex justify-between">
+                                        <!-- <div class="my-auto w-full flex justify-between">
                                             <button id="prevButtonslider2" class="p-3 text-deep-green rounded-full bg-white opacity-75">
                                             <i class="fa-solid fa-chevron-left"></i>
                                             </button>
                                             <button id="nextButtonslider2" class="p-3 text-deep-green bg-white opacity-75 rounded-full">
                                             <i class="fa-solid fa-chevron-right"></i>
                                             </button>
-                                        </div>
+                                        </div> -->
                                     </div> <!-- end of buttons -->
                                 </div>   
                         </div> <!-- end of image --> 
@@ -331,14 +331,14 @@
                                     </div>
                                     <!-- slider buttons -->
                                     <div class="absolute px-5 flex h-[12px] w-[490px] self-center">
-                                        <div class="my-auto  w-full flex justify-between">
+                                        <!-- <div class="my-auto  w-full flex justify-between">
                                             <button id="prevButtonslider3" class="p-3 text-deep-green rounded-full bg-white opacity-75">
                                             <i class="fa-solid fa-chevron-left"></i>
                                             </button>
                                             <button  id="nextButtonslider3" class="p-3 text-deep-green bg-white opacity-75 rounded-full">
                                             <i class="fa-solid fa-chevron-right"></i>
                                             </button>
-                                        </div>
+                                        </div> -->
                                     </div> <!-- end of buttons -->
                                 </div>   
                         </div> <!-- end of image --> 

@@ -34,6 +34,7 @@ class AccountMail extends Mailable
     {
         return $this
         ->from('dbarangaypob@gmail.com')
+        ->greeting('Thank you for joining us!')
         ->to($this->user->email)
         ->subject('Your Account is Ready!')
         ->markdown('emails.accountmail');

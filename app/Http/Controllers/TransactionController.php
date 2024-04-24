@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Http\Controllers\ServicesController;
 
 class TransactionController extends Controller
 {
@@ -29,9 +30,7 @@ class TransactionController extends Controller
     public function requestList($id){
 
         $userTransactions=Transaction::where('userID',$id)->paginate(10);
-        
         // $document = Document::where('id', $userTransactions->documentID)->first();
-    
         return view('residents.requests',compact('userTransactions'));
     }
 
@@ -44,6 +43,7 @@ class TransactionController extends Controller
     
         return view('residents.show',compact('transaction','requester'));
     }
+
 
     public function getDocuments(Request $request)
     {
@@ -88,6 +88,8 @@ class TransactionController extends Controller
         $user->makeVisible('firstName', 'middleName', 'lastName');
         $date = Carbon::now()->format('Y-m-d');
         $certRequirements = [];
+        $doctype = Document::where('id', $request->selectedDocument)->first();
+        $docNumber = $this->docNumber($doctype);
 
         if ($request->hasFile('file')) {
             foreach ($request->file('file') as $file) {
@@ -117,14 +119,10 @@ class TransactionController extends Controller
             ->first();
 
             if($check_res != NULL) {
-                $check_resList = ResidentList::where('residentID', $check_res->id)->first();
-
-                $check_household = Households::where('id', $check_resList->houseID)->first();
-
+            
                 $sitio = Sitio::where('sitioName', $request->complaineeSitio)->first();
 
-                if($check_household->sitioID == $sitio->id){
-                    $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-FC']);
+                if($sitio !== null){
                     $payment = Payment::create([
                         'paymentMethod' => $request->paymentMethod,
                         'accountNumber' => 'Not Applicable',
@@ -150,16 +148,17 @@ class TransactionController extends Controller
                     ]);
 
                     $transaction = Transaction::create([
-                        'documentID' => $request->documentId,
+                        'documentID' => $doctype->id,
                         'userID' => $user->id,
                         'paymentID' => $payment->id,
                         'detailID' => $detail->id,
-                        'docNumber' => $docId,
+                        'docNumber' => $docNumber,
                         'serviceStatus' => "Pending",
                     ]);
 
                     
                     $complain = Complain::create([
+                        'transactionID' => $transaction->id,
                         'complaintFName' => $request->complaintFName,
                         'complaintMName' => $request->complaintMName,
                         'complaintLName' => $request->complaintLName,
@@ -238,14 +237,14 @@ class TransactionController extends Controller
             ]);
 
             if($document->docType == "Barangay Certificate"){
-                $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CE']);
+               
     
                 $transaction = Transaction::create([
                     'documentID' => $request->documentId,
                     'userID' => $user->id,
                     'paymentID' => $payment->id,
                     'detailID' => $detail->id,
-                    'docNumber' => $docId,
+                    'docNumber' => $docNumber,
                     'serviceStatus' => "Pending",
                 ]);
             }else if($document->docType == "Barangay Clearance"){
@@ -256,7 +255,7 @@ class TransactionController extends Controller
                     'userID' => $user->id,
                     'paymentID' => $payment->id,
                     'detailID' => $detail->id,
-                    'docNumber' => $docId,
+                    'docNumber' => $docNumber,
                     'serviceStatus' => "Pending",
                 ]);
             }
