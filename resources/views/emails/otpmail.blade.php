@@ -241,7 +241,7 @@
 
                               <div style="font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">
                                 <p style="line-height: 140%;"><strong>One Time Pin:</strong></p>
-                                  <p style="line-height: 19.6px;"><strong>PIN: {{$otp->token}}</strong></p>
+                                  <p style="line-height: 19.6px; padding-left: 10px"><strong>PIN: {{$otp->token}}</strong></p>
                               </div>
 
                             </td>
