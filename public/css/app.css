@@ -835,6 +835,13 @@ select {
   margin-top: auto;
   margin-bottom: auto;
 }
+.my-\[2rem\] {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.-ml-1 {
+  margin-left: -0.25rem;
+}
 .-ml-1 {
   margin-left: -0.25rem;
 }
@@ -1390,6 +1397,24 @@ select {
 .mt-\[90px\] {
   margin-top: 90px;
 }
+.ml-\[12\%\] {
+  margin-left: 12%;
+}
+.ml-\[15px\] {
+  margin-left: 15px;
+}
+.ml-\[4\%\] {
+  margin-left: 4%;
+}
+.ml-\[5px\] {
+  margin-left: 5px;
+}
+.ml-\[8px\] {
+  margin-left: 8px;
+}
+.mt-\[3\.8px\] {
+  margin-top: 3.8px;
+}
 .block {
   display: block;
 }
@@ -1579,6 +1604,12 @@ select {
 }
 .h-px {
   height: 1px;
+}
+.h-\[275px\] {
+  height: 275px;
+}
+.h-\[350px\] {
+  height: 350px;
 }
 .max-h-12 {
   max-height: 3rem;
@@ -1903,6 +1934,9 @@ select {
 .w-max {
   width: -moz-max-content;
   width: max-content;
+}
+.w-\[520px\] {
+  width: 520px;
 }
 .min-w-0 {
   min-width: 0px;
@@ -2980,6 +3014,9 @@ select {
 }
 .hover\:cursor-pointer:hover {
   cursor: pointer;
+}
+.hover\:cursor-not-allowed:hover {
+  cursor: not-allowed;
 }
 .hover\:border-gray-300:hover {
   --tw-border-opacity: 1;
