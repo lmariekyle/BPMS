@@ -21,7 +21,7 @@
 
     <div class="bg-olive-green w-[1400px] h-[813px] ml-8 mt-16 px-5 py-5 rounded-[48px] flex flex-row">
 
-        @role('User')
+        @hasanyrole('User|Barangay Health Worker')
         <p class="text-dirty-white font-robotocondensed ml-3 font-bold text-[48px] text-start">YOUR REQUESTS</p>
         <!--Search-->
         <div class="flex flex-row  w-max h-max mt-6 ml-8 space-x-5">
@@ -86,7 +86,7 @@
                
             </div>    
         </div>
-        @endrole
+        @endhasanyrole
     </div>
 
 </x-app-layout>

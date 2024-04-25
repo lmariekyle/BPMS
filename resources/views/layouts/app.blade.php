@@ -59,7 +59,7 @@
                 console.log(data);
                 // Check if the 'user' property exists in the response
                 if (data && data.user && data.relatedInfo) {
-                    const relatedInfo = data.relatedInfo;
+                    const relatedInfo = data.user;
                     const currentInfo = relatedInfo[selectedType];
 
                     console.log('Related Info:', relatedInfo);

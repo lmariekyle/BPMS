@@ -76,7 +76,7 @@
     </div>
 
     <script>
-                document.getElementById('captainstatus').addEventListener('click', function(event) {
+            document.getElementById('captainstatus').addEventListener('click', function(event) {
             event.stopPropagation(); // Stop event propagation
             var selectedValue = this.value;
             var submitButton = document.getElementById('submitButton');

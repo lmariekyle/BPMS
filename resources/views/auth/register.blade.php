@@ -53,7 +53,7 @@
                 <div>
                     <x-label for="middlename" :value="__('Middle Name')" class="font-roboto text-xl" style="color:white;" />
 
-                    <x-input id="middlename" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="middlename" :value="old('middlename')" autofocus />
+                    <x-input id="middlename" class="block mb-4 w-[500px] h-[42px] bg-dirty-white" type="text" name="middlename" autofocus />
                 </div>
 
                 <!-- Email Address -->

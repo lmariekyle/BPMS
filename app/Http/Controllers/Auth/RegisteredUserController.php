@@ -64,17 +64,31 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+
+    public function idNumber($role){
+        if($role == "Barangay Captain"){
+            $id = IdGenerator::generate(['table' => 'users','field'=>'idNumber', 'length' => 6, 'prefix' =>'C-']);
+        }else if($role == "Barangay Secretary"){
+            $id = IdGenerator::generate(['table' => 'users','field'=>'idNumber', 'length' => 6, 'prefix' =>'S-']);
+        }else if($role == "Barangay Health Worker"){
+            $id = IdGenerator::generate(['table' => 'users','field'=>'idNumber', 'length' => 6, 'prefix' =>'B-']);
+        }
+        return $id;
+    }
+
+
     public function store(Request $request)
     {
+
         $request->validate([
-            'firstname' => ['required','regex:/^[a-zA-Z]+$/u','max:12'],
-            'middlename' => ['regex:/^[a-zA-Z]+$/u','max:18'],
-            'lastname' => ['required','regex:/^[a-zA-Z]+$/u','max:18'],
+            'firstname' => ['required','regex:/^[a-zA-Z\s]+$/u','max:24'],
+            'middlename' => ['nullable', 'regex:/^[a-zA-Z\s]+$/u', 'max:18'],
+            'lastname' => ['required','regex:/^[a-zA-Z\s]+$/u','max:18'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed'],
-            'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'profileImage' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'dateOfBirth' => 'required|date|before:' . Carbon::now()->subYears(18),
-            'contactNumber' => ['required', 'numeric', 'digits:11',new \App\Rules\StartsWith09]
+            'contactNumber' => ['required', 'numeric', 'digits:11',new \App\Rules\StartsWith09],
         ],
         [
             'firstname.regex' => 'Use only alphabetical characters in your first name',
@@ -82,7 +96,7 @@ class RegisteredUserController extends Controller
             'lastname.regex' => 'Use only alphabetical characters in your last name',
             'contactNumber.required' =>'Invalid Contact Number',
             'dateOfBirth.before' => 'User must be 18 Years Old and Above to Register!',
-            'profileImage.required' => 'File Types must only be jpeg, png, jpg, gif, svg'
+            'profileImage.required' => 'File Types must only be jpeg, png, jpg'
         ]);
 
 
@@ -101,15 +115,30 @@ class RegisteredUserController extends Controller
             $path = "users/default.jpg";
         }
 
-        $resident = Resident::create([
-            'residentID'=> $residentId,
-            'firstName' => $request->firstname,
-            'middleName' => $request->middlename,
-            'lastName' => $request->lastname,
-            'dateOfBirth' => $request->dateOfBirth,
-            'contactNumber' => $request->contactNumber,
-            'email' => $request->email,
-        ]);
+
+    if ($request->has('middlename') && $request->middlename !== null) {
+            // The middlename input is present and not null
+            $resident = Resident::create([
+                'residentID'=> $residentId,
+                'firstName' => $request->firstname,
+                'middleName' => $request->middlename,
+                'lastName' => $request->lastname,
+                'dateOfBirth' => $request->dateOfBirth,
+                'contactNumber' => $request->contactNumber,
+                'email' => $request->email,
+            ]);
+        } else {
+            // The middlename input is either absent or null
+            $resident = Resident::create([
+                'residentID'=> $residentId,
+                'firstName' => $request->firstname,
+                'middleName' => 'N/A',
+                'lastName' => $request->lastname,
+                'dateOfBirth' => $request->dateOfBirth,
+                'contactNumber' => $request->contactNumber,
+                'email' => $request->email,
+            ]);
+        }
 
         if ($request->userlevel == "Barangay Captain") {
             $lastCaptain = User::where('userlevel', 'Barangay Captain')->orderBy('idNumber', 'desc')->first();
@@ -134,7 +163,7 @@ class RegisteredUserController extends Controller
                              ->first();
             $lastId = $lastUser ? (int)substr($lastUser->idNumber, 2) : 0;
             $userId = $yearPrefix . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
-        }
+    }
 
 
         $resident->user()->create([
@@ -146,7 +175,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'sitioID' => $request->sitio,
             'assignedSitioID' => '1',
-            'contactNumber' => '63' . $request->contactNumber,
+            'contactNumber' => $request->contactNumber,
             'password' => Hash::make($request->password)
         ]);
         $resident->user->assignRole($request->userlevel);
