@@ -1801,6 +1801,18 @@ select {
 .w-\[950px\] {
   width: 950px;
 }
+.w-\[4rem\] {
+  width: 4rem;
+}
+.w-\[10rem\] {
+  width: 10rem;
+}
+.w-\[11rem\] {
+  width: 11rem;
+}
+.w-44 {
+  width: 11rem;
+}
 .min-w-0 {
   min-width: 0px;
 }

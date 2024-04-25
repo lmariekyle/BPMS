@@ -515,7 +515,7 @@
 
                         <div class="float-left bg-transparent h-16 w-max" style="margin-left: 50px;">
                             <x-label for="ageclass" :value="__('Age Classification')" />
-                            <select id="ageclass" class="rounded-lg border-2 mt-1 w-40 bg-transparent" name="ageclass" :value="old('ageclass')" required autofocus>
+                            <select id="ageclass" class="rounded-lg border-2 mt-1 w-46 bg-transparent" name="ageclass" :value="old('ageclass')" required autofocus>
                                 <option value="NULL">Select Age Range</option>
                                 @foreach ($ageClassification as $age)
                                 <option value="{{$age->ageGroup}}" class="bg-dirty-white">{{ $age->ageGroup }}</option>
