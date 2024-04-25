@@ -646,7 +646,7 @@ class StatisticsController extends Controller
                 "18,200 - 36,400",
                 "36,400 - 63,700",
                 "63,700 - 109,200",
-                "109,200 - 182,200",
+                "109,200 - 182,000",
                 "above 182,000"
                 );
             $miaSize = count($MonthlyIncome);
@@ -1696,7 +1696,7 @@ class StatisticsController extends Controller
             "18,200 - 36,400",
             "36,400 - 63,700",
             "63,700 - 109,200",
-            "109,200 - 182,200",
+            "109,200 - 182,000",
             "above 182,000"
             );
 
