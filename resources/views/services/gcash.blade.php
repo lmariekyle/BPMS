@@ -13,10 +13,10 @@
             <div class="flex flex-col justify-center place-items-center w-max h-max bg-slate-50 rounded-md px-10 py-10">
                 <input class="hidden" style="border-color: #414833;" value="{{$payment->id}}" name="id">
                 <div class="flex flex-col bg-white h-[200px] w-[200px] border-2 border-black">
-                    <img src="/images/qr.png" alt="" style="width: 800px; height:300px;">
+                    <img src="/images/BPMSQRCode.jpg" alt="" style="width: 800px; height:300px;">
                     <div class="flex flex-row w-max px-4 mt-6 -ml-[5rem] ">
                     <p class="font-poppins text-[18px] text-center font-medium w-max text-gray-800">Merchant: </p>
-                    <p class="font-poppins text-[18px] text-center text-black font-medium w-max ml-2">Brgy. Hall Poblacion Dalaguete</p>
+                    <p class="font-poppins text-[18px] text-center text-black font-medium w-max ml-2">BPMS</p>
                     </div>
                     <div class="flex flex-row w-max px-4 mt-2 -ml-[5rem]">
                     <p class="font-poppins text-[18px] text-center font-medium w-max text-gray-800">Amount Due: </p>

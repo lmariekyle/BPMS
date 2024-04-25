@@ -157,7 +157,7 @@
                     <div class="py-8">
                         <hr class="h-2 mt-4 w-[315px] ml-[388px] bg-stone-700 border-0">
                         <p class="mt-4 text-4xl ml-[395px] font-robotocondensed w-80 text-justify">
-                            NOTHING HERE TO SEE
+                            Nothing to see here
                         </p>
                         <hr class="h-2 mt-4 w-[315px] ml-[388px] bg-stone-700 border-0">
                     </div>
