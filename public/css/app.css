@@ -1442,6 +1442,12 @@ select {
 .h-px {
   height: 1px;
 }
+.h-\[275px\] {
+  height: 275px;
+}
+.h-\[350px\] {
+  height: 350px;
+}
 .max-h-12 {
   max-height: 3rem;
 }
@@ -1743,6 +1749,9 @@ select {
 .w-max {
   width: -moz-max-content;
   width: max-content;
+}
+.w-\[520px\] {
+  width: 520px;
 }
 .min-w-0 {
   min-width: 0px;
@@ -2731,6 +2740,9 @@ select {
 }
 .hover\:cursor-pointer:hover {
   cursor: pointer;
+}
+.hover\:cursor-not-allowed:hover {
+  cursor: not-allowed;
 }
 .hover\:border-gray-300:hover {
   --tw-border-opacity: 1;

@@ -40,11 +40,11 @@ class OTPMail extends Mailable
     {
         return $this
         ->from('dbarangaypob@gmail.com')
-        ->greeting('Verification Code')
+        //->greeting('Verification Code')
         ->to($this->user->email)
         ->subject('Your two factor code.')
-        ->line('This code will expire in 10 minutes')
-        ->line('If you have not tried to login, please change your password immediately.')
+        //->line('This code will expire in 10 minutes')
+        //->line('If you have not tried to login, please change your password immediately.')
         ->markdown('emails.otpmail');
     }
 }
