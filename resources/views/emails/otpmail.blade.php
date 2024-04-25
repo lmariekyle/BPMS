@@ -184,7 +184,7 @@
                             <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
 
                               <h3 style="margin: 0px; line-height: 140%; text-align: left; word-wrap: break-word; font-size: 18px; font-weight: 400;">
-                                <h1 style="margin: 0px; line-height: 51.6px; color: #333333; text-align: -webkit-center; white-space: normal; background-color: #ffffff;">Your Account is Ready!</h1>
+                                <h1 style="margin: 0px; line-height: 51.6px; color: #333333; text-align: -webkit-center; white-space: normal; background-color: #ffffff;">Verification Code</h1>
                               </h3>
 
                             </td>
@@ -227,7 +227,6 @@
                               <div style="font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">
                                 <p style="line-height: 140%;">Hello,</p>
                                 <p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;">&nbsp;</p>
-                                <p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;"></p>
                               </div>
 
                             </td>
@@ -242,10 +241,23 @@
 
                               <div style="font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">
                                 <p style="line-height: 140%;"><strong>One Time Pin:</strong></p>
-                                <ul>
-                                  <li style="line-height: 19.6px;"><strong>PIN: {{$otp->token}}</strong></li>
-                                  <li style="line-height: 19.6px;"><strong></em></li>
-                                </ul>
+                                  <p style="line-height: 19.6px; padding-left: 10px"><strong>PIN: {{$otp->token}}</strong></p>
+                              </div>
+
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
+
+                              <div style="font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">
+                                <p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;">&nbsp;</p>
+                                <p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;">This code will expire in 10 minutes</p>
+                                <p style="margin: 0px; line-height: 140%; color: #333333; text-align: -webkit-left; white-space: normal; background-color: #ffffff;">If you have not tried to login, please change your password immediately.</p>
                               </div>
 
                             </td>

@@ -113,13 +113,7 @@
         </h2>
         <h2>Total Households:
             @if ($totalHouseholdCount>0) 
-                @if($request->gender=="NULL" && $request->ageclass=="NULL")
-                {{ $totalHouseholdCount }}
-                @else
-                Not Applicable
-                @endif
-            @elseif ($totalHouseholdCount==0)
-            --
+            {{ $totalHouseholdCount }}
             @else
             --
             @endif
@@ -135,7 +129,7 @@
                 <p>U - Under-five (1-4 Years Old)</p>
                 <p>S - School-Aged Children (5-9 Years Old)</p>
                 <p>A - Adolescents (10-19 Years Old)</p>
-                <p>WRA - Not Pregnant and non-Post Partum (15-49 Years Old)</p>
+                <p>WRA - Not Pregnant and non-Post Partum (15-49 Years Old, Female)</p>
                 <p>P - Pregnant</p>
                 <p>AP - Adolescent-Pregnant</p>
                 <p>PP - Post Partum</p>
@@ -144,61 +138,190 @@
             <br>
         <hr>
             <br><br><br>
-        @if($totalResidentCount !== 0)
         <h2>RESIDENTS</h2>
-        <table>
-            <tr>
-                <th>#</th>
-                <th>Sitio Name</th>
-                <th>Gender</th>
-                <th>Age Group</th>
-                <th># of Residents</th>
-            </tr>
-            @php($count = 0)
-            @foreach ($residentCount as $resCount)
-                @if($resCount->genderGroup != '--' && $resCount->ageGroup != '--')
-                @php($count++)
+            <h3>Population</h3>
+            @foreach ($residentCount->groupBy('sitioName') as $sitioName => $sitioInfo)
+            @php($sumSitio = 0)
+            <table>
                 <tr>
-                    <td>{{ $count }}</td>
-                    <td>{{ $resCount->sitioName }}</td>
-                    <td>{{ $resCount->genderGroup }}</td>
-                    <td>{{ $resCount->ageGroup }}</td>
-                    <td>{{ $resCount->residentCount }}</td>
+                    <th colspan="4" style="margin-left: 2px; padding: 4px;">{{ $sitioName }}</th>
                 </tr>
-                @endif
+                <tr>
+                    <th>AGE GROUP</th>
+                    <th>MALE</th>
+                    <th>FEMALE</th>
+                    <th>TOTAL</th>
+                </tr>
+                @foreach ($sitioInfo as $SI)
+                <tr>
+                    <td style="padding-right: 5px; text-align: right;">{{ $SI->ageGroup }}</td>
+                    <td>{{ $SI->maleResident == 0 ? '--' : $SI->maleResident }}</td>
+                    <td>{{ $SI->femaleResident == 0 ? '--' : $SI->femaleResident }}</td>
+                    <td>{{ $SI->totalResident }}</td>
+                    @php($sumSitio += $SI->totalResident)
+                </tr>
+                @endforeach
+                <tr>
+                    <th colspan="4" style="padding-right: 35px; text-align: right;">TOTAL: {{ $sumSitio }}</th>
+                </tr>
+            </table>
             @endforeach
-        </table>
-        @else
-        <div>No Resident Data Found</div>
-        @endif
+
+            <h3>Monthly Income</h3>
+            <table>
+                <tr>
+                    <th></th>
+                    @foreach ($MonthlyIncome as $MI)
+                    <th>{{ $MI }}</th>
+                    @endforeach
+                </tr>
+                @foreach ($dataIncome as $sitioName => $DI)
+                <tr>
+                    <td>{{ $sitioName }}</td>
+                    @foreach ($MonthlyIncome as $MI)
+                    <td>{{ isset($DI[$MI]) ? $DI[$MI] : 0 }}</td>
+                    @endforeach
+                </tr>
+                @endforeach
+            </table>
+
+            <h3>Payment / Refund Transactions</h3>
+            <table>
+                <tr>
+                    <th></th>
+                    <th>Paid</th>
+                    <th>Paid Amount</th>
+                    <th>Refunded</th>
+                    <th>Refunded Amount</th>
+                </tr>
+                @foreach ($prInfo as $prI)
+                <tr>
+                    <td>{{ $prI['sitio'] }}</td>
+                    <td>{{ $prI['pCtr'] }}</td>
+                    <td>{{ $prI['pAmount'] }}</td>
+                    <td>{{ $prI['rCtr'] }}</td>
+                    <td>{{ $prI['rAmount'] }}</td>
+                </tr>
+                @endforeach
+            </table>
+            
+            <h3>Educational Attainment</h3>
+            <table>
+                <tr>
+                    <th></th>
+                    @foreach ($EducationAtt as $EA)
+                    <th>{{ $EA }}</th>
+                    @endforeach
+                </tr>
+                @foreach ($dataEducation as $sitioName => $DE)
+                <tr>
+                    <td>{{ $sitioName }}</td>
+                    @foreach ($EducationAtt as $EA)
+                    <td>{{ isset($DE[$EA]) ? $DE[$EA] : 0 }}</td>
+                    @endforeach
+                </tr>
+                @endforeach
+            </table>
+
+            <h3>Pregnancy</h3>
+            <table>
+                <tr>
+                    <th></th>
+                    @foreach ($Pregnancy as $P)
+                    <th>{{ $P }}</th>
+                    @endforeach
+                </tr>
+                @foreach ($dataPreg as $sitioName => $DP)
+                <tr>
+                    <td>{{ $sitioName }}</td>
+                    @foreach ($Pregnancy as $P)
+                    <td>{{ isset($DP[$P]) ? $DP[$P] : 0 }}</td>
+                    @endforeach
+                </tr>
+                @endforeach
+            </table>
     </div>
     
     <hr>
     
     <div class="page_break">
-        @if($request->gender=="NULL" && $request->ageclass=="NULL" && $totalHouseholdCount > 0)
         <h2>HOUSEHOLDS</h2>
-        <table>
-            <tr>
-                <th>#</th>
-                <th>Sitio Name</th>
-                <th># of Households</th>
-            </tr>
-            @foreach ($householdCount as $hCount)
-            @if(isset($hCount['sitio']) || isset($hCount['houseCount']))
-            <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $hCount['sitio'] }}</td>
-                <td>{{ $hCount['houseCount'] }}</td>
-            </tr>
-            @endif
-            @endforeach
-        </table>
-        @else
-        <div>No Household Data Found</div>
-        @endif
+            <h3>Households</h3>
+            <table>
+                <tr>
+                    <th>#</th>
+                    <th>Sitio</th>
+                    <th># of Households</th>
+                </tr>
+                @foreach ($householdCount as $hCount)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $hCount['sitio'] }}</td>
+                    <td>{{ $hCount['houseCount'] }}</td>
+                </tr>
+                @endforeach
+            </table>
+
+            <h3>IP & NHTS Households</h3>
+            <table>
+                <tr>
+                    <th>Sitio</th>
+                    @foreach ($IP as $I)
+                    <th>{{ $I }}</th>
+                    @endforeach
+                    @foreach ($NHTS as $N)
+                    <th>{{ $N }}</th>
+                    @endforeach
+                </tr>
+                @foreach ($dataIP as $sitioName => $DI)
+                <tr>
+                    <td>{{ $sitioName }}</td>
+                    @foreach ($IP as $I)
+                    <td>{{ isset($DI[$I]) ? $DI[$I] : 0 }}</td>
+                    @endforeach
+                    @foreach ($NHTS as $N)
+                    <td>{{ isset($dataNHTS[$sitioName][$N]) ? $dataNHTS[$sitioName][$N] : 0 }}</td>
+                    @endforeach
+                </tr>
+                @endforeach
+            </table>
+
+            <h3>Water Access</h3>
+            <table>
+                <tr>
+                    <th></th>
+                    @foreach ($WaterAccess as $WA)
+                    <th>{{ $WA }}</th>
+                    @endforeach
+                </tr>
+                @foreach ($dataWater as $sitioName => $DW)
+                <tr>
+                    <td>{{ $sitioName }}</td>
+                    @foreach ($WaterAccess as $WA)
+                    <td>{{ isset($DW[$WA]) ? $DW[$WA] : 0 }}</td>
+                    @endforeach
+                </tr>
+                @endforeach
+            </table>
+
+            <h3>Toilet Facilities</h3>
+            <table>
+                <tr>
+                    <th></th>
+                    @foreach ($ToiletFacilities as $TF)
+                    <th>{{ $TF }}</th>
+                    @endforeach
+                </tr>
+                @foreach ($dataToilet as $sitioName => $DT)
+                <tr>
+                    <td>{{ $sitioName }}</td>
+                    @foreach ($ToiletFacilities as $TF)
+                    <td>{{ isset($DT[$TF]) ? $DT[$TF] : 0 }}</td>
+                    @endforeach
+                </tr>
+                @endforeach
+            </table>
     </div>
-    
     @else
         <h2>No options were selected and applied on the previous page. Please go back and try again.</h2>
     @endif

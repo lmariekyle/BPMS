@@ -26,7 +26,7 @@ class ResidentListSeeder extends Seeder
 
         //Andres
         ResidentList::create([
-            'residentID' => '2',
+            'residentID' => '4',
             'houseID' => '2',
             'houseNumber'=>'1',
             'memberNumber'=>1,
@@ -44,7 +44,7 @@ class ResidentListSeeder extends Seeder
         ]);
         //Miles
         ResidentList::create([
-            'residentID' => '4',
+            'residentID' => '2',
             'houseID' => '2',
             'houseNumber'=>'1',
             'memberNumber'=>3,

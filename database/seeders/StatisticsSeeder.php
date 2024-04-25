@@ -16,32 +16,14 @@ class StatisticsSeeder extends Seeder
     {
         Statistics::create([
             'year' => '2023',
-            'quarter' => '1',
-            'totalHouseholdsSitio' => '0',
-            'totalResidentsSitio' => '0',
-            'totalHouseholdsBarangay' => '1588',
-            'totalResidentsBarangay' => '6587',
-            'revisedBy' => '1',
-        ]);
-
-        Statistics::create([
-            'year' => '2023',
-            'quarter' => '2',
-            'totalHouseholdsSitio' => '0',
-            'totalResidentsSitio' => '0',
-            'totalHouseholdsBarangay' => '1605',
-            'totalResidentsBarangay' => '6669',
-            'revisedBy' => '1',
-        ]);
-
-        Statistics::create([
-            'year' => '2023',
             'quarter' => '3',
             'totalHouseholdsSitio' => '0',
             'totalResidentsSitio' => '0',
-            'totalHouseholdsBarangay' => '1620',
-            'totalResidentsBarangay' => '6749',
+            'totalHouseholdsBarangay' => '43',
+            'totalResidentsBarangay' => '124',
             'revisedBy' => '1',
+            'created_at' => date('Y-m-d H:i:s', strtotime('2023-07-01 08:15:47')),
+            'updated_at' => date('Y-m-d H:i:s', strtotime('2023-09-30 19:24:10')),
         ]);
 
         Statistics::create([
@@ -49,9 +31,11 @@ class StatisticsSeeder extends Seeder
             'quarter' => '4',
             'totalHouseholdsSitio' => '0',
             'totalResidentsSitio' => '0',
-            'totalHouseholdsBarangay' => '1641',
-            'totalResidentsBarangay' => '6839',
+            'totalHouseholdsBarangay' => '43',
+            'totalResidentsBarangay' => '126',
             'revisedBy' => '1',
+            'created_at' => date('Y-m-d H:i:s', strtotime('2023-10-01 10:24:43')),
+            'updated_at' => date('Y-m-d H:i:s', strtotime('2023-12-31 19:43:02')),
         ]);
 
         Statistics::create([
@@ -59,9 +43,11 @@ class StatisticsSeeder extends Seeder
             'quarter' => '1',
             'totalHouseholdsSitio' => '0',
             'totalResidentsSitio' => '0',
-            'totalHouseholdsBarangay' => '1662',
-            'totalResidentsBarangay' => '6929',
+            'totalHouseholdsBarangay' => '44',
+            'totalResidentsBarangay' => '132',
             'revisedBy' => '1',
+            'created_at' => date('Y-m-d H:i:s', strtotime('2024-01-01 09:45:11')),
+            'updated_at' => date('Y-m-d H:i:s', strtotime('2024-03-31 20:44:05')),
         ]);
     }
 }

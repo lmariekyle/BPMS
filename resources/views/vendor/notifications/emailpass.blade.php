@@ -139,7 +139,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
     <tr>
       <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
         
-  <h3 style="margin: 0px; line-height: 140%; text-align: left; word-wrap: break-word; font-size: 18px; font-weight: 400;"><h1 style="margin: 0px; line-height: 51.6px; color: #333333; text-align: -webkit-center; white-space: normal; background-color: #ffffff;">Thank You for Joining Us!</h1></h3>
+    <h3 style="margin: 0px; line-height: 140%; text-align: left; word-wrap: break-word; font-size: 18px; font-weight: 400;"><h1 style="margin: 0px; line-height: 51.6px; color: #333333; text-align: -webkit-center; white-space: normal; background-color: #ffffff;">Your Password Reset Link</h1></h3>
 
       </td>
     </tr>
