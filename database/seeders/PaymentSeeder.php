@@ -15,14 +15,15 @@ class PaymentSeeder extends Seeder
      * @return void
      */
     public function run()
-    {/*
+    {
+        //Payment #1
         Payment::create([
             'paymentMethod' => 'GCash',
-            'accountNumber' => '--',
-            'amountPaid' => '100',
+            'orNumber' => '--',
+            'amountPaid' => '100.00',
             'paymentStatus' => 'Paid',
             'receivedBy' => '--',
-            'paymentDate' => '2023-03-06',
+            'paymentDate' => '2023-08-04',
             'referenceNumber' => '1234567890',
             'screenshot' => '--',
             'remarks' => '--',
@@ -33,7 +34,7 @@ class PaymentSeeder extends Seeder
             'requesteeMName' => 'Benjamin',
             'requesteeLName' => 'Parker',
             'requesteeEmail' => 'parker@bpms.com',
-            'requesteeContactNumber' => '1234567890',
+            'requesteeContactNumber' => '09876543211',
             'requestPurpose' => 'Employment',
             'file' => 'file.pdf',
         ]);
@@ -46,21 +47,22 @@ class PaymentSeeder extends Seeder
             'docNumber' => '--',
             'serviceStatus' => 'Paid',
             'endorsedBy' => '--',
-            'endorsedOn' => '2023-03-04',
+            'endorsedOn' => '2023-08-02',
             'approvedBy' => '--',
-            'approvedOn' => '2023-03-05',
+            'approvedOn' => '2023-08-03',
             'releasedBy' => '--',
-            'releasedOn' => '2023-03-06',
+            'releasedOn' => '2023-08-06',
             'remarks' => '--',
         ]);
 
+        //Payment #2
         Payment::create([
             'paymentMethod' => 'GCash',
-            'accountNumber' => '--',
-            'amountPaid' => '100',
+            'orNumber' => '--',
+            'amountPaid' => '100.00',
             'paymentStatus' => 'Paid',
             'receivedBy' => '--',
-            'paymentDate' => '2023-06-27',
+            'paymentDate' => '2023-11-20',
             'referenceNumber' => '1234567890',
             'screenshot' => '--',
             'remarks' => '--',
@@ -71,34 +73,35 @@ class PaymentSeeder extends Seeder
             'requesteeMName' => 'Benjamin',
             'requesteeLName' => 'Parker',
             'requesteeEmail' => 'parker@bpms.com',
-            'requesteeContactNumber' => '1234567890',
-            'requestPurpose' => 'Scholarship',
+            'requesteeContactNumber' => '09876543211',
+            'requestPurpose' => 'Employment',
             'file' => 'file.pdf',
         ]);
 
         Transaction::create([
-            'documentID' => '3',
+            'documentID' => '4',
             'userID' => '4',
             'paymentID' => '2',
             'detailID' => '2',
             'docNumber' => '--',
             'serviceStatus' => 'Paid',
             'endorsedBy' => '--',
-            'endorsedOn' => '2023-06-25',
+            'endorsedOn' => '2023-11-19',
             'approvedBy' => '--',
-            'approvedOn' => '2023-06-26',
+            'approvedOn' => '2023-11-24',
             'releasedBy' => '--',
-            'releasedOn' => '2023-06-27',
+            'releasedOn' => '2023-11-29',
             'remarks' => '--',
         ]);
 
+        //Payment #3
         Payment::create([
             'paymentMethod' => 'GCash',
-            'accountNumber' => '--',
-            'amountPaid' => '100',
+            'orNumber' => '--',
+            'amountPaid' => '530.00',
             'paymentStatus' => 'Paid',
             'receivedBy' => '--',
-            'paymentDate' => '2023-08-02',
+            'paymentDate' => '2024-01-20',
             'referenceNumber' => '1234567890',
             'screenshot' => '--',
             'remarks' => '--',
@@ -109,8 +112,8 @@ class PaymentSeeder extends Seeder
             'requesteeMName' => 'Benjamin',
             'requesteeLName' => 'Parker',
             'requesteeEmail' => 'parker@bpms.com',
-            'requesteeContactNumber' => '1234567890',
-            'requestPurpose' => 'Eligibility',
+            'requesteeContactNumber' => '09876543211',
+            'requestPurpose' => 'Employment',
             'file' => 'file.pdf',
         ]);
 
@@ -122,164 +125,12 @@ class PaymentSeeder extends Seeder
             'docNumber' => '--',
             'serviceStatus' => 'Paid',
             'endorsedBy' => '--',
-            'endorsedOn' => '2023-07-31',
+            'endorsedOn' => '2024-01-20',
             'approvedBy' => '--',
-            'approvedOn' => '2023-08-01',
+            'approvedOn' => '2024-01-22',
             'releasedBy' => '--',
-            'releasedOn' => '2023-08-02',
+            'releasedOn' => '2024-01-25',
             'remarks' => '--',
         ]);
-
-        Payment::create([
-            'paymentMethod' => 'GCash',
-            'accountNumber' => '--',
-            'amountPaid' => '100',
-            'paymentStatus' => 'Paid',
-            'receivedBy' => '--',
-            'paymentDate' => '2023-11-03',
-            'referenceNumber' => '1234567890',
-            'screenshot' => '--',
-            'remarks' => '--',
-        ]);
-
-        DocumentDetails::create([
-            'requesteeFName' => 'Peter',
-            'requesteeMName' => 'Benjamin',
-            'requesteeLName' => 'Parker',
-            'requesteeEmail' => 'parker@bpms.com',
-            'requesteeContactNumber' => '1234567890',
-            'requestPurpose' => 'Reason',
-            'file' => 'file.pdf',
-        ]);
-
-        Transaction::create([
-            'documentID' => '5',
-            'userID' => '4',
-            'paymentID' => '4',
-            'detailID' => '4',
-            'docNumber' => '--',
-            'serviceStatus' => 'Paid',
-            'endorsedBy' => '--',
-            'endorsedOn' => '2023-11-01',
-            'approvedBy' => '--',
-            'approvedOn' => '2023-11-02',
-            'releasedBy' => '--',
-            'releasedOn' => '2023-11-03',
-            'remarks' => '--',
-        ]);
-
-        Payment::create([
-            'paymentMethod' => 'OnSite',
-            'accountNumber' => '--',
-            'amountPaid' => '100',
-            'paymentStatus' => 'Paid',
-            'receivedBy' => '--',
-            'paymentDate' => '2023-01-05',
-            'referenceNumber' => '1234567890',
-            'screenshot' => '--',
-            'remarks' => '--',
-        ]);
-
-        DocumentDetails::create([
-            'requesteeFName' => 'Peter',
-            'requesteeMName' => 'Benjamin',
-            'requesteeLName' => 'Parker',
-            'requesteeEmail' => 'parker@bpms.com',
-            'requesteeContactNumber' => '1234567890',
-            'requestPurpose' => 'Reason',
-            'file' => 'file.pdf',
-        ]);
-
-        Transaction::create([
-            'documentID' => '1',
-            'userID' => '4',
-            'paymentID' => '5',
-            'detailID' => '5',
-            'docNumber' => '--',
-            'serviceStatus' => 'Paid',
-            'endorsedBy' => '--',
-            'endorsedOn' => '2023-01-02',
-            'approvedBy' => '--',
-            'approvedOn' => '2023-01-03',
-            'releasedBy' => '--',
-            'releasedOn' => '2023-01-05',
-            'remarks' => '--',
-        ]);
-
-        Payment::create([
-            'paymentMethod' => 'GCash',
-            'accountNumber' => '--',
-            'amountPaid' => '100',
-            'paymentStatus' => 'Paid',
-            'receivedBy' => '--',
-            'paymentDate' => '2024-01-05',
-            'referenceNumber' => '1234567890',
-            'screenshot' => '--',
-            'remarks' => '--',
-        ]);
-
-        DocumentDetails::create([
-            'requesteeFName' => 'Peter',
-            'requesteeMName' => 'Benjamin',
-            'requesteeLName' => 'Parker',
-            'requesteeEmail' => 'parker@bpms.com',
-            'requesteeContactNumber' => '1234567890',
-            'requestPurpose' => 'Reason',
-            'file' => 'file.pdf',
-        ]);
-
-        Transaction::create([
-            'documentID' => '1',
-            'userID' => '4',
-            'paymentID' => '6',
-            'detailID' => '6',
-            'docNumber' => '--',
-            'serviceStatus' => 'Paid',
-            'endorsedBy' => '--',
-            'endorsedOn' => '2024-01-02',
-            'approvedBy' => '--',
-            'approvedOn' => '2024-01-03',
-            'releasedBy' => '--',
-            'releasedOn' => '2024-01-05',
-            'remarks' => '--',
-        ]);
-
-        Payment::create([
-            'paymentMethod' => 'GCash',
-            'accountNumber' => '--',
-            'amountPaid' => '100',
-            'paymentStatus' => 'Refunded',
-            'receivedBy' => '--',
-            'paymentDate' => '2023-12-05',
-            'referenceNumber' => '1234567890',
-            'screenshot' => '--',
-            'remarks' => '--',
-        ]);
-
-        DocumentDetails::create([
-            'requesteeFName' => 'Peter',
-            'requesteeMName' => 'Benjamin',
-            'requesteeLName' => 'Parker',
-            'requesteeEmail' => 'parker@bpms.com',
-            'requesteeContactNumber' => '1234567890',
-            'requestPurpose' => 'Reason',
-            'file' => 'file.pdf',
-        ]);
-
-        Transaction::create([
-            'documentID' => '1',
-            'userID' => '4',
-            'paymentID' => '7',
-            'detailID' => '7',
-            'docNumber' => '--',
-            'serviceStatus' => 'Refunded',
-            'endorsedBy' => '--',
-            'endorsedOn' => '2023-12-02',
-            'approvedBy' => '--',
-            'approvedOn' => '2023-12-03',
-            'releasedBy' => '--',
-            'releasedOn' => '2023-12-05',
-            'remarks' => '--',
-        ]);
-    */}
+    }
 }
