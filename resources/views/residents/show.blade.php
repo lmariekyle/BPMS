@@ -58,10 +58,10 @@
     
                         @if(is_null($transaction->transactionpayment->amountPaid))
                         <p>Amount Paid:</p>
-                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">Payment Pending</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">₱ {{ $doc->docfee}}</p>
                         @else
                         <p>Amount Paid:</p>
-                            <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">₱ {{ $transaction->transactionpayment->amountPaid}}</p>
+                            <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">₱ {{$transaction->transactionpayment->amountPaid}}</p>
                         @endif
                         
                     </div>
