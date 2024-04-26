@@ -415,7 +415,7 @@ class ServicesController extends Controller
 
                 $transactionpayment = $transaction->transactionpayment()->create([
                     'paymentMethod' => $request->paymentMethod,
-                    'amountPaid' => NULL,
+                    'amountPaid' => $doctype->docfee,
                     'orNumber' => 'Pending',
                     'paymentStatus' => 'Pending',
                     'referenceNumber' => NULL,

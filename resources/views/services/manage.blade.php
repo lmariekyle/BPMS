@@ -69,7 +69,7 @@
                     @endif
                     </div>
                     <div class="font-robotocondensed font-bold text-[32px] text-deep-green mt-6" style="font-size: 18px;">
-                        <p>Amount Due:</p>
+                        <p>Amount Paid:</p>
                         <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">PHP {{ $transaction->payment['amountPaid'] }}</p>
                     </div>
                     <div class="font-robotocondensed font-bold text-[32px] text-deep-green mt-6" style="font-size: 18px;">
@@ -168,11 +168,11 @@
                                     <option value="Paid" class="">Paid</option>
                         </select>
                     </div>
-                    <a href="{{route('pdf.export', $transaction->id)}}" class="float-right mt-3" id="printLink" style="display:none"><i class="fa-solid fa-print text-deep-green text-[28px] mt-7 ml-8"></i></a>
+                    <!-- <a href="{{route('pdf.export', $transaction->id)}}" class="float-right mt-3" id="printLink" style="display:none"><i class="fa-solid fa-print text-deep-green text-[28px] mt-7 ml-8"></i></a> -->
                     <button type="submit" class="mt-7 ml-8 text-center w-[200px] h-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-2 py-2" id="submitButton" disabled>Confirm Pickup</button>
                     @endif
                     @if ($transaction->payment->paymentStatus == 'Paid')
-                        <a href="{{route('pdf.export', $transaction->id)}}" class="float-right mt-3" id="printLink"><i class="fa-solid fa-print text-deep-green text-[28px] mt-7 ml-8"></i></a>
+                        <!-- <a href="{{route('pdf.export', $transaction->id)}}" class="float-right mt-3" id="printLink"><i class="fa-solid fa-print text-deep-green text-[28px] mt-7 ml-8"></i></a> -->
                         <button type="submit" class="mt-7 ml-8 text-center w-[200px] h-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-2 py-2">Confirm Pickup</button>
                     @endif
                 </div>
