@@ -903,7 +903,7 @@ class StatisticsController extends Controller
                             $join->on('users.residentID', '=', 'residents.id');
                         })
                         ->where('residents.gender', 'LIKE', "%$filterGender%")
-                        ->select('payments.*') 
+                        ->select('payments.paymentDate','payments.paymentStatus','payments.amountPaid') 
                         ->get();
                     //Otherwise
                     }else{
@@ -918,9 +918,10 @@ class StatisticsController extends Controller
                         })
                         ->where('residents.gender', 'LIKE', "%$filterGender%")
                         ->where('residents.ageClassification', '=', $filterAgeGroup)
-                        ->select('payments.*') 
+                        ->select('payments.paymentDate','payments.paymentStatus','payments.amountPaid') 
                         ->get();
                     }
+                    //dd($payStats);
                     foreach($payStats as $PS){
                         $date = new DateTime($PS->paymentDate);
                         $year = $date->format('Y');
