@@ -1475,6 +1475,15 @@ select {
 .h-px {
   height: 1px;
 }
+.h-\[640px\] {
+  height: 640px;
+}
+.h-\[645px\] {
+  height: 645px;
+}
+.h-\[650px\] {
+  height: 650px;
+}
 .max-h-12 {
   max-height: 3rem;
 }

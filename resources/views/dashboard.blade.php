@@ -710,8 +710,8 @@
                         <div id="addInfoDisplay" class="mt-[2rem] w-[1050px] self-center" style="display: none;">
                             <div id="resAddInfo" style="display: none;">
                                 <p class="font-bold text-[22px] mt-2 mb-6">Resident Additional Information</p>
-                                <div class="border-2 border-green bg-white px-6 py-6">
-                                    <div class="h-[620px] w-[970px]" id="monthInchart"></div>
+                                <div class="h-[650px] w-[1050px] border-2 border-green bg-white px-6 py-6">
+                                    <div class="ml-6 h-[600px] w-[950px]" id="monthInchart"></div>
                                 </div>
                                 <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
                                     <div class="w-[510px] bg-white border-2 border-green px-2 py-2">
