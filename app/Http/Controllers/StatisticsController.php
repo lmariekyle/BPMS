@@ -174,7 +174,7 @@ class StatisticsController extends Controller
         $statYear = $statistics->year;
         $statQuarter = $statistics->quarter;
 
-        if($statID > 1 && ($statistics->totalResidentsBarangay <= 0 && $statistics->totalHouseholdsBarangay <= 0)){
+        if($statID > 1){
             if($statQuarter == 1){
                 $statistics = Statistics::where('year', $statYear - 1)->where('quarter', 4)->first();
             }else{
@@ -413,6 +413,9 @@ class StatisticsController extends Controller
             $dataResident = "";
 
             $maxValueSitio = Sitio::max('id');
+
+            $maxValueDoc = Document::max('id');
+
             //When the user didn't select any Sitio in the options
             if ($filterSitio == "") {
                 //When the user didn't select any Age Group in the options
@@ -628,6 +631,7 @@ class StatisticsController extends Controller
             //Get the records of the population per quarter from selected to 3 (or less) previous ones; at most 4 is displayed
             
             $header = "";
+            $headerDoc = "";
 
             $minID = $statID - 3;
 
@@ -672,6 +676,9 @@ class StatisticsController extends Controller
             $Pregnancy = array("N","P","PP");
             $pSize = count($Pregnancy);
 
+            //Documents (Resident)
+            $documentData = "";
+
             //Indigenous (Household)
             $dataIP = "";
             $IP = array("IP","nonIP");
@@ -699,8 +706,14 @@ class StatisticsController extends Controller
                     $label = Sitio::where('id','=',$x)->value('sitioName');
                     $header .= "'" . $label . "',";
                 }
+                for($x=1; $x<$maxValueDoc; $x++){
+                    $labelDoc = Document::where('id','=',$x)->value('docName');
+                    $headerDoc .= "'" . $labelDoc . "',";
+                }
                 $header = "'Year-Quarter'," . $header;
+                $headerDoc = "'Year-Quarter'," . $headerDoc;
                 $labelChart = "[$header],";
+                $labelDoc = "[$headerDoc],";
                 for($x=$statID; $x>0 && $x>=$minID; $x--){
                     $SAID = Statistics::where('id', '=', $x)->value('id');
                     $SAYear = Statistics::where('id', '=', $x)->value('year');
@@ -744,6 +757,8 @@ class StatisticsController extends Controller
                     $sumRefund = 0;
                     $payCtr = 0;
                     $refundCtr = 0;
+                    //Documents Issued (Resident)
+                    $dataDoc = "";
                     //Pregancy (Resident)
                     $dPreg = "";
                     //Indigenous (Household)
@@ -921,7 +936,6 @@ class StatisticsController extends Controller
                         ->select('payments.paymentDate','payments.paymentStatus','payments.amountPaid') 
                         ->get();
                     }
-                    //dd($payStats);
                     foreach($payStats as $PS){
                         $date = new DateTime($PS->paymentDate);
                         $year = $date->format('Y');
@@ -950,7 +964,65 @@ class StatisticsController extends Controller
                     $paymentData .= "['" . $YQ . "'," . $sumPay . "],";
                     $refundData .= "['" . $YQ . "'," . $sumRefund . "],";
                     $prData .= "['" . $YQ . "'," . $payCtr . "," . $refundCtr . "],";
-    
+
+                    /*
+                    for($x=1; $x<$maxValueDoc; $x++){
+                        $docCount = 0;
+                        //Age Group Filter not selected
+                        if($filterAgeGroup = ""){
+                            $docStats = Payment::join('transactions', function ($join) {
+                                $join->on('payments.id', '=', 'transactions.paymentID');
+                            })
+                            ->join('users', function ($join) {
+                                $join->on('transactions.userID', '=', 'users.id');
+                            })
+                            ->join('residents', function ($join) {
+                                $join->on('users.residentID', '=', 'residents.id');
+                            })
+                            ->where('transactions.documentID', '=', $x)
+                            ->where('residents.gender', 'LIKE', "%$filterGender%")
+                            ->select('payments.paymentDate','payments.paymentStatus','payments.amountPaid')
+                            ->get();
+                        //Otherwise
+                        }else{
+                            $docStats = Payment::join('transactions', function ($join) {
+                                $join->on('payments.id', '=', 'transactions.paymentID');
+                            })
+                            ->join('users', function ($join) {
+                                $join->on('transactions.userID', '=', 'users.id');
+                            })
+                            ->join('residents', function ($join) {
+                                $join->on('users.residentID', '=', 'residents.id');
+                            })
+                            ->where('transactions.documentID', '=', $x)
+                            ->where('residents.gender', 'LIKE', "%$filterGender%")
+                            ->where('residents.ageClassification', '=', "%$filterAgeGroup%")
+                            ->select('payments.paymentDate','payments.paymentStatus','payments.amountPaid')
+                            ->get();
+                        }
+                        foreach($docStats as $DS){
+                            $date = new DateTime($DS->paymentDate);
+                            $year = $date->format('Y');
+                            $md = $date->format('m-d');
+                            if($md >= '01-01' && $md <= '03-31'){
+                                $Q = 1;
+                            }elseif($md >= '04-01' && $md <= '06-30'){
+                                $Q = 2;
+                            }elseif($md >= '07-01' && $md <= '09-30'){
+                                $Q = 3;
+                            }else{
+                                $Q = 4;
+                            }
+
+                            if($year == $SAYear && $Q == $SAQuarter){
+                                $docCount++;
+                            }
+                        }
+                        $dataDoc .= $docCount . ",";
+                    }
+                    $documentData .= "['" . $YQ . "'," . $dataDoc . "],";
+                    */
+
                     //Pregnancy
                     for($y=0; $y<$pSize; $y++){
                         //Age Group Filter Not Selected

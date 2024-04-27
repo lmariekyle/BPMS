@@ -569,7 +569,7 @@ class ResidentSeeder extends Seeder
             'occupation' => 'Doctor',
             'monthlyIncome' => '109,200 - 182,000',
             'ageClassification' => 'PP',
-            'ageClassification' => 'PP',
+            'pregnancyClassification' => 'PP',
             'dateOfDeath' => null,
             'createdBy' => 2,
             'revisedBy' => 2,
