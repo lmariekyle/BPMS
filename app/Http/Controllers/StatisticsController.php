@@ -658,11 +658,12 @@ class StatisticsController extends Controller
             //Educational Attainment (Resident)
             $dataEducation = "";
             $EducationAtt = array(
-                "Undergraduate",
+                "None",
                 "Elementary Graduate",
                 "Junior High School Graduate",
                 "Senior High School Graduate",
                 "College Graduate",
+                "Postgraduate",
                 );
             $eaSize = count($EducationAtt);
 
@@ -1783,11 +1784,12 @@ class StatisticsController extends Controller
         //Educational Attainment (Resident)
         $dataEducation = array();
         $EducationAtt = array(
-            "Undergraduate",
+            "None",
             "Elementary Graduate",
             "Junior High School Graduate",
             "Senior High School Graduate",
             "College Graduate",
+            "Postgraduate",
             );
 
         //Pregancy (Resident)

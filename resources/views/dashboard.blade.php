@@ -109,7 +109,7 @@
 
         function drawEducation() {
             var data = google.visualization.arrayToDataTable([
-                ['Year-Quarter', 'Undergraduate', 'Elementary Graduate','Junior High School Graduate','Senior High School Graduate','College Graduate'],
+                ['Year-Quarter', 'None', 'Elementary Graduate','Junior High School Graduate','Senior High School Graduate','College Graduate','Postgraduate'],
                 <?php echo $chartAllEdu ?>
             ]);
 
@@ -724,8 +724,8 @@
                                 <div class="mt-[2rem] w-[1050px] h-[275px] px-4 py-4 border-2 border-green bg-white">
                                     <div id="prCountchart" class="w-[970px] h-[250px]"></div>
                                 </div>
-                                <div class="mt-[2rem] w-[1050px] h-[275px] px-4 py-4 border-2 border-green bg-white">
-                                    <div id="Educhart" class="w-[970px] h-[250px]"></div>   
+                                <div class="mt-[2rem] w-[1050px] h-[320px] px-4 py-4 border-2 border-green bg-white">
+                                    <div id="Educhart" class="ml-4 w-[970px] h-[295px]"></div>   
                                 </div>
                                 <div class="mt-[2rem] w-[1050px] h-[275px] px-4 py-4 border-2 border-green bg-white">
                                     <div id="Pregchart" class="w-[970px] h-[250px]"></div>   
