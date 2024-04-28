@@ -89,8 +89,8 @@ class TransactionController extends Controller
         $user->makeVisible('firstName', 'middleName', 'lastName');
         $date = Carbon::now()->format('Y-m-d');
         $certRequirements = [];
-        $doctype = Document::where('id', $request->selectedDocument)->first();
-        $docNumber = $this->docNumber($doctype);
+        $doctype = Document::where('id', $request->documentId)->first();
+        $docNumber = app('App\Http\Controllers\ServicesController')->docNumber($document);
 
         if ($request->hasFile('file')) {
             foreach ($request->file('file') as $file) {
@@ -286,7 +286,7 @@ class TransactionController extends Controller
     public function createpayment($id)
     {
         $payment = Payment::where('id', $id)->first();
-        $payment->accountNumber = "Pending";
+        $payment->orNumber = "Pending";
         $payment->paymentStatus = 'Pending';
         $payment->save();
         $payment->success = true;

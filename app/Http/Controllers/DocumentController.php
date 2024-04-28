@@ -32,7 +32,9 @@ class DocumentController extends Controller
         ]);
 
         $userData = Resident::where('id', $request->residentID)->first();
-        $user = User::where('residentID', $userData->id)->first();
+        $user = User::where('residentID', $request->residentID)->first();
+        $userData->email = $user->email;
+        $userData->contactNumber = $user->contactNumber;
         $userData->makeVisible('firstName', 'middleName', 'lastName', 'contactNumber');
 
         $documents = Document::where('docType', $request->docType)->get();
