@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Models\Barangay;
 use App\Models\Resident;
 use App\Models\ResidentList;
@@ -27,7 +28,6 @@ class AccountController extends Controller
 
         foreach ($users as $key) {
             $resident = Resident::where('id', $key->residentID)->first();
-
             $key->firstName = $resident->firstName;
             $key->middleName = $resident->middleName;
             $key->lastName = $resident->lastName;
@@ -83,9 +83,23 @@ class AccountController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        // dd($request->all());
         $request->validate([
-            'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'firstname' => ['regex:/^[a-zA-Z\s]+$/u','max:24'],
+            'middlename' => ['nullable', 'regex:/^[a-zA-Z\s]+$/u', 'max:18'],
+            'lastname' => ['regex:/^[a-zA-Z\s]+$/u','max:18'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'profileImage' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'dateOfBirth' => 'required|date|before:' . Carbon::now()->subYears(18),
+            'contactNumber' => ['required', 'numeric', 'digits:11',new \App\Rules\StartsWith09],
+        ],
+        [
+            'firstname.regex' => 'Use only alphabetical characters in your first name',
+            'middlename.regex' => 'Use only alphabetical characters in your middle name',
+            'lastname.regex' => 'Use only alphabetical characters in your last name',
+            'contactNumber.required' =>'Invalid Contact Number',
+            'dateOfBirth.before' => 'User must be 18 Years Old and Above to Register!',
+            'profileImage.required' => 'File Types must only be jpeg, png, jpg'
         ]);
 
         // $image_name=$request->file('profileImage')->getClientOriginalName();
@@ -102,14 +116,19 @@ class AccountController extends Controller
             $path = $user->profileImage;
         }
 
+        if ($request->has('userLevel') && $request->userLevel !== null){
+            $user->removeRole($user->userLevel); 
+            $user->userLevel = $request->userLevel;
+            $user->assignRole($request->userLevel);
+            $user->idNumber = $this->idNumber($request->userLevel);
+        }
+
         $user->profileImage = $path;
         $user->contactNumber = $request->contactNumber;
         $user->email = $request->email;
         $user->userLevel = $request->userLevel;
         $user->revisedBy = $id;
         $user->sitioID = $request->sitio;
-
-        $user->assignRole($request->userLevel);
         $user->save();
 
         $resident = Resident::where('id', $user->residentID)->first();

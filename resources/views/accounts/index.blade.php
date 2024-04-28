@@ -65,13 +65,19 @@
                         <td class="px-6 py-4 w-[295px] font-robotocondensed text-deep-green text-[16px] font-bold">
                             {{ $account->idNumber }}
                         </td>
+                        @if($account->middleName == "N/A")
+                        <td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                            {{ $account->lastName }}, {{ $account->firstName }}
+                        </td>
+                        @else
                         <td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold">
                             {{ $account->lastName }}, {{ $account->firstName }} {{ $account->middleName[0] }}.
                         </td>
+                        @endif
                         <td class="px-6 py-4  w-[490px] font-robotocondensed text-deep-green text-[16px] font-bold">
                             {{ $account->userLevel }}
                         </td>
-                        <td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold ">
+                <td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold ">
                             {{ $account->userStatus}}
                         </td>
                         <td class="px-6 py-4  w-[450px] font-robotocondensed text-deep-green text-[16px] font-bold">

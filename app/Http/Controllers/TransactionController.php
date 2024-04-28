@@ -30,18 +30,19 @@ class TransactionController extends Controller
     public function requestList($id){
 
         $userTransactions=Transaction::where('userID',$id)->paginate(10);
-        // $document = Document::where('id', $userTransactions->documentID)->first();
-        return view('residents.requests',compact('userTransactions'));
+        $document = Document::where('id', $userTransactions->documentID)->first();
+        return view('residents.requests',compact('userTransactions','document'));
     }
 
     public function showRequest($id){
 
         $transaction=Transaction::where('id',$id)->first();
         $requester = DocumentDetails::where('id',$transaction->detailID)->first();
+        $doc = Document::where('id',$transaction->documentID)->first();
         $requester->makeVisible('requesteeFName', 'requesteeLName','requesteeContactNumber');
         // $document = Document::where('id', $userTransactions->documentID)->first();
     
-        return view('residents.show',compact('transaction','requester'));
+        return view('residents.show',compact('transaction','requester','doc'));
     }
 
 

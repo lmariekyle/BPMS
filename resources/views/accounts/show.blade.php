@@ -18,39 +18,44 @@
 
                     <div class="max-h-[837px] h-[837px] max-w-[1178px] w-[1178px] mt-8 ml-14 p-14 border rounded bg-dirty-white font-roboto">
                         <div class="relative">
-                            <div class="mr-14 float-left max-h-[324px] max-w-[273px] place-content-center bg-green h-[324px] w-[273px]">
+                            <div class="mr-14 float-left max-h-[324px] max-w-[273px] place-content-center h-[374px] w-[273px]">
                                 <div>
-                                    <img src="/{{$user->profileImage}}" class="max-h-[700px] h-[324px] w-[273px]" alt="Profile Image">
+                                    <img src="/{{$user->profileImage}}" class="max-h-[700px] h-[374px] w-[280px]" alt="Profile Image">
                                 </div>
                             </div>
 
-                            <div class="pt-9 pb-10 max-h-[324px] max-w-[725px] h-[324px] w-[725px] border border-green text-2xl float-left">
+                            <div class="pt-9 pb-10 max-h-[324px] max-w-[725px] h-[324px] w-[725px] border border-green text-[20px] float-left">
                                 <div class="float-left">
                                     <div>
                                         <p class="pl-3 text-deep-green">First Name:</p>
-                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$personalInfo->firstName}}</div>
+                                        <div class="pl-8 w-[318px] text-dirty-white bg-green text-[18px]">{{$personalInfo->firstName}}</div>
                                     </div>
                                     <div class="mt-4">
                                         <p class="pl-3 text-deep-green">Last Name:</p>
-                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$personalInfo->lastName}}</div>
+                                        <div class="pl-8 w-[318px] text-dirty-white bg-green text-[18px]">{{$personalInfo->lastName}}</div>
                                     </div>
+                                    
                                     <div class="mt-4">
                                         <p class="pl-3 text-deep-green">Middle Initial:</p>
-                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$personalInfo->middleName[0]}}.</div>
+                                        @if($personalInfo->middleName == "N/A")
+                                        <div class="pl-8 w-[318px] text-dirty-white bg-green text-[18px]">N/A</div>
+                                        @else
+                                        <div class="pl-8 w-[318px] text-dirty-white bg-green text-[18px]">{{$personalInfo->middleName[0]}}.</div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="float-right ml-20">
                                     <div>
                                         <p class="pl-3 text-deep-green">Address:</p>
-                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$personalInfo->sitio}}, {{$personalInfo->barangay}}</div>
+                                        <div class="pl-8 w-[318px] text-dirty-white bg-green text-[18px]">{{$personalInfo->sitio}}, {{$personalInfo->barangay}}</div>
                                     </div>
                                     <div class="mt-4">
                                         <p class="pl-3 text-deep-green">Email:</p>
-                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$user->email}}</div>
+                                        <div class="pl-8 w-[318px] text-dirty-white bg-green text-[18px]">{{$user->email}}</div>
                                     </div>
                                     <div class="mt-4">
                                         <p class="pl-3 text-deep-green">Contact Number:</p>
-                                        <div class="pl-8 w-[318px] text-dirty-white bg-green">{{$user->contactNumber}}</div>
+                                        <div class="pl-8 w-[318px] text-dirty-white bg-green text-[18px]">{{$user->contactNumber}}</div>
                                     </div>
                                 </div>
                             </div>

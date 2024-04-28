@@ -58,10 +58,10 @@
     
                         @if(is_null($transaction->transactionpayment->amountPaid))
                         <p>Amount Paid:</p>
-                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">Payment Pending</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">₱ {{ $doc->docfee}}</p>
                         @else
                         <p>Amount Paid:</p>
-                            <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">₱ {{ $transaction->transactionpayment->amountPaid}}</p>
+                            <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">₱ {{$transaction->transactionpayment->amountPaid}}</p>
                         @endif
                         
                     </div>
@@ -77,8 +77,13 @@
             <div>
                 <div class="ml-24 mt-4 flex flex-col" style="margin-left: 92px;">
                     <div class="font-robotocondensed font-bold text-deep-green mt-6" style="font-size: 18px;">
+                    @if(is_null($transaction->endorsedBy))
+                         <p>Endorsed By:</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">Pending</p>
+                    @else
                         <p>Endorsed By:</p>
                         <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{$transaction->endorsedBy}}</p>
+                    @endif
                     </div>
                     <div class="font-robotocondensed font-bold  text-deep-green mt-6" style="font-size: 18px;">
                     @if(is_null($transaction->endorsedOn))
@@ -94,8 +99,13 @@
             <div>
                 <div class="ml-24 mt-4 flex flex-col" style="margin-left: 92px;">
                     <div class="font-robotocondensed font-bold text-deep-green mt-6" style="font-size: 18px;">
+                    @if(is_null($transaction->approvedBy))
                         <p>Approved By:</p>
-                        <p class="px-6 border-2 w-[300px] mt-1" style="border-color: #414833;">{{$transaction->approvedBy}}</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">Pending</p>
+                    @else
+                        <p>Approved By:</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{$transaction->approvedBy}}</p>
+                    @endif
                     </div>
 
                     <div class="font-robotocondensed font-bold text-deep-green mt-6" style="font-size: 18px;">
@@ -112,8 +122,13 @@
             <div>
                 <div class="ml-24 mt-4 flex flex-col" style="margin-left: 92px;">
                     <div class="font-robotocondensed font-bold text-deep-green mt-6" style="font-size: 18px;">
+                    @if(is_null($transaction->releasedBy))
                         <p>Released By:</p>
                         <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">Pending</p>
+                    @else
+                        <p>Released By:</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{$transaction->releasedBy}}</p>
+                    @endif
                     </div>
                     <div class="font-robotocondensed font-bold  text-deep-green mt-6" style="font-size: 18px;">
                     @if(is_null($transaction->releasedOn))

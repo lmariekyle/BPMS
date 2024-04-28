@@ -261,7 +261,7 @@ class ServicesController extends Controller
         }
         $documents = Document::where('docType', $docType)->get();
    
-        return view('services.request', compact('documents', 'doctypename', 'user','sitio'));
+        return view('services.request', compact('documents', 'doctypename', 'user', 'userAuth','sitio'));
     }
 
 
@@ -386,6 +386,8 @@ class ServicesController extends Controller
 
         $user = Auth::user();
         $doctype = Document::where('id', $request->selectedDocument)->first();
+
+        
         $docNumber = $this->docNumber($doctype);
 
         $residents = Resident::all();
@@ -413,7 +415,7 @@ class ServicesController extends Controller
 
                 $transactionpayment = $transaction->transactionpayment()->create([
                     'paymentMethod' => $request->paymentMethod,
-                    'amountPaid' => NULL,
+                    'amountPaid' => $doctype->docfee,
                     'orNumber' => 'Pending',
                     'paymentStatus' => 'Pending',
                     'referenceNumber' => NULL,
@@ -821,6 +823,8 @@ class ServicesController extends Controller
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CL']);
         } else if ($doctype->docType == "File Complain") {
             $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-FC']);
+        } else if ($doctype->docType == "Account Information Change") {
+            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'ACC-CHANGE']);
         }
     
         return $docId;

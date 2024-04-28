@@ -52,12 +52,12 @@
                         </div>
                         <div class="mt-6 flex flex-row text-[23px]">
                             <div class="">
-                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->email}}" name="requesteeEmail" required>
+                                <input class="px-2 focus:outline-none border-2 w-max bg-white text-deep-green" style="border-color: #414833;" value="{{$userAuth->email}}" name="requesteeEmail" required>
                                 <br>
                                 <label>* EMAIL ADDRESS</label>
                             </div>
                             <div class="ml-20">
-                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->contactNumber}}" name="requesteeContactNumber" required>
+                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" value="{{$userAuth->contactNumber}}" name="requesteeContactNumber" required>
                                 <br>
                                 <label>* CONTACT NUMBER</label>
                             </div>

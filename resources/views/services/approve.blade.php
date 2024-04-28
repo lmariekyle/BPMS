@@ -75,4 +75,17 @@
         </div>
     </div>
 
+    <script>
+            document.getElementById('captainstatus').addEventListener('click', function(event) {
+            event.stopPropagation(); // Stop event propagation
+            var selectedValue = this.value;
+            var submitButton = document.getElementById('submitButton');
+            console.log(selectedValue);
+            if (selectedValue == 0) {
+                submitButton.disabled = true;
+            } else {
+                submitButton.disabled = false;
+            }
+        });
+    </script>
 </x-app-layout>

@@ -54,10 +54,14 @@
                 height: '100%',
                 backgroundColor: 'none',
                 chartArea: {
-                    height: "70%",
-                    width: "70%"
+                    height: "80%",
+                    width: "80%"
                 },
-                colors: ['green']
+                colors: ['green'],
+                legend: 'none',
+                vAxis: {
+                    format: '0'
+                }
             };
 
             var chart = new google.visualization.ColumnChart(document.getElementById('residentBarchart'));
@@ -83,10 +87,14 @@
                 color: 'green',
                 backgroundColor: 'none',
                 chartArea: {
-                    height: "70%",
-                    width: "70%"
+                    height: "80%",
+                    width: "80%"
                 },
                 colors: ['green'],
+                legend: 'none',
+                vAxis: {
+                    format: '0'
+                }
             };
 
             var chart = new google.visualization.ColumnChart(document.getElementById('householdBarchart'));
@@ -107,8 +115,7 @@
 
             var options = {
                 chart: {
-                    title: 'Educational Attainment Per Quarter',
-                    backgroundColor: 'none',
+                    title: 'Educational Attainment Per Quarter'
                 }
             };
 
@@ -131,8 +138,7 @@
             var options = {
                 chart: {
                     title: 'Income Per Quarter',
-                    subtitle: 'Per Value Range',
-                    backgroundColor: 'none',
+                    subtitle: 'Per Value Range'
                 }
             };
 
@@ -153,9 +159,9 @@
 
             var options = {
                 chart: {
-                    title: 'Resident Population Per Quarter Recorded',
-                    backgroundColor: 'none',
-                }
+                    title: 'Resident Population Per Quarter Recorded'
+                },
+                backgroundColor: 'transparent'
             };
 
             var chart = new google.charts.Bar(document.getElementById('AllReschart'));
@@ -175,8 +181,7 @@
 
             var options = {
                 chart: {
-                    title: 'Households Per Quarter Recorded',
-                    backgroundColor: 'none',
+                    title: 'Households Per Quarter Recorded'
                 }
             };
 
@@ -200,12 +205,13 @@
                 title: 'Amount Paid Per Quarter',
                 width: '100%',
                 height: '100%',
-                backgroundColor: 'none',
+                backgroundColor: 'transparent',
                 chartArea: {
                     height: "70%",
                     width: "70%"
                 },
-                colors: ['green']
+                colors: ['green'],
+                legend: 'none'
             };
 
             var chart = new google.visualization.ColumnChart(document.getElementById('Paychart'));
@@ -228,12 +234,13 @@
                 title: 'Amount Refunded Per Quarter',
                 width: '100%',
                 height: '100%',
-                backgroundColor: 'none',
+                backgroundColor: 'transparent',
                 chartArea: {
                     height: "70%",
                     width: "70%"
                 },
-                colors: ['red']
+                colors: ['red'],
+                legend: 'none'
             };
 
             var chart = new google.visualization.ColumnChart(document.getElementById('Refundchart'));
@@ -255,8 +262,7 @@
             var options = {
                 chart: {
                     title: 'Differences Between Paid and Refunded Transactions',
-                    subtitle: 'Per Quarter',
-                    backgroundColor: 'none',
+                    subtitle: 'Per Quarter'
                 }
             };
 
@@ -278,8 +284,7 @@
 
             var options = {
                 chart: {
-                    title: 'Household IP',
-                    backgroundColor: 'none',
+                    title: 'Household IP'
                 }
             };
 
@@ -301,8 +306,7 @@
 
             var options = {
                 chart: {
-                    title: 'Household NHTS',
-                    backgroundColor: 'none',
+                    title: 'Household NHTS'
                 }
             };
 
@@ -324,8 +328,7 @@
 
             var options = {
                 chart: {
-                    title: 'Household Water Access',
-                    backgroundColor: 'none',
+                    title: 'Household Water Access'
                 }
             };
 
@@ -347,8 +350,7 @@
 
             var options = {
                 chart: {
-                    title: 'Household Toilet Facilities',
-                    backgroundColor: 'none',
+                    title: 'Household Toilet Facilities'
                 }
             };
 
@@ -370,8 +372,7 @@
 
             var options = {
                 chart: {
-                    title: 'Pregnancy',
-                    backgroundColor: 'none',
+                    title: 'Pregnancy'
                 }
             };
 
@@ -514,7 +515,7 @@
 
                         <div class="float-left bg-transparent h-16 w-max" style="margin-left: 50px;">
                             <x-label for="ageclass" :value="__('Age Classification')" />
-                            <select id="ageclass" class="rounded-lg border-2 mt-1 w-40 bg-transparent" name="ageclass" :value="old('ageclass')" required autofocus>
+                            <select id="ageclass" class="rounded-lg border-2 mt-1 w-46 bg-transparent" name="ageclass" :value="old('ageclass')" required autofocus>
                                 <option value="NULL">Select Age Range</option>
                                 @foreach ($ageClassification as $age)
                                 <option value="{{$age->ageGroup}}" class="bg-dirty-white">{{ $age->ageGroup }}</option>
@@ -619,7 +620,7 @@
                                 <input type="checkbox" id="detailsResCheckBox" class="mt-[3.8px]" onchange="viewMoreResDetails()">
                                 <label for="detailsResCheckBox" class="ml-[8px]">Show more details for comparison</label>
                             </div>
-                            <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
+                            <div class="flex flex-col self-start bg-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
                                 <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
                                     <h1 class="font-poppin text-[18px] text-dirty-white text-center">
                                         @if(!($request->sitio))
@@ -627,15 +628,17 @@
                                         @elseif ($request->sitio=="NULL")
                                         TOTAL RESIDENTS PER SITIO
                                         @else
-                                        RESIDENTS IN {{ $nameSitio }}
+                                        TOTAL RESIDENTS IN {{ $nameSitio }}
                                         @endif
                                     </h1>
                                 </div>
                                 @if (($request->sitio || $request->gender || $request->ageclass))
-                                <div class="w-[1050px] h-[600px]" id="residentBarchart" style=""></div>
-                                <div class="w-[1050px] h-[600px]" id="AllReschart" style="display: none;"></div>
+                                <div class="w-[1050px] h-[700px]">
+                                    <div class="w-[1050px] h-[700px]" id="residentBarchart" style=""></div>
+                                    <div class="ml-10 mt-6 w-[950px] h-[700px]" id="AllReschart" style="display: none;"></div>
+                                </div>
                                 <a class="info w-[13px] self-end"><i class="fa fa-question-circle-o text-[12px]"></i></a>
-                                <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end mt-[15rem] mr-8">
+                                <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end mt-[24rem] mr-8">
                                     <div class="mb-2 w-80 text-justify">
                                         <p class="py-2 text-xl">LEGEND</p>
                                         <p>FORMAT: Sitio Name (Gender - Age Classification)*</p>
@@ -675,7 +678,7 @@
                                 <input type="checkbox" id="detailsHhCheckBox" class="mt-[3.8px]" onchange="viewMoreHhDetails()">
                                 <label for="detailsHhCheckBox" class="ml-[8px]">Show more details for comparison</label>
                             </div>
-                            <div class="flex flex-col self-start bg-dirty-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
+                            <div class="flex flex-col self-start bg-white shadow-lg border-2 border-green mt-[2rem] ml-2 px-3 py-2">
                                 <div class="px-4 py-3 bg-deep-green border-4 border-dirty-white rounded-md w-max self-center -mt-8">
                                     <h1 class="font-poppin text-[18px] text-dirty-white text-center">
                                         @if(!($request->sitio))
@@ -683,16 +686,18 @@
                                         @elseif ($request->sitio=="NULL")
                                         TOTAL HOUSEHOLDS PER SITIO
                                         @else
-                                        HOUSEHOLDS IN {{ $nameSitio }}
+                                        TOTAL HOUSEHOLDS IN {{ $nameSitio }}
                                         @endif
                                     </h1>
                                 </div>
                                 <div class="">
                                     @if(($request->sitio || $request->gender || $request->ageclass))
-                                    <div class="w-[1050px] h-[600px]" id="householdBarchart" style=""></div>
-                                    <div class="w-[1050px] h-[600px]" id="AllHhchart" style="display: none;"></div>
+                                    <div class="w-[1050px] h-[700px]">
+                                        <div class="w-[1050px] h-[700px]" id="householdBarchart" style=""></div>
+                                        <div class="ml-10 mt-6 w-[950px] h-[700px]" id="AllHhchart" style="display: none;"></div>
+                                    </div>
                                     @else
-                                    <div class="w-[1050px] h-[600px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center"></div>
+                                    <div class="w-[1050px] h-[700px] mt-2 mx-auto font-poppin text-[18px] text-dirty-white text-center"></div>
                                     @endif
                                 </div>
                             </div>
@@ -704,26 +709,46 @@
                         </div>
                         <div id="addInfoDisplay" class="mt-[2rem] w-[1050px] self-center" style="display: none;">
                             <div id="resAddInfo" style="display: none;">
-                                <p class="font-bold text-[22px] my-2">Resident Additional Information</p>
-                                <div class="h-[700px] w-[1050px]" id="monthInchart"></div>
-                                <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
-                                    <div id="Paychart" class="w-[525px]"></div>
-                                    <div id="Refundchart" class="w-[525px]"></div>
+                                <p class="font-bold text-[22px] mt-2 mb-6">Resident Additional Information</p>
+                                <div class="border-2 border-green bg-white px-6 py-6">
+                                    <div class="h-[620px] w-[970px]" id="monthInchart"></div>
                                 </div>
-                                <div id="prCountchart" class="mt-[2rem] w-[1050px] h-[275px]"></div>
-                                <div id="Educhart" class="mt-[2rem] w-[1050px] h-[275px]"></div>
-                                <div id="Pregchart" class="mt-[2rem] w-[1050px] h-[275px]"></div>
+                                <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
+                                    <div class="w-[510px] bg-white border-2 border-green px-2 py-2">
+                                        <div id="Paychart" class="w-[475px] h-[300px] mt-4 ml-6"></div>
+                                    </div>
+                                    <div class="w-[510px] ml-8 bg-white border-2 border-green px-2 py-2">
+                                        <div id="Refundchart" class="w-[475px] h-[300px] mt-4 ml-6"></div>
+                                    </div>
+                                </div>
+                                <div class="mt-[2rem] w-[1050px] h-[275px] px-4 py-4 border-2 border-green bg-white">
+                                    <div id="prCountchart" class="w-[970px] h-[250px]"></div>
+                                </div>
+                                <div class="mt-[2rem] w-[1050px] h-[275px] px-4 py-4 border-2 border-green bg-white">
+                                    <div id="Educhart" class="w-[970px] h-[250px]"></div>   
+                                </div>
+                                <div class="mt-[2rem] w-[1050px] h-[275px] px-4 py-4 border-2 border-green bg-white">
+                                    <div id="Pregchart" class="w-[970px] h-[250px]"></div>   
+                                </div>
                                 <div class="my-[2rem] border-2 border-green"></div>
                             </div>
                             <div id="hhAddInfo" style="display: none;">
                                 <p class="font-bold text-[22px] my-2">Household Additional Information</p>
                                 <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
-                                    <div id="IPchart" class="w-[520px]"></div>
-                                    <div id="NHTSchart" class="w-[520px] ml-[5px]"></div>
+                                    <div class="w-[510px] bg-white border-2 border-green px-2 py-2">
+                                        <div id="IPchart" class="w-[455px] h-[300px] mt-4 ml-6"></div>
+                                    </div>
+                                    <div class="w-[510px] ml-8 bg-white border-2 border-green px-2 py-2">
+                                        <div id="NHTSchart" class="w-[455px] h-[300px] mt-4 ml-6"></div>
+                                    </div>
                                 </div>
                                 <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
-                                    <div id="Waterchart" class="w-[520px]"></div>
-                                    <div id="Toiletchart" class="w-[520px] ml-[5px]"></div>
+                                    <div class="w-[510px] bg-white border-2 border-green px-2 py-2">
+                                        <div id="Waterchart" class="w-[455px] h-[300px] mt-4 ml-6"></div>
+                                    </div>
+                                    <div class="w-[510px] ml-8 bg-white border-2 border-green px-2 py-2">
+                                        <div id="Toiletchart" class="w-[455px] h-[300px] mt-4 ml-6"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
