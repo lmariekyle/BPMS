@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Resident;
 use App\Models\Document;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +32,7 @@ class DocumentController extends Controller
         ]);
 
         $userData = Resident::where('id', $request->residentID)->first();
+        $user = User::where('residentID', $userData->id)->first();
         $userData->makeVisible('firstName', 'middleName', 'lastName', 'contactNumber');
 
         $documents = Document::where('docType', $request->docType)->get();
