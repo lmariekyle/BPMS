@@ -59,31 +59,19 @@ class AuthenticationAPIController extends Controller
             }
 
             $statistics = Statistics::where('year', $currentYear)->where('quarter', $currentQuarter)->first();
-            
-            $statistic = null;
-            //if the statistics for the current period does not exist.
-            if($statistics == null){
-                //if the new statistics is the first for the year (Year: 2024 | Date: 01/01->03/31)
-                    //$year =  Statistics::max('year');
-                    $statisticsYear = Statistics::where('year', '<=' ,$currentYear)->get();
-                    $currentYear= Statistics::min('year');
-                    $currentQuarter=1;
 
-                    foreach($statisticsYear as $stat){
-                        
-                        if($stat->year >= $currentYear){
-                            if($stat->quarter >= $currentQuarter){
-                                $statistic = $stat;
-                                $currentQuarter = $statistic->quarter;
-                            }
-                        }
+            $statID = $statistics->id;
+            $statYear = $statistics->year;
+            $statQuarter = $statistics->quarter;
 
-                    }
-                    
-            }else{               
-                $statistic = $statistics;
+            if($statID > 1 && ($statistics->totalResidentsBarangay <= 0 && $statistics->totalHouseholdsBarangay <= 0)){
+                if($statQuarter == 1){
+                    $statistics = Statistics::where('year', $statYear - 1)->where('quarter', 4)->first();
+                }else{
+                    $statistics = Statistics::where('year', $statYear)->where('quarter', $statQuarter - 1)->first();
+                }
             }
-            $response = ['user' => $user, 'statistics' => $statistic, 'image' => $image, 'success' => true];
+            $response = ['user' => $user, 'statistics' => $statistics, 'image' => $image, 'success' => true];
         }else{
             $response = ['user' => $user, 'image' => $image, 'success' => true];
         }
