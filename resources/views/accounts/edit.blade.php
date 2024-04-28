@@ -56,10 +56,10 @@
                                     <input type="text" name="lastName" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$personalInfo->lastName}}" required>
                                 </div>
                                
-                                <div class="">
+                                <div class="mt-4">
                                     <label for="sitio" class="font-roboto">Sitio</label>
                                     <br>
-                                    <select id="sitio" name="sitio" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green">
+                                    <select id="sitio" name="sitio" class="block mb-4 w-[455px] text-[16px] h-[42px] bg-dirty-white rounded text-deep-green">
                                         <option value="{{$user->sitioID}}">{{$personalInfo->sitio}}</option>
                                         @foreach ($sitios as $sitio)
                                             <option value="{{$sitio->id}}">{{ $sitio->sitioName }}</option>
@@ -75,7 +75,12 @@
                                     <br>
                                     <input type="text" name="middleName" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$personalInfo->middleName}}">
                                 </div>
-                                <div class="">
+                                <div class="mt-4">
+                                    <label for="dateOfBirth" class="font-roboto">Date of Birth</label>
+                                    <br>
+                                    <input type="date" name="dateOfBirth" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$personalInfo->dateOfBirth}}">
+                                </div>
+                                <!-- <div class="">
                                     <label for="userlevel" class="font-roboto">Account Type</label>
                                     <br>
                                     <select id="userLevel" name="userLevel" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green">
@@ -84,7 +89,7 @@
                                         <option value="{{$role->name}}">{{$role->name}}</option>
                                         @endforeach
                                     </select>
-                                </div>
+                                </div> -->
                             </div>
                             <br>
                             <div class="max-w-[1250px] w-[1250px] max-h-[66px]">
@@ -94,18 +99,13 @@
                                     <input type="email" name="email" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$user->email}}">
                                 </div>
                                 <div class="mt-4">
-                                    <label for="dateOfBirth" class="font-roboto">Date of Birth</label>
-                                    <br>
-                                    <input type="date" name="dateOfBirth" class="block mb-4 w-[227.5px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$personalInfo->dateOfBirth}}">
-                                </div>
-                            </div>
-                            <br>
-                            <div class="max-w-[1250px] w-[1250px] max-h-[66px]">
-                                <div class="float-left mr-10">
                                     <label for="contactnumber" class="font-roboto">Contact Number</label>
                                     <br>
                                     <input type="text" name="contactNumber" class="block mb-4 w-[455px] h-[42px] bg-dirty-white rounded text-deep-green" value="{{$user->contactNumber}}">
                                 </div>
+                            </div>
+                            <br>
+                            <div class="max-w-[1250px] w-[1250px] max-h-[66px]">
                             </div>
                             <br>
                             <div class="mt-[18px]">

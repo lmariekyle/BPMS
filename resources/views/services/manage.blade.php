@@ -12,6 +12,9 @@
                 <div class="flex flex-row ml-10">
                     <a href="{{ route('services.index') }}"><i class="fa-solid fa-arrow-left text-deep-green text-[28px] py-3"></i></a>
                     <p class="font-robotocondensed text-[32px] font-bold text-deep-green ml-8" style="font-size: 32px;">REQUEST NO. {{ $transaction->id }}</p>
+                    @if($transaction->payment['paymentStatus'] == 'Paid' && isset($transaction->payment['orNumber']))
+                        <a href="{{route('pdf.export', $transaction->id)}}" class="float-right" id="printLink"><i class="fa-solid fa-print text-deep-green text-[28px] mt-3 ml-8"></i></a>
+                    @endif
                 </div>
                 <div class="ml-24 mt-4 flex flex-col" style="margin-left: 92px;">
                     <div class="font-robotocondensed font-bold text-deep-green" style="font-size: 18px;">
@@ -66,35 +69,36 @@
                     @endif
                     </div>
                     <div class="font-robotocondensed font-bold text-[32px] text-deep-green mt-6" style="font-size: 18px;">
-                        <p>Amount Due:</p>
+                        <p>Amount Paid:</p>
                         <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">PHP {{ $transaction->payment['amountPaid'] }}</p>
                     </div>
                     <div class="font-robotocondensed font-bold text-[32px] text-deep-green mt-6" style="font-size: 18px;">
                         <p>Payment Status:</p>
                         <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->payment['paymentStatus'] }}</p>
                     </div>
-                    @if($transaction->payment['paymentStatus'] == 'Paid')
+                    @if($transaction->payment['paymentStatus'] == 'Paid' && isset($transaction->payment['orNumber']))
                     <div class="font-robotocondensed font-bold text-[32px] text-deep-green mt-6" style="font-size: 18px;">
                         <p>O.R Number:</p>
                         <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->payment['orNumber'] }}</p>
                     </div>
-                    <a href="{{route('pdf.export', $transaction->id)}}" class="float-right mt-3" id="printLink"><i class="fa-solid fa-print text-deep-green text-[28px] mt-7 ml-8"></i></a>
                     @endif
                 </div>
             </div>
             @if($transaction->payment['paymentMethod'] == 'GCASH')
-            <div class="ml-20 mt-20">
+            <div class="ml-20 mt-16">
                 <p class="font-robotocondensed font-bold text-[18px] text-deep-green">Payment Receipt:</p>
-                <img src="{{ Storage::url($transaction->payment['screenshot']) }}" alt="Image {{ $key }}" class="mt-4 border-2 border-deep-green shadow-sm w-[280px] h-[400px]">
+                <img src="{{ Storage::url($transaction->payment['screenshot']) }}" alt="Image {{ $key }}" class="mt-4 border-2 border-deep-green shadow-sm w-[280px] h-[500px]">
             </div>
             @endif
         </div>
         @role('Barangay Secretary')
         @if ($transaction->serviceStatus == 'Pending')
         <div class="justify-center flex flex-row mt-8">
-                <button id="remarks" type="submit" class="text-center w-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;">Approve Request </button>
-            <form method="POST" action="{{ route('accepted', $transaction->id) }}">
-                <div id="RemarksModal" class="modal hidden fixed z-10 pt-28 top-0 mt-[120px] w-[800px] h-max drop-shadow-lg -ml-[20rem] border-deep-green">
+
+                    <button id="remarks" type="button" class="text-center w-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;">Approve Request </button>
+       
+                <form method="POST" action="{{ route('accepted', $transaction->id) }}">
+                <div id="RemarksModal" class="modal fixed z-10 pt-28 top-0 mt-[120px] w-[800px] h-max drop-shadow-lg -ml-[20rem] border-deep-green" style="display: none">
                         <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
                                 @csrf
                                 <span class="close font-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
@@ -110,10 +114,10 @@
                             </form>
                         </div>
                     </div>
-            </form>
-                <button id="remarksDeny" type="submit" class="text-center w-max ml-8 font-robotocondensed font-bold text-[22px] text-dirty-white px-4 py-2" style="width: 300px; font-size: 22px; background-color: #D86F4D;">Deny Request</button>
+                </form>
+                <button id="remarksDeny" type="button" class="text-center w-max ml-8 font-robotocondensed font-bold text-[22px] text-dirty-white px-4 py-2" style="width: 300px; font-size: 22px; background-color: #D86F4D;">Deny Request</button>
             <form method="POST" action="{{ route('deny', $transaction->id) }}">
-                    <div id="DenyRemarksModal" class="modal hidden fixed z-10 pt-28 top-0 mt-[120px] w-[800px] h-max drop-shadow-lg -ml-[40rem] border-deep-green">
+            <div id="DenyRemarksModal" class="modal fixed z-10 pt-28 top-0 mt-[120px] w-[800px] h-max drop-shadow-lg -ml-[40rem] border-deep-green" style="display: none">
                         <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
                                 @csrf
                                 <span class="closedeny font-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
@@ -164,11 +168,11 @@
                                     <option value="Paid" class="">Paid</option>
                         </select>
                     </div>
-                    <a href="{{route('pdf.export', $transaction->id)}}" class="float-right mt-3" id="printLink" style="display:none"><i class="fa-solid fa-print text-deep-green text-[28px] mt-7 ml-8"></i></a>
+                    <!-- <a href="{{route('pdf.export', $transaction->id)}}" class="float-right mt-3" id="printLink" style="display:none"><i class="fa-solid fa-print text-deep-green text-[28px] mt-7 ml-8"></i></a> -->
                     <button type="submit" class="mt-7 ml-8 text-center w-[200px] h-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-2 py-2" id="submitButton" disabled>Confirm Pickup</button>
                     @endif
                     @if ($transaction->payment->paymentStatus == 'Paid')
-                        <a href="{{route('pdf.export', $transaction->id)}}" class="float-right mt-3" id="printLink"><i class="fa-solid fa-print text-deep-green text-[28px] mt-7 ml-8"></i></a>
+                        <!-- <a href="{{route('pdf.export', $transaction->id)}}" class="float-right mt-3" id="printLink"><i class="fa-solid fa-print text-deep-green text-[28px] mt-7 ml-8"></i></a> -->
                         <button type="submit" class="mt-7 ml-8 text-center w-[200px] h-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-2 py-2">Confirm Pickup</button>
                     @endif
                 </div>
@@ -192,74 +196,6 @@
                 submitButton.disabled = false;
             }
         });
-
-    var modal = document.getElementById("RemarksModal");
-    var denymodal = document.getElementById("DenyRemarksModal");
-    var paymodal = document.getElementById("PaymentRemarksModal");
-
-
-    var btn = document.getElementById("remarks");
-    var btnDeny = document.getElementById("remarksDeny");
-    var paymentbtn = document.getElementById("paymentModal");
-
-    var span = document.getElementsByClassName("close")[0];
-    var spandeny = document.getElementsByClassName("closedeny")[0];
-    var spanpayment = document.getElementsByClassName("spanpay")[0];
-
-
-    // Open Modal
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-
-    btnDeny.onclick = function() {
-        denymodal.style.display = "block";
-    }
-
-    // paymentbtn.onclick = function() {
-    //     paymodal.style.display = "block";
-    // }
-
-    // paymentbtn.onclick = function() {
-    //         // Show the paymodal
-    //         paymodal.style.display = "block";
-
-    //         // Log a message to the console
-    //         console.log("Payment button clicked!");
-    //     };
-
-
-    // Close Modal (using the X button)
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    spandeny.onclick = function() {
-        denymodal.style.display = "none";
-    }
-
-    spanpay.onclick = function() {
-        paymodal.style.display = "none";
-    }
-
-    // Close Modal (clicking anywhere else outside the Modal)
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-
-    window.onclick = function(event) {
-        if (event.target == denymodal) {
-            denymodal.style.display = "none";
-        }
-    }
-
-    window.onclick = function(event) {
-        if (event.target == denymodal) {
-            paymodal.style.display = "none";
-        }
-    }
 </script>
 </x-app-layout>
 @endhasanyrole

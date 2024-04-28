@@ -19,7 +19,8 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v3.x.x/dist/alpine.min.js" defer></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      
+        
 
 </head>
 
@@ -58,7 +59,7 @@
                 console.log(data);
                 // Check if the 'user' property exists in the response
                 if (data && data.user && data.relatedInfo) {
-                    const relatedInfo = data.relatedInfo;
+                    const relatedInfo = data.user;
                     const currentInfo = relatedInfo[selectedType];
 
                     console.log('Related Info:', relatedInfo);
@@ -81,7 +82,7 @@
             });
     });
 
-});
+    });
 
     document.addEventListener('DOMContentLoaded', function () {
         function showRequirements() {
@@ -121,6 +122,7 @@
                 break;
             case '6':
                 requirements = "Please specify the name of the Business in the Purpose of Request Field";
+                note = "Ex: Nicko's Kitchen"
                 fee = "PHP 330"
                 break;
             default:
@@ -189,31 +191,78 @@
         });
     });
 
-        document.getElementById('captainstatus').addEventListener('click', function() {
-            var selectedValue = this.value;
-            var submitButton = document.getElementById('submitButton');
-            console.log(selectedValue);
-            if (selectedValue == 0) {
-                submitButton.disabled = true;
-            } else {
-                submitButton.disabled = false;
-            }
-        });
+    // document.getElementById('captainstatus').addEventListener('click', function(event) {
+    //         event.stopPropagation(); // Stop event propagation
+    //         var selectedValue = this.value;
+    //         var submitButton = document.getElementById('submitButton');
+    //         console.log(selectedValue);
+    //         if (selectedValue == 0) {
+    //             submitButton.disabled = true;
+    //         } else {
+    //             submitButton.disabled = false;
+    //         }
+    //     });
 
-        document.getElementById('cashstatus').addEventListener('click', function() {
-            var selectedValue = this.value;
-            var submitButton = document.getElementById('submitButton');
-            console.log(selectedValue);
-            if (selectedValue == 1) {
-                submitButton.disabled = true;
-            } else {
-                submitButton.disabled = false;
-            }
-        });
+    //     document.getElementById('cashstatus').addEventListener('click', function(event) {
+    //         event.stopPropagation(); // Stop event propagation
+    //         var selectedValue = this.value;
+    //         var submitButton = document.getElementById('submitButton');
+    //         console.log(selectedValue);
+    //         if (selectedValue == 1) {
+    //             submitButton.disabled = true;
+    //         } else {
+    //             submitButton.disabled = false;
+    //         }
+    //     });
 
-        
+        document.addEventListener("DOMContentLoaded", function() {
+        var modal = document.getElementById("RemarksModal");
+        var denymodal = document.getElementById("DenyRemarksModal");
+
+        var btn = document.getElementById("remarks");
+        var btnDeny = document.getElementById("remarksDeny");
+
+        var span = document.getElementsByClassName("close")[0];
+        var spandeny = document.getElementsByClassName("closedeny")[0];
+
+        // Open Modal
+        btn.onclick = function(event) {
+            console.log("Button clicked - Opening Remarks Modal");
+            modal.style.display = "block";
+            event.stopPropagation(); // Stop event propagation
+        }
+
+        btnDeny.onclick = function(event) {
+            console.log("Button clicked - Opening Deny Remarks Modal");
+            denymodal.style.display = "block";
+            event.stopPropagation(); // Stop event propagation
+        }
+
+        // Close Modal (using the X button)
+        span.onclick = function() {
+            console.log("Closing Remarks Modal");
+            modal.style.display = "none";
+        }
+
+        spandeny.onclick = function() {
+            console.log("Closing Deny Remarks Modal");
+            denymodal.style.display = "none";
+        }
+
+        // Close Modal (clicking anywhere else outside the Modal)
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                console.log("Clicked outside Remarks Modal - Closing Remarks Modal");
+                modal.style.display = "none";
+            }
+            if (event.target == denymodal) {
+                console.log("Clicked outside Deny Remarks Modal - Closing Deny Remarks Modal");
+                denymodal.style.display = "none";
+            }
+        }
+    });
+    
     </script>
-
 
 </body>
 

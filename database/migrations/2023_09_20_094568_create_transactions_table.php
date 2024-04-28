@@ -26,7 +26,7 @@ class CreateTransactionsTable extends Migration
             $table->string('endorsedBy')->nullable();
             $table->date('endorsedOn')->nullable();
             $table->string('approvedBy')->nullable();
-            $table->date('approvedOn')->nullable();            
+            $table->date('approvedOn')->nullable();
             $table->string('releasedBy')->nullable();
             $table->date('releasedOn')->nullable();
             $table->string('remarks')->nullable();
@@ -44,4 +44,5 @@ class CreateTransactionsTable extends Migration
     {
         Schema::dropIfExists('transactions');
     }
+    
 }

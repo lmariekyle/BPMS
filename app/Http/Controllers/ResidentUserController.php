@@ -78,9 +78,9 @@ class ResidentUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'firstname' => ['required','regex:/^[a-zA-Z]+$/u','max:12'],
-            'middlename' => ['regex:/^[a-zA-Z]+$/u','max:18'],
-            'lastname' => ['required','regex:/^[a-zA-Z]+$/u','max:18'],
+            'firstname' => ['required','regex:/^[a-zA-Z\s]+$/u','max:24'],
+            'middlename' => ['nullable', 'regex:/^[a-zA-Z\s]+$/u', 'max:18'],
+            'lastname' => ['required','regex:/^[a-zA-Z\s]+$/u','max:18'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed'],
             'profileImage' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
@@ -140,7 +140,6 @@ class ResidentUserController extends Controller
                     event(new Registered($user)); //send email verification
                     return Redirect::back()->with('success', 'Email verification has been sent');
                 
-           
         }
 
         // $check_res = DB::table('residents')

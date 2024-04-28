@@ -10,6 +10,7 @@ class Complain extends Model
     use HasFactory;
 
     protected $fillable = [
+        'transactionID',
         'complaintFName',
         'complaintMName',
         'complaintLName',

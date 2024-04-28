@@ -61,11 +61,25 @@
                                 <option value="1" class="">Approve Request</option>
                                 <option value="2" class="">Deny Request</option>
                         </select>
-                        <button type="submit" class="ml-5 text-center w-[200px] rounded-md h-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-2 py-2">Update Request</button>
+                        <button type="submit" class="ml-5 text-center w-[200px] rounded-md h-max font-robotocondensed font-bold text-[22px] text-dirty-white bg-deep-green px-2 py-2" id="submitButton" disabled>Update Request</button>
                     </form> 
                     @endrole
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+            document.getElementById('status').addEventListener('click', function(event) {
+            event.stopPropagation(); // Stop event propagation
+            var selectedValue = this.value;
+            var submitButton = document.getElementById('submitButton');
+            console.log(selectedValue);
+            if (selectedValue == 0) {
+                submitButton.disabled = true;
+            } else {
+                submitButton.disabled = false;
+            }
+        });
+    </script>
 </x-page-layout>

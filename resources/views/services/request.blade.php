@@ -32,32 +32,32 @@
                         <p class="font-poppins text-[24px] text-deep-green mt-[2rem] underline underline-offset-8">REQUESTEE INFORMATION</p>
                         <div class="mt-[1rem] flex flex-row text-[23px]">
                             <div class="">
-                                <input type="hidden" name="requesteeFName" value="{{$user->firstName}}">
-                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->firstName}}" name="requesteeFName" required disabled>
+                                <!-- <input type="hidden" name="requesteeFName" value="{{$user->firstName}}"> -->
+                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->firstName}}" name="requesteeFName" required >
                                 <br>
                                 <label>* FIRST NAME</label>
                             </div>
                             <div class="ml-8">
-                                <input type="hidden" name="requesteeLName" value="{{$user->lastName}}">
-                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->lastName}}" name="requesteeLName" required disabled>
+                                <!-- <input type="hidden" name="requesteeLName" value="{{$user->lastName}}"> -->
+                                <input class="px-2 focus:outline-none border-2 w-[200px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->lastName}}" name="requesteeLName" required >
                                 <br>
                                 <label>* LAST NAME</label>
                             </div>
                             <div class="ml-10">
                                 <input type="hidden" name="requesteeMName" value="{{$user->middleName}}">
-                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->middleName}}" name="requesteeMName" disabled>
+                                <input class="px-2 focus:outline-none border-2 w-[175px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->middleName}}" name="requesteeMName">
                                 <br>
                                 <label>MIDDLE NAME</label>
                             </div>
                         </div>
                         <div class="mt-6 flex flex-row text-[23px]">
                             <div class="">
-                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->email}}" name="requesteeEmail" required>
+                                <input class="px-2 focus:outline-none border-2 w-max bg-white text-deep-green" style="border-color: #414833;" value="{{$userAuth->email}}" name="requesteeEmail" required>
                                 <br>
                                 <label>* EMAIL ADDRESS</label>
                             </div>
                             <div class="ml-20">
-                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" value="{{$user->contactNumber}}" name="requesteeContactNumber" required>
+                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" value="{{$userAuth->contactNumber}}" name="requesteeContactNumber" required>
                                 <br>
                                 <label>* CONTACT NUMBER</label>
                             </div>
@@ -146,10 +146,7 @@
                                 <label>* INFORMATION TO CHANGE</label>
                                 <select class="rounded-lg border-2 w-full h-[50px] text-[26px]" id="info-type" style="border-color: #414833;" name="selectedInformation" required>
                                     <option value="">SELECT INFORMATION</option>
-                                    <option value="firstName">First Name</option>
-                                    <option value="middleName">Middle Name</option>
-                                    <option value="lastName">Last Name</option>
-                                    <option value="email">Email Name</option>
+                                    <option value="email">Email</option>
                                     <option value="contactNumber">Contact Number</option>
                                 </select>
                             </div>
@@ -200,17 +197,17 @@
                         </ul>   
                         @elseif($doctypename == 'ACCOUNT INFORMATION CHANGE')
                             <p class="text-[22px] font-semibold">REQUIREMENT FOR ACCOUNT INFORMATION CHANGE</p>
-                            <p class="font-poppins text-[20px] text-start ml-10 mt-4 font-semibold w-[410px]">FOR CHANGE OF NAME OR BIRTH OF DATE:</p>
+                            <!-- <p class="font-poppins text-[20px] text-start ml-10 mt-4 font-semibold w-[410px]">FOR CHANGE OF NAME OR BIRTH OF DATE:</p> -->
                             <ul class="list-disc ml-12">
-                                <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px] mt-2">Amended Birth Certificate</li>
-                                <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px] mt-4">Certificate of Finality</li>
+                                <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px] mt-2">NO REQUIREMENTS</li>
+                                <!-- <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px] mt-4">Certificate of Finality</li> -->
                             </ul>
                             <div class="py-1">
                                 <p class="text-right mr-[7rem] font-extralight italic text-[16px]">Note: Requirements may vary depending of type of document</p>
                             </div>
                         @endif
                     </div>
-                    @if ($doctypename == 'BARANGAY CERTIFICATE' || $doctypename == 'BARANGAY CLEARANCE' || $doctypename == 'ACCOUNT INFORMATION CHANGE' )
+                    @if ($doctypename == 'BARANGAY CERTIFICATE' || $doctypename == 'BARANGAY CLEARANCE')
                     <div class="ml-[0.25rem] mt-[3rem] font-text[23px]">
                         <div class="h-[300px] w-[605px]">
                             <input type="file" id="fileButton" name="file[]" multiple required>
@@ -229,7 +226,7 @@
             <div class="flex flex-col text-left ml-[3rem] -mt-[2rem]">
             @if($doctypename != 'FILE COMPLAIN' && $doctypename != 'ACCOUNT INFORMATION CHANGE')
                 @if($doctypename == 'BARANGAY CLEARANCE')
-                <div class="w-[300px] -mt-12">
+                <div class="w-[300px] mt-1">
                     <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">CERTIFICATE FEE:</p>
                     <!-- <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">PHP 100</p> -->
                     <div id="feeContainer" class="text-[18px] italic"></div>
@@ -253,7 +250,7 @@
                 <input type="radio" name="paymentMethod" id="cash-on-site" value="Cash-on-PickUp" class="w-[20px] h-[20px] mb-1">
             </div>
             @else
-            <p class="mb-2 font-robotocondensed text-[24px] text-deep-green font-semibold underline underline-offset-8 -mt-[2rem]">THIS SERVICE HAS NO CHARGE</p>
+            <p class="mb-2 font-robotocondensed text-[24px] text-deep-green font-semibold underline underline-offset-8 -mt-[1rem]">THIS SERVICE HAS NO CHARGE</p>
             <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="0" name="docfee">
             <input name="paymentMethod" id="cash-on-site" value="FREE" class="hidden w-[20px] h-[20px] mb-1">
             @endif
