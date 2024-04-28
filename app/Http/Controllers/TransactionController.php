@@ -84,7 +84,11 @@ class TransactionController extends Controller
 
     public function mobileTransactionRequest(Request $request){
 
-        $document = Document::where('id', $request->documentId)->first();
+        if($request->documentId == "Account Information Change"){
+            $document = Document::where('docType', $request->documentId)->first();
+        }else{
+            $document = Document::where('id', $request->documentId)->first();
+        }
         $user = User::where('residentID', $request->userId)->first();
         $user->makeVisible('firstName', 'middleName', 'lastName');
         $date = Carbon::now()->format('Y-m-d');
@@ -203,6 +207,8 @@ class TransactionController extends Controller
                 $userData->success = true;
 
                 return $userData;
+            }else{
+                $response = ['success' => true];
             }
         }else{
             if ($request->paymentMethod == '1'){

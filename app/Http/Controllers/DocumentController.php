@@ -18,10 +18,11 @@ class DocumentController extends Controller
 
         $userData = Resident::where('id', $request->residentID)->first();
         $userData->makeVisible('firstName', 'middleName', 'lastName', 'contactNumber');
+        $userAccount = User::where('residentID', $request->residentID)->first();
 
         $documents = DB::select('select DISTINCT docType from documents');
 
-        $response = ['user' => $userData, 'documents' => $documents, 'success' => true];
+        $response = ['user' => $userData, 'userAccount' => $userAccount, 'documents' => $documents, 'success' => true];
         return $response;
     }
 
