@@ -124,35 +124,21 @@ class BHWController extends Controller
 
         $bhws = [];
 
-        $resultbhws = Resident::paginate(10);
-        $resultbhws ->makeVisible('firstName', 'lastName');
+        $resultbhws = User::where('userlevel','Barangay Health Worker')->paginate(10);
 
-        foreach($resultbhws  as $x=>$bhw){
-            $bhw->fullName = $bhw->firstName . ' ' . $bhw->lastName;
-            $fullName = Str::of($bhw->fullName)->lower();
-            $find = Str::of($search)->lower();
-            
-            if(Str::contains($fullName, $find)){
-                array_push($bhws, $bhw);
-            }
-        }
-
-        if(empty($bhws)){
-            return view('bhw.index')->with('bhws',$bhws);
-        }
-        
-        foreach($bhws as $x=>$bhw){
-            $resident=User::where('residentID',$bhw->id)->first();
-            if($resident->userLevel== "Barangay Health Worker") {
-                $bhw->id=$resident->id;
-                $bhw->idNumber=$resident->idNumber;
-                $bhw->userLevel=$resident->userLevel;
-                $bhw->updated_at=$resident->updated_at;
-                $bhw->userStatus=$resident->userStatus;
-                $sitio=Sitio::where('id',$resident->assignedSitioID)->first();
+        foreach($resultbhws as $bhw){
+            $resident = Resident::where('id', $bhw->residentID)->first();
+            $resident->makeVisible('firstName');
+            $resident->makeVisible('middleName');
+            $resident->makeVisible('lastName');
+            $fullName = $resident->firstName . ' ' . $resident->lastName;
+            if (Str::contains(strtolower($fullName), strtolower($search))){
+                $sitio=Sitio::where('id',$bhw->assignedSitioID)->first();
+                $bhw->firstName = $resident->firstName;
+                $bhw->middleName = $resident->middleName;
+                $bhw->lastName = $resident->lastName;
                 $bhw->assignedSitioName=$sitio->sitioName;
-            }else{
-                unset($bhws[$x]);
+                $bhws[] = $bhw;
             }
         }
         return view('bhw.index')->with('bhws',$bhws);
