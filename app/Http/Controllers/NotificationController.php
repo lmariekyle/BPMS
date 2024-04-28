@@ -22,22 +22,18 @@ class NotificationController extends Controller
             $notification->resident = Resident::where('id',$notification->user['residentID'])->first();
             $notification->document = Document::where('id',$notification->data['transaction']['documentID'])->first();
             $notification->payment = Payment::where('id',$notification->data['transaction']['paymentID'])->first();
-            if($notification->data['transaction']['releasedBy'] != null){
-                if($notification->data['transaction']['releasedBy'] == "Not Applicable"){
-                    if($notification->data['transaction']['endorsedBy'] == "Not Applicable"){
-                        $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
-                    }else{
-                        $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
-                    }
-                } else {
-                    $notification->processedBy = User::where('id',$notification->data['transaction']['releasedBy'])->first();
-                }
-            } else if($notification->data['transaction']['approvedBy'] != null){
-                $notification->processedBy = User::where('id',$notification->data['transaction']['approvedBy'])->first();
-            } else if($notification->data['transaction']['endorsedBy'] != null){
-                $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
-            } else {
+            if($notification->data['transaction']['releasedBy'] == "Denied" || $notification->data['transaction']['releasedBy'] == "Not Eligible"){
                 $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
+            }else if($notification->data['transaction']['serviceStatus'] == 'Pending'){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
+            }else if($notification->data['transaction']['serviceStatus'] == 'Processing' || $notification->data['transaction']['serviceStatus'] == 'Endorsed'){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
+            }else if($notification->data['transaction']['serviceStatus'] == 'Approved'){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['approvedBy'])->first();
+            }else if($notification->data['transaction']['serviceStatus'] == 'Signed'){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
+            }else{
+                $notification->processedBy = User::where('id',$notification->data['transaction']['releasedBy'])->first();
             }
             $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();  
             $notification->processedByUser->makeVisible('firstName', 'middleName', 'lastName');
@@ -60,22 +56,18 @@ class NotificationController extends Controller
             $notification->resident = Resident::where('id',$notification->user['residentID'])->first();
             $notification->document = Document::where('id',$notification->data['transaction']['documentID'])->first();
             $notification->payment = Payment::where('id',$notification->data['transaction']['paymentID'])->first();
-            if($notification->data['transaction']['releasedBy'] != null){
-                if($notification->data['transaction']['releasedBy'] == "Not Applicable"){
-                    if($notification->data['transaction']['endorsedBy'] == "Not Applicable"){
-                        $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
-                    }else{
-                        $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
-                    }
-                } else {
-                    $notification->processedBy = User::where('id',$notification->data['transaction']['releasedBy'])->first();
-                }
-            } else if($notification->data['transaction']['approvedBy'] != null){
-                $notification->processedBy = User::where('id',$notification->data['transaction']['approvedBy'])->first();
-            } else if($notification->data['transaction']['endorsedBy'] != null){
-                $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
-            } else {
+            if($notification->data['transaction']['releasedBy'] == "Denied" || $notification->data['transaction']['releasedBy'] == "Not Eligible"){
                 $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
+            }else if($notification->data['transaction']['serviceStatus'] == 'Pending'){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
+            }else if($notification->data['transaction']['serviceStatus'] == 'Processing' || $notification->data['transaction']['serviceStatus'] == 'Endorsed'){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
+            }else if($notification->data['transaction']['serviceStatus'] == 'Approved'){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['approvedBy'])->first();
+            }else if($notification->data['transaction']['serviceStatus'] == 'Signed'){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
+            }else{
+                $notification->processedBy = User::where('id',$notification->data['transaction']['releasedBy'])->first();
             }
             $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();  
             $notification->processedByUser->makeVisible('firstName', 'middleName', 'lastName');
@@ -97,22 +89,18 @@ class NotificationController extends Controller
         $notification->resident = Resident::where('id',$notification->user['residentID'])->first();
         $notification->document = Document::where('id',$notification->data['transaction']['documentID'])->first();
         $notification->payment = Payment::where('id',$notification->data['transaction']['paymentID'])->first();
-        if($notification->data['transaction']['releasedBy'] != null){
-            if($notification->data['transaction']['releasedBy'] == "Not Applicable"){
-                if($notification->data['transaction']['endorsedBy'] == "Not Applicable"){
-                    $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
-                }else{
-                    $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
-                }
-            } else {
-                $notification->processedBy = User::where('id',$notification->data['transaction']['releasedBy'])->first();
-            }
-        } else if($notification->data['transaction']['approvedBy'] != null){
-            $notification->processedBy = User::where('id',$notification->data['transaction']['approvedBy'])->first();
-        } else if($notification->data['transaction']['endorsedBy'] != null){
-            $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
-        } else {
+        if($notification->data['transaction']['releasedBy'] == "Denied" || $notification->data['transaction']['releasedBy'] == "Not Eligible"){
             $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
+        }else if($notification->data['transaction']['serviceStatus'] == 'Pending'){
+            $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
+        }else if($notification->data['transaction']['serviceStatus'] == 'Processing' || $notification->data['transaction']['serviceStatus'] == 'Endorsed'){
+            $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
+        }else if($notification->data['transaction']['serviceStatus'] == 'Approved'){
+            $notification->processedBy = User::where('id',$notification->data['transaction']['approvedBy'])->first();
+        }else if($notification->data['transaction']['serviceStatus'] == 'Signed'){
+            $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
+        }else{
+            $notification->processedBy = User::where('id',$notification->data['transaction']['releasedBy'])->first();
         }
         $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
         $notification->processedByUser->makeVisible('firstName', 'middleName', 'lastName');
@@ -147,22 +135,18 @@ class NotificationController extends Controller
             $notification->resident = Resident::where('id',$notification->user['residentID'])->first();
             $notification->document = Document::where('id',$notification->data['transaction']['documentID'])->first();
             $notification->payment = Payment::where('id',$notification->data['transaction']['paymentID'])->first();
-            if($notification->data['transaction']['releasedBy'] != null){
-                if($notification->data['transaction']['releasedBy'] == "Not Applicable"){
-                    if($notification->data['transaction']['endorsedBy'] == "Not Applicable"){
-                        $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
-                    }else{
-                        $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
-                    }
-                } else {
-                    $notification->processedBy = User::where('id',$notification->data['transaction']['releasedBy'])->first();
-                }
-            } else if($notification->data['transaction']['approvedBy'] != null){
-                $notification->processedBy = User::where('id',$notification->data['transaction']['approvedBy'])->first();
-            } else if($notification->data['transaction']['endorsedBy'] != null){
-                $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
-            } else {
+            if($notification->data['transaction']['releasedBy'] == "Denied" || $notification->data['transaction']['releasedBy'] == "Not Eligible"){
                 $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
+            }else if($notification->data['transaction']['serviceStatus'] == 'Pending'){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
+            }else if($notification->data['transaction']['serviceStatus'] == 'Processing' || $notification->data['transaction']['serviceStatus'] == 'Endorsed'){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
+            }else if($notification->data['transaction']['serviceStatus'] == 'Approved'){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['approvedBy'])->first();
+            }else if($notification->data['transaction']['serviceStatus'] == 'Signed'){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
+            }else{
+                $notification->processedBy = User::where('id',$notification->data['transaction']['releasedBy'])->first();
             }
             $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
             $notification->processedByUser->makeVisible('firstName', 'middleName', 'lastName');
@@ -188,22 +172,18 @@ class NotificationController extends Controller
             $notification->resident = Resident::where('id',$notification->user['residentID'])->first();
             $notification->document = Document::where('id',$notification->data['transaction']['documentID'])->first();
             $notification->payment = Payment::where('id',$notification->data['transaction']['paymentID'])->first();
-            if($notification->data['transaction']['releasedBy'] != null){
-                if($notification->data['transaction']['releasedBy'] == "Not Applicable"){
-                    if($notification->data['transaction']['endorsedBy'] == "Not Applicable"){
-                        $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
-                    }else{
-                        $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
-                    }
-                } else {
-                    $notification->processedBy = User::where('id',$notification->data['transaction']['releasedBy'])->first();
-                }
-            } else if($notification->data['transaction']['approvedBy'] != null){
-                $notification->processedBy = User::where('id',$notification->data['transaction']['approvedBy'])->first();
-            } else if($notification->data['transaction']['endorsedBy'] != null){
-                $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
-            } else {
+            if($notification->data['transaction']['releasedBy'] == "Denied" || $notification->data['transaction']['releasedBy'] == "Not Eligible"){
                 $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
+            }else if($notification->data['transaction']['serviceStatus'] == 'Pending'){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
+            }else if($notification->data['transaction']['serviceStatus'] == 'Processing' || $notification->data['transaction']['serviceStatus'] == 'Endorsed'){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
+            }else if($notification->data['transaction']['serviceStatus'] == 'Approved'){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['approvedBy'])->first();
+            }else if($notification->data['transaction']['serviceStatus'] == 'Signed'){
+                $notification->processedBy = User::where('id',$notification->data['transaction']['endorsedBy'])->first();
+            }else{
+                $notification->processedBy = User::where('id',$notification->data['transaction']['releasedBy'])->first();
             }
             $notification->processedByUser = Resident::where('id',$notification->processedBy['residentID'])->first();
             $notification->processedByUser->makeVisible('firstName', 'middleName', 'lastName');
