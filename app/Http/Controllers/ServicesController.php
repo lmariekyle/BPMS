@@ -162,7 +162,7 @@ class ServicesController extends Controller
         $user = Auth::user()->userLevel;
         $transaction = Transaction::where('id', $id)->first();
         if ($user == 'Barangay Secretary') {
-            if ($transaction->serviceStatus == 'Processing' || $transaction->serviceStatus == 'For Signature') {
+            if ($transaction->serviceStatus == 'Processing' || $transaction->serviceStatus == 'Approved') {
                 return $this->approve($id);
             } else {
                 return $this->manage($id);
@@ -224,6 +224,7 @@ class ServicesController extends Controller
         $transaction->fill([
             'remarks' => $request->remarks,
             'serviceStatus' => 'Processing',
+            'endorsedBy' => $user->id,
         ]);
         $transaction->save();
 
@@ -706,7 +707,7 @@ class ServicesController extends Controller
             $user = Auth::user();
             $userInfo = Resident::where('id', $user->residentID)->first();
             $transaction->fill([
-                'serviceStatus' => 'For Signature',
+                'serviceStatus' => 'Approved',
                 'approvedBy' => $user->id,
                 'approvedOn' => today(),
             ]);

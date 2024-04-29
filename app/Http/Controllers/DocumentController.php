@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Resident;
 use App\Models\Document;
 use Illuminate\Support\Facades\DB;
@@ -17,10 +18,11 @@ class DocumentController extends Controller
 
         $userData = Resident::where('id', $request->residentID)->first();
         $userData->makeVisible('firstName', 'middleName', 'lastName', 'contactNumber');
+        $userAccount = User::where('residentID', $request->residentID)->first();
 
         $documents = DB::select('select DISTINCT docType from documents');
 
-        $response = ['user' => $userData, 'documents' => $documents, 'success' => true];
+        $response = ['user' => $userData, 'userAccount' => $userAccount, 'documents' => $documents, 'success' => true];
         return $response;
     }
 
@@ -31,6 +33,9 @@ class DocumentController extends Controller
         ]);
 
         $userData = Resident::where('id', $request->residentID)->first();
+        $user = User::where('residentID', $request->residentID)->first();
+        $userData->email = $user->email;
+        $userData->contactNumber = $user->contactNumber;
         $userData->makeVisible('firstName', 'middleName', 'lastName', 'contactNumber');
 
         $documents = Document::where('docType', $request->docType)->get();

@@ -187,13 +187,17 @@ class TransactionController extends Controller
 
     public function mobileTransactionRequest(Request $request){
 
-        $document = Document::where('id', $request->documentId)->first();
+        if($request->documentId == "Account Information Change"){
+            $document = Document::where('docType', $request->documentId)->first();
+        }else{
+            $document = Document::where('id', $request->documentId)->first();
+        }
         $user = User::where('residentID', $request->userId)->first();
         $user->makeVisible('firstName', 'middleName', 'lastName');
         $date = Carbon::now()->format('Y-m-d');
         $certRequirements = [];
-        $doctype = Document::where('id', $request->selectedDocument)->first();
-        $docNumber = $this->docNumber($doctype);
+        $doctype = Document::where('id', $request->documentId)->first();
+        $docNumber = app('App\Http\Controllers\ServicesController')->docNumber($document);
 
         if ($request->hasFile('file')) {
             foreach ($request->file('file') as $file) {
@@ -306,6 +310,8 @@ class TransactionController extends Controller
                 $userData->success = true;
 
                 return $userData;
+            }else{
+                $response = ['success' => true];
             }
         }else{
             if ($request->paymentMethod == '1'){
@@ -389,7 +395,7 @@ class TransactionController extends Controller
     public function createpayment($id)
     {
         $payment = Payment::where('id', $id)->first();
-        $payment->accountNumber = "Pending";
+        $payment->orNumber = "Pending";
         $payment->paymentStatus = 'Pending';
         $payment->save();
         $payment->success = true;
