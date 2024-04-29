@@ -89,7 +89,7 @@ class NotificationController extends Controller
         $notification->resident = Resident::where('id',$notification->user['residentID'])->first();
         $notification->document = Document::where('id',$notification->data['transaction']['documentID'])->first();
         $notification->payment = Payment::where('id',$notification->data['transaction']['paymentID'])->first();
-        if($notification->data['transaction']['releasedBy'] == "Denied" || $notification->data['transaction']['releasedBy'] == "Not Eligible"){
+        if($notification->data['transaction']['serviceStatus'] == "Denied" || $notification->data['transaction']['serviceStatus'] == "Not Eligible"){
             $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
         }else if($notification->data['transaction']['serviceStatus'] == 'Pending'){
             $notification->processedBy = User::where('id',$notification->data['transaction']['userID'])->first();
