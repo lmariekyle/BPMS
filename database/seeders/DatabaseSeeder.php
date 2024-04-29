@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             StatisticsSeeder::class,
             SitioCountSeeder::class,
             DocumentSeeder::class,
-            // PaymentSeeder::class,
+            PaymentSeeder::class,
         ]);
     }
 }

@@ -30,18 +30,18 @@ class PaymentSeeder extends Seeder
         ]);
 
         DocumentDetails::create([
-            'requesteeFName' => 'Peter',
-            'requesteeMName' => 'Benjamin',
-            'requesteeLName' => 'Parker',
-            'requesteeEmail' => 'parker@bpms.com',
-            'requesteeContactNumber' => '09876543211',
+            'requesteeFName' => 'John Carlo',
+            'requesteeMName' => 'Caballo',
+            'requesteeLName' => 'Candella',
+            'requesteeEmail' => 'genericEmail@gmail.com',
+            'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
             'file' => 'file.pdf',
         ]);
 
         Transaction::create([
             'documentID' => '1',
-            'userID' => '4',
+            'userID' => '8',
             'paymentID' => '1',
             'detailID' => '1',
             'docNumber' => '--',
@@ -69,18 +69,18 @@ class PaymentSeeder extends Seeder
         ]);
 
         DocumentDetails::create([
-            'requesteeFName' => 'Peter',
-            'requesteeMName' => 'Benjamin',
-            'requesteeLName' => 'Parker',
-            'requesteeEmail' => 'parker@bpms.com',
-            'requesteeContactNumber' => '09876543211',
+            'requesteeFName' => 'John Carlo',
+            'requesteeMName' => 'Caballo',
+            'requesteeLName' => 'Candella',
+            'requesteeEmail' => 'genericEmail@gmail.com',
+            'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
             'file' => 'file.pdf',
         ]);
 
         Transaction::create([
             'documentID' => '4',
-            'userID' => '4',
+            'userID' => '8',
             'paymentID' => '2',
             'detailID' => '2',
             'docNumber' => '--',
@@ -108,18 +108,18 @@ class PaymentSeeder extends Seeder
         ]);
 
         DocumentDetails::create([
-            'requesteeFName' => 'Peter',
-            'requesteeMName' => 'Benjamin',
-            'requesteeLName' => 'Parker',
-            'requesteeEmail' => 'parker@bpms.com',
-            'requesteeContactNumber' => '09876543211',
+            'requesteeFName' => 'John Carlo',
+            'requesteeMName' => 'Caballo',
+            'requesteeLName' => 'Candella',
+            'requesteeEmail' => 'genericEmail@gmail.com',
+            'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
             'file' => 'file.pdf',
         ]);
 
         Transaction::create([
             'documentID' => '2',
-            'userID' => '4',
+            'userID' => '8',
             'paymentID' => '3',
             'detailID' => '3',
             'docNumber' => '--',

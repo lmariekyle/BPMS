@@ -109,7 +109,7 @@
 
         function drawEducation() {
             var data = google.visualization.arrayToDataTable([
-                ['Year-Quarter', 'Undergraduate', 'Elementary Graduate','Junior High School Graduate','Senior High School Graduate','College Graduate'],
+                ['Year-Quarter', 'None', 'Elementary Graduate','Junior High School Graduate','Senior High School Graduate','College Graduate','Postgraduate'],
                 <?php echo $chartAllEdu ?>
             ]);
 
@@ -710,8 +710,8 @@
                         <div id="addInfoDisplay" class="mt-[2rem] w-[1050px] self-center" style="display: none;">
                             <div id="resAddInfo" style="display: none;">
                                 <p class="font-bold text-[22px] mt-2 mb-6">Resident Additional Information</p>
-                                <div class="border-2 border-green bg-white px-6 py-6">
-                                    <div class="h-[620px] w-[970px]" id="monthInchart"></div>
+                                <div class="h-[650px] w-[1050px] border-2 border-green bg-white px-6 py-6">
+                                    <div class="ml-6 h-[600px] w-[950px]" id="monthInchart"></div>
                                 </div>
                                 <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
                                     <div class="w-[510px] bg-white border-2 border-green px-2 py-2">
@@ -724,8 +724,8 @@
                                 <div class="mt-[2rem] w-[1050px] h-[275px] px-4 py-4 border-2 border-green bg-white">
                                     <div id="prCountchart" class="w-[970px] h-[250px]"></div>
                                 </div>
-                                <div class="mt-[2rem] w-[1050px] h-[275px] px-4 py-4 border-2 border-green bg-white">
-                                    <div id="Educhart" class="w-[970px] h-[250px]"></div>   
+                                <div class="mt-[2rem] w-[1050px] h-[320px] px-4 py-4 border-2 border-green bg-white">
+                                    <div id="Educhart" class="ml-4 w-[970px] h-[295px]"></div>   
                                 </div>
                                 <div class="mt-[2rem] w-[1050px] h-[275px] px-4 py-4 border-2 border-green bg-white">
                                     <div id="Pregchart" class="w-[970px] h-[250px]"></div>   
