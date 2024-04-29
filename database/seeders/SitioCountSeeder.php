@@ -32,14 +32,14 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 2, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 2, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 1],
                 ['sitioID' => 2, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 0],
-                ['sitioID' => 2, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 6],
+                ['sitioID' => 2, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 7],
                 ['sitioID' => 2, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 1],
                 ['sitioID' => 2, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 2, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 2, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 3],
+                ['sitioID' => 2, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 4],
                 ['sitioID' => 2, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 2, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 2, 'statID' => 1, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 6],
+                ['sitioID' => 2, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 1],
+                ['sitioID' => 2, 'statID' => 1, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 7],
             ]
         );
 
@@ -53,17 +53,17 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'S', 'residentCount' => 0],
-                ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 1],
+                ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 2],
                 ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 1],
                 ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 1],
                 ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 6],
-                ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
+                ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 2],
                 ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 10],
+                ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 12],
                 ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 2],
-                ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 3, 'statID' => 1, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 6],
+                ['sitioID' => 3, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 1],
+                ['sitioID' => 3, 'statID' => 1, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 8],
             ]
         );
 
@@ -74,20 +74,20 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
-                ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
+                ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 1],
                 ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'S', 'residentCount' => 1],
                 ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 1],
                 ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 1],
-                ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 3],
+                ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 4],
                 ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 1],
                 ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 6],
                 ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 2],
                 ['sitioID' => 4, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 1],
-                ['sitioID' => 4, 'statID' => 1, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 4],
+                ['sitioID' => 4, 'statID' => 1, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 5],
             ]
         );
 
@@ -96,7 +96,7 @@ class SitioCountSeeder extends Seeder
             [
                 ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'N', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 0],
-                ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
+                ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 1],
                 ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
@@ -104,14 +104,14 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 0],
-                ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 6],
+                ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 8],
                 ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 1],
-                ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 1],
+                ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 3],
+                ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 2],
                 ['sitioID' => 5, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 2],
-                ['sitioID' => 5, 'statID' => 1, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
+                ['sitioID' => 5, 'statID' => 1, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 5],
             ]
         );
 
@@ -120,7 +120,7 @@ class SitioCountSeeder extends Seeder
             [
                 ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'N', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 0],
-                ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
+                ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 1],
                 ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
@@ -128,14 +128,14 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 1],
-                ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 2],
+                ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 3],
                 ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 4],
+                ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 5],
                 ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 6, 'statID' => 1, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
+                ['sitioID' => 6, 'statID' => 1, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 4],
             ]
         );
 
@@ -182,8 +182,8 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 8, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
                 ['sitioID' => 8, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 1],
                 ['sitioID' => 8, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 8, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 8, 'statID' => 1, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 2],
+                ['sitioID' => 8, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 1],
+                ['sitioID' => 8, 'statID' => 1, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
             ]
         );
 
@@ -252,10 +252,10 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 11, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 11, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 11, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 11, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 13],
+                ['sitioID' => 11, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 14],
                 ['sitioID' => 11, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
                 ['sitioID' => 11, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 11, 'statID' => 1, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 7],
+                ['sitioID' => 11, 'statID' => 1, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 8],
             ]
         );
 
@@ -267,19 +267,19 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
-                ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
+                ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 1],
                 ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 1],
-                ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 2],
+                ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 3],
                 ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 2],
                 ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 1, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 12, 'statID' => 1, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 2],
+                ['sitioID' => 12, 'statID' => 1, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
             ]
         );
 
@@ -347,14 +347,14 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 2, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 2, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
                 ['sitioID' => 2, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 0],
-                ['sitioID' => 2, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 5],
+                ['sitioID' => 2, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 6],
                 ['sitioID' => 2, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 1],
                 ['sitioID' => 2, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 2, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 2, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 3],
+                ['sitioID' => 2, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 4],
                 ['sitioID' => 2, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 2, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 2, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 5],
+                ['sitioID' => 2, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 1],
+                ['sitioID' => 2, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 6],
             ]
         );
 
@@ -362,23 +362,23 @@ class SitioCountSeeder extends Seeder
         DB::table('sitio_counts')->insert(
             [
                 ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'N', 'residentCount' => 0],
-                ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 0],
+                ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 1],
                 ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'S', 'residentCount' => 0],
-                ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 1],
+                ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 2],
                 ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 3],
                 ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 1],
                 ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 7],
-                ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
+                ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 1],
                 ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
-                ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 11],
+                ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 1],
+                ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 13],
                 ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 3],
-                ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 3, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 7],
+                ['sitioID' => 3, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 1],
+                ['sitioID' => 3, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 9],
             ]
         );
 
@@ -389,20 +389,20 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
-                ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
+                ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 1],
                 ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'S', 'residentCount' => 1],
                 ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 1],
                 ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 1],
-                ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 3],
+                ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 4],
                 ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 1],
                 ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 6],
                 ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 2],
                 ['sitioID' => 4, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 1],
-                ['sitioID' => 4, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 4],
+                ['sitioID' => 4, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 5],
             ]
         );
 
@@ -411,7 +411,7 @@ class SitioCountSeeder extends Seeder
             [
                 ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'N', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 0],
-                ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
+                ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 1],
                 ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
@@ -419,14 +419,14 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 0],
-                ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 6],
+                ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 8],
                 ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 1],
-                ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 1],
+                ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 3],
+                ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 2],
                 ['sitioID' => 5, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 2],
-                ['sitioID' => 5, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
+                ['sitioID' => 5, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 5],
             ]
         );
 
@@ -435,7 +435,7 @@ class SitioCountSeeder extends Seeder
             [
                 ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'N', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 0],
-                ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
+                ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 1],
                 ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
@@ -443,14 +443,14 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 1],
-                ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 2],
+                ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 3],
                 ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 4],
+                ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 5],
                 ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 6, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
+                ['sitioID' => 6, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 4],
             ]
         );
 
@@ -497,8 +497,8 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 8, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
                 ['sitioID' => 8, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 1],
                 ['sitioID' => 8, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 8, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 8, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 2],
+                ['sitioID' => 8, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 1],
+                ['sitioID' => 8, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
             ]
         );
 
@@ -540,13 +540,13 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 10, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
                 ['sitioID' => 10, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 1],
                 ['sitioID' => 10, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 2],
-                ['sitioID' => 10, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
+                ['sitioID' => 10, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 1],
                 ['sitioID' => 10, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 10, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 10, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 2],
+                ['sitioID' => 10, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 3],
                 ['sitioID' => 10, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
                 ['sitioID' => 10, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 10, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 2],
+                ['sitioID' => 10, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
             ]
         );
 
@@ -563,14 +563,14 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 11, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 2],
                 ['sitioID' => 11, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 2],
                 ['sitioID' => 11, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 1],
-                ['sitioID' => 11, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 2],
+                ['sitioID' => 11, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 3],
                 ['sitioID' => 11, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 11, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 11, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 11, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 13],
+                ['sitioID' => 11, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 15],
                 ['sitioID' => 11, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
                 ['sitioID' => 11, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 11, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 7],
+                ['sitioID' => 11, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 9],
             ]
         );
 
@@ -582,19 +582,19 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
-                ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
+                ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 1],
                 ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 1],
-                ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 2],
+                ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 3],
                 ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 2],
                 ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 12, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 2],
+                ['sitioID' => 12, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
             ]
         );
 
@@ -603,7 +603,7 @@ class SitioCountSeeder extends Seeder
             [
                 ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'N', 'residentCount' => 0],
                 ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 0],
-                ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
+                ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 1],
                 ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
@@ -611,14 +611,14 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 1],
                 ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
                 ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 0],
-                ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 5],
+                ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 6],
                 ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
                 ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 3],
                 ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 13, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 2],
+                ['sitioID' => 13, 'statID' => 2, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 1],
+                ['sitioID' => 13, 'statID' => 2, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
             ]
         );
 
@@ -662,14 +662,14 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 2, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 2, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 1],
                 ['sitioID' => 2, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 0],
-                ['sitioID' => 2, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 6],
+                ['sitioID' => 2, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 7],
                 ['sitioID' => 2, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 2, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 2, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 1],
-                ['sitioID' => 2, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 4],
+                ['sitioID' => 2, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 5],
                 ['sitioID' => 2, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 2, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 1],
-                ['sitioID' => 2, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 6],
+                ['sitioID' => 2, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 2],
+                ['sitioID' => 2, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 7],
             ]
         );
 
@@ -677,23 +677,23 @@ class SitioCountSeeder extends Seeder
         DB::table('sitio_counts')->insert(
             [
                 ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'N', 'residentCount' => 0],
-                ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 0],
+                ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 1],
                 ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
-                ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
+                ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 1],
                 ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'S', 'residentCount' => 0],
-                ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 1],
+                ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 2],
                 ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 3],
                 ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 1],
-                ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 7],
+                ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 8],
                 ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
-                ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 12],
+                ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 1],
+                ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 14],
                 ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 3],
-                ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 3, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 7],
+                ['sitioID' => 3, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 1],
+                ['sitioID' => 3, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 9],
             ]
         );
 
@@ -704,20 +704,20 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
-                ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
+                ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 1],
                 ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'S', 'residentCount' => 1],
                 ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 1],
                 ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 1],
-                ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 3],
+                ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 4],
                 ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 1],
                 ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
                 ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 6],
                 ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 2],
                 ['sitioID' => 4, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 1],
-                ['sitioID' => 4, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 4],
+                ['sitioID' => 4, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 5],
             ]
         );
 
@@ -726,7 +726,7 @@ class SitioCountSeeder extends Seeder
             [
                 ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'N', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 0],
-                ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
+                ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 1],
                 ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
@@ -734,14 +734,14 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 0],
-                ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 6],
+                ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 8],
                 ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 1],
-                ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 1],
+                ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 4],
+                ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 3],
                 ['sitioID' => 5, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 2],
-                ['sitioID' => 5, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
+                ['sitioID' => 5, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 6],
             ]
         );
 
@@ -750,7 +750,7 @@ class SitioCountSeeder extends Seeder
             [
                 ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'N', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 0],
-                ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
+                ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 1],
                 ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
@@ -758,14 +758,14 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 1],
-                ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 2],
+                ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 3],
                 ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 4],
+                ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 5],
                 ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
                 ['sitioID' => 6, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 6, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
+                ['sitioID' => 6, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 4],
             ]
         );
 
@@ -787,9 +787,9 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 7, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 7, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
                 ['sitioID' => 7, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 2],
-                ['sitioID' => 7, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
+                ['sitioID' => 7, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 1],
                 ['sitioID' => 7, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 7, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 2],
+                ['sitioID' => 7, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
             ]
         );
 
@@ -806,14 +806,14 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 8, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 8, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
                 ['sitioID' => 8, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 0],
-                ['sitioID' => 8, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 5],
+                ['sitioID' => 8, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 6],
                 ['sitioID' => 8, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 8, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 8, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 8, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 1],
+                ['sitioID' => 8, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 2],
                 ['sitioID' => 8, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 8, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 8, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 2],
+                ['sitioID' => 8, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 1],
+                ['sitioID' => 8, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 4],
             ]
         );
 
@@ -827,24 +827,24 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 9, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 9, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 9, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'S', 'residentCount' => 0],
-                ['sitioID' => 9, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
+                ['sitioID' => 9, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 1],
                 ['sitioID' => 9, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
                 ['sitioID' => 9, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 0],
-                ['sitioID' => 9, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 2],
+                ['sitioID' => 9, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 3],
                 ['sitioID' => 9, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 9, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 9, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 9, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 2],
+                ['sitioID' => 9, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 3],
                 ['sitioID' => 9, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
                 ['sitioID' => 9, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 9, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 2],
+                ['sitioID' => 9, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
             ]
         );
 
         //Lalin
         DB::table('sitio_counts')->insert(
             [
-                ['sitioID' => 10, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'N', 'residentCount' => 0],
+                ['sitioID' => 10, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'N', 'residentCount' => 1],
                 ['sitioID' => 10, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 0],
                 ['sitioID' => 10, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 10, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
@@ -857,11 +857,11 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 10, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 2],
                 ['sitioID' => 10, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 10, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
-                ['sitioID' => 10, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 10, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 2],
+                ['sitioID' => 10, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 1],
+                ['sitioID' => 10, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 3],
                 ['sitioID' => 10, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
                 ['sitioID' => 10, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 10, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 2],
+                ['sitioID' => 10, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
             ]
         );
 
@@ -873,19 +873,19 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
-                ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
+                ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 1],
                 ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'S', 'residentCount' => 1],
                 ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 2],
                 ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 2],
                 ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 1],
-                ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 2],
+                ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 4],
                 ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 13],
-                ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
+                ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 16],
+                ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 1],
                 ['sitioID' => 11, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 11, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 7],
+                ['sitioID' => 11, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 11],
             ]
         );
 
@@ -897,19 +897,19 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
-                ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
+                ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 1],
                 ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 1],
-                ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 2],
+                ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 3],
                 ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 2],
                 ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
                 ['sitioID' => 12, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 12, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 2],
+                ['sitioID' => 12, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
             ]
         );
 
@@ -918,7 +918,7 @@ class SitioCountSeeder extends Seeder
             [
                 ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'N', 'residentCount' => 0],
                 ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'N', 'residentCount' => 0],
-                ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 0],
+                ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'I', 'residentCount' => 1],
                 ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
@@ -926,14 +926,14 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 1],
                 ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
                 ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 0],
-                ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 5],
+                ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 6],
                 ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
                 ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 3],
                 ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 13, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 2],
+                ['sitioID' => 13, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 1],
+                ['sitioID' => 13, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
             ]
         );
 
@@ -946,18 +946,18 @@ class SitioCountSeeder extends Seeder
                 ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'I', 'residentCount' => 0],
                 ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'U', 'residentCount' => 0],
                 ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'U', 'residentCount' => 0],
-                ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'S', 'residentCount' => 0],
-                ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 0],
+                ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'S', 'residentCount' => 1],
+                ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'S', 'residentCount' => 1],
                 ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'A', 'residentCount' => 0],
                 ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'A', 'residentCount' => 1],
-                ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 3],
+                ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'WRA', 'residentCount' => 4],
                 ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'P', 'residentCount' => 0],
                 ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'AP', 'residentCount' => 0],
                 ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'PP', 'residentCount' => 0],
-                ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 2],
+                ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'AB', 'residentCount' => 3],
                 ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'M', 'ageGroup' => 'SC', 'residentCount' => 0],
                 ['sitioID' => 14, 'statID' => 3, 'genderGroup' => 'F', 'ageGroup' => 'SC', 'residentCount' => 0],
-                ['sitioID' => 14, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 2],
+                ['sitioID' => 14, 'statID' => 3, 'genderGroup' => '--', 'ageGroup' => '--', 'residentCount' => 3],
             ]
         );
         
