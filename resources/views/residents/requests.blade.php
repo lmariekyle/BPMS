@@ -55,7 +55,6 @@
                 <p class="font-robotocondensed text-dirty-white text-[16px] font-bold px-max py-2 ml-44">ACTION</p>
             </div>
 
-            <!--DISPLAY ONLY PLS CHANGE WHEN CODING WITH THE ACTUAL DATABASE-->
             <table id="documents-table" class="mt-10">
                 <tbody>
                    @foreach($userTransactions as $userTransaction)
@@ -64,16 +63,16 @@
                            {{$userTransaction->created_at->format('F d, Y')}}
                         </td>
                         <td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold">
-                        {{$userTransaction->document->docType}}
+                            {{$userTransaction->document->docType}}
                         </td>
                         <td class="px-6 py-4 w-[490px] font-robotocondensed text-deep-green text-[16px] font-bold">
-                        {{$userTransaction->document->docName}}
+                            {{$userTransaction->document->docName}}
                         </td>
                         <td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold ">
-                        {{$userTransaction->transactionpayment->paymentStatus}}
+                            {{$userTransaction->transactionpayment->paymentStatus}}
                         </td>
                         <td class="px-6 py-4 w-[450px] font-robotocondensed text-deep-green text-[16px] font-bold">
-                        {{$userTransaction->serviceStatus}}
+                            {{$userTransaction->serviceStatus}}
                         </td>
                         <td class="px-6 py-4 w-[190px]">
                             <a href="{{route('resident.showrequest', $userTransaction->id)}}" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a>

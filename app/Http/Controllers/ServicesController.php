@@ -67,9 +67,89 @@ class ServicesController extends Controller
             $user = User::where('id', $account->userID)->first();
             $account->resident = Resident::where('id', $user->residentID)->first();
         }
+
         return view('services.index', compact('transactions', 'accounts'));
     }
 
+    public function getTransactions(Request $request){
+        $status = $request->input('status');
+
+        if($status == 'Pending'){
+            $documents = Transaction::with(['document', 'transactionpayment','user.resident'])
+            ->whereHas('transactionpayment', function ($query) {
+                $query->where('paymentStatus', '=', 'Pending');
+            })
+            ->get();
+            foreach ($documents as $document) {
+                // Load the related models based on the IDs stored in the Transaction table
+                $document->load('document', 'transactionpayment', 'user.resident');
+                
+                // Make the resident's firstName and lastName visible
+                if ($document->user->resident) {
+                    $document->user->resident->makeVisible(['firstName', 'lastName']);
+                }
+            }
+        }elseif ($status == 'Paid'){
+            $documents = Transaction::with(['document', 'transactionpayment','user.resident'])
+            ->whereHas('transactionpayment', function ($query) {
+                $query->where('paymentStatus', '=', 'Paid');
+            })
+            ->get();
+            foreach ($documents as $document) {
+                // Load the related models based on the IDs stored in the Transaction table
+                $document->load('document', 'transactionpayment', 'user.resident');
+                
+                // Make the resident's firstName and lastName visible
+                if ($document->user->resident) {
+                    $document->user->resident->makeVisible(['firstName', 'lastName']);
+                }
+            }
+        }elseif ($status == 'Processing'){
+            $documents = Transaction::with(['document', 'transactionpayment','user.resident'])
+            ->whereIn('serviceStatus', ['Pending', 'Processing', 'Endorsed', 'For Signature', 'Signed'])
+            ->get();
+            foreach ($documents as $document) {
+                // Load the related models based on the IDs stored in the Transaction table
+                $document->load('document', 'transactionpayment', 'user.resident');
+                
+                // Make the resident's firstName and lastName visible
+                if ($document->user->resident) {
+                    $document->user->resident->makeVisible(['firstName', 'lastName']);
+                }
+            }
+        }elseif ($status == 'Released'){
+            $documents = Transaction::with(['document', 'transactionpayment','user.resident'])
+            ->where('serviceStatus', '=', 'Released')
+            ->get();
+            foreach ($documents as $document) {
+                // Load the related models based on the IDs stored in the Transaction table
+                $document->load('document', 'transactionpayment', 'user.resident');
+                
+                // Make the resident's firstName and lastName visible
+                if ($document->user->resident) {
+                    $document->user->resident->makeVisible(['firstName', 'lastName']);
+                }
+            }
+        }elseif ($status == 'Denied'){
+            $documents = Transaction::with(['document', 'transactionpayment','user.resident'])
+            ->whereIn('serviceStatus', ['Not Eligible', 'Denied'])
+            ->get();
+            foreach ($documents as $document) {
+                // Load the related models based on the IDs stored in the Transaction table
+                $document->load('document', 'transactionpayment', 'user.resident');
+                
+                // Make the resident's firstName and lastName visible
+                if ($document->user->resident) {
+                    $document->user->resident->makeVisible(['firstName', 'lastName']);
+                }
+            }
+        }
+
+        
+        return response()->json($documents);
+    }
+
+    
     /**
      * Display the specified resource.
      *
@@ -367,6 +447,8 @@ class ServicesController extends Controller
 
     public function storerequest(Request $request)
     {
+
+     
         $certRequirements = [];
         if ($request->hasFile('file')) {
             foreach ($request->file('file') as $file) {
@@ -386,7 +468,7 @@ class ServicesController extends Controller
 
         $user = Auth::user();
         $doctype = Document::where('id', $request->selectedDocument)->first();
-
+       
         
         $docNumber = $this->docNumber($doctype);
 
@@ -415,7 +497,7 @@ class ServicesController extends Controller
 
                 $transactionpayment = $transaction->transactionpayment()->create([
                     'paymentMethod' => $request->paymentMethod,
-                    'amountPaid' => $doctype->docfee,
+                    'amountPaid' => $doctype->fee,
                     'orNumber' => 'Pending',
                     'paymentStatus' => 'Pending',
                     'referenceNumber' => NULL,
@@ -430,10 +512,11 @@ class ServicesController extends Controller
                 $check_res = $residents->where('firstName', '=', $request->complaineeFName)
                 ->where('lastName', '=', $request->complaineeLName)
                 ->first();
+
             if ($check_res !== null) {
 
                 $sitio = Sitio::where('sitioName', $request->complaineeSitio)->first();
-
+      
                 if($sitio !== null){
                 
                     $transactionpayment = Payment::create([
@@ -488,7 +571,6 @@ class ServicesController extends Controller
                 return redirect()->back();
 
             }
-
                     
         } else if ($doctype->docType == "Account Information Change") {
         //  dd($request);
@@ -530,6 +612,7 @@ class ServicesController extends Controller
             // return view('services.gcash', $payment->id);
             return $this->createpayment($payment->id);
         } else {
+            
             return view('services.success');
         }
     }

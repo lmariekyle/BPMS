@@ -23,57 +23,160 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Http\Controllers\ServicesController;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
 
     public function requestList($id){
 
-        $userTransactions=Transaction::where('userID',$id)->paginate(10);
-        $document = Document::where('id', $userTransactions->documentID)->first();
-        return view('residents.requests',compact('userTransactions','document'));
+        $userTransactions = Transaction::where('userID', $id)->paginate(10);
+
+        foreach ($userTransactions as $userTransaction) {
+            // Retrieve the document associated with the transaction
+            $userTransaction->document = Document::find($userTransaction->documentID);
+        }
+
+        // dd($userTransactions);
+        return view('residents.requests',compact('userTransactions'));
     }
 
     public function showRequest($id){
 
+        
         $transaction=Transaction::where('id',$id)->first();
         $requester = DocumentDetails::where('id',$transaction->detailID)->first();
         $doc = Document::where('id',$transaction->documentID)->first();
         $requester->makeVisible('requesteeFName', 'requesteeLName','requesteeContactNumber');
+        $endorsedUser = NULL;
+        $approvedUser = NULL;
+        $releasedUser = NULL;
+
+        if ($transaction->endorsedBy !== null) {
+            $endorsed = User::where('id', $transaction->endorsedBy)->first();
+            if ($endorsed !== null) {
+                $endorsedUser = Resident::where('id', $endorsed->residentID)->first();
+                if ($endorsedUser !== null) {
+                    $endorsedUser->makeVisible('firstName', 'lastName');
+                }
+            }
+        
+            if ($transaction->approvedBy === null) {
+                // return view('residents.show', compact('transaction','doc','requester','endorsedUser'));
+                return view('residents.show', compact('transaction','doc','requester','releasedUser','approvedUser','endorsedUser'));
+            } else {
+                $approved = User::where('id', $transaction->approvedBy)->first();
+                if ($approved !== null) {
+                    $approvedUser = Resident::where('id', $approved->residentID)->first();
+                    if ($approvedUser !== null) {
+                        $approvedUser->makeVisible('firstName', 'lastName');
+                    }
+                }
+        
+                if ($transaction->releasedBy === null) {
+                    // return view('residents.show', compact('transaction','doc','requester','endorsedUser','approvedUser'));
+                    return view('residents.show', compact('transaction','doc','requester','releasedUser','approvedUser','endorsedUser'));
+                } else {
+                    $released = User::where('id', $transaction->releasedBy)->first();
+                    if ($released !== null) {
+                        $releasedUser = Resident::where('id', $released->residentID)->first();
+                        if ($releasedUser !== null) {
+                            $releasedUser->makeVisible('firstName', 'lastName');
+                        }
+                    }
+                    // return view('residents.show', compact('transaction','doc','requester','releasedUser','approvedUser','endorsedUser'));
+                    return view('residents.show', compact('transaction','doc','requester','releasedUser','approvedUser','endorsedUser'));
+                }
+            }
+        }else{
+            return view('residents.show', compact('transaction','doc','requester','releasedUser','approvedUser','endorsedUser'));
+        }
         // $document = Document::where('id', $userTransactions->documentID)->first();
-    
-        return view('residents.show',compact('transaction','requester','doc'));
     }
 
 
     public function getDocuments(Request $request)
     {
         $status = $request->input('status');
+        $userId = Auth::id();
+        
 
         if($status == 'Pending'){
-            $documents = Transaction::with(['document', 'transactionpayment'])
-            ->whereHas('transactionpayment', function ($query) {
-                $query->where('paymentStatus', '=', 'Pending');
+            
+            $documents = Transaction::with(['document', 'transactionpayment','user.resident'])
+            ->whereHas('transactionpayment', function ($query) use ($userId) {
+                $query->where('paymentStatus', '=', 'Pending')
+                      ->where('userID', '=', $userId);
             })
             ->get();
+            foreach ($documents as $document) {
+                // Load the related models based on the IDs stored in the Transaction table
+                $document->load('document', 'transactionpayment', 'user.resident');
+                
+                // Make the resident's firstName and lastName visible
+                if ($document->user->resident) {
+                    $document->user->resident->makeVisible(['firstName', 'lastName']);
+                }
+            }
         }elseif ($status == 'Paid'){
-            $documents = Transaction::with(['document', 'transactionpayment'])
-            ->whereHas('transactionpayment', function ($query) {
-                $query->where('paymentStatus', '=', 'Paid');
+            $documents = Transaction::with(['document', 'transactionpayment','user.resident'])
+            ->whereHas('transactionpayment', function ($query) use ($userId) {
+                $query->where('paymentStatus', '=', 'Paid')
+                      ->where('userID', '=', $userId);
             })
             ->get();
+            foreach ($documents as $document) {
+                // Load the related models based on the IDs stored in the Transaction table
+                $document->load('document', 'transactionpayment', 'user.resident');
+                
+                // Make the resident's firstName and lastName visible
+                if ($document->user->resident) {
+                    $document->user->resident->makeVisible(['firstName', 'lastName']);
+                }
+            }
         }elseif ($status == 'Processing'){
-            $documents = Transaction::with(['document', 'transactionpayment'])
+            $documents = Transaction::with(['document', 'transactionpayment','user.resident'])
             ->whereIn('serviceStatus', ['Pending', 'Processing', 'Endorsed', 'For Signature', 'Signed'])
+            ->where('userID', $userId)
             ->get();
+            foreach ($documents as $document) {
+                // Load the related models based on the IDs stored in the Transaction table
+                $document->load('document', 'transactionpayment', 'user.resident');
+                
+                // Make the resident's firstName and lastName visible
+                if ($document->user->resident) {
+                    $document->user->resident->makeVisible(['firstName', 'lastName']);
+                }
+            }
         }elseif ($status == 'Released'){
-            $documents = Transaction::with(['document', 'transactionpayment'])
+            $documents = Transaction::with(['document', 'transactionpayment','user.resident'])
             ->where('serviceStatus', '=', 'Released')
+            ->where('userID', $userId)
             ->get();
+            
+            foreach ($documents as $document) {
+                // Load the related models based on the IDs stored in the Transaction table
+                $document->load('document', 'transactionpayment', 'user.resident');
+                
+                // Make the resident's firstName and lastName visible
+                if ($document->user->resident) {
+                    $document->user->resident->makeVisible(['firstName', 'lastName']);
+                }
+            }
         }elseif ($status == 'Denied'){
-            $documents = Transaction::with(['document', 'transactionpayment'])
+            $documents = Transaction::with(['document', 'transactionpayment','user.resident'])
             ->whereIn('serviceStatus', ['Not Eligible', 'Denied'])
+            ->where('userID', $userId)
             ->get();
+            foreach ($documents as $document) {
+                // Load the related models based on the IDs stored in the Transaction table
+                $document->load('document', 'transactionpayment', 'user.resident');
+                
+                // Make the resident's firstName and lastName visible
+                if ($document->user->resident) {
+                    $document->user->resident->makeVisible(['firstName', 'lastName']);
+                }
+            }
         }
 
         

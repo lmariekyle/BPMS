@@ -8,8 +8,9 @@
     <form method="POST" action="{{route('services.storerequest' , $doctypename)}}" enctype="multipart/form-data">
         @csrf
         <div class="ml-8">
+
         @include('components.flash')
-    </div>
+        </div>
         <div class="w-[1400px] h-max font-robotocondensed text-[26px] ml-8 mt-14 py-2 border-2 border-black text-deep-green">
             <div class="text-6xl px-6 py-1 -mt-2 bg-green text-dirty-white">
 
@@ -93,7 +94,7 @@
                         </div>
                         <div class="mt-6 flex flex-row text-[23px]">
                             <div class="">
-                                <input class="px-2 focus:outline-none border-2 w-[225px] bg-white text-deep-green" style="border-color: #414833;" name="complaintEmail" value="{{$user->email}}" required>
+                                <input class="px-2 focus:outline-none border-2 w-max bg-white text-deep-green" style="border-color: #414833;" name="complaintEmail" value="{{$userAuth->email}}" required>
                                 <br>
                                 <label>* EMAIL ADDRESS</label>
                             </div>
@@ -229,7 +230,7 @@
                 <div class="w-[300px] mt-1">
                     <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">CERTIFICATE FEE:</p>
                     <!-- <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">PHP 100</p> -->
-                    <div id="feeContainer" class="text-[18px] italic"></div>
+                    <div id="feeContainer" class="text-[22px] italic"></div>
                     <input class="hidden px-2 focus:outline-none border-2 w-[225px] bg-green text-dirty-white" style="border-color: #414833;" value="100" name="docfee">
                 </div>
                 @elseif($doctypename == 'BARANGAY CERTIFICATE')
@@ -241,13 +242,13 @@
                 </div>
                 @endif
             <br>
-            <div class="-mt-[2rem] w-max">
+            <div class="-mt-[2rem] w-max" id="paymentForm">
                 <p class="mb-2 mt-4 font-robotocondensed text-[24px] text-deep-green font-semibold">Available Payment Method:</p>
                 <label for="gcash" class="mr-2 font-robotocondensed text-[22px] text-deep-green font-semibold">GCASH</label>
-                <input type="radio" name="paymentMethod" id="gcash" value="GCASH" class="w-[20px] h-[20px] mb-1">
+                <input type="radio" name="paymentMethod" id="gcash" value="GCASH" class="w-[20px] h-[20px] mb-1" required>
                 <br>
                 <label for="cash-on-site" class="mr-2 font-robotocondensed text-[22px] text-deep-green font-semibold">CASH ON PICK-UP</label>
-                <input type="radio" name="paymentMethod" id="cash-on-site" value="Cash-on-PickUp" class="w-[20px] h-[20px] mb-1">
+                <input type="radio" name="paymentMethod" id="cash-on-site" value="Cash-on-PickUp" class="w-[20px] h-[20px] mb-1" required>
             </div>
             @else
             <p class="mb-2 font-robotocondensed text-[24px] text-deep-green font-semibold underline underline-offset-8 -mt-[1rem]">THIS SERVICE HAS NO CHARGE</p>

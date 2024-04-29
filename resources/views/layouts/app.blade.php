@@ -85,67 +85,89 @@
     });
 
     document.addEventListener('DOMContentLoaded', function () {
-        function showRequirements() {
-            // Get the selected option
-            var selectedOption = document.getElementById('selectedDocument').value;
-            console.log('Selected Option:', selectedOption);
-            var requirements;
-            var note;
-            var fee;
+    function showRequirements() {
+        // Get the selected option
+        var selectedOption = document.getElementById('selectedDocument').value;
+        console.log('Selected Option:', selectedOption);
+        var requirements;
+        var note;
+        var fee;
 
-            // Set requirements based on selected option
-            switch(selectedOption) {
+        // Set requirements based on selected option
+        switch(selectedOption) {
             case '1':
                 requirements = "* Purpose of Request:";
-                note = "Ex: Scholarship Application"
-                fee = "PHP 100"
-            break;
+                note = "Ex: Scholarship Application";
+                fee = "PHP 100";
+                break;
             case '2':
                 requirements = "* Please specify the sitio where the disco will be held: ";
-                note = "Ex: Sitio Labangon"
-                fee = "PHP 530"
+                note = "Ex: Sitio Labangon";
+                fee = "PHP 530";
                 break;
             case '3':
                 requirements = "* Purpose of Request: ";
-                note = "Ex: Senior Citizen Association Membership Update/Application"
-                fee = "FREE"
+                note = "Ex: Senior Citizen Association Membership Update/Application";
+                fee = "FREE";
                 break;
             case '5':
                 requirements = "* Please specify the complete name of your mother (maiden) and father";
-                note = "Ex: Milagrosa Cruz and Peping Fajardo"
-                fee = "PHP 330"
+                note = "Ex: Milagrosa Cruz and Peping Fajardo";
+                fee = "PHP 330";
                 break;
             case '4':
-                requirements = "*Please choose between Financial Assistance or Low Income";
-                note = "Reason for Request of Indigency"
-                fee = "PHP 100"
+                requirements = "* Please choose between Financial Assistance or Low Income";
+                note = "Reason for Request of Indigency";
+                fee = "PHP 100";
                 break;
             case '6':
                 requirements = "Please specify the name of the Business in the Purpose of Request Field";
-                note = "Ex: Nicko's Kitchen"
-                fee = "PHP 330"
+                note = "Ex: Nicko's Kitchen";
+                fee = "PHP 330";
                 break;
             default:
                 requirements = "";
                 note = "";
+                fee = "";
         }
 
+        // Show the corresponding requirements container
+        document.getElementById('requirementsContainer').innerHTML = requirements;
+        document.getElementById('notesContainer').innerHTML = note;
+        document.getElementById('feeContainer').innerHTML = fee;
 
-            // Show the corresponding requirements container
-            document.getElementById('requirementsContainer').innerHTML = requirements;
-            document.getElementById('notesContainer').innerHTML = note;
-            document.getElementById('feeContainer').innerHTML = fee;
+        if (fee === "FREE") {
+            document.getElementById('gcash').disabled = true;
+            document.getElementById('cash-on-site').disabled = true;
+
+            // Add hidden input for free payment
+            var freePaymentInput = document.createElement('input');
+            freePaymentInput.type = 'hidden';
+            freePaymentInput.name = 'paymentMethod';
+            freePaymentInput.value = 'FREE';
+            document.getElementById('paymentForm').appendChild(freePaymentInput);
+        } else {
+            // Enable radio buttons if fee is not "FREE"
+            document.getElementById('gcash').disabled = false;
+            document.getElementById('cash-on-site').disabled = false;
+
+            // Remove hidden input if it exists
+            var freePaymentInput = document.querySelector('input[name="paymentMethod"][value="FREE"]');
+            if (freePaymentInput) {
+                freePaymentInput.parentNode.removeChild(freePaymentInput);
+            }
         }
+    }
 
-        // Call the function initially to show requirements for the default selected option
+    // Call the function initially to show requirements for the default selected option
+    showRequirements();
+
+    // Attach event listener to the dropdown to update requirements when option is changed
+    document.getElementById('selectedDocument').addEventListener('change', function() {
         showRequirements();
-
-        // Attach event listener to the dropdown to update requirements when option is changed
-        document.getElementById('selectedDocument').addEventListener('change', function() {
-            showRequirements();
-        });
-
     });
+});
+
 
     $(document).ready(function () {
         $('.status-link').click(function (e) {

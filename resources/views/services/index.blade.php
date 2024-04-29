@@ -126,7 +126,7 @@
             </div>
 
             <!--DISPLAY ONLY PLS CHANGE WHEN CODING WITH THE ACTUAL DATABASE-->
-            <table id="documents-table" class="mt-10">
+            <table id="secretary-documents-table" class="mt-10">
                 <tbody>
                     @forelse ($transactions as $transaction)
                     <tr class="border shadow-md">
@@ -155,13 +155,60 @@
                         </td>
                     </tr>
                     @endforelse
-                </tbody>
+                </tbody>   
             </table>
-            <div class="flex flex-row justify-evenly mt-4 self-center">
-                {{-- {{$transactions->links()}} --}}
-            </div>    
+
         </div>
         @endhasanyrole
     </div>
+
+    <script>
+    $(document).ready(function () {
+        $('.status-link').click(function (e) {
+            e.preventDefault();
+            var status = $(this).data('status');
+            $.ajax({
+                url: '/get-transactions',
+                method: 'GET',
+                data: { status: status },
+                success: function (response) {
+                    $('#secretary-documents-table tbody').empty();
+                    $.each(response, function(index, document) {
+                        console.log(document);
+                        var residentFName = document.user.resident ? document.user.resident.firstName : 'N/A';
+                        var residentLName = document.user.resident ? document.user.resident.lastName : 'N/A';
+                        var paymentStatus = document.transactionpayment ? document.transactionpayment.paymentStatus : 'N/A';
+                        var docType = document.document ? document.document.docType : 'N/A';
+                        var docName = document.document ? document.document.docName : 'N/A';
+
+                        var monthNames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"];
+                        var createdAt = new Date(document.created_at);
+
+                        // Extract individual components of the date
+                        var month = createdAt.getMonth(); // Months are zero-based, so add 1
+                        var day = createdAt.getDate();
+                        var year = createdAt.getFullYear();
+
+                        // Format the date as Month-Day-Year
+                        var formattedDate = monthNames[month] + ' ' + day + ', ' + year;
+
+                        var newRow = $('<tr class="border shadow-md"></tr>');
+                        newRow.append('<td class="px-6 py-4 w-[295px] font-robotocondensed text-deep-green text-[16px] font-bold">' + document.id + '</td>');
+                        newRow.append('<td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold">' + docName + '</td>');
+                        newRow.append('<td class="px-6 py-4 w-[490px] font-robotocondensed text-deep-green text-[16px] font-bold">' + formattedDate + '</td>');
+                        newRow.append('<td class="px-6 py-4 w-[420px] font-robotocondensed text-deep-green text-[16px] font-bold">' + residentFName + ' ' + residentLName +'</td>');
+                        newRow.append('<td class="px-6 py-4 w-[450px] font-robotocondensed text-deep-green text-[16px] font-bold">' + document.serviceStatus + '</td>');
+                        newRow.append('<td class="px-6 py-4 w-[190px]"><a href="/direction/' + document.id + '" class="text-deep-green hover:text-green"><i class="fa-solid fa-eye"></i></a></td>');
+                        $('#secretary-documents-table tbody').append(newRow);
+                });
+            },
+                error: function (xhr, status, error) {
+                    console.error(error); // Log any errors
+                }
+            });
+        });
+    });
+    </script>
 
 </x-app-layout>

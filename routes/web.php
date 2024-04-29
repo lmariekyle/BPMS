@@ -104,6 +104,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/requestlist/{id}', [TransactionController::class, 'requestList'])->name('resident.requests');
     Route::get('/showRequest/{id}', [TransactionController::class, 'showRequest'])->name('resident.showrequest');
     Route::get('/get-documents', [TransactionController::class, 'getDocuments']);
+    Route::get('/get-transactions', [ServicesController::class, 'getTransactions']);
 });
 
 Route::get('/dashboard', [StatisticsController::class, 'reports'], function () {

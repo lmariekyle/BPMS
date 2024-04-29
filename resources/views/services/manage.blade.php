@@ -189,10 +189,10 @@
             var submitButton = document.getElementById('submitButton');
             console.log(selectedValue);
             if (selectedValue == "Pending") {
-                printLink.style.display = "none";
+       
                 submitButton.disabled = true;
             } else {
-                printLink.style.display = "inline-block";
+        
                 submitButton.disabled = false;
             }
         });

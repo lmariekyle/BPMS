@@ -39,7 +39,7 @@ class Transaction extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class,'id');
+        return $this->belongsTo(User::class,'userID');
     }
 
     public function transactiondetail()
@@ -49,11 +49,12 @@ class Transaction extends Model
 
     public function transactionpayment()
     {
-        return $this->belongsTo(Payment::class, 'id');
+        return $this->belongsTo(Payment::class, 'paymentID');
     }
 
     public function document()
     {
-        return $this->belongsTo(Document::class, 'id');
+        return $this->belongsTo(Document::class, 'documentID');
     }
+
 }
