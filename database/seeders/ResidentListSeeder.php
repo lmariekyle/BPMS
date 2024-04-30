@@ -3447,54 +3447,1010 @@ class ResidentListSeeder extends Seeder
             'revisedBy'=>2,
         ]);
 
-/*      ResidentList::create([
-            'residentID'=>'X',
-            'houseID'=>'X',
-            'houseNumber'=>'1',
+        //Continuation
+        //Cabangyao
+        //-132 Apple
+        ResidentList::create([
+            'residentID'=>'405',
+            'houseID'=>'132',
+            'houseNumber'=>'6',
             'memberNumber'=>1,
             'createdBy'=>2,
             'revisedBy'=>2,
         ]);
         ResidentList::create([
-            'residentID'=>'X',
-            'houseID'=>'X',
-            'houseNumber'=>'1',
+            'residentID'=>'406',
+            'houseID'=>'132',
+            'houseNumber'=>'6',
             'memberNumber'=>2,
             'createdBy'=>2,
             'revisedBy'=>2,
         ]);
         ResidentList::create([
-            'residentID'=>'X',
-            'houseID'=>'X',
-            'houseNumber'=>'1',
+            'residentID'=>'407',
+            'houseID'=>'132',
+            'houseNumber'=>'6',
             'memberNumber'=>3,
             'createdBy'=>2,
             'revisedBy'=>2,
         ]);
+
+        //-133 Apple
         ResidentList::create([
-            'residentID'=>'X',
-            'houseID'=>'X',
-            'houseNumber'=>'1',
+            'residentID'=>'408',
+            'houseID'=>'133',
+            'houseNumber'=>'6',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'409',
+            'houseID'=>'133',
+            'houseNumber'=>'6',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'410',
+            'houseID'=>'133',
+            'houseNumber'=>'6',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+
+        //-134 Apple
+        ResidentList::create([
+            'residentID'=>'411',
+            'houseID'=>'134',
+            'houseNumber'=>'6',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'412',
+            'houseID'=>'134',
+            'houseNumber'=>'6',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+        ResidentList::create([
+            'residentID'=>'413',
+            'houseID'=>'134',
+            'houseNumber'=>'6',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //Catadman
+        //-135 Banana
+        ResidentList::create([
+            'residentID'=>'414',
+            'houseID'=>'135',
+            'houseNumber'=>'6',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'415',
+            'houseID'=>'135',
+            'houseNumber'=>'6',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'416',
+            'houseID'=>'135',
+            'houseNumber'=>'6',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'417',
+            'houseID'=>'135',
+            'houseNumber'=>'6',
             'memberNumber'=>4,
             'createdBy'=>2,
             'revisedBy'=>2,
         ]);
+
+        //-136 Banana
         ResidentList::create([
-            'residentID'=>'X',
-            'houseID'=>'X',
-            'houseNumber'=>'1',
+            'residentID'=>'418',
+            'houseID'=>'136',
+            'houseNumber'=>'6',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'419',
+            'houseID'=>'136',
+            'houseNumber'=>'6',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'420',
+            'houseID'=>'136',
+            'houseNumber'=>'6',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'421',
+            'houseID'=>'136',
+            'houseNumber'=>'6',
+            'memberNumber'=>4,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-137 Banana
+        ResidentList::create([
+            'residentID'=>'422',
+            'houseID'=>'137',
+            'houseNumber'=>'6',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'423',
+            'houseID'=>'137',
+            'houseNumber'=>'6',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'424',
+            'houseID'=>'137',
+            'houseNumber'=>'6',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'425',
+            'houseID'=>'137',
+            'houseNumber'=>'6',
+            'memberNumber'=>4,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'426',
+            'houseID'=>'137',
+            'houseNumber'=>'6',
             'memberNumber'=>5,
             'createdBy'=>2,
             'revisedBy'=>2,
         ]);
+
+        //-138 Butter
         ResidentList::create([
-            'residentID'=>'X',
-            'houseID'=>'X',
-            'houseNumber'=>'1',
-            'memberNumber'=>6,
+            'residentID'=>'427',
+            'houseID'=>'138',
+            'houseNumber'=>'7',
+            'memberNumber'=>1,
             'createdBy'=>2,
             'revisedBy'=>2,
         ]);
-*/
+
+        ResidentList::create([
+            'residentID'=>'428',
+            'houseID'=>'138',
+            'houseNumber'=>'7',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-139 Butter
+        ResidentList::create([
+            'residentID'=>'429',
+            'houseID'=>'139',
+            'houseNumber'=>'7',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'430',
+            'houseID'=>'139',
+            'houseNumber'=>'7',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'431',
+            'houseID'=>'139',
+            'houseNumber'=>'7',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-140 Butter
+        ResidentList::create([
+            'residentID'=>'432',
+            'houseID'=>'140',
+            'houseNumber'=>'7',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'433',
+            'houseID'=>'140',
+            'houseNumber'=>'7',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'434',
+            'houseID'=>'140',
+            'houseNumber'=>'7',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //Guiwanon
+        //-141 Cucumber
+        ResidentList::create([
+            'residentID'=>'435',
+            'houseID'=>'141',
+            'houseNumber'=>'5',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'436',
+            'houseID'=>'141',
+            'houseNumber'=>'5',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-142 Cucumber
+        ResidentList::create([
+            'residentID'=>'437',
+            'houseID'=>'142',
+            'houseNumber'=>'5',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'438',
+            'houseID'=>'142',
+            'houseNumber'=>'5',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-143 Cucumber
+        ResidentList::create([
+            'residentID'=>'439',
+            'houseID'=>'143',
+            'houseNumber'=>'5',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'440',
+            'houseID'=>'143',
+            'houseNumber'=>'5',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //Hawlandia
+        //-144 Durian
+        ResidentList::create([
+            'residentID'=>'441',
+            'houseID'=>'144',
+            'houseNumber'=>'4',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'442',
+            'houseID'=>'144',
+            'houseNumber'=>'4',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'443',
+            'houseID'=>'144',
+            'houseNumber'=>'4',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-145 Durian
+        ResidentList::create([
+            'residentID'=>'444',
+            'houseID'=>'145',
+            'houseNumber'=>'4',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'445',
+            'houseID'=>'145',
+            'houseNumber'=>'4',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'446',
+            'houseID'=>'145',
+            'houseNumber'=>'4',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-146 Durian
+        ResidentList::create([
+            'residentID'=>'447',
+            'houseID'=>'146',
+            'houseNumber'=>'4',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'448',
+            'houseID'=>'146',
+            'houseNumber'=>'4',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'449',
+            'houseID'=>'146',
+            'houseNumber'=>'4',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-147 Dandan
+        ResidentList::create([
+            'residentID'=>'450',
+            'houseID'=>'147',
+            'houseNumber'=>'5',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'451',
+            'houseID'=>'147',
+            'houseNumber'=>'5',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'452',
+            'houseID'=>'147',
+            'houseNumber'=>'5',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-148 Dandan
+        ResidentList::create([
+            'residentID'=>'453',
+            'houseID'=>'148',
+            'houseNumber'=>'5',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'454',
+            'houseID'=>'148',
+            'houseNumber'=>'5',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'455',
+            'houseID'=>'148',
+            'houseNumber'=>'5',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-149 Dandan
+        ResidentList::create([
+            'residentID'=>'456',
+            'houseID'=>'149',
+            'houseNumber'=>'5',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'457',
+            'houseID'=>'149',
+            'houseNumber'=>'5',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'458',
+            'houseID'=>'149',
+            'houseNumber'=>'5',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-150 Eggplant
+        ResidentList::create([
+            'residentID'=>'459',
+            'houseID'=>'150',
+            'houseNumber'=>'6',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'460',
+            'houseID'=>'150',
+            'houseNumber'=>'6',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //Hiltops
+        //-151 Fries
+        ResidentList::create([
+            'residentID'=>'461',
+            'houseID'=>'151',
+            'houseNumber'=>'4',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'462',
+            'houseID'=>'151',
+            'houseNumber'=>'4',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'463',
+            'houseID'=>'151',
+            'houseNumber'=>'4',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-152 Fries
+        ResidentList::create([
+            'residentID'=>'464',
+            'houseID'=>'152',
+            'houseNumber'=>'4',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'465',
+            'houseID'=>'152',
+            'houseNumber'=>'4',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'466',
+            'houseID'=>'152',
+            'houseNumber'=>'4',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-153 Fries
+        ResidentList::create([
+            'residentID'=>'467',
+            'houseID'=>'153',
+            'houseNumber'=>'4',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'468',
+            'houseID'=>'153',
+            'houseNumber'=>'4',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'469',
+            'houseID'=>'153',
+            'houseNumber'=>'4',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //Ilaya
+        //-154 Gum
+        ResidentList::create([
+            'residentID'=>'470',
+            'houseID'=>'154',
+            'houseNumber'=>'3',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //Krasher
+        //-155 Hummus
+        ResidentList::create([
+            'residentID'=>'471',
+            'houseID'=>'155',
+            'houseNumber'=>'3',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-156 Hummus
+        ResidentList::create([
+            'residentID'=>'472',
+            'houseID'=>'156',
+            'houseNumber'=>'3',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-157 Hummus
+        ResidentList::create([
+            'residentID'=>'473',
+            'houseID'=>'157',
+            'houseNumber'=>'3',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-158 Ham
+        ResidentList::create([
+            'residentID'=>'474',
+            'houseID'=>'158',
+            'houseNumber'=>'4',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'475',
+            'houseID'=>'158',
+            'houseNumber'=>'4',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //Labangon
+        //-159 Mango
+        ResidentList::create([
+            'residentID'=>'476',
+            'houseID'=>'159',
+            'houseNumber'=>'3',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'477',
+            'houseID'=>'159',
+            'houseNumber'=>'3',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'478',
+            'houseID'=>'159',
+            'houseNumber'=>'3',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //Lalin
+        //-160 Ice
+        ResidentList::create([
+            'residentID'=>'479',
+            'houseID'=>'160',
+            'houseNumber'=>'3',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'480',
+            'houseID'=>'160',
+            'houseNumber'=>'3',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-161 Ice
+        ResidentList::create([
+            'residentID'=>'481',
+            'houseID'=>'161',
+            'houseNumber'=>'3',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'482',
+            'houseID'=>'161',
+            'houseNumber'=>'3',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'483',
+            'houseID'=>'161',
+            'houseNumber'=>'3',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //Lapaz
+        //-162 Kettle
+        ResidentList::create([
+            'residentID'=>'484',
+            'houseID'=>'162',
+            'houseNumber'=>'7',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-163 Kettle
+        ResidentList::create([
+            'residentID'=>'485',
+            'houseID'=>'163',
+            'houseNumber'=>'7',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-164 Kettle
+        ResidentList::create([
+            'residentID'=>'486',
+            'houseID'=>'164',
+            'houseNumber'=>'7',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-165 Lemon
+        ResidentList::create([
+            'residentID'=>'487',
+            'houseID'=>'165',
+            'houseNumber'=>'8',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'488',
+            'houseID'=>'165',
+            'houseNumber'=>'8',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-166 Lemon
+        ResidentList::create([
+            'residentID'=>'489',
+            'houseID'=>'166',
+            'houseNumber'=>'8',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'490',
+            'houseID'=>'166',
+            'houseNumber'=>'8',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-167 Maha
+        ResidentList::create([
+            'residentID'=>'491',
+            'houseID'=>'167',
+            'houseNumber'=>'9',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'492',
+            'houseID'=>'167',
+            'houseNumber'=>'9',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'493',
+            'houseID'=>'167',
+            'houseNumber'=>'9',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-168 Nectar
+        ResidentList::create([
+            'residentID'=>'494',
+            'houseID'=>'168',
+            'houseNumber'=>'10',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //Sto. Rosario
+        //-169 Orange
+        ResidentList::create([
+            'residentID'=>'495',
+            'houseID'=>'169',
+            'houseNumber'=>'3',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'496',
+            'houseID'=>'169',
+            'houseNumber'=>'3',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-170 Orange
+        ResidentList::create([
+            'residentID'=>'497',
+            'houseID'=>'170',
+            'houseNumber'=>'3',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'498',
+            'houseID'=>'170',
+            'houseNumber'=>'3',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-171 Orange
+        ResidentList::create([
+            'residentID'=>'499',
+            'houseID'=>'171',
+            'houseNumber'=>'3',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'500',
+            'houseID'=>'171',
+            'houseNumber'=>'3',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //Suba
+        //-172 Peach
+        ResidentList::create([
+            'residentID'=>'501',
+            'houseID'=>'172',
+            'houseNumber'=>'3',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'502',
+            'houseID'=>'172',
+            'houseNumber'=>'3',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'503',
+            'houseID'=>'172',
+            'houseNumber'=>'3',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //-173 Peach
+        ResidentList::create([
+            'residentID'=>'504',
+            'houseID'=>'173',
+            'houseNumber'=>'3',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'505',
+            'houseID'=>'173',
+            'houseNumber'=>'3',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'506',
+            'houseID'=>'173',
+            'houseNumber'=>'3',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        //Tamsapa
+        //-174 Radish
+        ResidentList::create([
+            'residentID'=>'507',
+            'houseID'=>'174',
+            'houseNumber'=>'3',
+            'memberNumber'=>1,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'508',
+            'houseID'=>'174',
+            'houseNumber'=>'3',
+            'memberNumber'=>2,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'509',
+            'houseID'=>'174',
+            'houseNumber'=>'3',
+            'memberNumber'=>3,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
+
+        ResidentList::create([
+            'residentID'=>'510',
+            'houseID'=>'174',
+            'houseNumber'=>'3',
+            'memberNumber'=>4,
+            'createdBy'=>2,
+            'revisedBy'=>2,
+        ]);
     }
 }

@@ -2846,5 +2846,988 @@ class HouseholdSeeder extends Seeder
             'remarksOfWaterSupply'=>'no remarks',
             'respondentName'=>'Oscar',
         ]);
+        
+        //Continuation
+        //Cabangyao (1,1,1)
+        //-1
+        Households::create([
+            'id' => '132',
+            'sitioID' => '2',
+            'houseNumber' => '6',
+            'street'=>'Mabini',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NonNHTS',
+                'householdToiletFacilities'=>'Insanitary',
+                'IP'=>'NonIP',
+                'accessToWaterSupply'=>'L1',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>3,
+                'dateOfVisit'=>'2023-7-14',
+                'respondentName'=>'Jimmy',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '133',
+            'sitioID' => '2',
+            'houseNumber' => '6',
+            'street'=>'Mabini',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NonNHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'NonIP',
+                'accessToWaterSupply'=>'L1',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>4,
+                'dateOfVisit'=>'2023-11-12',
+                'respondentName'=>'Jimmy',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '134',
+            'sitioID' => '2',
+            'houseNumber' => '6',
+            'street'=>'Mabini',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'nonNHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'NonIP',
+                'accessToWaterSupply'=>'L1',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-2-10',
+                'respondentName'=>'Jimmy',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+
+        //Catadman (2,2,2)
+        //-1
+        Households::create([
+            'id' => '135',
+            'sitioID' => '3',
+            'houseNumber' => '6',
+            'street'=>'Ibara',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L3',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>3,
+                'dateOfVisit'=>'2023-8-10',
+                'respondentName'=>'Creezy',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '136',
+            'sitioID' => '3',
+            'houseNumber' => '6',
+            'street'=>'Ibara',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NonNHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'NonIP',
+                'accessToWaterSupply'=>'L3',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>4,
+                'dateOfVisit'=>'2023-11-20',
+                'respondentName'=>'Creezy',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '137',
+            'sitioID' => '3',
+            'houseNumber' => '6',
+            'street'=>'Ibara',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NonNHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'NonIP',
+                'accessToWaterSupply'=>'L3',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-3-1',
+                'respondentName'=>'Creezy',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //-2
+        Households::create([
+            'id' => '138',
+            'sitioID' => '3',
+            'houseNumber' => '7',
+            'street'=>'Ibara',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L2',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>3,
+                'dateOfVisit'=>'2023-8-10',
+                'respondentName'=>'Leah',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '139',
+            'sitioID' => '3',
+            'houseNumber' => '7',
+            'street'=>'Ibara',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Insanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'Doubtful',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>4,
+                'dateOfVisit'=>'2023-10-20',
+                'respondentName'=>'Leah',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+
+        Households::create([
+            'id' => '140',
+            'sitioID' => '3',
+            'houseNumber' => '7',
+            'street'=>'Ibara',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L1',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-1-5',
+                'respondentName'=>'Leah',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //Guiwanon (1,1,1)
+        //-1
+        Households::create([
+            'id' => '141',
+            'sitioID' => '4',
+            'houseNumber' => '5',
+            'street'=>'Magbuang',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'nonNHTS',
+                'householdToiletFacilities'=>'Insanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'Doubtful',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>3,
+                'dateOfVisit'=>'2023-8-8',
+                'respondentName'=>'Chesmoosa',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '142',
+            'sitioID' => '4',
+            'houseNumber' => '5',
+            'street'=>'Magbuang',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'nonNHTS',
+                'householdToiletFacilities'=>'Insanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'Doubtful',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>4,
+                'dateOfVisit'=>'2023-12-3',
+                'respondentName'=>'Chesmoosa',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '143',
+            'sitioID' => '4',
+            'houseNumber' => '5',
+            'street'=>'Magbuang',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'nonNHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L1',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-2-15',
+                'respondentName'=>'Chesmoosa',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //Hawlandia (2,2,3)
+        //-1
+        Households::create([
+            'id' => '144',
+            'sitioID' => '5',
+            'houseNumber' => '4',
+            'street'=>'Villar',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Insanitary',
+                'IP'=>'nonIP',
+                'accessToWaterSupply'=>'Doubtful',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>3,
+                'dateOfVisit'=>'2023-8-15',
+                'respondentName'=>'Pasig',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '145',
+            'sitioID' => '5',
+            'houseNumber' => '4',
+            'street'=>'Villar',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Insanitary',
+                'IP'=>'nonIP',
+                'accessToWaterSupply'=>'Doubtful',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>4,
+                'dateOfVisit'=>'2023-10-15',
+                'respondentName'=>'Pasig',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '146',
+            'sitioID' => '5',
+            'houseNumber' => '4',
+            'street'=>'Villar',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'nonIP',
+                'accessToWaterSupply'=>'L2',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-3-28',
+                'respondentName'=>'Pasig',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //-2
+        Households::create([
+            'id' => '147',
+            'sitioID' => '5',
+            'houseNumber' => '5',
+            'street'=>'Villar',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L3',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>3,
+                'dateOfVisit'=>'2023-9-10',
+                'respondentName'=>'Christina',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '148',
+            'sitioID' => '5',
+            'houseNumber' => '5',
+            'street'=>'Villar',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L3',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>4,
+                'dateOfVisit'=>'2023-12-20',
+                'respondentName'=>'Christina',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '149',
+            'sitioID' => '5',
+            'houseNumber' => '5',
+            'street'=>'Villar',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L3',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-2-21',
+                'respondentName'=>'Christina',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //-3 (1 Entry from Y2024Q1)
+        Households::create([
+            'id' => '150',
+            'sitioID' => '5',
+            'houseNumber' => '6',
+            'street'=>'Villar',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Insanitary',
+                'IP'=>'nonIP',
+                'accessToWaterSupply'=>'L2',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-2-24',
+                'respondentName'=>'Mayon',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //Hilltops (1,1,1)
+        //-1
+        Households::create([
+            'id' => '151',
+            'sitioID' => '6',
+            'houseNumber' => '4',
+            'street'=>'Quatro',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Shared',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L2',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>3,
+                'dateOfVisit'=>'2023-8-2',
+                'respondentName'=>'Cadberry',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '152',
+            'sitioID' => '6',
+            'houseNumber' => '4',
+            'street'=>'Quatro',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Shared',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L2',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>4,
+                'dateOfVisit'=>'2023-11-3',
+                'respondentName'=>'Cadberry',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '153',
+            'sitioID' => '6',
+            'houseNumber' => '4',
+            'street'=>'Quatro',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Shared',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L1',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-1-5',
+                'respondentName'=>'Cadberry',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //Ilaya (0,0,1)
+        //-1 (1 Entry from Y2024Q1)
+        Households::create([
+            'id' => '154',
+            'sitioID' => '7',
+            'houseNumber' => '3',
+            'street'=>'Bob',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'nonNHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L3',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-2-4',
+                'respondentName'=>'Ralph',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //Krasher (1,1,2)
+        //-1
+        Households::create([
+            'id' => '155',
+            'sitioID' => '8',
+            'houseNumber' => '3',
+            'street'=>'Del Tuwad',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'nonNHTS',
+                'householdToiletFacilities'=>'Insanitary',
+                'IP'=>'nonIP',
+                'accessToWaterSupply'=>'Doubtful',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>3,
+                'dateOfVisit'=>'2023-9-12',
+                'respondentName'=>'Nora',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '156',
+            'sitioID' => '8',
+            'houseNumber' => '3',
+            'street'=>'Del Tuwad',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'nonNHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'nonIP',
+                'accessToWaterSupply'=>'L2',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>4,
+                'dateOfVisit'=>'2023-11-26',
+                'respondentName'=>'Nora',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '157',
+            'sitioID' => '8',
+            'houseNumber' => '3',
+            'street'=>'Del Tuwad',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'nonNHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'nonIP',
+                'accessToWaterSupply'=>'L1',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-1-20',
+                'respondentName'=>'Nora',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //-2 (1 Entry from Y2024Q1)
+        Households::create([
+            'id' => '158',
+            'sitioID' => '8',
+            'houseNumber' => '4',
+            'street'=>'Del Tuwad',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L2',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-1-22',
+                'respondentName'=>'Ran',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //Labangon (0,0,1)
+        //-1 (1 Entry from Y2024Q1)
+        Households::create([
+            'id' => '159',
+            'sitioID' => '9',
+            'houseNumber' => '3',
+            'street'=>'Altogerso',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L1',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-2-7',
+                'respondentName'=>'Lester',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //Lalin (0,1,1)
+        //-1 (2 Entry from Y2023Q4)
+        Households::create([
+            'id' => '160',
+            'sitioID' => '10',
+            'houseNumber' => '3',
+            'street'=>'Factory',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L1',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>4,
+                'dateOfVisit'=>'2023-11-3',
+                'respondentName'=>'Lester',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '161',
+            'sitioID' => '10',
+            'houseNumber' => '3',
+            'street'=>'Factory',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L3',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-2-9',
+                'respondentName'=>'Lester',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //Lapaz (1,2,4)
+        //-1
+        Households::create([
+            'id' => '162',
+            'sitioID' => '11',
+            'houseNumber' => '7',
+            'street'=>'Willow',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'None',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L1',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>3,
+                'dateOfVisit'=>'2023-8-9',
+                'respondentName'=>'Walter',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '163',
+            'sitioID' => '11',
+            'houseNumber' => '7',
+            'street'=>'Willow',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'None',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L1',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>4,
+                'dateOfVisit'=>'2023-10-19',
+                'respondentName'=>'Walter',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '164',
+            'sitioID' => '11',
+            'houseNumber' => '7',
+            'street'=>'Willow',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'None',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L1',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-2-23',
+                'respondentName'=>'Walter',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //-2 (2 Entry from Y2023Q4)
+        Households::create([
+            'id' => '165',
+            'sitioID' => '11',
+            'houseNumber' => '8',
+            'street'=>'Willow',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'nonNHTS',
+                'householdToiletFacilities'=>'None',
+                'IP'=>'nonIP',
+                'accessToWaterSupply'=>'L2',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>4,
+                'dateOfVisit'=>'2023-11-25',
+                'respondentName'=>'Wesley',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '166',
+            'sitioID' => '11',
+            'houseNumber' => '8',
+            'street'=>'Willow',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'nonNHTS',
+                'householdToiletFacilities'=>'None',
+                'IP'=>'nonIP',
+                'accessToWaterSupply'=>'L3',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-1-27',
+                'respondentName'=>'Wesley',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //-3 (1 Entry from Y2024Q1)
+        Households::create([
+            'id' => '167',
+            'sitioID' => '11',
+            'houseNumber' => '9',
+            'street'=>'Willow',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'nonNHTS',
+                'householdToiletFacilities'=>'Shared',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L3',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-2-6',
+                'respondentName'=>'Moira',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //-4 (1 Entry from Y2024Q1)
+        Households::create([
+            'id' => '168',
+            'sitioID' => '11',
+            'houseNumber' => '10',
+            'street'=>'Willow',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Shared',
+                'IP'=>'nonIP',
+                'accessToWaterSupply'=>'L1',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-3-2',
+                'respondentName'=>'Ryan',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //Sto. Rosario (1,1,1)
+        //-1
+        Households::create([
+            'id' => '169',
+            'sitioID' => '12',
+            'houseNumber' => '3',
+            'street'=>'Gumamela',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'nonNHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'nonIP',
+                'accessToWaterSupply'=>'L2',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>3,
+                'dateOfVisit'=>'2023-8-4',
+                'respondentName'=>'Helena',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '170',
+            'sitioID' => '12',
+            'houseNumber' => '3',
+            'street'=>'Gumamela',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'nonNHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'nonIP',
+                'accessToWaterSupply'=>'L2',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>4,
+                'dateOfVisit'=>'2023-11-13',
+                'respondentName'=>'Helena',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '171',
+            'sitioID' => '12',
+            'houseNumber' => '3',
+            'street'=>'Gumamela',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'nonNHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'nonIP',
+                'accessToWaterSupply'=>'L3',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-3-3',
+                'respondentName'=>'Helena',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //Suba (0,1,1)
+        //-1 (2 Entry from Y2023Q4)
+        Households::create([
+            'id' => '172',
+            'sitioID' => '13',
+            'houseNumber' => '3',
+            'street'=>'Zalessra',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L3',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2023,
+                'quarterNumber'=>4,
+                'dateOfVisit'=>'2023-12-2',
+                'respondentName'=>'Amelia',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        Households::create([
+            'id' => '173',
+            'sitioID' => '13',
+            'houseNumber' => '3',
+            'street'=>'Zalessra',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L3',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-2-17',
+                'respondentName'=>'Amelia',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+
+        //Tamsapa (0,0,1)
+        //-1 (1 Entry from Y2024Q1)
+        Households::create([
+            'id' => '174',
+            'sitioID' => '14',
+            'houseNumber' => '3',
+            'street'=>'Lychee',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NHTS',
+                'householdToiletFacilities'=>'Shared',
+                'IP'=>'IP',
+                'accessToWaterSupply'=>'L3',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>1,
+                'dateOfVisit'=>'2024-3-23',
+                'respondentName'=>'John',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
+    
     }
 }
