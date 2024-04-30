@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AccountController extends Controller
 {
@@ -24,8 +25,8 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $users = User::where('id', '>', 1)->paginate(10);
-        
+        //$users = User::where('id', '>', 1)->paginate(10);
+        $users = User::where('id', '>', 1)->get();
 
         foreach ($users as $key) {
             $resident = Resident::where('id', $key->residentID)->first();
@@ -191,7 +192,9 @@ class AccountController extends Controller
 
         $users = [];
 
-        $resultUsers = User::paginate(10);
+        //$resultUsers = User::where('id', '>', 1)->paginate(10);
+        $resultUsers = User::where('id', '>', 1)->get();
+        //$resultUsers = User::all();
         foreach($resultUsers as $user){
             $resident = Resident::where('id', $user->residentID)->first();
             $resident->makeVisible('firstName');
@@ -205,6 +208,7 @@ class AccountController extends Controller
                 $users[] = $user;
             }
         }
+        //$users = $this->paginate($users);
         return view('accounts.index')->with('accounts', $users);
     }
 
