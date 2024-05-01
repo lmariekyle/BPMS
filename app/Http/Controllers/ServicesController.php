@@ -257,6 +257,7 @@ class ServicesController extends Controller
     {
      
         $transaction = Transaction::where('id', $id)->first();
+        $complain=NULL;
         if($transaction->documentID == 7){
             $complain = Complain::where('transactionID',$transaction->id)->first();
             $complain->makeVisible('complaineeFName','complaineeFName','complaineeFName');
