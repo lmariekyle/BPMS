@@ -713,6 +713,7 @@
                                 <div class="h-[650px] w-[1050px] border-2 border-green bg-white px-6 py-6">
                                     <div class="ml-6 h-[600px] w-[950px]" id="monthInchart"></div>
                                 </div>
+                                @if($request->sitio == "NULL")
                                 <div class="flex flex-row mt-[2rem] w-[1050px] h-[350px]">
                                     <div class="w-[510px] bg-white border-2 border-green px-2 py-2">
                                         <div id="Paychart" class="w-[475px] h-[300px] mt-4 ml-6"></div>
@@ -724,6 +725,7 @@
                                 <div class="mt-[2rem] w-[1050px] h-[275px] px-4 py-4 border-2 border-green bg-white">
                                     <div id="prCountchart" class="w-[970px] h-[250px]"></div>
                                 </div>
+                                @endif
                                 <div class="mt-[2rem] w-[1050px] h-[320px] px-4 py-4 border-2 border-green bg-white">
                                     <div id="Educhart" class="ml-4 w-[970px] h-[295px]"></div>   
                                 </div>

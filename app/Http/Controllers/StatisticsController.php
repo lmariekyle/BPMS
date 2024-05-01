@@ -1877,6 +1877,12 @@ class StatisticsController extends Controller
                     break;
             }
             
+            //Payment/Refund Transactions
+            $sumPay = 0;
+            $sumRefund = 0;
+            $payCtr = 0;
+            $refundCtr = 0;
+
             //No Sitio Filter Selected
             if($filterSitio == ""){
                 for($x=2;$x<=$maxValueSitio;$x++){
@@ -1912,11 +1918,7 @@ class StatisticsController extends Controller
                         $dataIncome[$sitioName][$MI] = $resIncome;
                     }
 
-                    //Payment/Refund Transactions
-                    $sumPay = 0;
-                    $sumRefund = 0;
-                    $payCtr = 0;
-                    $refundCtr = 0;
+                    
                     if($filterAgeGroup == ""){
                         $payStats = Payment::join('transactions', function ($join) {
                             $join->on('payments.id', '=', 'transactions.paymentID');
@@ -1972,7 +1974,6 @@ class StatisticsController extends Controller
                             }
                         }
                     }
-                    $prInfo[] = array('sitio' => $sitioName, 'pCtr' => $payCtr, 'pAmount' => $sumPay, 'rCtr' => $refundCtr, 'rAmount' => $sumRefund);
 
                     //Educational Attainment
                     $dataEducation[$sitioName] = array();
@@ -2687,8 +2688,9 @@ class StatisticsController extends Controller
                     $householdCount[] = array('sitio' => $sitioName, 'houseCount' => $sumHousehold);
                 }
             }
+            $prInfo[] = array('pCtr' => $payCtr, 'pAmount' => $sumPay, 'rCtr' => $refundCtr, 'rAmount' => $sumRefund);
         }
-
+        //dd($prInfo);
         $pdf = PDF::loadView('pdf.reports', compact('householdCount', 'totalHouseholdCount', 'residentCount', 'totalResidentCount', 'request', 'nameSitio', 'MonthlyIncome', 'dataIncome', 'prInfo', 'EducationAtt', 'dataEducation', 'Pregnancy', 'dataPreg', 'IP', 'dataIP', 'NHTS', 'dataNHTS', 'WaterAccess', 'dataWater', 'ToiletFacilities', 'dataToilet'));
         return $pdf->stream('reports.pdf');
     }
