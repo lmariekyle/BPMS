@@ -11,9 +11,27 @@
             </div>
             <div class="flex flex-row mt-6">
                 <!-- start of doc template -->
+                @if($transaction->documentID != 7)
                 <div class="w-max h-max bg-dirty-white border-2 border-black ml-[2rem] px-[3rem] py-4">
                     @include('documents.barangaycertificate')
                 </div>
+                @elseif($transaction->documentID == 7)
+                <div class="w-max h-max bg-dirty-white border-2 border-black ml-[8rem] mt-[12rem] px-[3rem] py-4">
+                   <!-- <p>Filing of Lupon Cases has no document preview</p> -->
+                   <div class="font-robotocondensed font-bold text-deep-green" style="font-size: 26px;">
+                        <p>Full Name of Complainee:</p>
+                        <p class="px-6 border-2 w-[300px] mt-1" style="border-color: #414833;">{{ $complain->complaineeFName }} {{ $complain->complaineeLName }}</p>
+                    </div>
+                    <div class="font-robotocondensed font-bold text-deep-green mt-2" style="font-size: 26px;">
+                        <p>Sitio:</p>
+                        <p class="px-6 border-2 w-[300px] mt-1" style="border-color: #414833;">{{ $complain->complaineeSitio }}</p>
+                    </div>
+                    <div class="font-robotocondensed font-bold text-deep-green mt-2" style="font-size: 26px;">
+                        <p>Reason of Complain:</p>
+                        <p class="px-6 border-2 w-[300px] mt-1" style="border-color: #414833;">{{ $complain->requestPurpose }}</p>
+                    </div>
+                </div>
+                @endif
                 <!-- end of doc template -->
                 <div class="ml-[2.5rem] text-center items-center w-[580px] h-[700px] pt-[275px]" style="width: 580px; height: 700px; padding-top: 275px;">
                     <div class="">

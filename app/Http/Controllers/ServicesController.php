@@ -257,6 +257,8 @@ class ServicesController extends Controller
     {
      
         $transaction = Transaction::where('id', $id)->first();
+        $complain = Complain::where('transactionID',$transaction->id)->first();
+        $complain->makeVisible('complaineeFName','complaineeFName','complaineeFName');
         $transaction->payment = Payment::where('id', $transaction->paymentID)->first();
         if ($transaction->payment['paymentStatus'] == 'Paid') {
             $transaction->approval = 1;
@@ -319,7 +321,7 @@ class ServicesController extends Controller
             return view('services.approve', compact('id', 'requestee', 'doc', 'transaction','age','date','dateNum','year','monthWord','gender','birthdateCarbon','sitio'));
         }else{
             $sitio=Sitio::where('id',$check_res->user->sitioID)->first();
-            return view('services.approve', compact('id', 'requestee', 'doc', 'transaction','date','dateNum','year','monthWord','gender','birthdateCarbon','sitio'));
+            return view('services.approve', compact('id', 'requestee', 'doc', 'transaction','date','dateNum','year','monthWord','gender','birthdateCarbon','sitio','complain'));
         }
 
     }
