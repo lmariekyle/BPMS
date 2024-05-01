@@ -70,18 +70,18 @@ class PaymentSeeder extends Seeder
         ]);
 
         DocumentDetails::create([
-            'requesteeFName' => 'John Carlo',
-            'requesteeMName' => 'Caballo',
-            'requesteeLName' => 'Candella',
+            'requesteeFName' => 'Marjorie',
+            'requesteeMName' => 'Lela',
+            'requesteeLName' => 'Zammy',
             'requesteeEmail' => 'genericEmail@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
-            'file' => '["candela_663270404ef4a.pdf"]',
+            'file' => '["zammy_663270404ef4a.pdf"]',
         ]);
 
         Transaction::create([
             'documentID' => '4',
-            'userID' => '8',
+            'userID' => '12',
             'paymentID' => '2',
             'detailID' => '2',
             'docNumber' => '--',
@@ -150,19 +150,20 @@ class PaymentSeeder extends Seeder
         ]);
 
         DocumentDetails::create([
-            'requesteeFName' => 'John Carlo',
-            'requesteeMName' => 'Caballo',
-            'requesteeLName' => 'Candella',
+            'requesteeFName' => 'Marjorie',
+            'requesteeMName' => 'Lela',
+            'requesteeLName' => 'Zammy',
             'requesteeEmail' => 'genericEmail@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
-            'file' => '["candela_663270404ef4a.pdf"]',
+            'file' => '["zammy_663270404ef4a.pdf"]',
         ]);
+
 
 
         Transaction::create([
             'documentID' => '1',
-            'userID' => '8',
+            'userID' => '12',
             'paymentID' => '4',
             'detailID' => '4',
             'docNumber' => '--',
@@ -232,19 +233,20 @@ class PaymentSeeder extends Seeder
         ]);
 
         DocumentDetails::create([
-            'requesteeFName' => 'John Carlo',
-            'requesteeMName' => 'Caballo',
-            'requesteeLName' => 'Candella',
+            'requesteeFName' => 'Marjorie',
+            'requesteeMName' => 'Lela',
+            'requesteeLName' => 'Zammy',
             'requesteeEmail' => 'genericEmail@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
-            'file' => '["candela_663270404ef4a.pdf"]',
+            'file' => '["zammy_663270404ef4a.pdf"]',
         ]);
+
 
 
         Transaction::create([
             'documentID' => '6',
-            'userID' => '8',
+            'userID' => '12',
             'paymentID' => '6',
             'detailID' => '6',
             'docNumber' => '--',
@@ -273,19 +275,20 @@ class PaymentSeeder extends Seeder
         ]);
 
         DocumentDetails::create([
-            'requesteeFName' => 'John Carlo',
-            'requesteeMName' => 'Caballo',
-            'requesteeLName' => 'Candella',
+            'requesteeFName' => 'Marjorie',
+            'requesteeMName' => 'Lela',
+            'requesteeLName' => 'Zammy',
             'requesteeEmail' => 'genericEmail@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
-            'file' => '["candela_663270404ef4a.pdf"]',
+            'file' => '["zammy_663270404ef4a.pdf"]',
         ]);
+
 
 
         Transaction::create([
             'documentID' => '4',
-            'userID' => '8',
+            'userID' => '12',
             'paymentID' => '7',
             'detailID' => '7',
             'docNumber' => '--',

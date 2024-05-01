@@ -52,8 +52,8 @@ class ServicesController extends Controller
 
     public function index()
     {
-        $transactions = Transaction::orderBy('id', 'desc')->paginate(5);
-        $accounts = AccountInfoChange::paginate(5);
+        $transactions = Transaction::orderBy('id', 'desc')->paginate(10);
+        $accounts = AccountInfoChange::paginate(10);
         
         foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
@@ -233,7 +233,7 @@ class ServicesController extends Controller
         $notifyUsers = User::where('id', $transaction->userID)->first();
         Notification::sendNow($notifyUsers, new ProcessingNotification($transaction));
 
-        $transactions = Transaction::orderBy('id', 'desc')->paginate(5);
+        $transactions = Transaction::orderBy('id', 'desc')->paginate(10);
         foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -299,7 +299,7 @@ class ServicesController extends Controller
             7 => "July",
             8 => "August",
             9 => "September",
-            5 => "October",
+            10 => "October",
             11 => "November",
             12 => "December"
         ];
@@ -417,7 +417,7 @@ class ServicesController extends Controller
             7 => "July",
             8 => "August",
             9 => "September",
-            5 => "October",
+            10 => "October",
             11 => "November",
             12 => "December"
         ];
@@ -629,7 +629,7 @@ class ServicesController extends Controller
     //         return $this->index();
     //     }
     
-    //     $transactions = Transaction::paginate(5);
+    //     $transactions = Transaction::paginate(10);
     
     //     $filteredTransactions = [];
     
@@ -667,7 +667,7 @@ class ServicesController extends Controller
         return $this->index();
     }
 
-    $perPage = 5; // Number of items per page
+    $perPage = 10; // Number of items per page
 
     $transactions = Transaction::paginate($perPage);
 
@@ -728,7 +728,7 @@ class ServicesController extends Controller
         Notification::sendNow($notifyUsers, new ProcessingNotification($transaction));
         Notification::sendNow($notifyCap, new SignatureNotification($transaction));
 
-        $transactions = Transaction::orderBy('id', 'desc')->paginate(5);
+        $transactions = Transaction::orderBy('id', 'desc')->paginate(10);
         foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -760,7 +760,7 @@ class ServicesController extends Controller
             ]);
             $transaction->save();
 
-            $transactions = Transaction::orderBy('id', 'desc')->paginate(5);
+            $transactions = Transaction::orderBy('id', 'desc')->paginate(10);
             foreach ($transactions as $transaction) {
                 $user = User::where('id', $transaction->userID)->first();
                 $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -799,7 +799,7 @@ class ServicesController extends Controller
             $notifyUsers = User::where('id', $transaction->userID)->get();
             Notification::sendNow($notifyUsers, new DenyNotification($transaction));
 
-            $transactions = Transaction::orderBy('id', 'desc')->paginate(5);
+            $transactions = Transaction::orderBy('id', 'desc')->paginate(10);
             foreach ($transactions as $transaction) {
                 $user = User::where('id', $transaction->userID)->first();
                 $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -810,7 +810,7 @@ class ServicesController extends Controller
                 $transaction->createdDate = date('M d, Y', $newtime);
             }
         } else{
-            $transactions = Transaction::orderBy('id', 'desc')->paginate(5);
+            $transactions = Transaction::orderBy('id', 'desc')->paginate(10);
             foreach ($transactions as $transaction) {
                 $user = User::where('id', $transaction->userID)->first();
                 $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -864,7 +864,7 @@ class ServicesController extends Controller
         $notifyUsers = User::where('id', $transaction->userID)->get();
         Notification::sendNow($notifyUsers, new DenyNotification($transaction));
 
-        $transactions = Transaction::orderBy('id', 'desc')->paginate(5);
+        $transactions = Transaction::orderBy('id', 'desc')->paginate(10);
         foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -909,7 +909,7 @@ class ServicesController extends Controller
         $notifyUsers = User::where('id', $transaction->userID)->get();
         Notification::sendNow($notifyUsers, new SignedNotification($transaction));
 
-        $transactions = Transaction::orderBy('id', 'desc')->paginate(5);
+        $transactions = Transaction::orderBy('id', 'desc')->paginate(10);
         foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -950,7 +950,7 @@ class ServicesController extends Controller
         $notifyUsers = User::where('id', $transaction->userID)->get();
         Notification::sendNow($notifyUsers, new ReleasedNotification($transaction));
 
-        $transactions = Transaction::orderBy('id', 'desc')->paginate(5);
+        $transactions = Transaction::orderBy('id', 'desc')->paginate(10);
         foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
