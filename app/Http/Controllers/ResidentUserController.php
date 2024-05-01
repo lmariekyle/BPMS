@@ -61,10 +61,34 @@ class ResidentUserController extends Controller
         return response()->json(['user' => $user,'relatedInfo' => $relatedInfo]);
     }
 
-    public function generateID(){
+    public function generateID($role){
 
-       return $userId = IdGenerator::generate(['table' => 'users', 'field' => 'id', 'length' => 6, 'prefix' => date('y')]);
+        if ($role== "Barangay Captain") {
+            $lastCaptain = User::where('userlevel', 'Barangay Captain')->orderBy('idNumber', 'desc')->first();
+            $lastId = $lastCaptain ? (int)substr($lastCaptain->idNumber, 2) : 0;
+            $userId = 'C-' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
+        } else if ($role == "Barangay Secretary") {
+            $lastSecretary = User::where('userlevel', 'Barangay Secretary')->orderBy('idNumber', 'desc')->first();
+            $lastId = $lastSecretary ? (int)substr($lastSecretary->idNumber, 2) : 0;
+            $userId = 'S-' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
+        } else if ($role == "Barangay Health Worker") {
+            $lastWorker = User::where('userlevel', 'Barangay Health Worker')->orderBy('idNumber', 'desc')->first();
+            $lastId = $lastWorker ? (int)substr($lastWorker->idNumber, 2) : 0;
+            $userId = 'B-' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
+        } else {
+            // For other user levels, you can use the current year as a prefix
+            $yearPrefix = date('y');
+            $lastUser = User::where('userlevel', '<>', 'Barangay Captain')
+                             ->where('userlevel', '<>', 'Barangay Secretary')
+                             ->where('userlevel', '<>', 'Barangay Health Worker')
+                             ->where('idNumber', 'like', $yearPrefix . '%')
+                             ->orderBy('idNumber', 'desc')
+                             ->first();
+            $lastId = $lastUser ? (int)substr($lastUser->idNumber, 2) : 0;
+            $userId = $yearPrefix . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
+        }
 
+        return $userId;
     }
 
     /**
@@ -98,7 +122,8 @@ class ResidentUserController extends Controller
 
         //Auto Generate ID 
         // $residentId = IdGenerator::generate(['table' => 'residents', 'field' => 'id', 'length' => 9, 'prefix' => 'RES-']);
-        $userId = $this->generateID();
+        $userId = $this->generateID($request->userlevel);
+
         //Image Upload 
         if ($request->hasFile('profileImage')) {
             $image_name = time() . '.' . $request->profileImage->getClientOriginalExtension();
@@ -177,7 +202,7 @@ class ResidentUserController extends Controller
             'password' => ['required', 'same:passwordConfirm', Rules\Password::defaults()],
         ]);
 
-        $userId = $this->generateID();
+        $userId = $this->generateID($request->userlevel);
         $initDate = strtotime($request->dateOfBirth);
         $date = date('Y-m-d', $initDate);
 
