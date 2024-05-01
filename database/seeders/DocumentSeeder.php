@@ -18,7 +18,7 @@ class DocumentSeeder extends Seeder
             'docName' => 'Good Moral Character',
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
-            'fee' => '100.0',
+            'fee' => '100.00',
             'requirements' => 'Residence Certificate',
 
             'createdBy' => 'A-001',
@@ -29,7 +29,7 @@ class DocumentSeeder extends Seeder
             'docName' => 'Disco',
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
-            'fee' => '530.0',
+            'fee' => '530.00',
             'requirements' => 'Residence Certificate',
 
             'createdBy' => 'A-001',
@@ -63,7 +63,7 @@ class DocumentSeeder extends Seeder
             'docName' => 'Indigency',
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
-            'fee' => '100.0',
+            'fee' => '100.00',
             'requirements' => 'Residence Certificate',
 
             'createdBy' => 'A-001',
@@ -74,7 +74,7 @@ class DocumentSeeder extends Seeder
             'docName' => 'Late Registration',
             'docType' => 'Barangay Certificate',
             'docTemplate' => 'CertificateTemplate',
-            'fee' => '100.0',
+            'fee' => '100.00',
             'requirements' => 'Residence Certificate',
 
             'createdBy' => 'A-001',
@@ -97,7 +97,7 @@ class DocumentSeeder extends Seeder
             'docName' => "Business Permit",
             'docType' => 'Barangay Clearance',
             'docTemplate' => 'ClearanceTemplate',
-            'fee' => '330.0',
+            'fee' => '330.00',
             'requirements' => 'Cedula, Copy of Previous Permit, Tax Declaration, Affidavit of Consent',
 
             'createdBy' => 'A-001',

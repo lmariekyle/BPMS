@@ -163,7 +163,7 @@ class RegisteredUserController extends Controller
                              ->first();
             $lastId = $lastUser ? (int)substr($lastUser->idNumber, 2) : 0;
             $userId = $yearPrefix . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
-    }
+        }
 
 
         $resident->user()->create([
