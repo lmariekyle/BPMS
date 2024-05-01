@@ -43,7 +43,7 @@
                 <div class="ml-10 h-max mb-4">
                          <p class="font-robotocondensed text-[18px] font-bold text-deep-green">Uploaded Requirements:</p>
                         @forelse($filePaths as $file)
-                        <div class="flex flex-col justify-start w-[100px]">
+                        <div class="flex flex-col justify-start w-[100px] mb-2">
                             <a href="{{ route('view_file', $file) }}" class="text-center font-poppins w-max bg-olive-green hover:bg-deep-green text-dirty-white hover:text-dirty-white font-medium rounded-lg text-sm px-5 py-2.5">{{$file}}</a>
                         </div>
                         @empty

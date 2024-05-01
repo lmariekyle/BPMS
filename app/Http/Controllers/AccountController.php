@@ -48,12 +48,21 @@ class AccountController extends Controller
 
         $user = User::where('id', $id)->first();
         $personalInfo = Resident::where('id', $user->residentID)->first();
+        $personalInfo->makeVisible('firstName','lastName');
         $sitio = Sitio::where('id', $user->sitioID)->first();
         $barangay = Barangay::where('id', $sitio->barangayID)->first();
         $personalInfo->sitio = $sitio->sitioName;
         $personalInfo->barangay = $barangay->barangayName;
-
-        return view('accounts.show', compact('user', 'personalInfo'));
+        
+        if($user->archivedBy !== NULL){
+            $archived = User::where('id',$user->archivedBy)->first();
+            $archivedBy =Resident::where('id', $archived->residentID)->first();
+            $archivedBy->makeVisible('firstName','lastName');
+            return view('accounts.show', compact('user', 'personalInfo','archivedBy'));
+        }else{
+            return view('accounts.show', compact('user', 'personalInfo'));
+        }
+        
     }
 
     /**

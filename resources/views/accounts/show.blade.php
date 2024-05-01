@@ -82,7 +82,7 @@
                                     <p class="text-deep-green px-1 mt-6">Archived By:</p>
                                     <div class="bg-green text-dirty-white pl-4">
                                         @if (null!==$user->archivedBy)
-                                        <p>{{$user->archivedBy}}</p>
+                                        <p>{{$archivedBy->firstName}}, {{$archivedBy->lastName}} </p>
                                         @else
                                         <p>Account is still Active</p>
                                         @endif
