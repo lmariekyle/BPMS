@@ -185,7 +185,7 @@
                 @endforeach
             </table>
 
-            @if($request->sitio == "NULL")
+            @if($request->sitio == "NULL" && $request->gender == "NULL" && $request->ageclass == "NULL")
             <h3>Payment / Refund Transaction Information</h3>
             <table>
                 <tr>
