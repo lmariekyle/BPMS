@@ -257,8 +257,10 @@ class ServicesController extends Controller
     {
      
         $transaction = Transaction::where('id', $id)->first();
-        $complain = Complain::where('transactionID',$transaction->id)->first();
-        $complain->makeVisible('complaineeFName','complaineeFName','complaineeFName');
+        if($transaction->documentID == 7){
+            $complain = Complain::where('transactionID',$transaction->id)->first();
+            $complain->makeVisible('complaineeFName','complaineeFName','complaineeFName');
+        }
         $transaction->payment = Payment::where('id', $transaction->paymentID)->first();
         if ($transaction->payment['paymentStatus'] == 'Paid') {
             $transaction->approval = 1;
