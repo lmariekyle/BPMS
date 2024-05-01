@@ -3828,6 +3828,27 @@ class HouseholdSeeder extends Seeder
                 'createdBy'=>2,
                 'revisedBy'=>2
             ]);
-    
+        
+            Households::create([
+                'id' => '175',
+                'sitioID' => '4',
+                'houseNumber' => '1',
+                'street'=>'Mabini',
+                'buildingName'=>'NULL',
+                'unitNumber'=>'NULL',
+                'floorNumber'=>'NULL',
+                'residenceType'=>'Residential Home',
+                'nHTS'=>'NonNHTS',
+                'householdToiletFacilities'=>'Sanitary',
+                'IP'=>'NonIP',
+                'accessToWaterSupply'=>'L1',
+                'remarksOfWaterSupply'=>'no remarks',
+                'yearOfVisit'=>2024,
+                'quarterNumber'=>2,
+                'dateOfVisit'=>'2024-4-4',
+                'respondentName'=>'John Carlo',
+                'createdBy'=>2,
+                'revisedBy'=>2
+            ]);
     }
 }
