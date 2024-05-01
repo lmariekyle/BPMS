@@ -25,7 +25,7 @@ class PaymentSeeder extends Seeder
             'receivedBy' => '2',
             'paymentDate' => '2023-08-04',
             'referenceNumber' => '8347138123948',
-            'screenshot' => 'gcash/screenshot.jpg',
+            'screenshot' => 'gcash\screenshot.jpg',
             'remarks' => 'Paid',
         ]);
 
@@ -36,7 +36,7 @@ class PaymentSeeder extends Seeder
             'requesteeEmail' => 'ksumho69@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
-            'file' => NULL,
+            'file' => '["candela_663270404ef4a.pdf"]',
         ]);
 
         Transaction::create([
@@ -53,6 +53,7 @@ class PaymentSeeder extends Seeder
             'releasedBy' => '2',
             'releasedOn' => '2023-08-06',
             'remarks' => 'Complete Requirements',
+            'created_at' => '2023-08-02'
         ]);
 
         //Payment #2
@@ -64,7 +65,7 @@ class PaymentSeeder extends Seeder
             'receivedBy' => '2',
             'paymentDate' => '2023-11-20',
             'referenceNumber' => '8347138123948',
-            'screenshot' => 'gcash/screenshot.jpg',
+            'screenshot' => 'gcash\screenshot.jpg',
             'remarks' => 'Denied',
         ]);
 
@@ -75,7 +76,7 @@ class PaymentSeeder extends Seeder
             'requesteeEmail' => 'genericEmail@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
-            'file' => NULL,
+            'file' => '["candela_663270404ef4a.pdf"]',
         ]);
 
         Transaction::create([
@@ -92,6 +93,7 @@ class PaymentSeeder extends Seeder
             'releasedBy' => 'Not Applicable',
             'releasedOn' => '2023-11-29',
             'remarks' => 'Lacking Requirements',
+            'created_at' => '2023-11-20'
         ]);
 
         //Payment #3
@@ -114,7 +116,7 @@ class PaymentSeeder extends Seeder
             'requesteeEmail' => 'genericEmail@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
-            'file' => NULL,
+            'file' => '["candela_663270404ef4a.pdf"]',
         ]);
 
         Transaction::create([
@@ -131,6 +133,7 @@ class PaymentSeeder extends Seeder
             'releasedBy' => '2',
             'releasedOn' => '2024-01-25',
             'remarks' => '--',
+            'created_at' => '2024-01-30'
         ]);
 
         // Payment #4
@@ -142,7 +145,7 @@ class PaymentSeeder extends Seeder
             'receivedBy' => '2',
             'paymentDate' => '2024-02-10',
             'referenceNumber' => '8347138123948',
-            'screenshot' => 'gcash/screenshot.jpg',
+            'screenshot' => 'gcash\screenshot.jpg',
             'remarks' => '--',
         ]);
 
@@ -153,7 +156,7 @@ class PaymentSeeder extends Seeder
             'requesteeEmail' => 'genericEmail@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
-            'file' => NULL,
+            'file' => '["candela_663270404ef4a.pdf"]',
         ]);
 
 
@@ -171,6 +174,7 @@ class PaymentSeeder extends Seeder
             'releasedBy' => '2',
             'releasedOn' => '2024-02-15',
             'remarks' => '--',
+            'created_at' => '2024-02-10'
         ]);
 
         // Payment #5
@@ -193,7 +197,7 @@ class PaymentSeeder extends Seeder
             'requesteeEmail' => 'genericEmail@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
-            'file' => 'requirements/Good Moral Character.pdf',
+            'file' => '["candela_663270404ef4a.pdf"]',
         ]);
 
 
@@ -211,6 +215,7 @@ class PaymentSeeder extends Seeder
             'releasedBy' => '2',
             'releasedOn' => '2024-03-10',
             'remarks' => '--',
+            'created_at' => '2024-03-05',
         ]);
 
         // Payment #6
@@ -222,7 +227,7 @@ class PaymentSeeder extends Seeder
             'receivedBy' => '2',
             'paymentDate' => '2024-01-30',
             'referenceNumber' => '8347138123948',
-            'screenshot' => 'gcash/screenshot.jpg',
+            'screenshot' => 'gcash\screenshot.jpg',
             'remarks' => '--',
         ]);
 
@@ -233,7 +238,7 @@ class PaymentSeeder extends Seeder
             'requesteeEmail' => 'genericEmail@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
-            'file' => NULL,
+            'file' => '["candela_663270404ef4a.pdf"]',
         ]);
 
 
@@ -251,6 +256,7 @@ class PaymentSeeder extends Seeder
             'releasedBy' => '2',
             'releasedOn' => '2024-02-05',
             'remarks' => '--',
+            'created_at' => '2024-01-30'
         ]);
 
         // Payment #7
@@ -273,7 +279,7 @@ class PaymentSeeder extends Seeder
             'requesteeEmail' => 'genericEmail@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
-            'file' => NULL,
+            'file' => '["candela_663270404ef4a.pdf"]',
         ]);
 
 
@@ -291,6 +297,7 @@ class PaymentSeeder extends Seeder
             'releasedBy' => '2',
             'releasedOn' => '2024-03-20',
             'remarks' => '--',
+            'created_at' => '2024-03-15'
         ]);
     }
 }
