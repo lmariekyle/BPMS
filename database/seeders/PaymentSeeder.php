@@ -32,7 +32,7 @@ class PaymentSeeder extends Seeder
         DocumentDetails::create([
             'requesteeFName' => 'John Carlo',
             'requesteeMName' => 'Caballo',
-            'requesteeLName' => 'Candella',
+            'requesteeLName' => 'Candela',
             'requesteeEmail' => 'ksumho69@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
@@ -112,7 +112,7 @@ class PaymentSeeder extends Seeder
         DocumentDetails::create([
             'requesteeFName' => 'John Carlo',
             'requesteeMName' => 'Caballo',
-            'requesteeLName' => 'Candella',
+            'requesteeLName' => 'Candela',
             'requesteeEmail' => 'genericEmail@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
@@ -194,7 +194,7 @@ class PaymentSeeder extends Seeder
         DocumentDetails::create([
             'requesteeFName' => 'John Carlo',
             'requesteeMName' => 'Caballo',
-            'requesteeLName' => 'Candella',
+            'requesteeLName' => 'Candela',
             'requesteeEmail' => 'genericEmail@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',

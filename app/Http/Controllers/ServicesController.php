@@ -380,10 +380,11 @@ class ServicesController extends Controller
         $residents = Resident::all();
         $residents->makeVisible('firstName','lastName');
 
+        
         $check_res = $residents->where('firstName', '=', $requestee->requesteeFName)
         ->where('lastName', '=', $requestee->requesteeLName)
         ->first();
-    
+        
         $sitio=Sitio::where('id',$check_res->user->sitioID)->first();
         
         // Convert the birthdate string to a Carbon instance
