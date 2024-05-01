@@ -2283,6 +2283,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'Model',
             'monthlyIncome' => '18,200 - 36,400',
+            'pregnancyClassification' => 'P',
             'ageClassification' => 'P',
         ]);
         Resident::create([
@@ -2353,6 +2354,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'Model',
             'monthlyIncome' => '18,200 - 36,400',
+            'pregnancyClassification' => 'P',
             'ageClassification' => 'P',
         ]);
         Resident::create([
@@ -2424,6 +2426,7 @@ class ResidentSeeder extends Seeder
             'gender' => 'F',
             'occupation' => 'Model',
             'monthlyIncome' => '18,200 - 36,400',
+            'pregnancyClassification' => 'P',
             'ageClassification' => 'P',
         ]);
         Resident::create([
@@ -9166,6 +9169,58 @@ class ResidentSeeder extends Seeder
             'occupation' => 'Student',
             'monthlyIncome' => 'None',
             'ageClassification' => 'S',
+        ]);
+
+        Resident::create([
+            'id' => '511',
+            'residentID' => 'RES-00043',
+            'firstName' => 'John Carlo',
+            'middleName' => 'Caballo',
+            'lastName' => 'Candela',
+            'dateOfBirth' => '1945-08-28',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'Retired',
+            'monthlyIncome' => '18,200 - 36,400',
+            'ageClassification' => 'SC',
+        ]);
+        Resident::create([
+            'id' => '512',
+            'residentID' => 'RES-00044',
+            'firstName' => 'Kristian',
+            'middleName' => 'Ayam',
+            'lastName' => 'Candela',
+            'dateOfBirth' => '2000-06-28',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Grandchild of Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'Developer',
+            'monthlyIncome' => '18,200 - 36,400',
+            'ageClassification' => 'AB',
+        ]);
+        Resident::create([
+            'id' => '513',
+            'residentID' => 'RES-00045',
+            'firstName' => 'Nicholai',
+            'middleName' => 'Oblina',
+            'lastName' => 'Candela',
+            'dateOfBirth' => '2001-10-28',
+            'contactNumber' => '09876541230',
+            'email' => 'genericEmail@gmail.com',
+            'maritalStatus' => 'Single',
+            'familyRole' => 'Grandchild of Household Head',
+            'educationalAttainment' => 'College Graduate',
+            'gender' => 'M',
+            'occupation' => 'Model',
+            'monthlyIncome' => '18,200 - 36,400',
+            'ageClassification' => 'AB',
         ]);
     }
 }

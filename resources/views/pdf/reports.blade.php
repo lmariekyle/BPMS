@@ -221,6 +221,7 @@
                 @endforeach
             </table>
 
+            @if($request->gender != "M")
             <h3>Pregnancy</h3>
             <table>
                 <tr>
@@ -238,6 +239,7 @@
                 </tr>
                 @endforeach
             </table>
+            @endif
     </div>
     
     <hr>
