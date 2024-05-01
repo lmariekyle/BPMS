@@ -304,18 +304,18 @@ class ServicesController extends Controller
             12 => "December"
         ];
 
+      
         // Get the corresponding month name
         $monthWord = $monthNames[$monthNumber] ?? "Invalid month";
 
-        if($transaction->documentID == 1){
+        if($transaction->documentID == 1 || $transaction->documentID == 3){
         $requestee_user = User::where('id', $transaction->userID)->first();
         $resident = Resident::where('id', $requestee_user->residentID)->first();
-
         $birthdateCarbon = Carbon::createFromFormat('Y-m-d', $resident->dateOfBirth);
+        
         $sitio=Sitio::where('id',$check_res->user->sitioID)->first();
         $age = $birthdateCarbon->age;
         $gender = $check_res->gender;
- 
             return view('services.approve', compact('id', 'requestee', 'doc', 'transaction','age','date','dateNum','year','monthWord','gender','birthdateCarbon','sitio'));
         }else{
             $sitio=Sitio::where('id',$check_res->user->sitioID)->first();
