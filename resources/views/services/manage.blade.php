@@ -12,7 +12,7 @@
                 <div class="flex flex-row ml-10">
                     <a href="{{ route('services.index') }}"><i class="fa-solid fa-arrow-left text-deep-green text-[28px] py-3"></i></a>
                     <p class="font-robotocondensed text-[32px] font-bold text-deep-green ml-8" style="font-size: 32px;">REQUEST NO. {{ $transaction->id }}</p>
-                    @if($transaction->payment['paymentStatus'] == 'Paid' && isset($transaction->payment['orNumber']))
+                    @if($transaction->payment['paymentStatus'] == 'Paid' && isset($transaction->payment['orNumber']) && $transaction->serviceStatus == 'Signed' || $transaction->serviceStatus == 'Released')
                         <a href="{{route('pdf.export', $transaction->id)}}" class="float-right" id="printLink"><i class="fa-solid fa-print text-deep-green text-[28px] mt-3 ml-8"></i></a>
                     @endif
                 </div>
@@ -63,7 +63,10 @@
                         <p>Payment Reference Code:</p>
                         <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">{{ $transaction->payment['referenceNumber'] }}</p>
                     </div>
-                    @else
+                    @elseif($transaction->payment['paymentMethod'] == 'FREE')
+                        <p>Payment Type:</p>
+                        <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">FREE</p>
+                    @elseif($transaction->payment['paymentMethod'] == 'Cash-on-PickUp')
                         <p>Payment Type:</p>
                         <p class="px-6 border-2 w-[300px]" style="border-color: #414833;">Cash-on-PickUp</p>
                     @endif
@@ -147,8 +150,10 @@
                         @if ($transaction->payment->paymentMethod == 'GCASH')
                         <input type="text" name="orNumber" class="hidden px-6 border-2 w-[300px] mt-1 bg-" style="border-color: #414833;" value="{{$transaction->payment->orNumber}}">
                         <input type="text" name="orNumber" class="px-6 border-2 w-[300px] mt-1 bg-" style="border-color: #414833;" value="{{$transaction->payment->orNumber}}" maxlength="225" required disabled>
-                        @else ($transaction->payment->paymentMethod == 'Cash-on-PickUp')
+                        @elseif($transaction->payment->paymentMethod == 'Cash-on-PickUp')
                         <input type="text" name="orNumber" class="px-6 border-2 w-[300px] mt-1 bg-" style="border-color: #414833;" maxlength="225" required>
+                        @elseif($transaction->payment->paymentMethod == 'FREE')
+                        <input type="text" name="orNumber" class="px-6 border-2 w-[300px] mt-1 bg-" style="border-color: #414833;" maxlength="225" value="000000" required>
                         @endif
                     </div>
                     <div class="flex flex-col ml-8">

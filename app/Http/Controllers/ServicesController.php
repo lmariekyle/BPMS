@@ -312,7 +312,7 @@ class ServicesController extends Controller
         $requestee_user = User::where('id', $transaction->userID)->first();
         $resident = Resident::where('id', $requestee_user->residentID)->first();
         $birthdateCarbon = Carbon::createFromFormat('Y-m-d', $resident->dateOfBirth);
-        
+
         $sitio=Sitio::where('id',$check_res->user->sitioID)->first();
         $age = $birthdateCarbon->age;
         $gender = $check_res->gender;
@@ -606,6 +606,16 @@ class ServicesController extends Controller
             $notifyUsers = User::where('userLevel', 'Barangay Secretary')->get();
 
             Notification::sendNow($notifyUsers, new NewRequestNotification($transaction));
+        }
+
+        if ($doctype->docName == 'Senior Citizen') {
+            $payment = Payment::where('id', $transactionPaymentId)->first();
+            $payment->fill([
+                'remarks' => 'FREE',
+                'paymentStatus' => "Paid",
+                'orNumber' => '000000',
+            ]);
+            $payment->save();
         }
 
         $payment = Payment::where('id', $transactionPaymentId)->first();
