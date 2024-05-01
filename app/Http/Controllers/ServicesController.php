@@ -926,6 +926,7 @@ class ServicesController extends Controller
     {
         $transaction = Transaction::where('id', $id)->first();
         $payment = Payment::where('id',$transaction->paymentID)->first();
+        $document = Document::where('id', $transaction->documentID)->first();
         $user = Auth::user();
         $resident = Resident::where('id', $user)->first();
         $transaction->fill([
@@ -941,7 +942,7 @@ class ServicesController extends Controller
             'paymentDate' => today(),
             'receivedBy' => $user->id,
             'paymentStatus' => 'Paid',
-            'amountPaid' => $transaction->document->docfee,
+            'amountPaid' => $document->fee,
         ]);
         
         $payment->save();
