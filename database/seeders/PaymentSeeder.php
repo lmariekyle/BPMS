@@ -18,25 +18,25 @@ class PaymentSeeder extends Seeder
     {
         //Payment #1
         Payment::create([
-            'paymentMethod' => 'GCash',
-            'orNumber' => '--',
-            'amountPaid' => '100.00',
+            'paymentMethod' => 'GCASH',
+            'orNumber' => '000001',
+            'amountPaid' => '100',
             'paymentStatus' => 'Paid',
-            'receivedBy' => '--',
+            'receivedBy' => '2',
             'paymentDate' => '2023-08-04',
-            'referenceNumber' => '1234567890',
-            'screenshot' => '--',
-            'remarks' => '--',
+            'referenceNumber' => '8347138123948',
+            'screenshot' => 'gcash/screenshot.jpg',
+            'remarks' => 'Paid',
         ]);
 
         DocumentDetails::create([
             'requesteeFName' => 'John Carlo',
             'requesteeMName' => 'Caballo',
             'requesteeLName' => 'Candella',
-            'requesteeEmail' => 'genericEmail@gmail.com',
+            'requesteeEmail' => 'ksumho69@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
-            'file' => 'file.pdf',
+            'file' => NULL,
         ]);
 
         Transaction::create([
@@ -46,26 +46,26 @@ class PaymentSeeder extends Seeder
             'detailID' => '1',
             'docNumber' => '--',
             'serviceStatus' => 'Paid',
-            'endorsedBy' => '--',
+            'endorsedBy' => '2',
             'endorsedOn' => '2023-08-02',
-            'approvedBy' => '--',
+            'approvedBy' => '3',
             'approvedOn' => '2023-08-03',
-            'releasedBy' => '--',
+            'releasedBy' => '2',
             'releasedOn' => '2023-08-06',
-            'remarks' => '--',
+            'remarks' => 'Complete Requirements',
         ]);
 
         //Payment #2
         Payment::create([
-            'paymentMethod' => 'GCash',
-            'orNumber' => '--',
-            'amountPaid' => '100.00',
-            'paymentStatus' => 'Paid',
-            'receivedBy' => '--',
+            'paymentMethod' => 'GCASH',
+            'orNumber' => '000002',
+            'amountPaid' => '100',
+            'paymentStatus' => 'Refunded',
+            'receivedBy' => '2',
             'paymentDate' => '2023-11-20',
-            'referenceNumber' => '1234567890',
-            'screenshot' => '--',
-            'remarks' => '--',
+            'referenceNumber' => '8347138123948',
+            'screenshot' => 'gcash/screenshot.jpg',
+            'remarks' => 'Denied',
         ]);
 
         DocumentDetails::create([
@@ -75,7 +75,7 @@ class PaymentSeeder extends Seeder
             'requesteeEmail' => 'genericEmail@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
-            'file' => 'file.pdf',
+            'file' => NULL,
         ]);
 
         Transaction::create([
@@ -84,26 +84,26 @@ class PaymentSeeder extends Seeder
             'paymentID' => '2',
             'detailID' => '2',
             'docNumber' => '--',
-            'serviceStatus' => 'Paid',
-            'endorsedBy' => '--',
+            'serviceStatus' => 'Not Eligible',
+            'endorsedBy' => 'Not Applicable',
             'endorsedOn' => '2023-11-19',
-            'approvedBy' => '--',
+            'approvedBy' => 'Not Applicable',
             'approvedOn' => '2023-11-24',
-            'releasedBy' => '--',
+            'releasedBy' => 'Not Applicable',
             'releasedOn' => '2023-11-29',
-            'remarks' => '--',
+            'remarks' => 'Lacking Requirements',
         ]);
 
         //Payment #3
         Payment::create([
-            'paymentMethod' => 'GCash',
-            'orNumber' => '--',
-            'amountPaid' => '530.00',
+            'paymentMethod' => 'Cash-on-PickUp',
+            'orNumber' => '000003',
+            'amountPaid' => '530',
             'paymentStatus' => 'Paid',
-            'receivedBy' => '--',
+            'receivedBy' => '2',
             'paymentDate' => '2024-01-20',
-            'referenceNumber' => '1234567890',
-            'screenshot' => '--',
+            'referenceNumber' => 'Not Applicable',
+            'screenshot' => NULL,
             'remarks' => '--',
         ]);
 
@@ -114,7 +114,7 @@ class PaymentSeeder extends Seeder
             'requesteeEmail' => 'genericEmail@gmail.com',
             'requesteeContactNumber' => '09876541230',
             'requestPurpose' => 'Employment',
-            'file' => 'file.pdf',
+            'file' => NULL,
         ]);
 
         Transaction::create([
@@ -124,12 +124,172 @@ class PaymentSeeder extends Seeder
             'detailID' => '3',
             'docNumber' => '--',
             'serviceStatus' => 'Paid',
-            'endorsedBy' => '--',
+            'endorsedBy' => '2',
             'endorsedOn' => '2024-01-20',
-            'approvedBy' => '--',
+            'approvedBy' => '3',
             'approvedOn' => '2024-01-22',
-            'releasedBy' => '--',
+            'releasedBy' => '2',
             'releasedOn' => '2024-01-25',
+            'remarks' => '--',
+        ]);
+
+        // Payment #4
+        Payment::create([
+            'paymentMethod' => 'GCASH',
+            'orNumber' => '000004', 
+            'amountPaid' => '100.00',
+            'paymentStatus' => 'Paid',
+            'receivedBy' => '2',
+            'paymentDate' => '2024-02-10',
+            'referenceNumber' => '8347138123948',
+            'screenshot' => 'gcash/screenshot.jpg',
+            'remarks' => '--',
+        ]);
+
+        DocumentDetails::create([
+            'requesteeFName' => 'John Carlo',
+            'requesteeMName' => 'Caballo',
+            'requesteeLName' => 'Candella',
+            'requesteeEmail' => 'genericEmail@gmail.com',
+            'requesteeContactNumber' => '09876541230',
+            'requestPurpose' => 'Employment',
+            'file' => NULL,
+        ]);
+
+
+        Transaction::create([
+            'documentID' => '1',
+            'userID' => '8',
+            'paymentID' => '4',
+            'detailID' => '4',
+            'docNumber' => '--',
+            'serviceStatus' => 'Paid',
+            'endorsedBy' => '2',
+            'endorsedOn' => '2024-02-10',
+            'approvedBy' => '3',
+            'approvedOn' => '2024-02-12',
+            'releasedBy' => '2',
+            'releasedOn' => '2024-02-15',
+            'remarks' => '--',
+        ]);
+
+        // Payment #5
+        Payment::create([
+            'paymentMethod' => 'Cash-on-PickUp',
+            'orNumber' => '000005',
+            'amountPaid' => '100.00',
+            'paymentStatus' => 'Paid',
+            'receivedBy' => '2',
+            'paymentDate' => '2024-03-05',
+            'referenceNumber' => 'Not Applicable',
+            'screenshot' => NULL,
+            'remarks' => '--',
+        ]);
+
+        DocumentDetails::create([
+            'requesteeFName' => 'John Carlo',
+            'requesteeMName' => 'Caballo',
+            'requesteeLName' => 'Candella',
+            'requesteeEmail' => 'genericEmail@gmail.com',
+            'requesteeContactNumber' => '09876541230',
+            'requestPurpose' => 'Employment',
+            'file' => 'requirements/Good Moral Character.pdf',
+        ]);
+
+
+        Transaction::create([
+            'documentID' => '5',
+            'userID' => '8',
+            'paymentID' => '5',
+            'detailID' => '5',
+            'docNumber' => '--',
+            'serviceStatus' => 'Paid',
+            'endorsedBy' => '2',
+            'endorsedOn' => '2024-03-05',
+            'approvedBy' => '3',
+            'approvedOn' => '2024-03-07',
+            'releasedBy' => '2',
+            'releasedOn' => '2024-03-10',
+            'remarks' => '--',
+        ]);
+
+        // Payment #6
+        Payment::create([
+            'paymentMethod' => 'GCASH',
+            'orNumber' => '000006',
+            'amountPaid' => '330.00',
+            'paymentStatus' => 'Refunded',
+            'receivedBy' => '2',
+            'paymentDate' => '2024-01-30',
+            'referenceNumber' => '8347138123948',
+            'screenshot' => 'gcash/screenshot.jpg',
+            'remarks' => '--',
+        ]);
+
+        DocumentDetails::create([
+            'requesteeFName' => 'John Carlo',
+            'requesteeMName' => 'Caballo',
+            'requesteeLName' => 'Candella',
+            'requesteeEmail' => 'genericEmail@gmail.com',
+            'requesteeContactNumber' => '09876541230',
+            'requestPurpose' => 'Employment',
+            'file' => NULL,
+        ]);
+
+
+        Transaction::create([
+            'documentID' => '6',
+            'userID' => '8',
+            'paymentID' => '6',
+            'detailID' => '6',
+            'docNumber' => '--',
+            'serviceStatus' => 'Denied',
+            'endorsedBy' => '2',
+            'endorsedOn' => '2024-01-30',
+            'approvedBy' => '3',
+            'approvedOn' => '2024-02-01',
+            'releasedBy' => '2',
+            'releasedOn' => '2024-02-05',
+            'remarks' => '--',
+        ]);
+
+        // Payment #7
+        Payment::create([
+            'paymentMethod' => 'Cash-on-PickUp',
+            'orNumber' => '000007',
+            'amountPaid' => '100.00',
+            'paymentStatus' => 'Not Applicable',
+            'receivedBy' => '2',
+            'paymentDate' => '2024-03-15',
+            'referenceNumber' => 'Not Applicable',
+            'screenshot' => NULL,
+            'remarks' => '--',
+        ]);
+
+        DocumentDetails::create([
+            'requesteeFName' => 'John Carlo',
+            'requesteeMName' => 'Caballo',
+            'requesteeLName' => 'Candella',
+            'requesteeEmail' => 'genericEmail@gmail.com',
+            'requesteeContactNumber' => '09876541230',
+            'requestPurpose' => 'Employment',
+            'file' => NULL,
+        ]);
+
+
+        Transaction::create([
+            'documentID' => '4',
+            'userID' => '8',
+            'paymentID' => '7',
+            'detailID' => '7',
+            'docNumber' => '--',
+            'serviceStatus' => 'Denied',
+            'endorsedBy' => '2',
+            'endorsedOn' => '2024-03-15',
+            'approvedBy' => '3',
+            'approvedOn' => '2024-03-17',
+            'releasedBy' => '2',
+            'releasedOn' => '2024-03-20',
             'remarks' => '--',
         ]);
     }

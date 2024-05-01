@@ -52,8 +52,9 @@ class ServicesController extends Controller
 
     public function index()
     {
-        $transactions = Transaction::paginate(10);
+        $transactions = Transaction::orderBy('id', 'desc')->paginate(10);
         $accounts = AccountInfoChange::paginate(10);
+        
         foreach ($transactions as $transaction) {
             $user = User::where('id', $transaction->userID)->first();
             $transaction->resident = Resident::where('id', $user->residentID)->first();
@@ -63,12 +64,12 @@ class ServicesController extends Controller
             $newtime = strtotime($transaction->created_at);
             $transaction->createdDate = date('M d, Y', $newtime);
         }
-
+    
         foreach ($accounts as $account) {
             $user = User::where('id', $account->userID)->first();
             $account->resident = Resident::where('id', $user->residentID)->first();
         }
-
+    
         return view('services.index', compact('transactions', 'accounts'));
     }
 
