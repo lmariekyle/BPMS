@@ -64,7 +64,7 @@ class AuthenticationAPIController extends Controller
             $statYear = $statistics->year;
             $statQuarter = $statistics->quarter;
 
-            if($statID > 1 && ($statistics->totalResidentsBarangay <= 0 && $statistics->totalHouseholdsBarangay <= 0)){
+            if($statID > 1){
                 if($statQuarter == 1){
                     $statistics = Statistics::where('year', $statYear - 1)->where('quarter', 4)->first();
                 }else{
