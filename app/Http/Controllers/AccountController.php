@@ -25,8 +25,8 @@ class AccountController extends Controller
      */
     public function index()
     {
-        //$users = User::where('id', '>', 1)->paginate(10);
-        $users = User::where('id', '>', 1)->get();
+        $users = User::where('id', '>', 1)->paginate(10);
+        // $users = User::where('id', '>', 1)->get();
 
         foreach ($users as $key) {
             $resident = Resident::where('id', $key->residentID)->first();
@@ -118,17 +118,17 @@ class AccountController extends Controller
             $path = $user->profileImage;
         }
 
-        if ($request->has('userLevel') && $request->userLevel !== null){
-            $user->removeRole($user->userLevel); 
-            $user->userLevel = $request->userLevel;
-            $user->assignRole($request->userLevel);
-            $user->idNumber = $this->idNumber($request->userLevel);
-        }
+        // if ($request->has('userLevel') && $request->userLevel !== null){
+        //     $user->removeRole($user->userLevel); 
+        //     $user->userLevel = $request->userLevel;
+        //     $user->assignRole($request->userLevel);
+        //     $user->idNumber = $this->idNumber($request->userLevel);
+        // }
 
         $user->profileImage = $path;
         $user->contactNumber = $request->contactNumber;
         $user->email = $request->email;
-        $user->userLevel = $request->userLevel;
+        // $user->userLevel = $request->userLevel;
         $user->revisedBy = $id;
         $user->sitioID = $request->sitio;
         $user->save();
@@ -183,34 +183,90 @@ class AccountController extends Controller
         // return view('accounts.index')->with('success', 'Account Archived');
     }
 
+    // public function search(Request $request)
+    // {
+    //     $search=$request['search'];
+    //     if(empty($search)){
+    //         return $this->index();
+    //     }
+
+    //     $users = [];
+
+    //     //$resultUsers = User::where('id', '>', 1)->paginate(10);
+    //     $resultUsers = User::where('id', '>', 1)->get();
+    //     //$resultUsers = User::all();
+    //     foreach($resultUsers as $user){
+    //         $resident = Resident::where('id', $user->residentID)->first();
+    //         $resident->makeVisible('firstName');
+    //         $resident->makeVisible('middleName');
+    //         $resident->makeVisible('lastName');
+    //         $fullName = $resident->firstName . ' ' . $resident->lastName;
+    //         if (Str::contains(strtolower($fullName), strtolower($search))){
+    //             $user->firstName = $resident->firstName;
+    //             $user->middleName = $resident->middleName;
+    //             $user->lastName = $resident->lastName;
+    //             $users[] = $user;
+    //         }
+    //     }
+    //     //$users = $this->paginate($users);
+    //     return view('accounts.index')->with('accounts', $users);
+    // }
+
     public function search(Request $request)
-    {
-        $search=$request['search'];
-        if(empty($search)){
-            return $this->index();
-        }
-
-        $users = [];
-
-        //$resultUsers = User::where('id', '>', 1)->paginate(10);
-        $resultUsers = User::where('id', '>', 1)->get();
-        //$resultUsers = User::all();
-        foreach($resultUsers as $user){
-            $resident = Resident::where('id', $user->residentID)->first();
-            $resident->makeVisible('firstName');
-            $resident->makeVisible('middleName');
-            $resident->makeVisible('lastName');
-            $fullName = $resident->firstName . ' ' . $resident->lastName;
-            if (Str::contains(strtolower($fullName), strtolower($search))){
-                $user->firstName = $resident->firstName;
-                $user->middleName = $resident->middleName;
-                $user->lastName = $resident->lastName;
-                $users[] = $user;
-            }
-        }
-        //$users = $this->paginate($users);
-        return view('accounts.index')->with('accounts', $users);
+{
+    $search = $request->input('search');
+    
+    // If search term is empty, return to the index page
+    if(empty($search)){
+        return $this->index();
     }
+
+    // Initialize an empty array to store users
+    $users = [];
+
+    // Get the initial set of users based on your criteria
+    $resultUsers = User::where('id', '>', 1)->get();
+
+    // Loop through each user and perform the search
+    foreach($resultUsers as $user){
+        $resident = Resident::where('id', $user->residentID)->first();
+        $resident->makeVisible(['firstName', 'middleName', 'lastName']);
+        $fullName = $resident->firstName . ' ' . $resident->lastName;
+        
+        // If the full name contains the search term, add the user to the $users array
+        if (Str::contains(strtolower($fullName), strtolower($search))){
+            $user->firstName = $resident->firstName;
+            $user->middleName = $resident->middleName;
+            $user->lastName = $resident->lastName;
+            $users[] = $user;
+        }
+    }
+
+    // Paginate the $users array
+    $perPage = 10; // Number of items per page
+    $page = $request->input('page', 1); // Get the current page from the request, default to 1 if not provided
+
+    // Use Laravel's Collection class to create a collection from the array
+    $usersCollection = collect($users);
+
+    // Paginate the collection
+    $paginatedUsers = $usersCollection->slice(($page - 1) * $perPage, $perPage)->all();
+
+    // Create a paginator instance
+    $paginator = new LengthAwarePaginator(
+        $paginatedUsers, // Items for the current page
+        count($usersCollection), // Total count of all items
+        $perPage, // Items per page
+        $page, // Current page
+        ['path' => $request->url(), 'query' => $request->query()] // Additional options for the paginator
+    );
+
+    return view('accounts.index')->with('accounts', $paginator);
+}
+
+   
+    
+
 
     public function mobileUserData(Request $request)
     {

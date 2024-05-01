@@ -318,6 +318,7 @@ class TransactionController extends Controller
                 $payment = Payment::create([
                     'paymentMethod' => 'Cash-on-PickUp',
                     'accountNumber' => 'Not Applicable',
+                    'amountPaid' => $doctype->fee,
                     'paymentStatus' => 'Pending',
                     'referenceNumber' => 'Not Applicable',
                     'remarks' => 'Not Applicable',
@@ -408,6 +409,7 @@ class TransactionController extends Controller
         $paymentScreenshot = [];
 
         $transaction = Transaction::where('paymentID', $request->paymentID)->first();
+        $document = Document::where('id', $transaction->documentID)->first();
         $detail = DocumentDetails::where('id', $transaction->detailID)->first();
         $detail->makeVisible('requesteeLName');
 
@@ -428,6 +430,7 @@ class TransactionController extends Controller
         $payment = Payment::where('id', $request->paymentID)->first();
 
         $payment->update([
+            'amountPaid' => $document->fee,
             'referenceNumber' => $request->accountNumber,
             'paymentStatus' => 'Paid',
             'screenshot' => $reqJson,

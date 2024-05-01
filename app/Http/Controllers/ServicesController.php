@@ -34,6 +34,7 @@ use App\Notifications\SignatureNotification;
 use App\Notifications\SignedNotification;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Carbon\Carbon;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Session;
 
 
@@ -619,43 +620,88 @@ class ServicesController extends Controller
     }
 
 
-    public function search(Request $request)
-    {
-        $search = $request['search'];
+    // public function search(Request $request)
+    // {
+    //     $search = $request['search'];
     
-        if(empty($search)){
-            return $this->index();
-        }
+    //     if(empty($search)){
+    //         return $this->index();
+    //     }
     
-        $transactions = Transaction::paginate(10);
+    //     $transactions = Transaction::paginate(10);
     
-        $filteredTransactions = [];
+    //     $filteredTransactions = [];
     
-        foreach ($transactions as $transaction) {
-            $transaction->document = Document::find($transaction->documentID);
-            $user = User::where('id', $transaction->userID)->first();
-            $transaction->resident = Resident::find($user->residentID);
-            $transaction->resident->makeVisible('firstName', 'lastName');
-            $fullName = $transaction->resident->firstName . ' ' . $transaction->resident->lastName;
-            $transaction->document = Document::find($transaction->documentID);
-            if (Str::contains(strtolower($transaction->document['docName']), strtolower($search))) {
-                $docDetails = DocumentDetails::find($transaction->detailID);
-                $docDetails->makeVisible('requesteeFName', 'requesteeLName');
-                $transaction->requesteeName = $docDetails->requesteeFName . ' ' . $docDetails->requesteeLName;
-                $transaction->createdDate = date('M d, Y', strtotime($transaction->created_at));
+    //     foreach ($transactions as $transaction) {
+    //         $transaction->document = Document::find($transaction->documentID);
+    //         $user = User::where('id', $transaction->userID)->first();
+    //         $transaction->resident = Resident::find($user->residentID);
+    //         $transaction->resident->makeVisible('firstName', 'lastName');
+    //         $fullName = $transaction->resident->firstName . ' ' . $transaction->resident->lastName;
+    //         $transaction->document = Document::find($transaction->documentID);
+    //         if (Str::contains(strtolower($transaction->document['docName']), strtolower($search))) {
+    //             $docDetails = DocumentDetails::find($transaction->detailID);
+    //             $docDetails->makeVisible('requesteeFName', 'requesteeLName');
+    //             $transaction->requesteeName = $docDetails->requesteeFName . ' ' . $docDetails->requesteeLName;
+    //             $transaction->createdDate = date('M d, Y', strtotime($transaction->created_at));
     
-                $filteredTransactions[] = $transaction;
-            } else if (Str::contains(strtolower($fullName), strtolower($search))){
-                $docDetails = DocumentDetails::find($transaction->detailID);
-                $docDetails->makeVisible('requesteeFName', 'requesteeLName');
-                $transaction->requesteeName = $docDetails->requesteeFName . ' ' . $docDetails->requesteeLName;
-                $transaction->createdDate = date('M d, Y', strtotime($transaction->created_at));
+    //             $filteredTransactions[] = $transaction;
+    //         } else if (Str::contains(strtolower($fullName), strtolower($search))){
+    //             $docDetails = DocumentDetails::find($transaction->detailID);
+    //             $docDetails->makeVisible('requesteeFName', 'requesteeLName');
+    //             $transaction->requesteeName = $docDetails->requesteeFName . ' ' . $docDetails->requesteeLName;
+    //             $transaction->createdDate = date('M d, Y', strtotime($transaction->created_at));
 
-                $filteredTransactions[] = $transaction;
-            }
-        }
-        return view('services.index')->with('transactions', $filteredTransactions);
+    //             $filteredTransactions[] = $transaction;
+    //         }
+    //     }
+    //     return view('services.index')->with('transactions', $filteredTransactions);
+    // }
+
+    public function search(Request $request)
+{
+    $search = $request->input('search');
+
+    if(empty($search)){
+        return $this->index();
     }
+
+    $perPage = 10; // Number of items per page
+
+    $transactions = Transaction::paginate($perPage);
+
+    $filteredTransactions = [];
+
+    foreach ($transactions as $transaction) {
+        $transaction->document = Document::find($transaction->documentID);
+        $user = User::where('id', $transaction->userID)->first();
+        $transaction->resident = Resident::find($user->residentID);
+        $transaction->resident->makeVisible('firstName', 'lastName');
+        $fullName = $transaction->resident->firstName . ' ' . $transaction->resident->lastName;
+        $transaction->document = Document::find($transaction->documentID);
+        
+        // Check if the document name or resident's full name contains the search term
+        if (Str::contains(strtolower($transaction->document->docName), strtolower($search)) || Str::contains(strtolower($fullName), strtolower($search))) {
+            $docDetails = DocumentDetails::find($transaction->detailID);
+            $docDetails->makeVisible('requesteeFName', 'requesteeLName');
+            $transaction->requesteeName = $docDetails->requesteeFName . ' ' . $docDetails->requesteeLName;
+            $transaction->createdDate = date('M d, Y', strtotime($transaction->created_at));
+
+            $filteredTransactions[] = $transaction;
+        }
+    }
+
+    // Create a paginator instance
+    $paginator = new LengthAwarePaginator(
+        $filteredTransactions, // Items for the current page
+        count($filteredTransactions), // Total count of all items
+        $perPage, // Items per page
+        $request->input('page', 1), // Current page
+        ['path' => $request->url(), 'query' => $request->query()] // Additional options for the paginator
+    );
+
+    return view('services.index')->with('transactions', $paginator);
+}
 
     /**
      * Display the specified resource.
@@ -735,12 +781,19 @@ class ServicesController extends Controller
             $transaction->save();
 
             $payment = Payment::where('id', $transaction->paymentID)->first();
-            $payment->fill([
-                'amountPaid' => NULL,
-                'remarks' => 'Denied',
-                'paymentStatus' => "Refunded",
-            ]);
-            $payment->save();
+            if($payment->paymentStatus == "Paid"){
+                $payment->fill([
+                    'remarks' => 'Denied',
+                    'paymentStatus' => "Refunded",
+                ]);
+                $payment->save();
+            }else if($payment->paymentStatus == "Pending"){
+                $payment->fill([
+                    'remarks' => 'Denied',
+                    'paymentStatus' => "Not Applicable",
+                ]);
+                $payment->save();
+            }
 
             $notifyUsers = User::where('id', $transaction->userID)->get();
             Notification::sendNow($notifyUsers, new DenyNotification($transaction));
@@ -791,12 +844,20 @@ class ServicesController extends Controller
         $transaction->save();
 
         $payment = Payment::where('id', $transaction->paymentID)->first();
-        $payment->fill([
-            'amountPaid' => NULL,
-            'remarks' => 'Denied',
-            'paymentStatus' => "Refunded",
-        ]);
-        $payment->save();
+        if($payment->paymentStatus == "Paid"){
+            $payment->fill([
+                'remarks' => 'Denied',
+                'paymentStatus' => "Refunded",
+            ]);
+            $payment->save();
+        }else if($payment->paymentStatus == "Pending"){
+            $payment->fill([
+                'remarks' => 'Denied',
+                'paymentStatus' => "Not Applicable",
+            ]);
+            $payment->save();
+        }
+
 
 
         $notifyUsers = User::where('id', $transaction->userID)->get();

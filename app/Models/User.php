@@ -68,7 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail, TwoFactorAuthenti
 
     public function resident()
     {
-        return $this->belongsTo(Resident::class, 'residentID', 'id');
+        return $this->belongsTo(Resident::class, 'residentID');
     }
 
     public function transactionuser()

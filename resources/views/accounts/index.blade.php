@@ -65,14 +65,14 @@
                         <td class="px-6 py-4 w-[295px] font-robotocondensed text-deep-green text-[16px] font-bold">
                             {{ $account->idNumber }}
                         </td>
-                        @if($account->middleName == "N/A")
-                        <td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold">
-                            {{ $account->lastName }}, {{ $account->firstName }}
-                        </td>
+                        @if($account->middleName == "N/A" || empty($account->middleName))
+                            <td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                            {{ $account->resident->firstName }}, {{ $account->resident->lastName }}
+                            </td>
                         @else
-                        <td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold">
-                            {{ $account->lastName }}, {{ $account->firstName }} {{ $account->middleName[0] }}.
-                        </td>
+                            <td class="px-6 py-4 w-[470px] font-robotocondensed text-deep-green text-[16px] font-bold">
+                                {{ $account->resident->firstName }}, {{ $account->resident->lastName }} {{ $account->resident->middleName[0] }}.
+                            </td>
                         @endif
                         <td class="px-6 py-4  w-[490px] font-robotocondensed text-deep-green text-[16px] font-bold">
                             {{ $account->userLevel }}
@@ -96,9 +96,9 @@
                 @endforelse        
                 </tbody>
             </table>
-            {{-- <div class="flex flex-row justify-evenly mt-4 mb-2">
+            <div class="flex flex-row justify-evenly mt-4 mb-2">
                 {{$accounts->links()}}
-            </div>   --}}
+            </div>  
         </div>      
     </div>
     

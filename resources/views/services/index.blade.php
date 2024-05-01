@@ -157,7 +157,9 @@
                     @endforelse
                 </tbody>   
             </table>
-
+            <div class="flex flex-row justify-evenly mt-4 mb-2">
+                {{$transactions->links()}}
+            </div> 
         </div>
         @endhasanyrole
     </div>
