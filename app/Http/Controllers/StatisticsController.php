@@ -758,8 +758,6 @@ class StatisticsController extends Controller
                     $sumRefund = 0;
                     $payCtr = 0;
                     $refundCtr = 0;
-                    //Documents Issued (Resident)
-                    $dataDoc = "";
                     //Pregancy (Resident)
                     $dPreg = "";
                     //Indigenous (Household)
@@ -965,64 +963,6 @@ class StatisticsController extends Controller
                     $paymentData .= "['" . $YQ . "'," . $sumPay . "],";
                     $refundData .= "['" . $YQ . "'," . $sumRefund . "],";
                     $prData .= "['" . $YQ . "'," . $payCtr . "," . $refundCtr . "],";
-
-                    /*
-                    for($x=1; $x<$maxValueDoc; $x++){
-                        $docCount = 0;
-                        //Age Group Filter not selected
-                        if($filterAgeGroup = ""){
-                            $docStats = Payment::join('transactions', function ($join) {
-                                $join->on('payments.id', '=', 'transactions.paymentID');
-                            })
-                            ->join('users', function ($join) {
-                                $join->on('transactions.userID', '=', 'users.id');
-                            })
-                            ->join('residents', function ($join) {
-                                $join->on('users.residentID', '=', 'residents.id');
-                            })
-                            ->where('transactions.documentID', '=', $x)
-                            ->where('residents.gender', 'LIKE', "%$filterGender%")
-                            ->select('payments.paymentDate','payments.paymentStatus','payments.amountPaid')
-                            ->get();
-                        //Otherwise
-                        }else{
-                            $docStats = Payment::join('transactions', function ($join) {
-                                $join->on('payments.id', '=', 'transactions.paymentID');
-                            })
-                            ->join('users', function ($join) {
-                                $join->on('transactions.userID', '=', 'users.id');
-                            })
-                            ->join('residents', function ($join) {
-                                $join->on('users.residentID', '=', 'residents.id');
-                            })
-                            ->where('transactions.documentID', '=', $x)
-                            ->where('residents.gender', 'LIKE', "%$filterGender%")
-                            ->where('residents.ageClassification', '=', "%$filterAgeGroup%")
-                            ->select('payments.paymentDate','payments.paymentStatus','payments.amountPaid')
-                            ->get();
-                        }
-                        foreach($docStats as $DS){
-                            $date = new DateTime($DS->paymentDate);
-                            $year = $date->format('Y');
-                            $md = $date->format('m-d');
-                            if($md >= '01-01' && $md <= '03-31'){
-                                $Q = 1;
-                            }elseif($md >= '04-01' && $md <= '06-30'){
-                                $Q = 2;
-                            }elseif($md >= '07-01' && $md <= '09-30'){
-                                $Q = 3;
-                            }else{
-                                $Q = 4;
-                            }
-
-                            if($year == $SAYear && $Q == $SAQuarter){
-                                $docCount++;
-                            }
-                        }
-                        $dataDoc .= $docCount . ",";
-                    }
-                    $documentData .= "['" . $YQ . "'," . $dataDoc . "],";
-                    */
 
                     //Pregnancy
                     for($y=0; $y<$pSize; $y++){
@@ -1730,7 +1670,6 @@ class StatisticsController extends Controller
             }else{
                 $chartAllHh = $labelChartHh . $AllHhData;
             }
-            //dd($chartAllHh);
             $chartAllIncome = $dataIncome;
             $chartAllEdu = $dataEducation;
             $payAllChart = $paymentData;
@@ -1938,6 +1877,12 @@ class StatisticsController extends Controller
                     break;
             }
             
+            //Payment/Refund Transactions
+            $sumPay = 0;
+            $sumRefund = 0;
+            $payCtr = 0;
+            $refundCtr = 0;
+
             //No Sitio Filter Selected
             if($filterSitio == ""){
                 for($x=2;$x<=$maxValueSitio;$x++){
@@ -1973,11 +1918,7 @@ class StatisticsController extends Controller
                         $dataIncome[$sitioName][$MI] = $resIncome;
                     }
 
-                    //Payment/Refund Transactions
-                    $sumPay = 0;
-                    $sumRefund = 0;
-                    $payCtr = 0;
-                    $refundCtr = 0;
+                    
                     if($filterAgeGroup == ""){
                         $payStats = Payment::join('transactions', function ($join) {
                             $join->on('payments.id', '=', 'transactions.paymentID');
@@ -2033,7 +1974,6 @@ class StatisticsController extends Controller
                             }
                         }
                     }
-                    $prInfo[] = array('sitio' => $sitioName, 'pCtr' => $payCtr, 'pAmount' => $sumPay, 'rCtr' => $refundCtr, 'rAmount' => $sumRefund);
 
                     //Educational Attainment
                     $dataEducation[$sitioName] = array();
@@ -2748,8 +2688,9 @@ class StatisticsController extends Controller
                     $householdCount[] = array('sitio' => $sitioName, 'houseCount' => $sumHousehold);
                 }
             }
+            $prInfo[] = array('pCtr' => $payCtr, 'pAmount' => $sumPay, 'rCtr' => $refundCtr, 'rAmount' => $sumRefund);
         }
-
+        //dd($prInfo);
         $pdf = PDF::loadView('pdf.reports', compact('householdCount', 'totalHouseholdCount', 'residentCount', 'totalResidentCount', 'request', 'nameSitio', 'MonthlyIncome', 'dataIncome', 'prInfo', 'EducationAtt', 'dataEducation', 'Pregnancy', 'dataPreg', 'IP', 'dataIP', 'NHTS', 'dataNHTS', 'WaterAccess', 'dataWater', 'ToiletFacilities', 'dataToilet'));
         return $pdf->stream('reports.pdf');
     }

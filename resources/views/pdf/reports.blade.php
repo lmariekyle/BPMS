@@ -185,26 +185,24 @@
                 @endforeach
             </table>
 
-            <h3>Payment / Refund Transactions</h3>
+            @if($request->sitio == "NULL" && $request->gender == "NULL" && $request->ageclass == "NULL")
+            <h3>Payment / Refund Transaction Information</h3>
             <table>
                 <tr>
-                    <th></th>
                     <th>Paid</th>
                     <th>Paid Amount</th>
                     <th>Refunded</th>
                     <th>Refunded Amount</th>
                 </tr>
-                @foreach ($prInfo as $prI)
                 <tr>
-                    <td>{{ $prI['sitio'] }}</td>
-                    <td>{{ $prI['pCtr'] }}</td>
-                    <td>{{ $prI['pAmount'] }}</td>
-                    <td>{{ $prI['rCtr'] }}</td>
-                    <td>{{ $prI['rAmount'] }}</td>
+                    <td>{{ $prInfo[0]['pCtr'] }}</td>
+                    <td>{{ $prInfo[0]['pAmount'] }}</td>
+                    <td>{{ $prInfo[0]['rCtr'] }}</td>
+                    <td>{{ $prInfo[0]['rAmount'] }}</td>
                 </tr>
-                @endforeach
             </table>
-            
+            @endif
+
             <h3>Educational Attainment</h3>
             <table>
                 <tr>
