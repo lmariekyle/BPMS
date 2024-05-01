@@ -758,8 +758,6 @@ class StatisticsController extends Controller
                     $sumRefund = 0;
                     $payCtr = 0;
                     $refundCtr = 0;
-                    //Documents Issued (Resident)
-                    $dataDoc = "";
                     //Pregancy (Resident)
                     $dPreg = "";
                     //Indigenous (Household)
@@ -965,64 +963,6 @@ class StatisticsController extends Controller
                     $paymentData .= "['" . $YQ . "'," . $sumPay . "],";
                     $refundData .= "['" . $YQ . "'," . $sumRefund . "],";
                     $prData .= "['" . $YQ . "'," . $payCtr . "," . $refundCtr . "],";
-
-                    /*
-                    for($x=1; $x<$maxValueDoc; $x++){
-                        $docCount = 0;
-                        //Age Group Filter not selected
-                        if($filterAgeGroup = ""){
-                            $docStats = Payment::join('transactions', function ($join) {
-                                $join->on('payments.id', '=', 'transactions.paymentID');
-                            })
-                            ->join('users', function ($join) {
-                                $join->on('transactions.userID', '=', 'users.id');
-                            })
-                            ->join('residents', function ($join) {
-                                $join->on('users.residentID', '=', 'residents.id');
-                            })
-                            ->where('transactions.documentID', '=', $x)
-                            ->where('residents.gender', 'LIKE', "%$filterGender%")
-                            ->select('payments.paymentDate','payments.paymentStatus','payments.amountPaid')
-                            ->get();
-                        //Otherwise
-                        }else{
-                            $docStats = Payment::join('transactions', function ($join) {
-                                $join->on('payments.id', '=', 'transactions.paymentID');
-                            })
-                            ->join('users', function ($join) {
-                                $join->on('transactions.userID', '=', 'users.id');
-                            })
-                            ->join('residents', function ($join) {
-                                $join->on('users.residentID', '=', 'residents.id');
-                            })
-                            ->where('transactions.documentID', '=', $x)
-                            ->where('residents.gender', 'LIKE', "%$filterGender%")
-                            ->where('residents.ageClassification', '=', "%$filterAgeGroup%")
-                            ->select('payments.paymentDate','payments.paymentStatus','payments.amountPaid')
-                            ->get();
-                        }
-                        foreach($docStats as $DS){
-                            $date = new DateTime($DS->paymentDate);
-                            $year = $date->format('Y');
-                            $md = $date->format('m-d');
-                            if($md >= '01-01' && $md <= '03-31'){
-                                $Q = 1;
-                            }elseif($md >= '04-01' && $md <= '06-30'){
-                                $Q = 2;
-                            }elseif($md >= '07-01' && $md <= '09-30'){
-                                $Q = 3;
-                            }else{
-                                $Q = 4;
-                            }
-
-                            if($year == $SAYear && $Q == $SAQuarter){
-                                $docCount++;
-                            }
-                        }
-                        $dataDoc .= $docCount . ",";
-                    }
-                    $documentData .= "['" . $YQ . "'," . $dataDoc . "],";
-                    */
 
                     //Pregnancy
                     for($y=0; $y<$pSize; $y++){
@@ -1730,7 +1670,6 @@ class StatisticsController extends Controller
             }else{
                 $chartAllHh = $labelChartHh . $AllHhData;
             }
-            //dd($chartAllHh);
             $chartAllIncome = $dataIncome;
             $chartAllEdu = $dataEducation;
             $payAllChart = $paymentData;
