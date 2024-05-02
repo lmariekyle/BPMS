@@ -1276,6 +1276,15 @@ select {
 .mt-\[8rem\] {
   margin-top: 8rem;
 }
+.-mt-\[14rem\] {
+  margin-top: -14rem;
+}
+.-mt-\[16rem\] {
+  margin-top: -16rem;
+}
+.-mt-\[24rem\] {
+  margin-top: -24rem;
+}
 .block {
   display: block;
 }
@@ -1764,6 +1773,12 @@ select {
 .w-max {
   width: -moz-max-content;
   width: max-content;
+}
+.w-\[1800px\] {
+  width: 1800px;
+}
+.w-\[38px\] {
+  width: 38px;
 }
 .min-w-0 {
   min-width: 0px;

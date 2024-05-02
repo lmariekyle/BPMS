@@ -51,7 +51,7 @@
                         </div>
                     </div>
 
-                    <div class="max-h-[837px] h-[550px] max-w-[1178px] w-[1178px] mt-[4rem] ml-[8rem] p-14 border-2 border-deep-green shadow-md rounded bg-dirty-white font-roboto">
+                    <div class="max-h-[837px] h-[550px] max-w-[1178px] w-[1800px] mt-[4rem] ml-[8rem] p-14 border-2 border-deep-green shadow-md rounded bg-dirty-white font-roboto">
                         <div class="relative">
                             <div class="mr-14 mt-2 float-left max-h-[324px] max-w-[273px] place-content-center">
                                 <img src="/{{$user->profileImage}}" class="max-h-[324px] max-w-[273px] h-[324px] w-[273px] rounded-lg border-8 shadow-sm border-white" alt="Profile Image">
@@ -77,22 +77,22 @@
                                 </div>
                             </div>
 
-                            <div class="pt-9 pb-10 max-h-[324px] max-w-[725px] h-[324px] w-[725px] text-2xl float-left -mt-8">
+                            <div class="pt-9 pb-10 max-h-[324px] h-[324px] w-max text-2xl float-right -mt-[24rem]">
                                 <div class="float-left">
                                     <div class="">
                                         <p class="text-left text-deep-green text-[18px]">First Name:</p>
-                                        <div class="text-center w-[418px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->firstName}}</div>
+                                        <div class="text-center w-[318px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->firstName}}</div>
                                     </div>
                                     <div class="mt-8">
                                         <p class="text-left text-deep-green text-[18px]">Last Name:</p>
-                                        <div class="text-center w-[418px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->lastName}}</div>
+                                        <div class="text-center w-[318px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->lastName}}</div>
                                     </div>
                                     <div class="mt-8">
                                         <p class="text-left text-deep-green text-[18px]">Middle Initial:</p>
-                                        <div class="text-center w-[418px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->middleName[0]}}.</div>
+                                        <div class="text-center w-[318px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->middleName[0]}}.</div>
                                     </div>
                                 </div>
-                                <div class="float-right ml-20">
+                                <div class="float-right ml-8">
                                     <div>
                                         <p class="text-left text-deep-green text-[18px]">Address:</p>
                                         <div class="text-center w-[418px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->sitio}}, {{$personalInfo->barangay}}</div>
