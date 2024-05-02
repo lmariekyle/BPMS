@@ -64,7 +64,7 @@
       <p style=" text-align: start;margin-left: 5px;font-family: 'Lora', serif;font-size: 12px;">Amount Paid : PHP {{$doc->fee}}</p>
       <p style=" text-align: start;margin-left: 5px;font-family: 'Lora', serif;font-size: 12px;">Document Number : {{$transaction->docNumber}}</p>
       <p style="text-align: start;margin-left: 5px;font-family: 'Lora', serif;font-size: 12px;">O.R. No. {{$transaction->transactionpayment->orNumber}}</p>
-      <p style="text-align: start;margin-left: 5px;font-family: 'Lora', serif;font-size: 12px;">CTC No. 000000</p>
+      <p style="text-align: start;margin-left: 5px;font-family: 'Lora', serif;font-size: 12px;">CTC No. _________</p>
       <p style="text-align: start;margin-left: 5px; font-family: 'Lora', serif;font-size: 12px;">Issued at <span style="text-decoration: underline;text-underline-offset: 4px;"> Barangay Poblacion, Dalaguete, Cebu</span></p>
   <p style="text-align: start;margin-left: 5px;font-family: 'Lora', serif;font-size: 12px;">On <span style="text-decoration: underline;text-underline-offset: 4px;">{{$monthWord}} {{$date->day}}, {{$date->year}}</span></p>
       <p style="margin-left: 5px; margin-top: 5px; font-family: 'Lora', serif; font-size: 14px; text-align: start; font-weight: 600;">NOT VALID WITHOUT</p>
