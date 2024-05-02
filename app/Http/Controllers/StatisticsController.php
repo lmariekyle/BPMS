@@ -1526,6 +1526,7 @@ class StatisticsController extends Controller
                             $hhNHTS = 0;
                             $houseList = Households::where('dateOfVisit', '>=', $dateB)
                                     ->where('dateOfVisit', '<=', $dateE)
+                                    ->where('sitioID', '=', $filterSitio)
                                     ->where('nHTS', '=', $NHTS[$y])
                                     ->get();
                             foreach ($houseList as $HL){
