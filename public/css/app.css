@@ -886,9 +886,6 @@ select {
 .-mt-\[10rem\] {
   margin-top: -10rem;
 }
-.-mt-\[13\.5rem\] {
-  margin-top: -13.5rem;
-}
 .-mt-\[15rem\] {
   margin-top: -15rem;
 }
@@ -915,9 +912,6 @@ select {
 }
 .-mt-\[5px\] {
   margin-top: -5px;
-}
-.-mt-\[5rem\] {
-  margin-top: -5rem;
 }
 .-mt-\[6rem\] {
   margin-top: -6rem;
@@ -1120,9 +1114,6 @@ select {
 .ml-\[6rem\] {
   margin-left: 6rem;
 }
-.ml-\[70rem\] {
-  margin-left: 70rem;
-}
 .ml-\[75rem\] {
   margin-left: 75rem;
 }
@@ -1213,9 +1204,6 @@ select {
 .mt-\[12rem\] {
   margin-top: 12rem;
 }
-.mt-\[150px\] {
-  margin-top: 150px;
-}
 .mt-\[15rem\] {
   margin-top: 15rem;
 }
@@ -1288,9 +1276,6 @@ select {
 .mt-\[8rem\] {
   margin-top: 8rem;
 }
-.mt-\[10rem\] {
-  margin-top: 10rem;
-}
 .block {
   display: block;
 }
@@ -1351,9 +1336,6 @@ select {
 .h-\[100px\] {
   height: 100px;
 }
-.h-\[108px\] {
-  height: 108px;
-}
 .h-\[12px\] {
   height: 12px;
 }
@@ -1362,9 +1344,6 @@ select {
 }
 .h-\[150px\] {
   height: 150px;
-}
-.h-\[172px\] {
-  height: 172px;
 }
 .h-\[200px\] {
   height: 200px;
@@ -1395,9 +1374,6 @@ select {
 }
 .h-\[324px\] {
   height: 324px;
-}
-.h-\[332px\] {
-  height: 332px;
 }
 .h-\[350px\] {
   height: 350px;
@@ -1440,9 +1416,6 @@ select {
 }
 .h-\[600px\] {
   height: 600px;
-}
-.h-\[630px\] {
-  height: 630px;
 }
 .h-\[650px\] {
   height: 650px;
@@ -1492,9 +1465,6 @@ select {
 }
 .max-h-\[364px\] {
   max-height: 364px;
-}
-.max-h-\[630px\] {
-  max-height: 630px;
 }
 .max-h-\[66px\] {
   max-height: 66px;
@@ -1644,9 +1614,6 @@ select {
 .w-\[225px\] {
   width: 225px;
 }
-.w-\[227\.5px\] {
-  width: 227.5px;
-}
 .w-\[228px\] {
   width: 228px;
 }
@@ -1694,6 +1661,9 @@ select {
 }
 .w-\[410px\] {
   width: 410px;
+}
+.w-\[418px\] {
+  width: 418px;
 }
 .w-\[420px\] {
   width: 420px;
@@ -2058,10 +2028,6 @@ select {
 .border-solid {
   border-style: solid;
 }
-.border-\[\#414833\] {
-  --tw-border-opacity: 1;
-  border-color: rgb(65 72 51 / var(--tw-border-opacity));
-}
 .border-black {
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
@@ -2179,10 +2145,6 @@ select {
 .bg-slate-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(248 250 252 / var(--tw-bg-opacity));
-}
-.bg-stone-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(231 229 228 / var(--tw-bg-opacity));
 }
 .bg-stone-500 {
   --tw-bg-opacity: 1;
@@ -2654,10 +2616,6 @@ select {
 .text-red-500 {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
-}
-.text-red-600 {
-  --tw-text-opacity: 1;
-  color: rgb(220 38 38 / var(--tw-text-opacity));
 }
 .text-red-700 {
   --tw-text-opacity: 1;

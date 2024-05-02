@@ -81,29 +81,29 @@
                                 <div class="float-left">
                                     <div class="">
                                         <p class="text-left text-deep-green text-[18px]">First Name:</p>
-                                        <div class="text-center w-[318px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->firstName}}</div>
+                                        <div class="text-center w-[418px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->firstName}}</div>
                                     </div>
                                     <div class="mt-8">
                                         <p class="text-left text-deep-green text-[18px]">Last Name:</p>
-                                        <div class="text-centerw-[318px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->lastName}}</div>
+                                        <div class="text-center w-[418px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->lastName}}</div>
                                     </div>
                                     <div class="mt-8">
                                         <p class="text-left text-deep-green text-[18px]">Middle Initial:</p>
-                                        <div class="text-center w-[318px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->middleName[0]}}.</div>
+                                        <div class="text-center w-[418px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->middleName[0]}}.</div>
                                     </div>
                                 </div>
                                 <div class="float-right ml-20">
                                     <div>
                                         <p class="text-left text-deep-green text-[18px]">Address:</p>
-                                        <div class="text-center w-[318px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->sitio}}, {{$personalInfo->barangay}}</div>
+                                        <div class="text-center w-[418px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$personalInfo->sitio}}, {{$personalInfo->barangay}}</div>
                                     </div>
                                     <div class="mt-8">
                                         <p class="text-left text-deep-green text-[18px]">Email:</p>
-                                        <div class="text-center w-[318px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$user->email}}</div>
+                                        <div class="text-center w-[418px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$user->email}}</div>
                                     </div>
                                     <div class="mt-8">
                                         <p class="text-left text-deep-green text-[18px]">Contact Number:</p>
-                                        <div class="text-center w-[318px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$user->contactNumber}}</div>
+                                        <div class="text-center w-[418px] text-deep-green bg-[#f5f3f4] shadow-inner rounded-md py-2">{{$user->contactNumber}}</div>
                                     </div>
                                 </div>
                             </div>
