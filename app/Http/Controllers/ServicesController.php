@@ -981,13 +981,13 @@ class ServicesController extends Controller
 
     public function docNumber($doctype){
         if ($doctype->docType == "Barangay Certificate") {
-            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 5, 'prefix' => 'DOC-CE']);
+            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CE']);
         } else if ($doctype->docType == "Barangay Clearance") {
-            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 5, 'prefix' => 'DOC-CL']);
+            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-CL']);
         } else if ($doctype->docType == "File Complain") {
-            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 5, 'prefix' => 'DOC-FC']);
+            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'DOC-FC']);
         } else if ($doctype->docType == "Account Information Change") {
-            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 5, 'prefix' => 'ACC-CHANGE']);
+            $docId = IdGenerator::generate(['table' => 'transactions', 'field' => 'docNumber', 'length' => 10, 'prefix' => 'ACC-CHANGE']);
         }
     
         return $docId;
