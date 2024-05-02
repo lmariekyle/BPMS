@@ -226,7 +226,7 @@ class PaymentSeeder extends Seeder
             'amountPaid' => '330.00',
             'paymentStatus' => 'Refunded',
             'receivedBy' => '2',
-            'paymentDate' => '2024-02-30',
+            'paymentDate' => '2024-02-27',
             'referenceNumber' => '8347138123948',
             'screenshot' => 'gcash\screenshot.jpg',
             'remarks' => '--',
