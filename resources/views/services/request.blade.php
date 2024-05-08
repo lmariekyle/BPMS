@@ -23,7 +23,11 @@
                     <div class="ml-12 mt-[4rem] font-bold w-[650px]">
                         @if ($doctypename == 'BARANGAY CERTIFICATE' || $doctypename == 'BARANGAY CLEARANCE' )
                         <div class="">
+                            @if($doctypename == 'BARANGAY CERTIFICATE')
                             <label>TYPE OF CERTIFICATE</label>
+                            @elseif($doctypename == 'BARANGAY CLEARANCE')
+                            <label>TYPE OF CLEARANCE</label>
+                            @endif
                             <select class="rounded-lg border-2 w-full h-[50px] text-[26px]" style="border-color: #414833;" name="selectedDocument" id="selectedDocument">
                                 @foreach($documents as $document)
                                 <option value="{{$document->id}}">{{$document->docName}}</option>
@@ -180,12 +184,9 @@
                             <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">Resident Certificate</li>
                         </ul>
                         @elseif($doctypename == 'BARANGAY CLEARANCE')
-                        <p class="text-[24px] font-semibold">REQUIREMENTS FOR THE TYPE OF CERTIFICATE</p>
+                        <p class="text-[24px] font-semibold">REQUIREMENT FOR BUSINESS PERMIT</p>
                         <ul class="list-disc mt-4">
                             <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">Cedula</p>
-                            <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">Copy of Previous Permit</p>
-                            <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">Tax Declaration</p>
-                            <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px]">Affidavit of Consent</p>
                         </ul>
 
                             @elseif($doctypename == 'FILE COMPLAIN')
@@ -204,15 +205,15 @@
                                 <!-- <li class="font-poppins text-[20px] text-start ml-10 font-semibold w-[410px] mt-4">Certificate of Finality</li> -->
                             </ul>
                             <div class="py-1">
-                                <p class="text-right mr-[7rem] font-extralight italic text-[16px]">Note: Requirements may vary depending of type of document</p>
+                                <!-- <p class="text-right mr-[7rem] font-extralight italic text-[16px]">Note: Requirements may vary depending of type of document</p> -->
                             </div>
                         @endif
                     </div>
                     @if ($doctypename == 'BARANGAY CERTIFICATE' || $doctypename == 'BARANGAY CLEARANCE')
                     <div class="ml-[0.25rem] mt-[3rem] font-text[23px]">
                         <div class="h-[300px] w-[605px]">
-                            <input type="file" id="fileButton" name="file[]" multiple required>
-                            <p class="mt-1 font-extralight italic text-[16px]">Note: Upload any necessary documents stated in the requirements</p>
+                            <input type="file" id="fileButton" name="file[]" required>
+                            <!-- <p class="mt-1 font-extralight italic text-[16px]">Note: Upload any necessary documents stated in the requirements</p> -->
                         </div>
                     </div>
                     @else
@@ -227,7 +228,7 @@
             <div class="flex flex-col text-left ml-[3rem] -mt-[2rem]">
             @if($doctypename != 'FILE COMPLAIN' && $doctypename != 'ACCOUNT INFORMATION CHANGE')
                 @if($doctypename == 'BARANGAY CLEARANCE')
-                <div class="w-[300px] mt-1">
+                <div class="w-[300px] mt-[3rem]">
                     <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">CERTIFICATE FEE:</p>
                     <!-- <p class="font-robotocondensed text-[24px] text-deep-green font-semibold">PHP 100</p> -->
                     <div id="feeContainer" class="text-[22px] italic"></div>

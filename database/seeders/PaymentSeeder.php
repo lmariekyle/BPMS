@@ -242,8 +242,6 @@ class PaymentSeeder extends Seeder
             'file' => '["zammy_663270404ef4a.pdf"]',
         ]);
 
-
-
         Transaction::create([
             'documentID' => '6',
             'userID' => '12',
