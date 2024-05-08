@@ -414,8 +414,6 @@ class StatisticsController extends Controller
 
             $maxValueSitio = Sitio::max('id');
 
-            $maxValueDoc = Document::max('id');
-
             //When the user didn't select any Sitio in the options
             if ($filterSitio == "") {
                 //When the user didn't select any Age Group in the options
@@ -474,8 +472,8 @@ class StatisticsController extends Controller
                 }
                 //Since the user selected a Sitio, it will display each row of the data, instead of combining them per Sitio
                 foreach ($residentCount as $resCount) {
-                    $sitioName = Sitio::where('id', $resCount->sitioID)->value('sitioName');
-                    $label = $sitioName . ' (' . $resCount->genderGroup . ' - ' . $resCount->ageGroup . ')';
+                    //$sitioName = Sitio::where('id', $resCount->sitioID)->value('sitioName');
+                    $label = $resCount->ageGroup  . '(' . $resCount->genderGroup . ')';
                     $dataResident .= "['$label'," . $resCount->residentCount . "],";
                 }
             }
@@ -707,14 +705,12 @@ class StatisticsController extends Controller
                     $label = Sitio::where('id','=',$x)->value('sitioName');
                     $header .= "'" . $label . "',";
                 }
-                for($x=1; $x<$maxValueDoc; $x++){
-                    $labelDoc = Document::where('id','=',$x)->value('docName');
-                    $headerDoc .= "'" . $labelDoc . "',";
-                }
+
                 $header = "'Year-Quarter'," . $header;
                 $headerDoc = "'Year-Quarter'," . $headerDoc;
                 $labelChart = "[$header],";
                 $labelDoc = "[$headerDoc],";
+
                 for($x=$statID; $x>0 && $x>=$minID; $x--){
                     $SAID = Statistics::where('id', '=', $x)->value('id');
                     $SAYear = Statistics::where('id', '=', $x)->value('year');
@@ -758,6 +754,8 @@ class StatisticsController extends Controller
                     $sumRefund = 0;
                     $payCtr = 0;
                     $refundCtr = 0;
+                    //Documents Issued (Resident)
+                    $dataDoc = "";
                     //Pregancy (Resident)
                     $dPreg = "";
                     //Indigenous (Household)
@@ -1681,7 +1679,7 @@ class StatisticsController extends Controller
             $chartWater = $dataWater;
             $chartToilet = $dataToilet;
             $chartPreg = $dataPreg;
-            
+
             //-----------------------------------------------------------------------------------------------------------
         }
 
@@ -1760,7 +1758,7 @@ class StatisticsController extends Controller
             $totalHouseholdCount = 0; 
             $residentCount = "";
             $totalResidentCount = 0;
-        //Otherwise (Both conditions are false)
+        //Otherwise
         }else{
             if ($request['sitio'] != "NULL") {
                 $filterSitio = $request['sitio'];
@@ -1950,6 +1948,8 @@ class StatisticsController extends Controller
                         ->select('payments.*') 
                         ->get();
                     }
+
+                    //Payments
                     foreach($payStats as $PS){
                         $date = new DateTime($PS->paymentDate);
                         $year = $date->format('Y');
@@ -1974,7 +1974,7 @@ class StatisticsController extends Controller
                                 $refundCtr++;
                             }
                         }
-                    }
+                    }                    
 
                     //Educational Attainment
                     $dataEducation[$sitioName] = array();
@@ -2647,7 +2647,7 @@ class StatisticsController extends Controller
                             if($residentCheck != NULL){
                                 $sumHousehold++;
                                 $totalHouseholdCount++;
-                                }
+                            }
                         }
                         $householdCount[] = array('sitio' => $sitioName, 'houseCount' => $sumHousehold);
                     }
