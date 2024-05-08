@@ -82,6 +82,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/forwarded/{id}', [ServicesController::class, 'forwarded'])->name('forwarded');
     Route::match(['get', 'post'],'/signed/{id}', [ServicesController::class, 'signed'])->name('signed');
     Route::match(['get', 'post'],'/released/{id}', [ServicesController::class, 'released'])->name('released');
+    Route::match(['get', 'post'],'/refund/{id}', [ServicesController::class, 'refund'])->name('refund');
     Route::get('request', [ServicesController::class, 'request']);
     Route::get('requestSearch', [ServicesController::class, 'search'])->name('requestSearch');
     Route::get('/view_file/{file}', [ServicesController::class, 'view_file'])->name('view_file');

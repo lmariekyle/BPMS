@@ -801,7 +801,7 @@ class ServicesController extends Controller
             if($payment->paymentStatus == "Paid"){
                 $payment->fill([
                     'remarks' => 'Denied',
-                    'paymentStatus' => "Refunded",
+                    'paymentStatus' => "For Refund",
                 ]);
                 $payment->save();
             }else if($payment->paymentStatus == "Pending"){
@@ -864,7 +864,7 @@ class ServicesController extends Controller
         if($payment->paymentStatus == "Paid"){
             $payment->fill([
                 'remarks' => 'Denied',
-                'paymentStatus' => "Refunded",
+                'paymentStatus' => "For Refund",
             ]);
             $payment->save();
         }else if($payment->paymentStatus == "Pending"){
@@ -1039,5 +1039,39 @@ class ServicesController extends Controller
 
         // Redirect to the success page
         return view('services.success');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function refund($id)
+    {
+        $user = Auth::user();
+        $resident = Resident::find($user->residentID);
+        $transaction = Transaction::where('id', $id)->first();
+
+        $payment = Payment::where('id', $transaction->paymentID)->first();
+        $payment->fill([
+            'paymentStatus' => "Refunded",
+        ]);
+        $payment->save();
+
+        $notifyUsers = User::where('id', $transaction->userID)->get();
+        Notification::sendNow($notifyUsers, new DenyNotification($transaction));
+
+        $transactions = Transaction::orderBy('id', 'desc')->paginate(10);
+        foreach ($transactions as $transaction) {
+            $user = User::where('id', $transaction->userID)->first();
+            $transaction->resident = Resident::where('id', $user->residentID)->first();
+            $transaction->document = Document::where('id', $transaction->documentID)->first();
+            $docDetails = DocumentDetails::where('id', $transaction->detailID)->first();
+            $transaction->requesteeName = $docDetails->requesteeFName. ' ' .$docDetails->requesteeLName;
+            $newtime = strtotime($transaction->created_at);
+            $transaction->createdDate = date('M d, Y', $newtime);
+        }
+        return view('services.index', compact('transactions'));
     }
 }
