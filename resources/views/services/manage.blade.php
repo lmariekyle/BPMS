@@ -184,9 +184,9 @@
             </form>
         </div>
         @elseif ($transaction->payment->paymentStatus == 'For Refund')
-        <div class="justify-center  flex flex-row mt-8">
+        <div class="justify-end flex flex-row mt-8 mb-2 mr-[14rem]">
             <form method="GET" action="{{ route('refund', $transaction->id) }}">
-                <button type="submit" class="text-center w-[400px] font-robotocondensed font-bold text-[32px] text-dirty-white bg-deep-green px-4 py-2" style="width: 300px; font-size: 22px;">Confirm Refund</button>
+                <button type="submit" class="text-center w-[350px] font-robotocondensed font-bold text-[32px] text-dirty-white bg-deep-green px-4 py-2" style="width: 280px; font-size: 22px;">Confirm Refund</button>
             </form>
         </div>
         @endif
