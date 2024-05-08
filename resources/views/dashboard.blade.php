@@ -641,7 +641,9 @@
                                 <div class="text-dirty-white text-xs font-robotocondensed hide bg-green py-2 px-2 border-2 rounded-xl self-end mt-[24rem] mr-8">
                                     <div class="mb-2 w-80 text-justify">
                                         <p class="py-2 text-xl">LEGEND</p>
-                                        <p>FORMAT: Sitio Name (Gender - Age Classification)*</p>
+                                        <p>FORMAT:</p>
+                                        <p>No Sitio Filter: Sitio Name</p>
+                                        <p>With Sitio Filter: Age Classification (Gender)</p>
                                         <br>
                                         <div>
                                             Gender:
