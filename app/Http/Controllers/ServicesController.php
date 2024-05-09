@@ -23,6 +23,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\NewRequestNotification;
 use App\Notifications\ProcessingNotification;
+use App\Notifications\RefundedNotification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 // use Barryvdh\DomPDF\Facade\PDF;
@@ -32,6 +33,7 @@ use Illuminate\Support\Facades\Route;
 use App\Notifications\ReleasedNotification;
 use App\Notifications\SignatureNotification;
 use App\Notifications\SignedNotification;
+use App\Notifications\RefundNotification;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -804,6 +806,8 @@ class ServicesController extends Controller
                     'paymentStatus' => "For Refund",
                 ]);
                 $payment->save();
+                $notifyUsers = User::where('id', $transaction->userID)->get();
+                Notification::sendNow($notifyUsers, new RefundNotification($transaction));
             }else if($payment->paymentStatus == "Pending"){
                 $payment->fill([
                     'remarks' => 'Denied',
@@ -867,6 +871,8 @@ class ServicesController extends Controller
                 'paymentStatus' => "For Refund",
             ]);
             $payment->save();
+            $notifyUsers = User::where('id', $transaction->userID)->get();
+            Notification::sendNow($notifyUsers, new RefundNotification($transaction));
         }else if($payment->paymentStatus == "Pending"){
             $payment->fill([
                 'remarks' => 'Denied',
@@ -1060,7 +1066,7 @@ class ServicesController extends Controller
         $payment->save();
 
         $notifyUsers = User::where('id', $transaction->userID)->get();
-        Notification::sendNow($notifyUsers, new DenyNotification($transaction));
+        Notification::sendNow($notifyUsers, new RefundedNotification($transaction));
 
         $transactions = Transaction::orderBy('id', 'desc')->paginate(10);
         foreach ($transactions as $transaction) {
