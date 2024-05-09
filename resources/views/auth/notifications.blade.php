@@ -30,6 +30,18 @@
                                         {{ $notification->document['docName'] }} was requested by {{ $notification->resident['firstName'] }} {{ $notification->resident['lastName'] }} 
                                     </p>
                                 </div>
+                                @elseif($notification->data['type'] == 'For Refund')
+                                <div class="text-xl">
+                                    <p class="font-robotocondensed text-justify">
+                                        You are requested to visit the Barangay Hall for your refund.
+                                    </p>
+                                </div>
+                                @elseif($notification->data['type'] == 'Refunded')
+                                <div class="text-xl">
+                                    <p class="font-robotocondensed text-justify">
+                                        {{ $notification->document['docName'] }} is now {{ $notification->payment['paymentStatus'] }}
+                                    </p>
+                                </div>
                                 @else
                                 <div class="text-xl">
                                     <p class="font-robotocondensed text-justify">
@@ -79,21 +91,52 @@
                                 </form>
                             </div>
 
-                            <div id="NotifModal-{{ $notification->id }}" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[50px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
-                                <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
-                                    <span id="close-{{ $notification->id }}" class="close text-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
-                                    <div class="">
-                                        <p class="font-robotocondensed text-[28px] text-deep-green" >{{ $notification->document['docName'] }} {{ $notification->data['transaction']['serviceStatus'] }}</p>
-                                        <p>Your Document {{ $notification->document['docName'] }} with a document number: {{ $notification->data['transaction']['docNumber'] }} is being {{ $notification->data['transaction']['serviceStatus'] }} by {{ $notification->processedByUser['firstName'] }} {{ $notification->processedByUser['lastName'] }}.</p>
-                                        <br>
-                                        <p>Remarks: {{ $notification->remarks }}</p>
-                                        <br>
-                                        <p>{{ $notification->processedByUser['firstName'] }} {{ $notification->processedByUser['lastName'] }}</p>
-                                        <p>{{ $notification->processedBy['userLevel'] }}</p>
-                                        <p>{{ $notification->notificationCreated }}</p>
+                            @if($notification->data['type'] == 'For Refund')
+                                <div id="NotifModal-{{ $notification->id }}" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[50px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
+                                    <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
+                                        <span id="close-{{ $notification->id }}" class="close text-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
+                                        <div class="">
+                                            <p class="font-robotocondensed text-[28px] text-deep-green" >{{ $notification->document['docName'] }} {{ $notification->payment['paymentStatus'] }}</p>
+                                            <p>Your Document {{ $notification->document['docName'] }} with a document number: {{ $notification->data['transaction']['docNumber'] }} is being {{ $notification->data['transaction']['serviceStatus'] }}.</p>
+                                            <br>
+                                            <p>Remarks: {{ $notification->remarks }}</p>
+                                            <br>
+                                            <br>
+                                            <p>Please Proceed to the Barangay Hall to Receive your Refund</p>
+                                            <br>
+                                            <p>{{ $notification->notificationCreated }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @elseif($notification->data['type'] == 'Refunded')
+                                <div id="NotifModal-{{ $notification->id }}" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[50px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
+                                    <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
+                                        <span id="close-{{ $notification->id }}" class="close text-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
+                                        <div class="">
+                                            <p class="font-robotocondensed text-[28px] text-deep-green" >{{ $notification->document['docName'] }} {{ $notification->payment['paymentStatus'] }}</p>
+                                            <p>Your Document {{ $notification->document['docName'] }} with a document number: {{ $notification->data['transaction']['docNumber'] }} is now {{ $notification->payment['paymentStatus'] }}.</p>
+                                            <br>
+                                            <p>{{ $notification->notificationCreated }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @else
+                                <div id="NotifModal-{{ $notification->id }}" class="modal hidden fixed z-10 pt-28 top-0 mx-auto mt-[50px] w-[1000px] h-[1000px] drop-shadow-lg border-deep-green">
+                                    <div class="bg-dirty-white m-auto p-5 border-1 rounded w-5/6">
+                                        <span id="close-{{ $notification->id }}" class="close text-deep-green float-right text-xl font-bold hover:cursor-pointer">&times;</span>
+                                        <div class="">
+                                            <p class="font-robotocondensed text-[28px] text-deep-green" >{{ $notification->document['docName'] }} {{ $notification->data['transaction']['serviceStatus'] }}</p>
+                                            <p>Your Document {{ $notification->document['docName'] }} with a document number: {{ $notification->data['transaction']['docNumber'] }} is being {{ $notification->data['transaction']['serviceStatus'] }} by {{ $notification->processedByUser['firstName'] }} {{ $notification->processedByUser['lastName'] }}.</p>
+                                            <br>
+                                            <p>Remarks: {{ $notification->remarks }}</p>
+                                            <br>
+                                            <p>{{ $notification->processedByUser['firstName'] }} {{ $notification->processedByUser['lastName'] }}</p>
+                                            <p>{{ $notification->processedBy['userLevel'] }}</p>
+                                            <p>{{ $notification->notificationCreated }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         @endhasanyrole
                     </div>
                     <!-- Script -->
