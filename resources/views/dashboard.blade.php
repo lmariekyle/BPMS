@@ -827,9 +827,9 @@
                         <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">REQUIREMENTS</p>
                         <ul class="ml-10 mt-2 mr-2 list-disc font-roboto text-deep-green">
                             <li>Cedula</li>
-                            <li>Copy of the previous permit (If Any) for Building, Fencing, Electrical Permit</li>
-                            <li>Tax Declaration or Lot Title (If the applicant is not the registered owner of the lot) </li>
-                            <li>Affidavit of consent, deed of sale, or contact whichever is applicable</li>
+                            <ul></ul>
+                            <ul></ul>
+                            <ul></ul>
                         </ul>
                   
                     </div>
