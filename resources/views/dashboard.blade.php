@@ -814,7 +814,7 @@
                 </div>
                 
                 <div class="flex flex-col">
-                    <div class="bg-dirty-white w-max h-[421px] border-2 border-deep-green">
+                    <div class="bg-dirty-white w-[472px] h-[421px] border-2 border-deep-green">
                         <p class="bg-green font-robotocondensed text-[24px] text-dirty-white border px-1 py-1 text-center">BARANGAY CLEARANCE</p>
                         <p class="bg-olive-green mt-3 font-robotocondensed text-[18px] text-dirty-white border border-deep-green text-start px-1">PURPOSE:</p>
                         <ul class="ml-10 mt-2 list-disc font-roboto text-deep-green">
