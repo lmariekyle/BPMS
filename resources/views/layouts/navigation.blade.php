@@ -24,6 +24,9 @@
                     <a href="{{ route('dashboard') }}"><i class="fa-solid fa-arrow-left text-dirty-white text-[24px]"></i></a>
                     <a href="{{ route('accounts.index') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">ACCOUNTS</a>
                     <a href="{{ route('services.index') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">REQUESTS</a>
+                    <a href="{{ route('barangay.index') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">BARANGAY</a>
+                    <a href="{{ route('sitio.index') }}" class="font-robotocondensed text-[24px] text-dirty-white px-10">SITIO</a>
+                    <a href="{{ route('documents.index')}}" class="font-robotocondensed text-[24px] text-dirty-white px-10">DOCUMENTS</a>
                 </div>
             </svg>
         </div>

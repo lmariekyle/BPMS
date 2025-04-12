@@ -15,13 +15,14 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('documentID')->references('id')->on('documents')->onDelete('cascade')->onUpdate('cascade');
+            //$table->foreignId('documentID')->references('id')->on('documents')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('userID')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('paymentID')->references('id')->on('payments')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('detailID')->references('id')->on('documentdetails')->onDelete('cascade')->onUpdate('cascade');
+            //$table->foreignId('detailID')->references('id')->on('documentdetails')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('serviceListID')->references('id')->on('service_lists')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->string('docNumber');
-            $table->string('serviceStatus');
+            //$table->string('docNumber');
+            $table->string('transactionStatus');
 
             $table->string('endorsedBy')->nullable();
             $table->date('endorsedOn')->nullable();

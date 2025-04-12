@@ -15,7 +15,7 @@ class CreateComplainsTable extends Migration
     {
         Schema::create('complains', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('transactionID')->references('id')->on('transactions')->onDelete('cascade')->onUpdate('cascade');
+            //$table->foreignId('transactionID')->references('id')->on('transactions')->onDelete('cascade')->onUpdate('cascade');
 
             $table->string('complaintFName');
             $table->string('complaintMName')->nullable();
@@ -24,12 +24,13 @@ class CreateComplainsTable extends Migration
             $table->string('complaintContactNumber');
 
             $table->string('complaineeFName');
-            $table->string('complaineeMName')->nullable();;
+            $table->string('complaineeMName')->nullable();
             $table->string('complaineeLName');
             $table->string('complaineeSitio');
             $table->string('remarks')->nullable();
 
             $table->string('requestPurpose');
+            $table->string('file')->nullable();
     
             $table->timestamps();
         });

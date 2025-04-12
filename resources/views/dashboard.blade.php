@@ -468,6 +468,15 @@
                 <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 self-center ml-[5rem] -mt-3 border-2 border-deep-green">
                     <a href="{{ route('services.index') }}" class="font-robotocondensed text-[40px] text-dirty-white text-center">MANAGE REQUESTS</a>
                 </div>
+                <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 self-center ml-[5rem] -mt-3 border-2 border-deep-green">
+                    <a href="{{ route('barangay.index')}}" class="font-robotocondensed text-[40px] text-dirty-white text-center">MANAGE BARANGAYS</a>
+                </div>
+                <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 self-center ml-[5rem] -mt-3 border-2 border-deep-green">
+                    <a href="{{ route('sitio.index')}}" class="font-robotocondensed text-[40px] text-dirty-white text-center">MANAGE SITIOS</a>
+                </div>
+                <div class="bg-green w-[450px] h-[80px] text-center py-2 my-9 self-center ml-[5rem] -mt-3 border-2 border-deep-green">
+                    <a href="{{ route('documents.index')}}" class="font-robotocondensed text-[40px] text-dirty-white text-center">MANAGE DOCUMENTS</a>
+                </div>
 
                 <!-- Authentication -->
                 <div class="bg-green h-[40px] w-[140px] text-center ml-[5rem] mt-[1rem] px-2 py-1 font-semibold self-center border-2 border-deep-green rounded-md">

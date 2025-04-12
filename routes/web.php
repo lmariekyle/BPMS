@@ -65,6 +65,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('assign', \App\Http\Controllers\SitioAssignmentController::class);
     Route::get('index', [AccountController::class, 'index'])->name('accounts');
     Route::resource('accounts', \App\Http\Controllers\AccountController::class);
+    Route::resource('barangay', \App\Http\Controllers\BarangayController::class);
+    Route::resource('sitio', \App\Http\Controllers\SitioController::class);
+    Route::resource('documents', \App\Http\Controllers\DocumentController::class);
     Route::get('search', [AccountController::class, 'search'])->name('search');
     //Route::resource('welcome', \App\Http\Controllers\StatisticsController::class);
     Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics');

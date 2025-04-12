@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBarangaysTable extends Migration
+class CreateServiceListsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateBarangaysTable extends Migration
      */
     public function up()
     {
-        Schema::create('barangays', function (Blueprint $table) {
+        Schema::create('service_lists', function (Blueprint $table) {
             $table->id();
-
-            $table->string('barangayName');
-            $table->string('municipality');
-            $table->string('zipCode');
-            $table->string('HLocation');
+            $table->foreignId('serviceID')->references('id')->on('services')->onDelete('cascade')->onUpdate('cascade');
             
+            $table->string('quantity');
+
             $table->string('createdBy');
             $table->string('revisedBy');
-
+            
             $table->timestamps();
         });
     }
@@ -35,6 +33,6 @@ class CreateBarangaysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('barangays');
+        Schema::dropIfExists('service_lists');
     }
 }

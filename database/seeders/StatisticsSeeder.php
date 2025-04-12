@@ -49,5 +49,53 @@ class StatisticsSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s', strtotime('2024-01-01 09:45:11')),
             'updated_at' => date('Y-m-d H:i:s', strtotime('2024-03-31 20:44:05')),
         ]);
+
+        Statistics::create([
+            'year' => '2024',
+            'quarter' => '2',
+            'totalHouseholdsSitio' => '0',
+            'totalResidentsSitio' => '0',
+            'totalHouseholdsBarangay' => '64',
+            'totalResidentsBarangay' => '182',
+            'revisedBy' => '1',
+            'created_at' => date('Y-m-d H:i:s', strtotime('2024-01-01 09:45:11')),
+            'updated_at' => date('Y-m-d H:i:s', strtotime('2024-03-31 20:44:05')),
+        ]);
+
+        Statistics::create([
+            'year' => '2024',
+            'quarter' => '3',
+            'totalHouseholdsSitio' => '0',
+            'totalResidentsSitio' => '0',
+            'totalHouseholdsBarangay' => '64',
+            'totalResidentsBarangay' => '182',
+            'revisedBy' => '1',
+            'created_at' => date('Y-m-d H:i:s', strtotime('2024-01-01 09:45:11')),
+            'updated_at' => date('Y-m-d H:i:s', strtotime('2024-03-31 20:44:05')),
+        ]);
+
+        Statistics::create([
+            'year' => '2024',
+            'quarter' => '4',
+            'totalHouseholdsSitio' => '0',
+            'totalResidentsSitio' => '0',
+            'totalHouseholdsBarangay' => '64',
+            'totalResidentsBarangay' => '182',
+            'revisedBy' => '1',
+            'created_at' => date('Y-m-d H:i:s', strtotime('2024-01-01 09:45:11')),
+            'updated_at' => date('Y-m-d H:i:s', strtotime('2024-03-31 20:44:05')),
+        ]);
+
+        Statistics::create([
+            'year' => '2025',
+            'quarter' => '1',
+            'totalHouseholdsSitio' => '0',
+            'totalResidentsSitio' => '0',
+            'totalHouseholdsBarangay' => '64',
+            'totalResidentsBarangay' => '182',
+            'revisedBy' => '1',
+            'created_at' => date('Y-m-d H:i:s', strtotime('2024-01-01 09:45:11')),
+            'updated_at' => date('Y-m-d H:i:s', strtotime('2024-03-31 20:44:05')),
+        ]);
     }
 }

@@ -17,6 +17,7 @@ class BarangaySeeder extends Seeder
         Barangay::create([
             'barangayName' => 'BarangayFiller',
             'municipality' => 'MunicipalityFiller',
+            'HLocation' => 'LocationFiller',
             'zipCode' => '0000',
             'createdBy' => '1',
             'revisedBy' => '1',
@@ -24,6 +25,7 @@ class BarangaySeeder extends Seeder
         Barangay::create([
             'barangayName' => 'Poblacion',
             'municipality' => 'Dalaguete',
+            'HLocation' => 'Rizal Street',
             'zipCode' => '6022',
             'createdBy' => '1',
             'revisedBy' => '1',
