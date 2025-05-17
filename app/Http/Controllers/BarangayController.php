@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Barangay;
+use Illuminate\Support\Facades\Auth;
 
 class BarangayController extends Controller
 {
@@ -27,7 +28,8 @@ class BarangayController extends Controller
      */
     public function create()
     {
-        //
+        $crud = "create";
+        return view('barangay.edit', compact('crud'));
     }
 
     /**
@@ -38,7 +40,26 @@ class BarangayController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'barangayName' => ['required', 'regex:/^[a-zA-Z\s]+$/u','max:24'],
+            'municipality' => ['required', 'regex:/^[a-zA-Z\s]+$/u','max:24'],
+            'zipCode' => ['required', 'numeric', 'digits:4'],
+            'HLocation' => ['required', 'string', 'max:255'],
+        ]);
+
+        $user = Auth::user();
+        Barangay::create([
+            'barangayName' => $request->barangayName,
+            'municipality' => $request->municipality,
+            'zipCode' => $request->zipCode,
+            'HLocation' => $request->HLocation,
+            'createdBy' => $user->id,
+            'revisedBy' => $user->id,
+        ]);
+
+        $barangays = Barangay::where('id', '>', 1)->paginate(10);        
+        
+        return view('barangay.index')->with('barangays',$barangays);
     }
 
     /**
@@ -62,7 +83,10 @@ class BarangayController extends Controller
      */
     public function edit($id)
     {
-        //
+        $crud = "edit";
+        $barangay = Barangay::where('id', $id)->first();   
+        
+        return view('barangay.edit', compact('barangay','crud'));
     }
 
     /**
@@ -74,7 +98,29 @@ class BarangayController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'barangayName' => ['required', 'regex:/^[a-zA-Z\s]+$/u','max:24'],
+            'municipality' => ['required', 'regex:/^[a-zA-Z\s]+$/u','max:24'],
+            'zipCode' => ['required', 'numeric', 'digits:4'],
+            'HLocation' => ['required', 'string', 'max:255'],
+        ]);
+
+
+        $user = Auth::user();
+        $barangay = Barangay::find($id);
+
+        $barangay->fill([
+            'barangayName' => $request->barangayName,
+            'municipality' => $request->municipality,
+            'zipCode' => $request->zipCode,
+            'HLocation' => $request->HLocation,
+            'revisedBy' => $user->id,
+        ]);
+        $barangay->save();
+
+        $barangays = Barangay::where('id', '>', 1)->paginate(10);        
+        
+        return view('barangay.index')->with('barangays',$barangays);
     }
 
     /**

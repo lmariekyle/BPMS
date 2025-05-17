@@ -42,7 +42,7 @@
             </div>
         </form>
 
-        <a href="" class="button h-8 w-max text-center mt-6 ml-[200px] bg-deep-green px-3 text-dirty-white border-dirty-white border-2 font-semibold">Add Sitio</a>
+        <a href="{{ route('sitio.create') }}" class="button h-8 w-max text-center mt-6 ml-[200px] bg-deep-green px-3 text-dirty-white border-dirty-white border-2 font-semibold">Add Sitio</a>
 
                     <!--ACTUAL TABLE -->
 
@@ -81,9 +81,9 @@
                                       
                 </tbody>
             </table>
-
-
-
+            <div class="flex flex-row justify-evenly mt-4 mb-2">
+                {{$sitios->links()}}
+            </div>  
         </div>
 
 </x-app-layout>

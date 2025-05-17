@@ -38,7 +38,7 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Validation\Rules\Unique;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -49,7 +49,8 @@ class ServicesController extends Controller
     public function dashboard()
     {
         $documents = Document::all();
-        return view('dashboard', compact('documents'));
+        $requirements = Document::distinct('requirements')->pluck('requirements');
+        return view('dashboard', compact('documents', 'requirements'));
     }
 
     public function index()

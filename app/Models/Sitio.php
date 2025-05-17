@@ -10,6 +10,13 @@ class Sitio extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'sitioName',
+        'barangayID',
+        'createdBy',
+        'revisedBy',
+    ];
+
     public function user(){
         return $this->hasOne(User::class,'sitioID');
     }

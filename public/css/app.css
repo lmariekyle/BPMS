@@ -1648,6 +1648,12 @@ select {
   max-height: -moz-max-content;
   max-height: max-content;
 }
+.max-h-\[120px\] {
+  max-height: 120px;
+}
+.max-h-\[140px\] {
+  max-height: 140px;
+}
 .min-h-screen {
   min-height: 100vh;
 }

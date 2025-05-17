@@ -14,5 +14,7 @@ class Barangay extends Model
         'municipality',
         'zipCode',
         'HLocation',
+        'createdBy',
+        'revisedBy',
     ];
 }
